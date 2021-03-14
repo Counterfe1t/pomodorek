@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pomodorek.MainPage"
+             BackgroundColor="White">
+
+    <StackLayout HorizontalOptions="Center">
+        <Label Text="00:00" FontSize="50" HorizontalOptions="Center" BackgroundColor="Green"/>
+        <Label Text="Focus/Rest" HorizontalOptions="Center" BackgroundColor="Yellow"/>
+        <StackLayout Orientation="Horizontal" BackgroundColor="Red">
+            <Button Text="Start"
+                    Padding="5"
+                    WidthRequest="75"
+                    HeightRequest="30"/>
+            <Button Text="Restart"
+                    Padding="5"
+                    WidthRequest="75"
+                    HeightRequest="30"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
