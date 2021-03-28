@@ -4,18 +4,40 @@
              x:Class="Pomodorek.MainPage"
              BackgroundColor="White">
 
-    <StackLayout HorizontalOptions="Center">
-        <Label Text="00:00" FontSize="50" HorizontalOptions="Center" BackgroundColor="Green"/>
-        <Label Text="Focus/Rest" HorizontalOptions="Center" BackgroundColor="Yellow"/>
+    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="Center"
+                     Background="Green">
+            <Label Text="{Binding MinutesDisplayField}"
+                   FontSize="50"/>
+            <Label Text=":"
+                   FontSize="40"
+                   Margin="-5, 2, -5, 0"
+                   HorizontalOptions="Center"
+                   BackgroundColor="Yellow"
+                   />
+            <Label Text="{Binding SecondsDisplayField}"
+                   FontSize="50"/>
+        </StackLayout>
+        <Label Text="{Binding ModeDisplayField}"
+               HorizontalOptions="Center"
+               BackgroundColor="Yellow"/>
         <StackLayout Orientation="Horizontal" BackgroundColor="Red">
-            <Button Text="Start"
+            <Button Text="START"
                     Padding="5"
                     WidthRequest="75"
-                    HeightRequest="30"/>
-            <Button Text="Restart"
+                    HeightRequest="30"
+                    Clicked="StartButton_Clicked"/>
+            <Button Text="PAUSE"
                     Padding="5"
                     WidthRequest="75"
-                    HeightRequest="30"/>
+                    HeightRequest="30"
+                    Clicked="PauseButton_Clicked"/>
+            <Button Text="STOP"
+                    Padding="5"
+                    WidthRequest="75"
+                    HeightRequest="30"
+                    Clicked="StopButton_Clicked"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>
