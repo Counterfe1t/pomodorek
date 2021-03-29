@@ -1,22 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
+             xmlns:local="clr-namespace:Pomodorek.Impl"
              x:Class="Pomodorek.MainPage"
+             x:DataType="viewmodels:MainPageViewModel"
              BackgroundColor="White">
-
+    <ContentPage.Resources>
+        <local:NumberToStringConverter x:Key="NumberToStringConverter"/>
+    </ContentPage.Resources>
     <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="Center"
                      Background="Green">
-            <Label Text="{Binding MinutesDisplayField}"
+            <Label Text="{Binding MinutesDisplayField, Converter={StaticResource NumberToStringConverter}}"
                    FontSize="50"/>
             <Label Text=":"
                    FontSize="40"
                    Margin="-5, 2, -5, 0"
                    HorizontalOptions="Center"
-                   BackgroundColor="Yellow"
-                   />
-            <Label Text="{Binding SecondsDisplayField}"
+                   BackgroundColor="Yellow"/>
+            <Label Text="{Binding SecondsDisplayField, Converter={StaticResource NumberToStringConverter}}"
                    FontSize="50"/>
         </StackLayout>
         <Label Text="{Binding ModeDisplayField}"

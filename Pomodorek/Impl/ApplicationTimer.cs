@@ -77,7 +77,6 @@ namespace Pomodorek.Impl {
                     SetLongRest();
                 }
 
-
                 SystemTimer.Elapsed -= OnTimedEvent_Work;
                 SystemTimer.Elapsed += OnTimedEvent_Rest;
                 ViewModel.ModeDisplayField = Consts.RestModeLabel;
@@ -137,15 +136,11 @@ namespace Pomodorek.Impl {
         }
 
         private void SetSecondsDisplayValue() {
-            ViewModel.SecondsDisplayField = Seconds < 10
-                ? $"0{Seconds}"
-                : $"{Seconds}";
+            ViewModel.SecondsDisplayField = Seconds;
         }
 
         private void SetMinutesDisplayValue() {
-            ViewModel.MinutesDisplayField = Minutes < 10
-                ? $"0{Minutes}"
-                : $"{Minutes}";
+            ViewModel.MinutesDisplayField = Minutes;
         }
         #endregion
     }

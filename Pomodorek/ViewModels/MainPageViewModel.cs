@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Pomodorek.ViewModels {
+﻿namespace Pomodorek.ViewModels {
     public class MainPageViewModel : BaseViewModel {
 
-        public string Seconds { get; set; } = "00";
+        public int Seconds { get; set; }
 
-        public string Minutes { get; set; } = "00";
+        public int Minutes { get; set; }
 
         public string Mode { get; set; }
 
-        public string SecondsDisplayField {
+        public int SecondsDisplayField {
             get {
                 return Seconds;
             }
@@ -21,7 +17,7 @@ namespace Pomodorek.ViewModels {
             }
         }
 
-        public string MinutesDisplayField {
+        public int MinutesDisplayField {
             get {
                 return Minutes;
             }
