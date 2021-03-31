@@ -5,6 +5,13 @@ using System.Timers;
 namespace Pomodorek.Impl {
     public class ApplicationTimer {
 
+        #region Constants
+        private const int _interval = 1000;
+        private const int _shortRestLength = 1; //5;
+        private const int _longRestLength = 2; //35;
+        private const int _workLength = 2; //25;
+        #endregion
+
         #region Properties
         public MainPageViewModel ViewModel { get; set; }
 
@@ -19,13 +26,6 @@ namespace Pomodorek.Impl {
         public int CyclesElapsed { get; set; }
 
         public int RestLength { get; set; }
-        #endregion
-
-        #region Constants
-        private const int _interval = 1000;
-        private const int _shortRestLength = 1; //5;
-        private const int _longRestLength = 2; //35;
-        private const int _workLength = 2; //25;
         #endregion
 
         public ApplicationTimer(MainPageViewModel viewModel) {
@@ -52,13 +52,12 @@ namespace Pomodorek.Impl {
             Minutes = 0;
             SetSecondsDisplayValue();
             SetMinutesDisplayValue();
-            ViewModel.ModeDisplayField = "";
+            ViewModel.ModeDisplayField = TimerModeEnum.Disabled;
         }
 
         #region Events
-        private void OnTimedEvent_Work(object sender, ElapsedEventArgs eventArgs) {
+        private void OnIntervalElapsed_Focus(object sender, ElapsedEventArgs eventArgs) {
             Seconds++;
-
             if (Seconds >= 4) {
                 Minutes++;
                 Seconds = 0;
@@ -77,9 +76,11 @@ namespace Pomodorek.Impl {
                     SetLongRest();
                 }
 
-                SystemTimer.Elapsed -= OnTimedEvent_Work;
-                SystemTimer.Elapsed += OnTimedEvent_Rest;
-                ViewModel.ModeDisplayField = Consts.RestModeLabel;
+                SystemTimer.Elapsed -= OnIntervalElapsed_Focus;
+                SystemTimer.Elapsed += OnIntervalElapsed_Rest;
+                ViewModel.ModeDisplayField = RestLength == _shortRestLength
+                    ? TimerModeEnum.Rest
+                    : TimerModeEnum.LongRest;
             }
 
             // Zaktualizuj wartość wyświetlaną na UI
@@ -87,9 +88,8 @@ namespace Pomodorek.Impl {
             SetMinutesDisplayValue();
         }
 
-        private void OnTimedEvent_Rest(object sender, ElapsedEventArgs eventArgs) {
+        private void OnIntervalElapsed_Rest(object sender, ElapsedEventArgs eventArgs) {
             Seconds++;
-
             if (Seconds >= 4) {
                 Minutes++;
                 Seconds = 0;
@@ -102,9 +102,9 @@ namespace Pomodorek.Impl {
                     SetShortRest();
                 }
 
-                SystemTimer.Elapsed -= OnTimedEvent_Rest;
-                SystemTimer.Elapsed += OnTimedEvent_Work;
-                ViewModel.ModeDisplayField = Consts.FocusModeLabel;
+                SystemTimer.Elapsed -= OnIntervalElapsed_Rest;
+                SystemTimer.Elapsed += OnIntervalElapsed_Focus;
+                ViewModel.ModeDisplayField = TimerModeEnum.Focus;
             }
 
             // Zaktualizuj wartość wyświetlaną na UI
@@ -121,10 +121,10 @@ namespace Pomodorek.Impl {
             Seconds = 0;
             Minutes = 0;
             SystemTimer = new Timer(_interval);
-            SystemTimer.Elapsed += OnTimedEvent_Work;
+            SystemTimer.Elapsed += OnIntervalElapsed_Focus;
             SystemTimer.AutoReset = true;
             SystemTimer.Start();
-            ViewModel.ModeDisplayField = Consts.FocusModeLabel;
+            ViewModel.ModeDisplayField = TimerModeEnum.Focus;
         }
 
         private void SetShortRest() {

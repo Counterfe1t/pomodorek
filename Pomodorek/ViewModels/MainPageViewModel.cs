@@ -1,11 +1,13 @@
-﻿namespace Pomodorek.ViewModels {
+﻿using Pomodorek.Models;
+
+namespace Pomodorek.ViewModels {
     public class MainPageViewModel : BaseViewModel {
 
         public int Seconds { get; set; }
 
         public int Minutes { get; set; }
 
-        public string Mode { get; set; }
+        public TimerModeEnum Mode { get; set; }
 
         public int SecondsDisplayField {
             get {
@@ -27,7 +29,7 @@
             }
         }
 
-        public string ModeDisplayField {
+        public TimerModeEnum ModeDisplayField {
             get {
                 return Mode;
             }

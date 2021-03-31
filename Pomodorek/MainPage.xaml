@@ -8,6 +8,7 @@
              BackgroundColor="White">
     <ContentPage.Resources>
         <local:NumberToStringConverter x:Key="NumberToStringConverter"/>
+        <local:TimerModeEnumToStringConverter x:Key="TimerModeEnumToStringConverter"/>
     </ContentPage.Resources>
     <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
         <StackLayout Orientation="Horizontal"
@@ -23,7 +24,7 @@
             <Label Text="{Binding SecondsDisplayField, Converter={StaticResource NumberToStringConverter}}"
                    FontSize="50"/>
         </StackLayout>
-        <Label Text="{Binding ModeDisplayField}"
+        <Label Text="{Binding ModeDisplayField, Converter={StaticResource TimerModeEnumToStringConverter}}"
                HorizontalOptions="Center"
                BackgroundColor="Yellow"/>
         <StackLayout Orientation="Horizontal" BackgroundColor="Red">
