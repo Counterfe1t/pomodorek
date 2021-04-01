@@ -9,6 +9,8 @@ namespace Pomodorek.ViewModels {
 
         public TimerModeEnum Mode { get; set; }
 
+        public int SessionLength { get; set; } = 1;
+
         public int SecondsDisplayField {
             get {
                 return Seconds;
@@ -35,6 +37,16 @@ namespace Pomodorek.ViewModels {
             }
             set {
                 Mode = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int SessionLengthDisplayField {
+            get {
+                return SessionLength;
+            }
+            set {
+                SessionLength = value;
                 OnPropertyChanged();
             }
         }

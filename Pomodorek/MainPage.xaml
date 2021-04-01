@@ -20,14 +20,27 @@
                    FontSize="40"
                    Margin="-5, 2, -5, 0"
                    HorizontalOptions="Center"
-                   BackgroundColor="Yellow"/>
+                   BackgroundColor="LightGreen"/>
             <Label Text="{Binding SecondsDisplayField, Converter={StaticResource NumberToStringConverter}}"
                    FontSize="50"/>
         </StackLayout>
         <Label Text="{Binding ModeDisplayField, Converter={StaticResource TimerModeEnumToStringConverter}}"
                HorizontalOptions="Center"
                BackgroundColor="Yellow"/>
-        <StackLayout Orientation="Horizontal" BackgroundColor="Red">
+        <StackLayout Orientation="Horizontal"
+                     BackgroundColor="Red">
+            <Stepper x:Name="Stepper"
+                     Value="{Binding SessionLengthDisplayField}"
+                     Increment="1"
+                     Minimum="1"
+                     Maximum="99">
+            </Stepper>
+            <Entry MaxLength="2"
+                   Text="{Binding SessionLengthDisplayField}">
+                <Entry.Behaviors>
+                    <local:NumericValidationBehavior />
+                </Entry.Behaviors>
+            </Entry>
             <Button Text="START"
                     Padding="5"
                     WidthRequest="75"

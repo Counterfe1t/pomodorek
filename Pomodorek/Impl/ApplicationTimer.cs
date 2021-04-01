@@ -40,19 +40,14 @@ namespace Pomodorek.Impl {
         }
 
         public void PauseUnpauseTimer() {
+            if (SystemTimer == null) {
+                return;
+            }
             SystemTimer.Enabled = !SystemTimer.Enabled;
         }
 
         public void StopTimer() {
-            SystemTimer.Stop();
-            SystemTimer.Dispose();
-            CyclesElapsed = 0;
-            RestLength = _shortRestLength;
-            Seconds = 0;
-            Minutes = 0;
-            SetSecondsDisplayValue();
-            SetMinutesDisplayValue();
-            ViewModel.ModeDisplayField = TimerModeEnum.Disabled;
+            DisableTimerAndSetDataToDefault();
         }
 
         #region Events
@@ -125,6 +120,18 @@ namespace Pomodorek.Impl {
             SystemTimer.AutoReset = true;
             SystemTimer.Start();
             ViewModel.ModeDisplayField = TimerModeEnum.Focus;
+        }
+
+        private void DisableTimerAndSetDataToDefault() {
+            SystemTimer?.Stop();
+            SystemTimer = null;
+            CyclesElapsed = 0;
+            RestLength = _shortRestLength;
+            Seconds = 0;
+            Minutes = 0;
+            SetSecondsDisplayValue();
+            SetMinutesDisplayValue();
+            ViewModel.ModeDisplayField = TimerModeEnum.Disabled;
         }
 
         private void SetShortRest() {

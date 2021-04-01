@@ -19,7 +19,8 @@ namespace Pomodorek {
 
         #region Events
         private void StartButton_Clicked(object sender, System.EventArgs e) {
-            ApplicationTimer.StartNewSession(5);
+            var sessionLength = ViewModel.SessionLength;
+            ApplicationTimer.StartNewSession(sessionLength);
         }
 
         private void PauseButton_Clicked(object sender, System.EventArgs e) {
@@ -30,6 +31,5 @@ namespace Pomodorek {
             ApplicationTimer.StopTimer();
         }
         #endregion
-
     }
 }
