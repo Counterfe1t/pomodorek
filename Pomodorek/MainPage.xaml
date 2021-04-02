@@ -10,7 +10,13 @@
         <local:NumberToStringConverter x:Key="NumberToStringConverter"/>
         <local:TimerModeEnumToStringConverter x:Key="TimerModeEnumToStringConverter"/>
     </ContentPage.Resources>
-    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+    <StackLayout HorizontalOptions="Center"
+                 VerticalOptions="Center">
+        <StackLayout Orientation="Horizontal"
+                     Background="Yellow">
+            <Label Text="Cycles elapsed:"/>
+            <Label Text="{Binding CyclesElapsedDisplayField}"/>
+        </StackLayout>
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="Center"
                      Background="Green">
@@ -33,8 +39,7 @@
                      Value="{Binding SessionLengthDisplayField}"
                      Increment="1"
                      Minimum="1"
-                     Maximum="99">
-            </Stepper>
+                     Maximum="99"/>
             <Entry MaxLength="2"
                    Text="{Binding SessionLengthDisplayField}">
                 <Entry.Behaviors>

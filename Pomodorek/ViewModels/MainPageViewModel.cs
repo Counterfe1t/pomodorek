@@ -11,6 +11,8 @@ namespace Pomodorek.ViewModels {
 
         public int SessionLength { get; set; } = 1;
 
+        public int CyclesElapsed { get; set; }
+
         public int SecondsDisplayField {
             get {
                 return Seconds;
@@ -47,6 +49,16 @@ namespace Pomodorek.ViewModels {
             }
             set {
                 SessionLength = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int CyclesElapsedDisplayField {
+            get {
+                return CyclesElapsed;
+            }
+            set {
+                CyclesElapsed = value;
                 OnPropertyChanged();
             }
         }

@@ -61,6 +61,7 @@ namespace Pomodorek.Impl {
             if (Minutes >= _workLength) {
                 Minutes = 0;
                 CyclesElapsed++;
+                ViewModel.CyclesElapsedDisplayField = CyclesElapsed;
 
                 if (CyclesElapsed >= SessionLength) {
                     StopTimer();
@@ -120,6 +121,7 @@ namespace Pomodorek.Impl {
             SystemTimer.AutoReset = true;
             SystemTimer.Start();
             ViewModel.ModeDisplayField = TimerModeEnum.Focus;
+            ViewModel.CyclesElapsedDisplayField = 0;
         }
 
         private void DisableTimerAndSetDataToDefault() {
@@ -132,6 +134,7 @@ namespace Pomodorek.Impl {
             SetSecondsDisplayValue();
             SetMinutesDisplayValue();
             ViewModel.ModeDisplayField = TimerModeEnum.Disabled;
+            ViewModel.CyclesElapsedDisplayField = 0;
         }
 
         private void SetShortRest() {
