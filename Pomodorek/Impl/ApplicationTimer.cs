@@ -13,19 +13,19 @@ namespace Pomodorek.Impl {
         #endregion
 
         #region Properties
-        public MainPageViewModel ViewModel { get; set; }
+        private MainPageViewModel ViewModel { get; set; }
 
-        public Timer SystemTimer { get; set; }
+        private Timer SystemTimer { get; set; }
 
-        public int Seconds { get; set; }
+        private int Seconds { get; set; }
 
-        public int Minutes { get; set; }
+        private int Minutes { get; set; }
 
-        public int SessionLength { get; set; }
+        private int SessionLength { get; set; }
 
-        public int CyclesElapsed { get; set; }
+        private int CyclesElapsed { get; set; }
 
-        public int RestLength { get; set; }
+        private int RestLength { get; set; }
         #endregion
 
         public ApplicationTimer(MainPageViewModel viewModel) {

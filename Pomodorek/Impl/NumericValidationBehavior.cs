@@ -16,11 +16,14 @@ namespace Pomodorek.Impl {
 
         private static void OnEntryTextChanged(object sender, TextChangedEventArgs args) {
             if (!string.IsNullOrWhiteSpace(args.NewTextValue)) {
-                bool isValid = args.NewTextValue
+                var isValid = args.NewTextValue
                     .ToCharArray()
                     .All(x => char.IsDigit(x));
 
-                ((Entry)sender).Text = isValid
+                var isNotZero =
+                    int.Parse(args.NewTextValue) != 0;
+
+                ((Entry)sender).Text = isValid && isNotZero
                     ? args.NewTextValue
                     : args.NewTextValue.Remove(args.NewTextValue.Length - 1);
             }

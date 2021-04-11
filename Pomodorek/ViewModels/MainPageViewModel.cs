@@ -14,9 +14,7 @@ namespace Pomodorek.ViewModels {
         public int CyclesElapsed { get; set; }
 
         public int SecondsDisplayField {
-            get {
-                return Seconds;
-            }
+            get => Seconds;
             set {
                 Seconds = value;
                 OnPropertyChanged();
@@ -24,9 +22,7 @@ namespace Pomodorek.ViewModels {
         }
 
         public int MinutesDisplayField {
-            get {
-                return Minutes;
-            }
+            get => Minutes;
             set {
                 Minutes = value;
                 OnPropertyChanged();
@@ -34,9 +30,7 @@ namespace Pomodorek.ViewModels {
         }
 
         public TimerModeEnum ModeDisplayField {
-            get {
-                return Mode;
-            }
+            get => Mode;
             set {
                 Mode = value;
                 OnPropertyChanged();
@@ -44,9 +38,7 @@ namespace Pomodorek.ViewModels {
         }
 
         public int SessionLengthDisplayField {
-            get {
-                return SessionLength;
-            }
+            get => SessionLength;
             set {
                 SessionLength = value;
                 OnPropertyChanged();
@@ -54,9 +46,7 @@ namespace Pomodorek.ViewModels {
         }
 
         public int CyclesElapsedDisplayField {
-            get {
-                return CyclesElapsed;
-            }
+            get => CyclesElapsed;
             set {
                 CyclesElapsed = value;
                 OnPropertyChanged();
