@@ -19,7 +19,7 @@ namespace Pomodorek {
 
         #region Events
         private void StartButton_Clicked(object sender, System.EventArgs e) {
-            var sessionLength = ViewModel.SessionLength;
+            var sessionLength = ViewModel.SessionLengthDisplayField;
             ApplicationTimer.StartNewSession(sessionLength);
         }
 

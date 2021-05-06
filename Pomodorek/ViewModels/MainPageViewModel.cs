@@ -3,52 +3,47 @@
 namespace Pomodorek.ViewModels {
     public class MainPageViewModel : BaseViewModel {
 
-        public int Seconds { get; set; }
-
-        public int Minutes { get; set; }
-
-        public TimerModeEnum Mode { get; set; }
-
-        public int SessionLength { get; set; } = 1;
-
-        public int CyclesElapsed { get; set; }
-
+        private int seconds = 0;
         public int SecondsDisplayField {
-            get => Seconds;
+            get => seconds;
             set {
-                Seconds = value;
+                seconds = value;
                 OnPropertyChanged();
             }
         }
 
+        private int minutes = 0;
         public int MinutesDisplayField {
-            get => Minutes;
+            get => minutes;
             set {
-                Minutes = value;
+                minutes = value;
                 OnPropertyChanged();
             }
         }
 
+        private TimerModeEnum mode;
         public TimerModeEnum ModeDisplayField {
-            get => Mode;
+            get => mode;
             set {
-                Mode = value;
+                mode = value;
                 OnPropertyChanged();
             }
         }
 
+        private int sessionLength = 1;
         public int SessionLengthDisplayField {
-            get => SessionLength;
+            get => sessionLength;
             set {
-                SessionLength = value;
+                sessionLength = value;
                 OnPropertyChanged();
             }
         }
 
+        private int cyclesElapsed;
         public int CyclesElapsedDisplayField {
-            get => CyclesElapsed;
+            get => cyclesElapsed;
             set {
-                CyclesElapsed = value;
+                cyclesElapsed = value;
                 OnPropertyChanged();
             }
         }
