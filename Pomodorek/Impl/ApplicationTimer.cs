@@ -1,57 +1,110 @@
 ﻿using Pomodorek.Models;
 using Pomodorek.ViewModels;
-using System.Timers;
+using System;
+using Xamarin.Forms;
 
 namespace Pomodorek.Impl {
     public class ApplicationTimer {
 
         #region Constants
+
         private const int _interval = 1000;
         private const int _shortRestLength = 1; //5;
-        private const int _longRestLength = 2; //35;
+        private const int _longRestLength = 2; //20;
         private const int _workLength = 2; //25;
+
         #endregion
 
         #region Properties
+
         private MainPageViewModel ViewModel { get; set; }
 
-        private Timer SystemTimer { get; set; }
+        public bool Enabled { get; set; }
 
-        private int Seconds { get; set; }
+        public int Seconds { get; set; }
 
-        private int Minutes { get; set; }
+        public int Minutes { get; set; }
 
-        private int SessionLength { get; set; }
+        public int SessionLength { get; set; } = 1;
 
-        private int CyclesElapsed { get; set; }
+        public int CyclesElapsed { get; set; }
 
-        private int RestLength { get; set; }
+        public int RestLength { get; set; }
+
+        public TimerModeEnum Mode { get; set; }
+
         #endregion
 
         public ApplicationTimer(MainPageViewModel viewModel) {
             ViewModel = viewModel;
         }
 
-        public void StartNewSession(int sessionLength) {
-            if (SystemTimer != null && SystemTimer.Enabled) {
+        public void StartSession(int sessionLength) {
+            if (Enabled) {
                 return;
             }
+
             InitializeData(sessionLength);
+            StartTimer();
         }
 
-        public void PauseUnpauseTimer() {
-            if (SystemTimer == null) {
-                return;
+        public void PauseOrUnpauseTimer() {
+            //Paused = !Paused;
+            //if (!Paused) {
+            //    StartTimer();
+            //}
+        }
+
+        public void StopSession() {
+            if (Enabled) {
+                SetDataToDefault();
             }
-            SystemTimer.Enabled = !SystemTimer.Enabled;
         }
 
-        public void StopTimer() {
-            DisableTimerAndSetDataToDefault();
+        #region Private methods
+
+        private void StartTimer() {
+            Device.StartTimer(TimeSpan.FromSeconds(1), () => HandleOnChooseTimerMode());
         }
 
-        #region Events
-        private void OnIntervalElapsed_Focus(object sender, ElapsedEventArgs eventArgs) {
+        private void InitializeData(int sessionLength) {
+            Enabled = true;
+            SessionLength = sessionLength;
+            RestLength = _shortRestLength;
+            Seconds = 0;
+            Minutes = 0;
+            CyclesElapsed = 0;
+            Mode = TimerModeEnum.Focus;
+
+            Device.BeginInvokeOnMainThread(() => {
+                ViewModel.ModeDisplayField = Mode;
+                ViewModel.CyclesElapsedDisplayField = CyclesElapsed;
+            });
+        }
+
+        private void SetDataToDefault() {
+            Enabled = false;
+            Seconds = 0;
+            Minutes = 0;
+            RestLength = _shortRestLength;
+            CyclesElapsed = 0;
+            Mode = TimerModeEnum.Disabled;
+
+            Device.BeginInvokeOnMainThread(() => {
+                ViewModel.CyclesElapsedDisplayField = CyclesElapsed;
+                ViewModel.ModeDisplayField = Mode;
+                ViewModel.SecondsDisplayField = Seconds;
+                ViewModel.MinutesDisplayField = Minutes;
+            });
+        }
+
+        private bool HandleOnChooseTimerMode() {
+            return Enabled && (Mode == TimerModeEnum.Focus
+                ? HandleOnFocusIntervalElapsed()
+                : HandleOnRestIntervalElapsed());
+        }
+
+        private bool HandleOnFocusIntervalElapsed() {
             Seconds++;
             if (Seconds >= 4) {
                 Minutes++;
@@ -61,30 +114,44 @@ namespace Pomodorek.Impl {
             if (Minutes >= _workLength) {
                 Minutes = 0;
                 CyclesElapsed++;
-                ViewModel.CyclesElapsedDisplayField = CyclesElapsed;
+
+                Device.BeginInvokeOnMainThread(() => {
+                    ViewModel.CyclesElapsedDisplayField = CyclesElapsed;
+                });
 
                 if (CyclesElapsed >= SessionLength) {
-                    StopTimer();
-                    return;
+                    Device.BeginInvokeOnMainThread(() => {
+                        ViewModel.DisplayAlert(
+                            Consts.SessionEndedAlertTitle,
+                            Consts.SessionEndedAlertMessage,
+                            Consts.SessionEndedAlertCancel);
+                    });
+                    SetDataToDefault();
+                    return false;
                 }
 
                 if (CyclesElapsed % 4 == 0) {
-                    SetLongRest();
+                    RestLength = _longRestLength;
                 }
 
-                SystemTimer.Elapsed -= OnIntervalElapsed_Focus;
-                SystemTimer.Elapsed += OnIntervalElapsed_Rest;
-                ViewModel.ModeDisplayField = RestLength == _shortRestLength
+                Mode = RestLength == _shortRestLength
                     ? TimerModeEnum.Rest
                     : TimerModeEnum.LongRest;
+
+                Device.BeginInvokeOnMainThread(() => {
+                    ViewModel.ModeDisplayField = Mode;
+                });
             }
 
-            // Zaktualizuj wartość wyświetlaną na UI
-            SetSecondsDisplayValue();
-            SetMinutesDisplayValue();
+            Device.BeginInvokeOnMainThread(() => {
+                ViewModel.SecondsDisplayField = Seconds;
+                ViewModel.MinutesDisplayField = Minutes;
+            });
+
+            return true;
         }
 
-        private void OnIntervalElapsed_Rest(object sender, ElapsedEventArgs eventArgs) {
+        private bool HandleOnRestIntervalElapsed() {
             Seconds++;
             if (Seconds >= 4) {
                 Minutes++;
@@ -95,63 +162,24 @@ namespace Pomodorek.Impl {
                 Minutes = 0;
 
                 if (RestLength >= _longRestLength) {
-                    SetShortRest();
+                    RestLength = _shortRestLength;
                 }
 
-                SystemTimer.Elapsed -= OnIntervalElapsed_Rest;
-                SystemTimer.Elapsed += OnIntervalElapsed_Focus;
-                ViewModel.ModeDisplayField = TimerModeEnum.Focus;
+                Mode = TimerModeEnum.Focus;
+
+                Device.BeginInvokeOnMainThread(() => {
+                    ViewModel.ModeDisplayField = Mode;
+                });
             }
 
-            // Zaktualizuj wartość wyświetlaną na UI
-            SetSecondsDisplayValue();
-            SetMinutesDisplayValue();
-        }
-        #endregion
+            Device.BeginInvokeOnMainThread(() => {
+                ViewModel.SecondsDisplayField = Seconds;
+                ViewModel.MinutesDisplayField = Minutes;
+            });
 
-        #region Private methods
-        private void InitializeData(int sessionLength) {
-            SessionLength = sessionLength;
-            CyclesElapsed = 0;
-            RestLength = _shortRestLength;
-            Seconds = 0;
-            Minutes = 0;
-            SystemTimer = new Timer(_interval);
-            SystemTimer.Elapsed += OnIntervalElapsed_Focus;
-            SystemTimer.AutoReset = true;
-            SystemTimer.Start();
-            ViewModel.ModeDisplayField = TimerModeEnum.Focus;
-            ViewModel.CyclesElapsedDisplayField = 0;
+            return true;
         }
 
-        private void DisableTimerAndSetDataToDefault() {
-            SystemTimer?.Stop();
-            SystemTimer = null;
-            CyclesElapsed = 0;
-            RestLength = _shortRestLength;
-            Seconds = 0;
-            Minutes = 0;
-            SetSecondsDisplayValue();
-            SetMinutesDisplayValue();
-            ViewModel.ModeDisplayField = TimerModeEnum.Disabled;
-            ViewModel.CyclesElapsedDisplayField = 0;
-        }
-
-        private void SetShortRest() {
-            RestLength = _shortRestLength;
-        }
-
-        private void SetLongRest() {
-            RestLength = _longRestLength;
-        }
-
-        private void SetSecondsDisplayValue() {
-            ViewModel.SecondsDisplayField = Seconds;
-        }
-
-        private void SetMinutesDisplayValue() {
-            ViewModel.MinutesDisplayField = Minutes;
-        }
         #endregion
     }
 }

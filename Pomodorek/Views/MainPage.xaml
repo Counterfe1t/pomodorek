@@ -50,17 +50,17 @@
                     Padding="5"
                     WidthRequest="75"
                     HeightRequest="30"
-                    Clicked="StartButton_Clicked"/>
+                    Clicked="HandleOnStartButtonClicked"/>
             <Button Text="PAUSE"
                     Padding="5"
                     WidthRequest="75"
                     HeightRequest="30"
-                    Clicked="PauseButton_Clicked"/>
+                    Clicked="HandleOnPauseButtonClicked"/>
             <Button Text="STOP"
                     Padding="5"
                     WidthRequest="75"
                     HeightRequest="30"
-                    Clicked="StopButton_Clicked"/>
+                    Clicked="HandleOnStopButtonClicked"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>

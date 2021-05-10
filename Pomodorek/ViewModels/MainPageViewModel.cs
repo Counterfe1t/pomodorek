@@ -1,51 +1,74 @@
-﻿using Pomodorek.Models;
+﻿using Pomodorek.Impl;
+using Pomodorek.Models;
+using Xamarin.Forms;
 
 namespace Pomodorek.ViewModels {
     public class MainPageViewModel : BaseViewModel {
 
-        private int seconds = 0;
+        private readonly ApplicationTimer ApplicationTimer;
+
+        #region Properties
+
         public int SecondsDisplayField {
-            get => seconds;
+            get => ApplicationTimer.Seconds;
             set {
-                seconds = value;
+                ApplicationTimer.Seconds = value;
                 OnPropertyChanged();
             }
         }
 
-        private int minutes = 0;
         public int MinutesDisplayField {
-            get => minutes;
+            get => ApplicationTimer.Minutes;
             set {
-                minutes = value;
+                ApplicationTimer.Minutes = value;
                 OnPropertyChanged();
             }
         }
 
-        private TimerModeEnum mode;
         public TimerModeEnum ModeDisplayField {
-            get => mode;
+            get => ApplicationTimer.Mode;
             set {
-                mode = value;
+                ApplicationTimer.Mode = value;
                 OnPropertyChanged();
             }
         }
 
-        private int sessionLength = 1;
         public int SessionLengthDisplayField {
-            get => sessionLength;
+            get => ApplicationTimer.SessionLength;
             set {
-                sessionLength = value;
+                ApplicationTimer.SessionLength = value;
                 OnPropertyChanged();
             }
         }
 
-        private int cyclesElapsed;
         public int CyclesElapsedDisplayField {
-            get => cyclesElapsed;
+            get => ApplicationTimer.CyclesElapsed;
             set {
-                cyclesElapsed = value;
+                ApplicationTimer.CyclesElapsed = value;
                 OnPropertyChanged();
             }
+        }
+
+        #endregion
+
+        public MainPageViewModel() {
+            ApplicationTimer = new ApplicationTimer(this);
+        }
+
+        public void StartSession() {
+            ApplicationTimer.StartSession(SessionLengthDisplayField);
+        }
+
+        public void PauseOrUnpauseTimer() {
+            ApplicationTimer.PauseOrUnpauseTimer();
+        }
+
+        public void StopSession() {
+            ApplicationTimer.StopSession();
+        }
+
+        public void DisplayAlert(string title, string message, string cancel) {
+            Application.Current.MainPage.DisplayAlert(title, message, cancel);
         }
     }
 }
