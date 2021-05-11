@@ -61,7 +61,7 @@
                     Padding="5"
                     WidthRequest="75"
                     HeightRequest="30"
-                    Clicked="HandleOnStopButtonClicked"
+                    Clicked="HandleOnResetButtonClicked"
                     IsEnabled="{Binding IsEnabledViewModel}"/>
         </StackLayout>
     </StackLayout>
