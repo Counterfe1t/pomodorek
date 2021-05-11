@@ -1,4 +1,4 @@
-﻿using Pomodorek.Impl;
+﻿using Pomodorek.Logic;
 using Pomodorek.Models;
 using Xamarin.Forms;
 
@@ -9,7 +9,7 @@ namespace Pomodorek.ViewModels {
 
         #region Properties
 
-        public int SecondsDisplayField {
+        public int SecondsViewModel {
             get => ApplicationTimer.Seconds;
             set {
                 ApplicationTimer.Seconds = value;
@@ -17,7 +17,7 @@ namespace Pomodorek.ViewModels {
             }
         }
 
-        public int MinutesDisplayField {
+        public int MinutesViewModel {
             get => ApplicationTimer.Minutes;
             set {
                 ApplicationTimer.Minutes = value;
@@ -25,7 +25,7 @@ namespace Pomodorek.ViewModels {
             }
         }
 
-        public TimerModeEnum ModeDisplayField {
+        public TimerModeEnum ModeViewModel {
             get => ApplicationTimer.Mode;
             set {
                 ApplicationTimer.Mode = value;
@@ -33,7 +33,7 @@ namespace Pomodorek.ViewModels {
             }
         }
 
-        public int SessionLengthDisplayField {
+        public int SessionLengthViewModel {
             get => ApplicationTimer.SessionLength;
             set {
                 ApplicationTimer.SessionLength = value;
@@ -41,7 +41,7 @@ namespace Pomodorek.ViewModels {
             }
         }
 
-        public int CyclesElapsedDisplayField {
+        public int CyclesElapsedViewModel {
             get => ApplicationTimer.CyclesElapsed;
             set {
                 ApplicationTimer.CyclesElapsed = value;
@@ -56,11 +56,11 @@ namespace Pomodorek.ViewModels {
         }
 
         public void StartSession() {
-            ApplicationTimer.StartSession(SessionLengthDisplayField);
+            ApplicationTimer.StartSession();
         }
 
-        public void PauseOrUnpauseTimer() {
-            ApplicationTimer.PauseOrUnpauseTimer();
+        public void PauseOrResumeSession() {
+            //ApplicationTimer.PauseOrResumeSession();
         }
 
         public void StopSession() {

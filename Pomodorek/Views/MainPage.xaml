@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
-             xmlns:local="clr-namespace:Pomodorek.Impl"
+             xmlns:local="clr-namespace:Pomodorek.Logic"
              x:Class="Pomodorek.MainPage"
              x:DataType="viewmodels:MainPageViewModel"
              BackgroundColor="White">
@@ -15,33 +15,38 @@
         <StackLayout Orientation="Horizontal"
                      Background="Yellow">
             <Label Text="Cycles elapsed:"/>
-            <Label Text="{Binding CyclesElapsedDisplayField}"/>
+            <Label Text="{Binding CyclesElapsedViewModel}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal"
+                     Background="Yellow">
+            <Label Text="Session length:"/>
+            <Label Text="{Binding SessionLengthViewModel}"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="Center"
                      Background="Green">
-            <Label Text="{Binding MinutesDisplayField, Converter={StaticResource NumberToStringConverter}}"
+            <Label Text="{Binding MinutesViewModel, Converter={StaticResource NumberToStringConverter}}"
                    FontSize="50"/>
             <Label Text=":"
                    FontSize="40"
                    Margin="-5, 2, -5, 0"
                    HorizontalOptions="Center"
                    BackgroundColor="LightGreen"/>
-            <Label Text="{Binding SecondsDisplayField, Converter={StaticResource NumberToStringConverter}}"
+            <Label Text="{Binding SecondsViewModel, Converter={StaticResource NumberToStringConverter}}"
                    FontSize="50"/>
         </StackLayout>
-        <Label Text="{Binding ModeDisplayField, Converter={StaticResource TimerModeEnumToStringConverter}}"
+        <Label Text="{Binding ModeViewModel, Converter={StaticResource TimerModeEnumToStringConverter}}"
                HorizontalOptions="Center"
                BackgroundColor="Yellow"/>
         <StackLayout Orientation="Horizontal"
                      BackgroundColor="Red">
             <Stepper x:Name="Stepper"
-                     Value="{Binding SessionLengthDisplayField}"
+                     Value="{Binding SessionLengthViewModel}"
                      Increment="1"
                      Minimum="1"
                      Maximum="99"/>
             <Entry MaxLength="2"
-                   Text="{Binding SessionLengthDisplayField}">
+                   Text="{Binding SessionLengthViewModel}">
                 <Entry.Behaviors>
                     <local:NumericValidationBehavior />
                 </Entry.Behaviors>

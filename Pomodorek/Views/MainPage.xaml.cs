@@ -20,7 +20,7 @@ namespace Pomodorek {
         }
 
         private void HandleOnPauseButtonClicked(object sender, System.EventArgs e) {
-            ViewModel.PauseOrUnpauseTimer();
+            ViewModel.PauseOrResumeSession();
         }
 
         private void HandleOnStopButtonClicked(object sender, System.EventArgs e) {

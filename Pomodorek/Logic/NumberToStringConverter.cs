@@ -2,7 +2,7 @@
 using System.Globalization;
 using Xamarin.Forms;
 
-namespace Pomodorek.Impl {
+namespace Pomodorek.Logic {
     public class NumberToStringConverter : IValueConverter {
 
         #region IValueConverter

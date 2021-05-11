@@ -3,7 +3,7 @@ using System;
 using System.Globalization;
 using Xamarin.Forms;
 
-namespace Pomodorek.Impl {
+namespace Pomodorek.Logic {
     public class TimerModeEnumToStringConverter : IValueConverter {
 
         #region IValueConverter

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Xamarin.Forms;
 
-namespace Pomodorek.Impl {
+namespace Pomodorek.Logic {
     public class NumericValidationBehavior : Behavior<Entry> {
 
         protected override void OnAttachedTo(Entry entry) {
