@@ -9,6 +9,7 @@
     <ContentPage.Resources>
         <local:NumberToStringConverter x:Key="NumberToStringConverter"/>
         <local:TimerModeEnumToStringConverter x:Key="TimerModeEnumToStringConverter"/>
+        <local:StartButtonLabelConverter x:Key="StartButtonLabelConverter"/>
     </ContentPage.Resources>
     <StackLayout HorizontalOptions="Center"
                  VerticalOptions="Center">
@@ -51,21 +52,17 @@
                     <local:NumericValidationBehavior />
                 </Entry.Behaviors>
             </Entry>
-            <Button Text="START"
+            <Button Text="{Binding IsEnabledViewModel, Converter={StaticResource StartButtonLabelConverter}}"
                     Padding="5"
                     WidthRequest="75"
                     HeightRequest="30"
                     Clicked="HandleOnStartButtonClicked"/>
-            <Button Text="PAUSE"
+            <Button Text="RESET"
                     Padding="5"
                     WidthRequest="75"
                     HeightRequest="30"
-                    Clicked="HandleOnPauseButtonClicked"/>
-            <Button Text="STOP"
-                    Padding="5"
-                    WidthRequest="75"
-                    HeightRequest="30"
-                    Clicked="HandleOnStopButtonClicked"/>
+                    Clicked="HandleOnStopButtonClicked"
+                    IsEnabled="{Binding IsEnabledViewModel}"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>

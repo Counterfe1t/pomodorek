@@ -1,0 +1,23 @@
+﻿using System;
+using System.Globalization;
+using Xamarin.Forms;
+
+namespace Pomodorek.Logic {
+    public class StartButtonLabelConverter : IValueConverter {
+
+        #region IValueConverter
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            var isTimerEnabled = (bool)value;
+            return isTimerEnabled
+                ? "PAUSE"
+                : "START";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+    }
+}

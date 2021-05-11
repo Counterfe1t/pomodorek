@@ -49,22 +49,26 @@ namespace Pomodorek.ViewModels {
             }
         }
 
+        public bool IsEnabledViewModel {
+            get => ApplicationTimer.IsEnabled;
+            set {
+                ApplicationTimer.IsEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         public MainPageViewModel() {
             ApplicationTimer = new ApplicationTimer(this);
         }
 
-        public void StartSession() {
-            ApplicationTimer.StartSession();
+        public void StartOrPauseTimer() {
+            ApplicationTimer.StartOrPauseTimer();
         }
 
-        public void PauseOrResumeSession() {
-            //ApplicationTimer.PauseOrResumeSession();
-        }
-
-        public void StopSession() {
-            ApplicationTimer.StopSession();
+        public void ResetTimer() {
+            ApplicationTimer.ResetTimer();
         }
 
         public void DisplayAlert(string title, string message, string cancel) {

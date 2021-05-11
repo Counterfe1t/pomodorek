@@ -18,11 +18,13 @@ namespace Pomodorek.Logic {
 
         private MainPageViewModel ViewModel { get; set; }
 
-        public bool Enabled { get; set; }
+        public bool IsEnabled { get; set; }
 
         public int Seconds { get; set; }
 
         public int Minutes { get; set; }
+
+        public TimerModeEnum Mode { get; set; }
 
         public int SessionLength { get; set; } = 1;
 
@@ -30,55 +32,58 @@ namespace Pomodorek.Logic {
 
         public int RestLength { get; set; }
 
-        public TimerModeEnum Mode { get; set; }
-
         #endregion
 
         public ApplicationTimer(MainPageViewModel viewModel) {
             ViewModel = viewModel;
+            RestoreDataToDefault();
         }
 
-        public void StartSession() {
-            if (Enabled) {
+        public void StartOrPauseTimer() {
+            if (IsEnabled) {
+                IsEnabled = false;
+                Device.BeginInvokeOnMainThread(() => {
+                    ViewModel.IsEnabledViewModel = IsEnabled;
+                });
                 return;
             }
 
-            RestoreDataToDefault();
-            Mode = TimerModeEnum.Focus;
-            UpdateView();
+            if (Mode == TimerModeEnum.Disabled) {
+                Mode = TimerModeEnum.Focus;
+                Device.BeginInvokeOnMainThread(() => {
+                    ViewModel.ModeViewModel = Mode;
+                });
+            }
+
             EnableTimer();
         }
 
-        public void PauseOrResumeSession() {
-            // TODO: Implement pause function
-        }
-
-        public void StopSession() {
-            if (Enabled) {
-                RestoreDataToDefault();
-                UpdateView();
-            }
+        public void ResetTimer() {
+            RestoreDataToDefault();
+            UpdateView();
         }
 
         #region Private methods
 
         private void EnableTimer() {
-            Enabled = true;
+            IsEnabled = true;
+            Device.BeginInvokeOnMainThread(() => {
+                ViewModel.IsEnabledViewModel = IsEnabled;
+            });
             Device.StartTimer(TimeSpan.FromSeconds(1), () => HandleOnChooseTimerMode());
         }
 
         private void RestoreDataToDefault() {
-            Enabled = false;
+            IsEnabled = false;
             Seconds = 0;
             Minutes = 0;
-            SessionLength = ViewModel.SessionLengthViewModel;
-            RestLength = _shortRestLength;
             Mode = TimerModeEnum.Disabled;
             CyclesElapsed = 0;
+            RestLength = _shortRestLength;
         }
 
         private bool HandleOnChooseTimerMode() {
-            return Enabled && (Mode == TimerModeEnum.Focus
+            return IsEnabled && (Mode == TimerModeEnum.Focus
                 ? HandleOnFocusIntervalElapsed()
                 : HandleOnRestIntervalElapsed());
         }
@@ -99,7 +104,6 @@ namespace Pomodorek.Logic {
                 });
 
                 if (CyclesElapsed >= SessionLength) {
-                    Enabled = false;
                     RestoreDataToDefault();
 
                     UpdateView();
@@ -166,6 +170,7 @@ namespace Pomodorek.Logic {
 
         private void UpdateView() {
             Device.BeginInvokeOnMainThread(() => {
+                ViewModel.IsEnabledViewModel = IsEnabled;
                 ViewModel.SecondsViewModel = Seconds;
                 ViewModel.MinutesViewModel = Minutes;
                 ViewModel.ModeViewModel = Mode;

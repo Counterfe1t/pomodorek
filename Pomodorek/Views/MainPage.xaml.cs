@@ -16,15 +16,11 @@ namespace Pomodorek {
         #region Events
 
         private void HandleOnStartButtonClicked(object sender, System.EventArgs e) {
-            ViewModel.StartSession();
+            ViewModel.StartOrPauseTimer();
         }
 
-        private void HandleOnPauseButtonClicked(object sender, System.EventArgs e) {
-            ViewModel.PauseOrResumeSession();
-        }
-
-        private void HandleOnStopButtonClicked(object sender, System.EventArgs e) {
-            ViewModel.StopSession();
+        private void HandleOnResetButtonClicked(object sender, System.EventArgs e) {
+            ViewModel.ResetTimer();
         }
 
         #endregion
