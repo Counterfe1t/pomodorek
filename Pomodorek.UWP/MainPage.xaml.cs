@@ -15,7 +15,6 @@ namespace Pomodorek.UWP {
         private async void BeginExtendedExecution() {
             var newSession = new ExtendedExecutionSession {
                 Reason = ExtendedExecutionReason.Unspecified,
-                Description = ""
             };
             session = newSession;
             _ = await session.RequestExtensionAsync();
