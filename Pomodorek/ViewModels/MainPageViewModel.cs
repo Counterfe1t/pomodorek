@@ -78,7 +78,9 @@ namespace Pomodorek.ViewModels {
         public void DisplayNotification(string message) {
             _deviceNotificationService = DependencyService.Get<IDeviceNotificationService>();
             using (_deviceNotificationService as IDisposable) {
-                _deviceNotificationService.DisplayNotification(message);
+                Device.BeginInvokeOnMainThread(() => {
+                    _deviceNotificationService.DisplayNotification(message);
+                });
             }
         }
     }
