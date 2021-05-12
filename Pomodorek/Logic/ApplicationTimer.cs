@@ -43,7 +43,7 @@ namespace Pomodorek.Logic {
             if (IsEnabled) {
                 IsEnabled = false;
                 Device.BeginInvokeOnMainThread(() => {
-                    ViewModel.IsEnabledViewModel = IsEnabled;
+                    ViewModel.IsEnabled = IsEnabled;
                 });
                 return;
             }
@@ -51,7 +51,7 @@ namespace Pomodorek.Logic {
             if (Mode == TimerModeEnum.Disabled) {
                 Mode = TimerModeEnum.Focus;
                 Device.BeginInvokeOnMainThread(() => {
-                    ViewModel.ModeViewModel = Mode;
+                    ViewModel.Mode = Mode;
                 });
             }
 
@@ -68,7 +68,7 @@ namespace Pomodorek.Logic {
         private void EnableTimer() {
             IsEnabled = true;
             Device.BeginInvokeOnMainThread(() => {
-                ViewModel.IsEnabledViewModel = IsEnabled;
+                ViewModel.IsEnabled = IsEnabled;
             });
             Device.StartTimer(TimeSpan.FromSeconds(1), () => HandleOnChooseTimerMode());
         }
@@ -100,20 +100,13 @@ namespace Pomodorek.Logic {
                 CyclesElapsed++;
 
                 Device.BeginInvokeOnMainThread(() => {
-                    ViewModel.CyclesElapsedViewModel = CyclesElapsed;
+                    ViewModel.CyclesElapsed = CyclesElapsed;
                 });
 
                 if (CyclesElapsed >= SessionLength) {
                     RestoreDataToDefault();
-
                     UpdateView();
-                    Device.BeginInvokeOnMainThread(() => {
-                        ViewModel.DisplayAlert(
-                            Consts.SessionEndedAlertTitle,
-                            Consts.SessionEndedAlertMessage,
-                            Consts.SessionEndedAlertCancel);
-                    });
-
+                    ViewModel.DisplayNotification(Consts.SessionEndedNotificationMessage);
                     return false;
                 }
 
@@ -127,13 +120,18 @@ namespace Pomodorek.Logic {
                         : TimerModeEnum.LongRest;
 
                 Device.BeginInvokeOnMainThread(() => {
-                    ViewModel.ModeViewModel = Mode;
+                    ViewModel.Mode = Mode;
                 });
+                var message =
+                    Mode == TimerModeEnum.Rest
+                        ? Consts.ShortRestModeNotificationMessage
+                        : Consts.LongRestModeNotificationMessage;
+                ViewModel.DisplayNotification(message);
             }
 
             Device.BeginInvokeOnMainThread(() => {
-                ViewModel.SecondsViewModel = Seconds;
-                ViewModel.MinutesViewModel = Minutes;
+                ViewModel.Seconds = Seconds;
+                ViewModel.Minutes = Minutes;
             });
 
             return true;
@@ -156,13 +154,15 @@ namespace Pomodorek.Logic {
                 Mode = TimerModeEnum.Focus;
 
                 Device.BeginInvokeOnMainThread(() => {
-                    ViewModel.ModeViewModel = Mode;
+                    ViewModel.Mode = Mode;
                 });
+
+                ViewModel.DisplayNotification(Consts.FocusModeNotificationMessage);
             }
 
             Device.BeginInvokeOnMainThread(() => {
-                ViewModel.SecondsViewModel = Seconds;
-                ViewModel.MinutesViewModel = Minutes;
+                ViewModel.Seconds = Seconds;
+                ViewModel.Minutes = Minutes;
             });
 
             return true;
@@ -170,11 +170,11 @@ namespace Pomodorek.Logic {
 
         private void UpdateView() {
             Device.BeginInvokeOnMainThread(() => {
-                ViewModel.IsEnabledViewModel = IsEnabled;
-                ViewModel.SecondsViewModel = Seconds;
-                ViewModel.MinutesViewModel = Minutes;
-                ViewModel.ModeViewModel = Mode;
-                ViewModel.CyclesElapsedViewModel = CyclesElapsed;
+                ViewModel.IsEnabled = IsEnabled;
+                ViewModel.Seconds = Seconds;
+                ViewModel.Minutes = Minutes;
+                ViewModel.Mode = Mode;
+                ViewModel.CyclesElapsed = CyclesElapsed;
             });
         }
 

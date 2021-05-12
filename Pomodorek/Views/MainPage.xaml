@@ -16,43 +16,43 @@
         <StackLayout Orientation="Horizontal"
                      Background="Yellow">
             <Label Text="Cycles elapsed:"/>
-            <Label Text="{Binding CyclesElapsedViewModel}"/>
+            <Label Text="{Binding CyclesElapsed}"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal"
                      Background="Yellow">
             <Label Text="Session length:"/>
-            <Label Text="{Binding SessionLengthViewModel}"/>
+            <Label Text="{Binding SessionLength}"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="Center"
                      Background="Green">
-            <Label Text="{Binding MinutesViewModel, Converter={StaticResource NumberToStringConverter}}"
+            <Label Text="{Binding Minutes, Converter={StaticResource NumberToStringConverter}}"
                    FontSize="50"/>
             <Label Text=":"
                    FontSize="40"
                    Margin="-5, 2, -5, 0"
                    HorizontalOptions="Center"
                    BackgroundColor="LightGreen"/>
-            <Label Text="{Binding SecondsViewModel, Converter={StaticResource NumberToStringConverter}}"
+            <Label Text="{Binding Seconds, Converter={StaticResource NumberToStringConverter}}"
                    FontSize="50"/>
         </StackLayout>
-        <Label Text="{Binding ModeViewModel, Converter={StaticResource TimerModeEnumToStringConverter}}"
+        <Label Text="{Binding Mode, Converter={StaticResource TimerModeEnumToStringConverter}}"
                HorizontalOptions="Center"
                BackgroundColor="Yellow"/>
         <StackLayout Orientation="Horizontal"
                      BackgroundColor="Red">
             <Stepper x:Name="Stepper"
-                     Value="{Binding SessionLengthViewModel}"
+                     Value="{Binding SessionLength}"
                      Increment="1"
                      Minimum="1"
                      Maximum="99"/>
             <Entry MaxLength="2"
-                   Text="{Binding SessionLengthViewModel}">
+                   Text="{Binding SessionLength}">
                 <Entry.Behaviors>
                     <local:NumericValidationBehavior />
                 </Entry.Behaviors>
             </Entry>
-            <Button Text="{Binding IsEnabledViewModel, Converter={StaticResource StartButtonLabelConverter}}"
+            <Button Text="{Binding IsEnabled, Converter={StaticResource StartButtonLabelConverter}}"
                     Padding="5"
                     WidthRequest="75"
                     HeightRequest="30"
@@ -62,7 +62,7 @@
                     WidthRequest="75"
                     HeightRequest="30"
                     Clicked="HandleOnResetButtonClicked"
-                    IsEnabled="{Binding IsEnabledViewModel}"/>
+                    IsEnabled="{Binding IsEnabled}"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>

@@ -1,11 +1,12 @@
 ﻿namespace Pomodorek.Models {
     public class Consts {
         public static readonly string FocusModeLabel = "FOCUS";
-        public static readonly string RestModeLabel = "REST";
+        public static readonly string ShortRestModeLabel = "REST";
         public static readonly string LongRestModeLabel = "LONG REST";
 
-        public static readonly string SessionEndedAlertTitle = "Session ended";
-        public static readonly string SessionEndedAlertMessage = "Session summary";
-        public static readonly string SessionEndedAlertCancel = "OK";
+        public static readonly string FocusModeNotificationMessage = "Go back to work";
+        public static readonly string ShortRestModeNotificationMessage = "Take a short break";
+        public static readonly string LongRestModeNotificationMessage = "Take a long break";
+        public static readonly string SessionEndedNotificationMessage = "Session has ended";
     }
 }

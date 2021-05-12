@@ -1,58 +1,62 @@
 ﻿using Pomodorek.Logic;
 using Pomodorek.Models;
+using Pomodorek.Services;
+using System;
 using Xamarin.Forms;
 
 namespace Pomodorek.ViewModels {
     public class MainPageViewModel : BaseViewModel {
 
-        private readonly ApplicationTimer ApplicationTimer;
+        private readonly ApplicationTimer _applicationTimer;
+
+        private IDeviceNotificationService _deviceNotificationService = null;
 
         #region Properties
 
-        public int SecondsViewModel {
-            get => ApplicationTimer.Seconds;
+        public int Seconds {
+            get => _applicationTimer.Seconds;
             set {
-                ApplicationTimer.Seconds = value;
+                _applicationTimer.Seconds = value;
                 OnPropertyChanged();
             }
         }
 
-        public int MinutesViewModel {
-            get => ApplicationTimer.Minutes;
+        public int Minutes {
+            get => _applicationTimer.Minutes;
             set {
-                ApplicationTimer.Minutes = value;
+                _applicationTimer.Minutes = value;
                 OnPropertyChanged();
             }
         }
 
-        public TimerModeEnum ModeViewModel {
-            get => ApplicationTimer.Mode;
+        public TimerModeEnum Mode {
+            get => _applicationTimer.Mode;
             set {
-                ApplicationTimer.Mode = value;
+                _applicationTimer.Mode = value;
                 OnPropertyChanged();
             }
         }
 
-        public int SessionLengthViewModel {
-            get => ApplicationTimer.SessionLength;
+        public int SessionLength {
+            get => _applicationTimer.SessionLength;
             set {
-                ApplicationTimer.SessionLength = value;
+                _applicationTimer.SessionLength = value;
                 OnPropertyChanged();
             }
         }
 
-        public int CyclesElapsedViewModel {
-            get => ApplicationTimer.CyclesElapsed;
+        public int CyclesElapsed {
+            get => _applicationTimer.CyclesElapsed;
             set {
-                ApplicationTimer.CyclesElapsed = value;
+                _applicationTimer.CyclesElapsed = value;
                 OnPropertyChanged();
             }
         }
 
-        public bool IsEnabledViewModel {
-            get => ApplicationTimer.IsEnabled;
+        public bool IsEnabled {
+            get => _applicationTimer.IsEnabled;
             set {
-                ApplicationTimer.IsEnabled = value;
+                _applicationTimer.IsEnabled = value;
                 OnPropertyChanged();
             }
         }
@@ -60,19 +64,22 @@ namespace Pomodorek.ViewModels {
         #endregion
 
         public MainPageViewModel() {
-            ApplicationTimer = new ApplicationTimer(this);
+            _applicationTimer = new ApplicationTimer(this);
         }
 
         public void StartOrPauseTimer() {
-            ApplicationTimer.StartOrPauseTimer();
+            _applicationTimer.StartOrPauseTimer();
         }
 
         public void ResetTimer() {
-            ApplicationTimer.ResetTimer();
+            _applicationTimer.ResetTimer();
         }
 
-        public void DisplayAlert(string title, string message, string cancel) {
-            Application.Current.MainPage.DisplayAlert(title, message, cancel);
+        public void DisplayNotification(string message) {
+            _deviceNotificationService = DependencyService.Get<IDeviceNotificationService>();
+            using (_deviceNotificationService as IDisposable) {
+                _deviceNotificationService.DisplayNotification(message);
+            }
         }
     }
 }

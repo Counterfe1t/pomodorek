@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Pomodorek.Services;
+using Pomodorek.UWP.Services;
+using System;
 using Windows.ApplicationModel.ExtendedExecution;
+using Xamarin.Forms;
 
 namespace Pomodorek.UWP {
     public sealed partial class MainPage {
@@ -10,11 +13,12 @@ namespace Pomodorek.UWP {
             InitializeComponent();
             BeginExtendedExecution();
             LoadApplication(new Pomodorek.App());
+            DependencyService.Register<IDeviceNotificationService, WindowsNotificationService>();
         }
 
         private async void BeginExtendedExecution() {
             var newSession = new ExtendedExecutionSession {
-                Reason = ExtendedExecutionReason.Unspecified,
+                Reason = ExtendedExecutionReason.Unspecified
             };
             session = newSession;
             _ = await session.RequestExtensionAsync();

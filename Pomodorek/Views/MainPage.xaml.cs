@@ -8,7 +8,6 @@ namespace Pomodorek {
 
         public MainPage() {
             InitializeComponent();
-
             ViewModel = new MainPageViewModel();
             BindingContext = ViewModel;
         }

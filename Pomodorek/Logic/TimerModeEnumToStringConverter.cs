@@ -14,7 +14,7 @@ namespace Pomodorek.Logic {
                 case TimerModeEnum.Focus:
                     return Consts.FocusModeLabel;
                 case TimerModeEnum.Rest:
-                    return Consts.RestModeLabel;
+                    return Consts.ShortRestModeLabel;
                 case TimerModeEnum.LongRest:
                     return Consts.LongRestModeLabel;
                 case TimerModeEnum.Disabled:
