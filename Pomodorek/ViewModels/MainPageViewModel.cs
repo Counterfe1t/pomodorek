@@ -9,7 +9,9 @@ namespace Pomodorek.ViewModels {
 
         private readonly ApplicationTimer _applicationTimer;
 
-        private IDeviceNotificationService _deviceNotificationService = null;
+        private IDeviceNotificationService notificationService = null;
+
+        private IDeviceSoundService soundService = null;
 
         #region Properties
 
@@ -76,10 +78,28 @@ namespace Pomodorek.ViewModels {
         }
 
         public void DisplayNotification(string message) {
-            _deviceNotificationService = DependencyService.Get<IDeviceNotificationService>();
-            using (_deviceNotificationService as IDisposable) {
-                Device.BeginInvokeOnMainThread(() => {
-                    _deviceNotificationService.DisplayNotification(message);
+            notificationService = DependencyService.Get<IDeviceNotificationService>();
+            using (notificationService as IDisposable) {
+                Device.BeginInvokeOnMainThread(async () => {
+                    await notificationService.DisplayNotification(message);
+                });
+            }
+        }
+        
+        public void DisplaySessionOverNotification(string message) {
+            notificationService = DependencyService.Get<IDeviceNotificationService>();
+            using (notificationService as IDisposable) {
+                Device.BeginInvokeOnMainThread(async () => {
+                    await notificationService.DisplaySessionOverNotification(message);
+                });
+            }
+        }
+
+        public void PlayStartSound() {
+            soundService = DependencyService.Get<IDeviceSoundService>();
+            using (soundService as IDisposable) {
+                Device.BeginInvokeOnMainThread(async () => {
+                    await soundService.PlayStartSound();
                 });
             }
         }

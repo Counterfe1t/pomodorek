@@ -50,6 +50,7 @@ namespace Pomodorek.Logic {
 
             if (Mode == TimerModeEnum.Disabled) {
                 Mode = TimerModeEnum.Focus;
+                ViewModel.PlayStartSound();
                 Device.BeginInvokeOnMainThread(() => {
                     ViewModel.Mode = Mode;
                 });
@@ -106,7 +107,7 @@ namespace Pomodorek.Logic {
                 if (CyclesElapsed >= SessionLength) {
                     RestoreDataToDefault();
                     UpdateView();
-                    ViewModel.DisplayNotification(Consts.SessionEndedNotificationMessage);
+                    ViewModel.DisplaySessionOverNotification(Consts.SessionOverNotificationMessage);
                     return false;
                 }
 

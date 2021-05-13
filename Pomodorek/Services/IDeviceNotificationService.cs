@@ -1,5 +1,9 @@
-﻿namespace Pomodorek.Services {
+﻿using System.Threading.Tasks;
+
+namespace Pomodorek.Services {
     public interface IDeviceNotificationService {
-        void DisplayNotification(string message);
+        Task DisplayNotification(string message);
+
+        Task DisplaySessionOverNotification(string message);
     }
 }

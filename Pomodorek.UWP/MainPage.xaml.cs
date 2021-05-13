@@ -12,8 +12,11 @@ namespace Pomodorek.UWP {
         public MainPage() {
             InitializeComponent();
             BeginExtendedExecution();
+
             LoadApplication(new Pomodorek.App());
+
             DependencyService.Register<IDeviceNotificationService, WindowsNotificationService>();
+            DependencyService.Register<IDeviceSoundService, WindowsSoundService>();
         }
 
         private async void BeginExtendedExecution() {
