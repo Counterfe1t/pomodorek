@@ -1,75 +1,103 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
-             xmlns:local="clr-namespace:Pomodorek.Logic"
-             x:Class="Pomodorek.MainPage"
-             x:DataType="viewmodels:MainPageViewModel"
-             BackgroundColor="White">
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
+    xmlns:local="clr-namespace:Pomodorek.Logic"
+    x:Class="Pomodorek.MainPage"
+    x:DataType="viewmodels:MainPageViewModel"
+    BackgroundColor="White">
     <ContentPage.Resources>
-        <local:NumberToStringConverter x:Key="NumberToStringConverter"/>
-        <local:TimerModeEnumToStringConverter x:Key="TimerModeEnumToStringConverter"/>
-        <local:StartButtonLabelConverter x:Key="StartButtonLabelConverter"/>
+        <local:NumberToStringConverter
+            x:Key="NumberToStringConverter" />
+        <local:TimerModeEnumToStringConverter
+            x:Key="TimerModeEnumToStringConverter" />
+        <local:StartButtonLabelConverter
+            x:Key="StartButtonLabelConverter" />
+        <local:NegationConverter
+            x:Key="NegationConverter" />
     </ContentPage.Resources>
-    <StackLayout HorizontalOptions="Center"
-                 VerticalOptions="Center"
-                 WidthRequest="400">
-        <StackLayout Orientation="Horizontal"
-                     Background="Yellow">
-            <Label Text="Cycles elapsed:"/>
-            <Label Text="{Binding CyclesElapsed}"/>
+    <StackLayout
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        WidthRequest="400">
+        <StackLayout
+            Orientation="Horizontal"
+            Background="Yellow">
+            <Label
+                Text="Cycles elapsed:" />
+            <Label
+                Text="{Binding CyclesElapsed}" />
         </StackLayout>
-        <StackLayout Orientation="Horizontal"
-                     Background="Yellow">
-            <Label Text="Session length:"/>
-            <Label Text="{Binding SessionLength}"/>
+        <StackLayout
+            Orientation="Horizontal"
+            Background="Yellow">
+            <Label
+                Text="Session length:" />
+            <Label
+                Text="{Binding SessionLength}" />
         </StackLayout>
-        <StackLayout Orientation="Horizontal"
-                     Background="Yellow">
-            <Label Text="Enabled:"/>
-            <Label Text="{Binding IsEnabled}"/>
+        <StackLayout
+            Orientation="Horizontal"
+            Background="Yellow">
+            <Label
+                Text="Enabled:" />
+            <Label
+                Text="{Binding IsEnabled}" />
         </StackLayout>
-        <StackLayout Orientation="Horizontal"
-                     HorizontalOptions="Center"
-                     Background="Green">
-            <Label Text="{Binding Minutes, Converter={StaticResource NumberToStringConverter}}"
-                   FontSize="50"/>
-            <Label Text=":"
-                   FontSize="40"
-                   Margin="-5, 2, -5, 0"
-                   HorizontalOptions="Center"
-                   BackgroundColor="LightGreen"/>
-            <Label Text="{Binding Seconds, Converter={StaticResource NumberToStringConverter}}"
-                   FontSize="50"/>
+        <StackLayout
+            Orientation="Horizontal"
+            HorizontalOptions="Center"
+            Background="Green">
+            <Label
+                Text="{Binding Minutes, Converter={StaticResource NumberToStringConverter}}"
+                FontSize="50" />
+            <Label
+                Text=":"
+                FontSize="40"
+                Margin="-5, 2, -5, 0"
+                HorizontalOptions="Center"
+                BackgroundColor="LightGreen" />
+            <Label
+                Text="{Binding Seconds, Converter={StaticResource NumberToStringConverter}}"
+                FontSize="50" />
         </StackLayout>
-        <Label Text="{Binding Mode, Converter={StaticResource TimerModeEnumToStringConverter}}"
-               HorizontalOptions="Center"
-               BackgroundColor="Yellow"/>
-        <StackLayout Orientation="Horizontal"
-                     BackgroundColor="Red"
-                     HorizontalOptions="Center">
-            <Stepper x:Name="Stepper"
-                     Value="{Binding SessionLength}"
-                     Increment="1"
-                     Minimum="1"
-                     Maximum="99"/>
-            <Entry MaxLength="2"
-                   Text="{Binding SessionLength}">
+        <Label
+            Text="{Binding Mode, Converter={StaticResource TimerModeEnumToStringConverter}}"
+            HorizontalOptions="Center"
+            BackgroundColor="Yellow" />
+        <StackLayout
+            Orientation="Horizontal"
+            BackgroundColor="Red"
+            HorizontalOptions="Center">
+            <Stepper
+                x:Name="Stepper"
+                Value="{Binding SessionLength}"
+                Increment="1"
+                Minimum="1"
+                Maximum="99"
+                IsEnabled="{Binding IsEnabled, Converter={StaticResource NegationConverter}}" />
+            <Entry
+                MaxLength="2"
+                Text="{Binding SessionLength}"
+                IsEnabled="{Binding IsEnabled, Converter={StaticResource NegationConverter}}">
                 <Entry.Behaviors>
                     <local:NumericValidationBehavior />
                 </Entry.Behaviors>
             </Entry>
-            <Button Text="{Binding IsEnabled, Converter={StaticResource StartButtonLabelConverter}}"
-                    Padding="5"
-                    WidthRequest="75"
-                    HeightRequest="30"
-                    Clicked="HandleOnStartButtonClicked"/>
-            <Button Text="RESET"
-                    Padding="5"
-                    WidthRequest="75"
-                    HeightRequest="30"
-                    Clicked="HandleOnResetButtonClicked"
-                    IsEnabled="{Binding IsEnabled}"/>
+            <Button
+                Text="{Binding IsEnabled, Converter={StaticResource StartButtonLabelConverter}}"
+                Padding="5"
+                WidthRequest="75"
+                HeightRequest="30"
+                Clicked="HandleOnStartButtonClicked" />
+            <Button
+                Text="RESET"
+                Padding="5"
+                WidthRequest="75"
+                HeightRequest="30"
+                Clicked="HandleOnResetButtonClicked"
+                IsEnabled="{Binding IsEnabled}" />
         </StackLayout>
     </StackLayout>
 </ContentPage>

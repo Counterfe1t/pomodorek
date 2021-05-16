@@ -16,10 +16,6 @@ namespace Pomodorek.Logic {
 
         #region Properties
 
-        private Guid SessionId { get; set; }
-
-        private MainPageViewModel ViewModel { get; set; }
-
         public bool IsEnabled { get; set; }
 
         public int Seconds { get; set; }
@@ -34,6 +30,12 @@ namespace Pomodorek.Logic {
 
         public int RestLength { get; set; }
 
+        private Guid SessionId { get; set; }
+
+        private MainPageViewModel ViewModel { get; set; }
+        
+        private bool IsPaused { get; set; }
+
         #endregion
 
         public ApplicationTimer(MainPageViewModel viewModel) {
@@ -42,8 +44,8 @@ namespace Pomodorek.Logic {
         }
 
         public void StartOrPauseTimer() {
-            if (IsEnabled) {
-                ViewModel.IsEnabled = false;
+            if (!IsPaused) {
+                IsPaused = true;
                 return;
             }
 
@@ -65,6 +67,7 @@ namespace Pomodorek.Logic {
         private void StartTimer() {
             var sessionId = SessionId = Guid.NewGuid();
             ViewModel.IsEnabled = true;
+            IsPaused = false;
 
             Device.StartTimer(TimeSpan.FromSeconds(1), () => {
                 if (sessionId != SessionId) {
@@ -78,13 +81,16 @@ namespace Pomodorek.Logic {
         private void RestoreDataToDefault() {
             SessionId = Guid.Empty;
             IsEnabled = false;
+            IsPaused = true;
             Seconds = Minutes = CyclesElapsed = 0;
             Mode = TimerModeEnum.Disabled;
             RestLength = _shortRestLength;
         }
 
         private bool HandleOnChooseTimerMode() =>
-            IsEnabled && (Mode == TimerModeEnum.Focus
+            IsEnabled
+            && !IsPaused
+            && (Mode == TimerModeEnum.Focus
                 ? HandleOnFocusIntervalElapsed()
                 : HandleOnRestIntervalElapsed());
 
