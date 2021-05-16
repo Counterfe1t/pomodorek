@@ -16,6 +16,8 @@ namespace Pomodorek.Logic {
 
         #region Properties
 
+        private Guid SessionId { get; set; }
+
         private MainPageViewModel ViewModel { get; set; }
 
         public bool IsEnabled { get; set; }
@@ -41,22 +43,16 @@ namespace Pomodorek.Logic {
 
         public void StartOrPauseTimer() {
             if (IsEnabled) {
-                IsEnabled = false;
-                Device.BeginInvokeOnMainThread(() => {
-                    ViewModel.IsEnabled = IsEnabled;
-                });
+                ViewModel.IsEnabled = false;
                 return;
             }
 
             if (Mode == TimerModeEnum.Disabled) {
-                Mode = TimerModeEnum.Focus;
+                ViewModel.Mode = TimerModeEnum.Focus;
                 ViewModel.PlayStartSound();
-                Device.BeginInvokeOnMainThread(() => {
-                    ViewModel.Mode = Mode;
-                });
             }
 
-            EnableTimer();
+            StartTimer();
         }
 
         public void ResetTimer() {
@@ -66,28 +62,31 @@ namespace Pomodorek.Logic {
 
         #region Private methods
 
-        private void EnableTimer() {
-            IsEnabled = true;
-            Device.BeginInvokeOnMainThread(() => {
-                ViewModel.IsEnabled = IsEnabled;
+        private void StartTimer() {
+            var sessionId = SessionId = Guid.NewGuid();
+            ViewModel.IsEnabled = true;
+
+            Device.StartTimer(TimeSpan.FromSeconds(1), () => {
+                if (sessionId != SessionId) {
+                    return false;
+                }
+
+                return HandleOnChooseTimerMode();
             });
-            Device.StartTimer(TimeSpan.FromSeconds(1), () => HandleOnChooseTimerMode());
         }
 
         private void RestoreDataToDefault() {
+            SessionId = Guid.Empty;
             IsEnabled = false;
-            Seconds = 0;
-            Minutes = 0;
+            Seconds = Minutes = CyclesElapsed = 0;
             Mode = TimerModeEnum.Disabled;
-            CyclesElapsed = 0;
             RestLength = _shortRestLength;
         }
 
-        private bool HandleOnChooseTimerMode() {
-            return IsEnabled && (Mode == TimerModeEnum.Focus
+        private bool HandleOnChooseTimerMode() =>
+            IsEnabled && (Mode == TimerModeEnum.Focus
                 ? HandleOnFocusIntervalElapsed()
                 : HandleOnRestIntervalElapsed());
-        }
 
         private bool HandleOnFocusIntervalElapsed() {
             Seconds++;
@@ -98,11 +97,7 @@ namespace Pomodorek.Logic {
 
             if (Minutes >= _workLength) {
                 Minutes = 0;
-                CyclesElapsed++;
-
-                Device.BeginInvokeOnMainThread(() => {
-                    ViewModel.CyclesElapsed = CyclesElapsed;
-                });
+                ViewModel.CyclesElapsed = ++CyclesElapsed;
 
                 if (CyclesElapsed >= SessionLength) {
                     RestoreDataToDefault();
@@ -115,14 +110,10 @@ namespace Pomodorek.Logic {
                     RestLength = _longRestLength;
                 }
 
-                Mode =
+                ViewModel.Mode =
                     RestLength == _shortRestLength
                         ? TimerModeEnum.Rest
                         : TimerModeEnum.LongRest;
-
-                Device.BeginInvokeOnMainThread(() => {
-                    ViewModel.Mode = Mode;
-                });
                 var message =
                     Mode == TimerModeEnum.Rest
                         ? Consts.ShortRestModeNotificationMessage
@@ -130,10 +121,8 @@ namespace Pomodorek.Logic {
                 ViewModel.DisplayNotification(message);
             }
 
-            Device.BeginInvokeOnMainThread(() => {
-                ViewModel.Seconds = Seconds;
-                ViewModel.Minutes = Minutes;
-            });
+            ViewModel.Seconds = Seconds;
+            ViewModel.Minutes = Minutes;
 
             return true;
         }
@@ -152,31 +141,22 @@ namespace Pomodorek.Logic {
                     RestLength = _shortRestLength;
                 }
 
-                Mode = TimerModeEnum.Focus;
-
-                Device.BeginInvokeOnMainThread(() => {
-                    ViewModel.Mode = Mode;
-                });
-
+                ViewModel.Mode = TimerModeEnum.Focus;
                 ViewModel.DisplayNotification(Consts.FocusModeNotificationMessage);
             }
 
-            Device.BeginInvokeOnMainThread(() => {
-                ViewModel.Seconds = Seconds;
-                ViewModel.Minutes = Minutes;
-            });
+            ViewModel.Seconds = Seconds;
+            ViewModel.Minutes = Minutes;
 
             return true;
         }
 
         private void UpdateView() {
-            Device.BeginInvokeOnMainThread(() => {
-                ViewModel.IsEnabled = IsEnabled;
-                ViewModel.Seconds = Seconds;
-                ViewModel.Minutes = Minutes;
-                ViewModel.Mode = Mode;
-                ViewModel.CyclesElapsed = CyclesElapsed;
-            });
+            ViewModel.IsEnabled = IsEnabled;
+            ViewModel.Seconds = Seconds;
+            ViewModel.Minutes = Minutes;
+            ViewModel.Mode = Mode;
+            ViewModel.CyclesElapsed = CyclesElapsed;
         }
 
         #endregion
