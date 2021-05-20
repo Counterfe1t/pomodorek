@@ -21,7 +21,7 @@ namespace Pomodorek.Logic {
                     .All(x => char.IsDigit(x));
 
                 var isNotZero =
-                    int.Parse(args.NewTextValue) != 0;
+                    isValid && int.Parse(args.NewTextValue) != 0;
 
                 ((Entry)sender).Text = isValid && isNotZero
                     ? args.NewTextValue
