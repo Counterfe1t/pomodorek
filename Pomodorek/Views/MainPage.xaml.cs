@@ -14,11 +14,11 @@ namespace Pomodorek {
 
         #region Events
 
-        private void HandleOnStartButtonClicked(object sender, System.EventArgs e) {
+        private void OnStartButtonClicked(object sender, System.EventArgs e) {
             ViewModel.StartOrPauseTimer();
         }
 
-        private void HandleOnResetButtonClicked(object sender, System.EventArgs e) {
+        private void OnResetButtonClicked(object sender, System.EventArgs e) {
             ViewModel.ResetTimer();
         }
 

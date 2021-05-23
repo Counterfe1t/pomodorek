@@ -1,6 +1,7 @@
 ﻿using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -85,23 +86,30 @@ namespace Pomodorek.UWP {
         }
 
         private void SetWindowSizeAndTheme() {
+
+            // Set preferred windows size
             ApplicationView.PreferredLaunchViewSize = new Size(200, 200);
-            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+            ApplicationView.PreferredLaunchWindowingMode =
+                ApplicationViewWindowingMode.PreferredLaunchViewSize;
+
+            // Set titleBar appearance
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            titleBar.ForegroundColor = Windows.UI.Colors.Black;
-            titleBar.BackgroundColor = Windows.UI.Colors.White;
-            titleBar.ButtonForegroundColor = Windows.UI.Colors.Black;
-            titleBar.ButtonBackgroundColor = Windows.UI.Colors.White;
-            titleBar.ButtonHoverForegroundColor = Windows.UI.Colors.Black;
-            titleBar.ButtonHoverBackgroundColor = Windows.UI.Colors.LightGray;
+            titleBar.ForegroundColor = Windows.UI.Colors.Transparent;
+            titleBar.BackgroundColor = Windows.UI.Colors.Transparent;
+            titleBar.ButtonForegroundColor = Windows.UI.Colors.White;
+            titleBar.ButtonBackgroundColor = Windows.UI.Colors.Black;
+            titleBar.ButtonHoverForegroundColor = Windows.UI.Colors.White;
+            titleBar.ButtonHoverBackgroundColor = Windows.UI.Colors.DarkGray;
             titleBar.ButtonPressedForegroundColor = Windows.UI.Colors.White;
             titleBar.ButtonPressedBackgroundColor = Windows.UI.Colors.DarkGray;
-            titleBar.InactiveForegroundColor = Windows.UI.Colors.DarkGray;
-            titleBar.InactiveBackgroundColor = Windows.UI.Colors.White;
+            titleBar.InactiveForegroundColor = Windows.UI.Colors.White;
+            titleBar.InactiveBackgroundColor = Windows.UI.Colors.Black;
+            titleBar.ButtonInactiveForegroundColor = Windows.UI.Colors.White;
+            titleBar.ButtonInactiveBackgroundColor = Windows.UI.Colors.Black;
 
             // Hide default title bar.
-            //var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
-            //coreTitleBar.ExtendViewIntoTitleBar = true;
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
         }
     }
 }

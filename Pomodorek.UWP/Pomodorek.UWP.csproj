@@ -108,6 +108,9 @@
   <ItemGroup>
     <Content Include="Assets\Audio\timer_stop.wav" />
     <Content Include="Assets\Audio\timer_start.wav" />
+    <Content Include="Assets\Images\icon-pause18x18.png" />
+    <Content Include="Assets\Images\icon-start18x18.png" />
+    <Content Include="Assets\Images\icon-stop18x18.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
