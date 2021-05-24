@@ -63,6 +63,14 @@ namespace Pomodorek.ViewModels {
             }
         }
 
+        public bool IsPaused {
+            get => _applicationTimer.IsPaused;
+            set {
+                _applicationTimer.IsPaused = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         public MainPageViewModel() {

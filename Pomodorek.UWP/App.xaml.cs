@@ -88,7 +88,7 @@ namespace Pomodorek.UWP {
         private void SetWindowSizeAndTheme() {
 
             // Set preferred windows size
-            ApplicationView.PreferredLaunchViewSize = new Size(200, 200);
+            ApplicationView.PreferredLaunchViewSize = new Size(600, 400);
             ApplicationView.PreferredLaunchWindowingMode =
                 ApplicationViewWindowingMode.PreferredLaunchViewSize;
 
@@ -96,12 +96,12 @@ namespace Pomodorek.UWP {
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
             titleBar.ForegroundColor = Windows.UI.Colors.Transparent;
             titleBar.BackgroundColor = Windows.UI.Colors.Transparent;
-            titleBar.ButtonForegroundColor = Windows.UI.Colors.White;
-            titleBar.ButtonBackgroundColor = Windows.UI.Colors.Black;
+            titleBar.ButtonForegroundColor = Windows.UI.Color.FromArgb(0, 232, 17, 35);
+            titleBar.ButtonBackgroundColor = Windows.UI.Color.FromArgb(0, 24, 24, 24);
             titleBar.ButtonHoverForegroundColor = Windows.UI.Colors.White;
-            titleBar.ButtonHoverBackgroundColor = Windows.UI.Colors.DarkGray;
+            titleBar.ButtonHoverBackgroundColor = Windows.UI.Colors.Black;
             titleBar.ButtonPressedForegroundColor = Windows.UI.Colors.White;
-            titleBar.ButtonPressedBackgroundColor = Windows.UI.Colors.DarkGray;
+            titleBar.ButtonPressedBackgroundColor = Windows.UI.Colors.Black;
             titleBar.InactiveForegroundColor = Windows.UI.Colors.White;
             titleBar.InactiveBackgroundColor = Windows.UI.Colors.Black;
             titleBar.ButtonInactiveForegroundColor = Windows.UI.Colors.White;

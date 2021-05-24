@@ -8,10 +8,10 @@ namespace Pomodorek.Logic {
         #region IValueConverter
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            var isTimerEnabled = (bool)value;
-            return isTimerEnabled
-                ? "Assets/Images/icon-pause18x18.png"
-                : "Assets/Images/icon-start18x18.png";
+            var isTimerPaused = (bool)value;
+            return isTimerPaused
+                ? "Assets/Images/icon-start18x18.png"
+                : "Assets/Images/icon-pause18x18.png";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {

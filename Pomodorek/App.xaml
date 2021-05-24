@@ -11,17 +11,19 @@
 
             <Style TargetType="Button">
                 <Setter Property="BackgroundColor"
-                        Value="{StaticResource PrimaryColor}" />
+                        Value="{StaticResource BackgroundColor}" />
                 <Setter Property="TextColor"
                         Value="{StaticResource AccentColor}" />
+                <Setter Property="BorderColor"
+                        Value="{StaticResource AccentColor}" />
+                <Setter Property="BorderWidth"
+                        Value="2" />
                 <Setter Property="WidthRequest"
                         Value="45" />
                 <Setter Property="HeightRequest"
                         Value="45" />
                 <Setter Property="CornerRadius"
                         Value="30" />
-                <Setter Property="Margin"
-                        Value="0" />
             </Style>
 
         </ResourceDictionary>

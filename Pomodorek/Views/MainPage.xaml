@@ -12,55 +12,58 @@
         <local:StartButtonLabelConverter x:Key="StartButtonLabelConverter" />
         <local:NegationConverter x:Key="NegationConverter" />
     </ContentPage.Resources>
-    <StackLayout Margin="30">
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Cycles elapsed:" />
-            <Label Text="{Binding CyclesElapsed}" />
+    <StackLayout Margin="24, 24, 24, 16">
+
+        <StackLayout Orientation="Vertical">
+            <Label Text="{Binding CyclesElapsed, StringFormat='Elapsed: {0}'}" />
+            <Label Text="Set the length of session:" />
+            <StackLayout Orientation="Horizontal">
+                <Entry MaxLength="2"
+                       Text="{Binding SessionLength}"
+                       HorizontalTextAlignment="Center"
+                       IsEnabled="{Binding IsEnabled, Converter={StaticResource NegationConverter}}">
+                    <Entry.Behaviors>
+                        <local:NumericValidationBehavior />
+                    </Entry.Behaviors>
+                </Entry>
+                <Stepper Value="{Binding SessionLength}"
+                         Increment="1"
+                         Minimum="1"
+                         Maximum="99"
+                         BackgroundColor="{StaticResource AccentColor}"
+                         IsEnabled="{Binding IsEnabled, Converter={StaticResource NegationConverter}}" />
+            </StackLayout>
         </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Session length:" />
-            <Label Text="{Binding SessionLength}" />
+        
+        <!-- Timer -->
+        <StackLayout VerticalOptions="CenterAndExpand">
+            <StackLayout Orientation="Horizontal"
+                         VerticalOptions="Center"
+                         HorizontalOptions="Center">
+                <Label Text="{Binding Minutes, Converter={StaticResource NumberToStringConverter}}"
+                       FontSize="50" />
+                <Label Text=":"
+                       FontSize="40"
+                       Margin="-5, 2, -5, 0"
+                       HorizontalOptions="Center" />
+                <Label Text="{Binding Seconds, Converter={StaticResource NumberToStringConverter}}"
+                       FontSize="50" />
+            </StackLayout>
+            <Label Text="{Binding Mode, Converter={StaticResource TimerModeEnumToStringConverter}}"
+                   HorizontalOptions="Center"/>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Center"
+                         Margin="0, 15, 0, 0">
+                <Button ImageSource="{Binding IsPaused, Converter={StaticResource StartButtonLabelConverter}}"
+                        Clicked="OnStartButtonClicked"
+                        Margin="0, 0, 10, 0">
+                </Button>
+                <Button Clicked="OnResetButtonClicked"
+                        IsEnabled="{Binding IsEnabled}"
+                        ImageSource="Assets/Images/icon-stop18x18.png">
+                </Button>
+            </StackLayout>
         </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Enabled:" />
-            <Label Text="{Binding IsEnabled}" />
-        </StackLayout>
-        <StackLayout Orientation="Horizontal"
-                     HorizontalOptions="Center">
-            <Label Text="{Binding Minutes, Converter={StaticResource NumberToStringConverter}}"
-                   FontSize="50" />
-            <Label Text=":"
-                   FontSize="40"
-                   Margin="-5, 2, -5, 0"
-                   HorizontalOptions="Center" />
-            <Label Text="{Binding Seconds, Converter={StaticResource NumberToStringConverter}}"
-                   FontSize="50" />
-        </StackLayout>
-        <Label Text="{Binding Mode, Converter={StaticResource TimerModeEnumToStringConverter}}"
-               HorizontalOptions="Center" />
-        <StackLayout Orientation="Horizontal"
-                     HorizontalOptions="Center">
-            <Stepper Value="{Binding SessionLength}"
-                     BackgroundColor="{x:DynamicResource PrimaryColor}"
-                     Increment="1"
-                     Minimum="1"
-                     Maximum="99"
-                     IsEnabled="{Binding IsEnabled, Converter={StaticResource NegationConverter}}" />
-            <Entry MaxLength="2"
-                   Text="{Binding SessionLength}"
-                   HorizontalTextAlignment="Center"
-                   IsEnabled="{Binding IsEnabled, Converter={StaticResource NegationConverter}}">
-                <Entry.Behaviors>
-                    <local:NumericValidationBehavior />
-                </Entry.Behaviors>
-            </Entry>
-            <Button ImageSource="{Binding IsEnabled, Converter={StaticResource StartButtonLabelConverter}}"
-                    Clicked="OnStartButtonClicked">
-            </Button>
-            <Button Clicked="OnResetButtonClicked"
-                    IsEnabled="{Binding IsEnabled}"
-                    ImageSource="Assets/Images/icon-stop18x18.png">
-            </Button>
-        </StackLayout>
+        
     </StackLayout>
 </ContentPage>

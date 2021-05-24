@@ -18,6 +18,8 @@ namespace Pomodorek.Logic {
 
         public bool IsEnabled { get; set; }
 
+        public bool IsPaused { get; set; }
+
         public int Seconds { get; set; }
 
         public int Minutes { get; set; }
@@ -33,8 +35,6 @@ namespace Pomodorek.Logic {
         private Guid SessionId { get; set; }
 
         private MainPageViewModel ViewModel { get; set; }
-        
-        private bool IsPaused { get; set; }
 
         #endregion
 
@@ -44,8 +44,9 @@ namespace Pomodorek.Logic {
         }
 
         public void StartOrPauseTimer() {
+
             if (!IsPaused) {
-                IsPaused = true;
+                ViewModel.IsPaused = true;
                 return;
             }
 
@@ -67,7 +68,7 @@ namespace Pomodorek.Logic {
         private void StartTimer() {
             var sessionId = SessionId = Guid.NewGuid();
             ViewModel.IsEnabled = true;
-            IsPaused = false;
+            ViewModel.IsPaused = false;
 
             Device.StartTimer(TimeSpan.FromSeconds(1), () => {
                 if (sessionId != SessionId) {
@@ -159,6 +160,7 @@ namespace Pomodorek.Logic {
 
         private void UpdateView() {
             ViewModel.IsEnabled = IsEnabled;
+            ViewModel.IsPaused = IsPaused;
             ViewModel.Seconds = Seconds;
             ViewModel.Minutes = Minutes;
             ViewModel.Mode = Mode;

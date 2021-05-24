@@ -4,17 +4,28 @@
              RequestedTheme="Dark">
     <Application.Resources>
         <ResourceDictionary>
+            <!--ButtonPointerOver-->
             <SolidColorBrush x:Key="ButtonForegroundPointerOver"
                              Color="#e81123" />
             <SolidColorBrush x:Key="ButtonBackgroundPointerOver"
-                             Color="#757575" />
+                             Color="Black" />
             <SolidColorBrush x:Key="ButtonBorderBrushPointerOver"
                              Color="Transparent" />
+
+            <!--ButtonPressed-->
             <SolidColorBrush x:Key="ButtonForegroundPressed"
                              Color="#e81123" />
             <SolidColorBrush x:Key="ButtonBackgroundPressed"
-                             Color="#757575" />
+                             Color="Black" />
             <SolidColorBrush x:Key="ButtonBorderBrushPressed"
+                             Color="Transparent" />
+
+            <!--ButtonDisabled-->
+            <SolidColorBrush x:Key="ButtonForegroundDisabled"
+                             Color="Transparent" />
+            <SolidColorBrush x:Key="ButtonBackgroundDisabled"
+                             Color="Transparent" />
+            <SolidColorBrush x:Key="ButtonBorderBrushDisabled"
                              Color="Transparent" />
         </ResourceDictionary>
     </Application.Resources>
