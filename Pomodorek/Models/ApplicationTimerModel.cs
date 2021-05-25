@@ -1,18 +1,9 @@
-﻿using Pomodorek.Models;
-using Pomodorek.ViewModels;
+﻿using Pomodorek.ViewModels;
 using System;
 using Xamarin.Forms;
 
-namespace Pomodorek.Logic {
-    public class ApplicationTimer {
-
-        #region Constants
-
-        private const int _shortRestLength = 1; //5;
-        private const int _longRestLength = 2; //20;
-        private const int _workLength = 2; //25;
-
-        #endregion
+namespace Pomodorek.Models {
+    public class ApplicationTimerModel {
 
         #region Properties
 
@@ -38,7 +29,7 @@ namespace Pomodorek.Logic {
 
         #endregion
 
-        public ApplicationTimer(MainPageViewModel viewModel) {
+        public ApplicationTimerModel(MainPageViewModel viewModel) {
             ViewModel = viewModel;
             RestoreDataToDefault();
         }
@@ -85,7 +76,7 @@ namespace Pomodorek.Logic {
             IsPaused = true;
             Seconds = Minutes = CyclesElapsed = 0;
             Mode = TimerModeEnum.Disabled;
-            RestLength = _shortRestLength;
+            RestLength = Consts.ShortRestLength;
         }
 
         private bool HandleOnChooseTimerMode() =>
@@ -102,7 +93,7 @@ namespace Pomodorek.Logic {
                 Seconds = 0;
             }
 
-            if (Minutes >= _workLength) {
+            if (Minutes >= Consts.FocusLength) {
                 Minutes = 0;
                 ViewModel.CyclesElapsed = ++CyclesElapsed;
 
@@ -114,11 +105,11 @@ namespace Pomodorek.Logic {
                 }
 
                 if (CyclesElapsed % 4 == 0) {
-                    RestLength = _longRestLength;
+                    RestLength = Consts.LongRestLength;
                 }
 
                 ViewModel.Mode =
-                    RestLength == _shortRestLength
+                    RestLength == Consts.ShortRestLength
                         ? TimerModeEnum.Rest
                         : TimerModeEnum.LongRest;
                 var message =
@@ -144,8 +135,8 @@ namespace Pomodorek.Logic {
             if (Minutes >= RestLength) {
                 Minutes = 0;
 
-                if (RestLength >= _longRestLength) {
-                    RestLength = _shortRestLength;
+                if (RestLength >= Consts.LongRestLength) {
+                    RestLength = Consts.ShortRestLength;
                 }
 
                 ViewModel.Mode = TimerModeEnum.Focus;

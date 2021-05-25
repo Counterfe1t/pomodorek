@@ -50,19 +50,20 @@
                        FontSize="50" />
             </StackLayout>
             <Label Text="{Binding Mode, Converter={StaticResource TimerModeEnumToStringConverter}}"
-                   HorizontalOptions="Center"/>
-            <StackLayout Orientation="Horizontal"
-                         HorizontalOptions="Center"
-                         Margin="0, 15, 0, 0">
-                <Button ImageSource="{Binding IsPaused, Converter={StaticResource StartButtonLabelConverter}}"
-                        Clicked="OnStartButtonClicked"
-                        Margin="0, 0, 10, 0">
-                </Button>
-                <Button Clicked="OnResetButtonClicked"
-                        IsEnabled="{Binding IsEnabled}"
-                        ImageSource="Assets/Images/icon-stop18x18.png">
-                </Button>
-            </StackLayout>
+                   HorizontalOptions="Center" />
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="Center"
+                     Margin="0, 0, 0, 25">
+            <Button ImageSource="{Binding IsPaused, Converter={StaticResource StartButtonLabelConverter}}"
+                    Clicked="OnStartButtonClicked"
+                    Margin="0, 0, 10, 0">
+            </Button>
+            <Button Clicked="OnResetButtonClicked"
+                    IsEnabled="{Binding IsEnabled}"
+                    ImageSource="Assets/Images/icon-stop18x18.png">
+            </Button>
         </StackLayout>
         
     </StackLayout>

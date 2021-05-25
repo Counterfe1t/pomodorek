@@ -1,5 +1,4 @@
-﻿using Pomodorek.Logic;
-using Pomodorek.Models;
+﻿using Pomodorek.Models;
 using Pomodorek.Services;
 using System;
 using Xamarin.Forms;
@@ -7,7 +6,7 @@ using Xamarin.Forms;
 namespace Pomodorek.ViewModels {
     public class MainPageViewModel : BaseViewModel {
 
-        private readonly ApplicationTimer _applicationTimer;
+        private readonly ApplicationTimerModel _applicationTimer;
 
         private IDeviceNotificationService notificationService = null;
 
@@ -74,7 +73,7 @@ namespace Pomodorek.ViewModels {
         #endregion
 
         public MainPageViewModel() {
-            _applicationTimer = new ApplicationTimer(this);
+            _applicationTimer = new ApplicationTimerModel(this);
         }
 
         public void StartOrPauseTimer() {
