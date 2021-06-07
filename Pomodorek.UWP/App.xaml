@@ -8,7 +8,7 @@
             <SolidColorBrush x:Key="ButtonForegroundPointerOver"
                              Color="#e81123" />
             <SolidColorBrush x:Key="ButtonBackgroundPointerOver"
-                             Color="Black" />
+                             Color="White" />
             <SolidColorBrush x:Key="ButtonBorderBrushPointerOver"
                              Color="Transparent" />
 
@@ -16,7 +16,7 @@
             <SolidColorBrush x:Key="ButtonForegroundPressed"
                              Color="#e81123" />
             <SolidColorBrush x:Key="ButtonBackgroundPressed"
-                             Color="Black" />
+                             Color="White" />
             <SolidColorBrush x:Key="ButtonBorderBrushPressed"
                              Color="Transparent" />
 

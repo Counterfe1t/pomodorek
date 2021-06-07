@@ -70,6 +70,14 @@ namespace Pomodorek.ViewModels {
             }
         }
 
+        public double Progress {
+            get => _applicationTimer.Progress;
+            set {
+                _applicationTimer.Progress = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         public MainPageViewModel() {
@@ -88,7 +96,7 @@ namespace Pomodorek.ViewModels {
             notificationService = DependencyService.Get<IDeviceNotificationService>();
             using (notificationService as IDisposable) {
                 Device.BeginInvokeOnMainThread(async () => {
-                    await notificationService.DisplayNotification(message);
+                    await notificationService?.DisplayNotification(message);
                 });
             }
         }
@@ -97,7 +105,7 @@ namespace Pomodorek.ViewModels {
             notificationService = DependencyService.Get<IDeviceNotificationService>();
             using (notificationService as IDisposable) {
                 Device.BeginInvokeOnMainThread(async () => {
-                    await notificationService.DisplaySessionOverNotification(message);
+                    await notificationService?.DisplaySessionOverNotification(message);
                 });
             }
         }
@@ -106,7 +114,7 @@ namespace Pomodorek.ViewModels {
             soundService = DependencyService.Get<IDeviceSoundService>();
             using (soundService as IDisposable) {
                 Device.BeginInvokeOnMainThread(async () => {
-                    await soundService.PlayStartSound();
+                    await soundService?.PlayStartSound();
                 });
             }
         }

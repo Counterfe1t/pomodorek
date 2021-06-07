@@ -105,7 +105,7 @@ namespace Pomodorek.UWP {
             titleBar.InactiveForegroundColor = Windows.UI.Colors.White;
             titleBar.InactiveBackgroundColor = Windows.UI.Colors.Black;
             titleBar.ButtonInactiveForegroundColor = Windows.UI.Colors.White;
-            titleBar.ButtonInactiveBackgroundColor = Windows.UI.Colors.Black;
+            titleBar.ButtonInactiveBackgroundColor = Windows.UI.Color.FromArgb(0, 24, 24, 24);
 
             // Hide default title bar.
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;

@@ -2,7 +2,7 @@
     public enum TimerModeEnum {
         Disabled = 0,
         Focus = 1,
-        Rest = 2,
+        ShortRest = 2,
         LongRest = 3
     }
 }

@@ -13,7 +13,7 @@ namespace Pomodorek.Logic {
             switch (enumValue) {
                 case TimerModeEnum.Focus:
                     return Consts.FocusModeLabel;
-                case TimerModeEnum.Rest:
+                case TimerModeEnum.ShortRest:
                     return Consts.ShortRestModeLabel;
                 case TimerModeEnum.LongRest:
                     return Consts.LongRestModeLabel;

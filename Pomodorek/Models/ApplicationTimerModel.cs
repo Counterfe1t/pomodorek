@@ -23,6 +23,8 @@ namespace Pomodorek.Models {
 
         public int RestLength { get; set; }
 
+        public double Progress { get; set; }
+
         private Guid SessionId { get; set; }
 
         private MainPageViewModel ViewModel { get; set; }
@@ -77,6 +79,7 @@ namespace Pomodorek.Models {
             Seconds = Minutes = CyclesElapsed = 0;
             Mode = TimerModeEnum.Disabled;
             RestLength = Consts.ShortRestLength;
+            Progress = 0d;
         }
 
         private bool HandleOnChooseTimerMode() =>
@@ -110,17 +113,19 @@ namespace Pomodorek.Models {
 
                 ViewModel.Mode =
                     RestLength == Consts.ShortRestLength
-                        ? TimerModeEnum.Rest
+                        ? TimerModeEnum.ShortRest
                         : TimerModeEnum.LongRest;
                 var message =
-                    Mode == TimerModeEnum.Rest
+                    Mode == TimerModeEnum.ShortRest
                         ? Consts.ShortRestModeNotificationMessage
                         : Consts.LongRestModeNotificationMessage;
+                ViewModel.Progress = 0d;
                 ViewModel.DisplayNotification(message);
             }
 
             ViewModel.Seconds = Seconds;
             ViewModel.Minutes = Minutes;
+            SetProgress();
 
             return true;
         }
@@ -140,11 +145,13 @@ namespace Pomodorek.Models {
                 }
 
                 ViewModel.Mode = TimerModeEnum.Focus;
+                ViewModel.Progress = 0d;
                 ViewModel.DisplayNotification(Consts.FocusModeNotificationMessage);
             }
 
             ViewModel.Seconds = Seconds;
             ViewModel.Minutes = Minutes;
+            SetProgress();
 
             return true;
         }
@@ -156,6 +163,23 @@ namespace Pomodorek.Models {
             ViewModel.Minutes = Minutes;
             ViewModel.Mode = Mode;
             ViewModel.CyclesElapsed = CyclesElapsed;
+            ViewModel.Progress = Progress;
+        }
+
+        private void SetProgress() {
+            var maxProgress =
+                Mode == TimerModeEnum.Focus
+                    ? Consts.FocusLength * 4d
+                    : Mode == TimerModeEnum.ShortRest
+                        ? Consts.ShortRestLength * 4d
+                        : Mode == TimerModeEnum.LongRest
+                            ? Consts.LongRestLength
+                            : 0f;
+
+            var elapsed = (Minutes * 4d) + Seconds;
+            var value = Math.Round(elapsed / maxProgress, 2);
+
+            ViewModel.Progress = value;
         }
 
         #endregion

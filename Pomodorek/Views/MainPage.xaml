@@ -34,7 +34,7 @@
                          IsEnabled="{Binding IsEnabled, Converter={StaticResource NegationConverter}}" />
             </StackLayout>
         </StackLayout>
-        
+
         <!-- Timer -->
         <StackLayout VerticalOptions="CenterAndExpand">
             <StackLayout Orientation="Horizontal"
@@ -51,6 +51,8 @@
             </StackLayout>
             <Label Text="{Binding Mode, Converter={StaticResource TimerModeEnumToStringConverter}}"
                    HorizontalOptions="Center" />
+            <ProgressBar ProgressColor="{StaticResource AccentColor}"
+                         Progress="{Binding Progress}" />
         </StackLayout>
 
         <StackLayout Orientation="Horizontal"
@@ -65,6 +67,6 @@
                     ImageSource="Assets/Images/icon-stop18x18.png">
             </Button>
         </StackLayout>
-        
+
     </StackLayout>
 </ContentPage>
