@@ -91,7 +91,7 @@ namespace Pomodorek.Models {
 
         private bool HandleOnFocusIntervalElapsed() {
             Seconds++;
-            if (Seconds >= 4) {
+            if (Seconds >= 60) {
                 Minutes++;
                 Seconds = 0;
             }
@@ -132,7 +132,7 @@ namespace Pomodorek.Models {
 
         private bool HandleOnRestIntervalElapsed() {
             Seconds++;
-            if (Seconds >= 4) {
+            if (Seconds >= 60) {
                 Minutes++;
                 Seconds = 0;
             }
@@ -169,14 +169,14 @@ namespace Pomodorek.Models {
         private void SetProgress() {
             var maxProgress =
                 Mode == TimerModeEnum.Focus
-                    ? Consts.FocusLength * 4d
+                    ? Consts.FocusLength * 60d
                     : Mode == TimerModeEnum.ShortRest
-                        ? Consts.ShortRestLength * 4d
+                        ? Consts.ShortRestLength * 60d
                         : Mode == TimerModeEnum.LongRest
-                            ? Consts.LongRestLength
+                            ? Consts.LongRestLength * 60d
                             : 0f;
 
-            var elapsed = (Minutes * 4d) + Seconds;
+            var elapsed = (Minutes * 60d) + Seconds;
             var value = Math.Round(elapsed / maxProgress, 2);
 
             ViewModel.Progress = value;
