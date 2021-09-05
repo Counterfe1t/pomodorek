@@ -2,15 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
-             xmlns:local="clr-namespace:Pomodorek.Logic"
+             xmlns:logic="clr-namespace:Pomodorek.Logic"
              x:Class="Pomodorek.MainPage"
              x:DataType="viewmodels:MainPageViewModel"
              BackgroundColor="{StaticResource BackgroundColor}">
     <ContentPage.Resources>
-        <local:NumberToStringConverter x:Key="NumberToStringConverter" />
-        <local:TimerModeEnumToStringConverter x:Key="TimerModeEnumToStringConverter" />
-        <local:StartButtonLabelConverter x:Key="StartButtonLabelConverter" />
-        <local:NegationConverter x:Key="NegationConverter" />
+        <logic:NumberToStringConverter x:Key="NumberToStringConverter" />
+        <logic:TimerModeEnumToStringConverter x:Key="TimerModeEnumToStringConverter" />
+        <logic:StartButtonLabelConverter x:Key="StartButtonLabelConverter" />
+        <logic:NegationConverter x:Key="NegationConverter" />
     </ContentPage.Resources>
     <StackLayout Margin="24, 24, 24, 16">
 
@@ -18,14 +18,18 @@
             <Label Text="{Binding CyclesElapsed, StringFormat='Elapsed: {0}'}" />
             <Label Text="Set the length of session:" />
             <StackLayout Orientation="Horizontal">
-                <Entry MaxLength="2"
-                       Text="{Binding SessionLength}"
-                       HorizontalTextAlignment="Center"
-                       IsEnabled="{Binding IsEnabled, Converter={StaticResource NegationConverter}}">
-                    <Entry.Behaviors>
-                        <local:NumericValidationBehavior />
-                    </Entry.Behaviors>
-                </Entry>
+                <Frame
+                    CornerRadius="7"
+                    Padding="-2">
+                    <Entry MaxLength="2"
+                           Text="{Binding SessionLength}"
+                           HorizontalTextAlignment="Center"
+                           IsEnabled="{Binding IsEnabled, Converter={StaticResource NegationConverter}}">
+                        <Entry.Behaviors>
+                            <logic:NumericValidationBehavior />
+                        </Entry.Behaviors>
+                    </Entry>
+                </Frame>
                 <Stepper Value="{Binding SessionLength}"
                          Increment="1"
                          Minimum="1"
