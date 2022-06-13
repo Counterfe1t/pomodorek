@@ -11,11 +11,7 @@ using Xamarin.Forms;
 namespace Pomodorek.UWP.Services {
     public class WindowsSoundService : IDeviceSoundService {
 
-        public async Task PlayStartSound() {
-            await PlaySound("timer_start");
-        }
-
-        private async Task PlaySound(string fileName) {
+        public async Task PlaySound(string fileName) {
             var mysong = new MediaElement();
             var folder =
                 await (await Package.Current.InstalledLocation.GetFolderAsync("Assets"))
@@ -28,6 +24,11 @@ namespace Pomodorek.UWP.Services {
                     .OpenAsync(FileAccessMode.Read);
             mysong.SetSource(stream, file.ContentType);
             mysong.Play();
+        }
+
+        public async Task PlayStartSound()
+        {
+            await PlaySound("timer_start");
         }
     }
 }

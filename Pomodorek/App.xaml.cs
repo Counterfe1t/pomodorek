@@ -1,20 +1,26 @@
-﻿using Xamarin.Forms;
+﻿using Pomodorek.Views;
+using Xamarin.Forms;
 
-namespace Pomodorek {
-    public partial class App : Application {
-        public App() {
+namespace Pomodorek
+{
+    public partial class App : Application
+    {
+        public App()
+        {
             InitializeComponent();
-
             MainPage = new MainPage();
         }
 
-        protected override void OnStart() {
+        protected override void OnStart()
+        {
         }
 
-        protected override void OnSleep() {
+        protected override void OnSleep()
+        {
         }
 
-        protected override void OnResume() {
+        protected override void OnResume()
+        {
         }
     }
 }

@@ -6,19 +6,25 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(WindowsNotificationService))]
-namespace Pomodorek.UWP.Services {
-    public class WindowsNotificationService : IDeviceNotificationService {
+namespace Pomodorek.UWP.Services
+{
+    public class WindowsNotificationService : IDeviceNotificationService
+    {
 
-        public async Task DisplayNotification(string message) {
-            await Task.Run(() => {
+        public async Task DisplayNotification(string message)
+        {
+            await Task.Run(() =>
+            {
                 new ToastContentBuilder()
                     .AddText(message)
                     .Show();
             });
         }
 
-        public async Task DisplaySessionOverNotification(string message) {
-            await Task.Run(() => {
+        public async Task DisplaySessionOverNotification(string message)
+        {
+            await Task.Run(() =>
+            {
                 new ToastContentBuilder()
                     .AddText(message)
                     .AddAudio(

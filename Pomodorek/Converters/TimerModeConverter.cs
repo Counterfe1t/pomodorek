@@ -3,27 +3,31 @@ using System;
 using System.Globalization;
 using Xamarin.Forms;
 
-namespace Pomodorek.Logic {
-    public class TimerModeEnumToStringConverter : IValueConverter {
-
+namespace Pomodorek.Converters
+{
+    public class TimerModeConverter : IValueConverter
+    {
         #region IValueConverter
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
             var enumValue = (TimerModeEnum)value;
-            switch (enumValue) {
+            switch (enumValue)
+            {
                 case TimerModeEnum.Focus:
-                    return Consts.FocusModeLabel;
+                    return Constants.FocusModeLabel;
                 case TimerModeEnum.ShortRest:
-                    return Consts.ShortRestModeLabel;
+                    return Constants.ShortRestModeLabel;
                 case TimerModeEnum.LongRest:
-                    return Consts.LongRestModeLabel;
+                    return Constants.LongRestModeLabel;
                 case TimerModeEnum.Disabled:
                 default:
                     return string.Empty;
             }
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
             throw new NotImplementedException();
         }
 

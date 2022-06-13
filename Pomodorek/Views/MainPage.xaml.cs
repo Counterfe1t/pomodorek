@@ -1,25 +1,30 @@
 ﻿using Pomodorek.ViewModels;
 using Xamarin.Forms;
+using System;
 
-namespace Pomodorek {
-    public partial class MainPage : ContentPage {
+namespace Pomodorek.Views
+{
+    public partial class MainPage : ContentPage
+    {
+        public TimerViewModel ViewModel { get; set; }
 
-        public MainPageViewModel ViewModel { get; set; }
-
-        public MainPage() {
+        public MainPage()
+        {
             InitializeComponent();
-            ViewModel = new MainPageViewModel();
+            ViewModel = new TimerViewModel();
             BindingContext = ViewModel;
         }
 
         #region Events
 
-        private void OnStartButtonClicked(object sender, System.EventArgs e) {
-            ViewModel.StartOrPauseTimer();
+        private void OnStartButtonClicked(object sender, EventArgs e)
+        {
+            ViewModel.StartSession();
         }
 
-        private void OnResetButtonClicked(object sender, System.EventArgs e) {
-            ViewModel.ResetTimer();
+        private void OnStopButtonClicked(object sender, EventArgs e)
+        {
+            ViewModel.StopSession();
         }
 
         #endregion
