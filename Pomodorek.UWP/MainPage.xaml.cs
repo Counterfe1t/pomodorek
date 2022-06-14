@@ -4,27 +4,30 @@ using System;
 using Windows.ApplicationModel.ExtendedExecution;
 using Xamarin.Forms;
 
-namespace Pomodorek.UWP {
-    public sealed partial class MainPage {
+namespace Pomodorek.UWP
+{
+    public sealed partial class MainPage
+    {
+        private ExtendedExecutionSession _session;
 
-        private ExtendedExecutionSession session = null;
-
-        public MainPage() {
+        public MainPage()
+        {
             InitializeComponent();
             BeginExtendedExecution();
-
             LoadApplication(new Pomodorek.App());
-
             DependencyService.Register<IDeviceNotificationService, WindowsNotificationService>();
             DependencyService.Register<IDeviceSoundService, WindowsSoundService>();
         }
 
-        private async void BeginExtendedExecution() {
-            var newSession = new ExtendedExecutionSession {
+        // todo: figure out why this is necessary
+        private async void BeginExtendedExecution()
+        {
+            var newSession = new ExtendedExecutionSession
+            {
                 Reason = ExtendedExecutionReason.Unspecified
             };
-            session = newSession;
-            _ = await session.RequestExtensionAsync();
+            _session = newSession;
+            _ = await _session.RequestExtensionAsync();
         }
     }
 }

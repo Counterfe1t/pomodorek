@@ -4,8 +4,8 @@
              xmlns:converters="clr-namespace:Pomodorek.Converters"
              xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
              x:Class="Pomodorek.Views.MainPage"
-             x:DataType="viewmodels:TimerViewModel">
-    <!--BackgroundColor="{StaticResource BackgroundColor}"-->
+             x:DataType="viewmodels:TimerViewModel"
+             BackgroundColor="{StaticResource DarkGray}">
     <ContentPage.Resources>
         <converters:TimeConverter x:Key="TimeConverter" />
         <converters:TimerModeConverter x:Key="TimerModeConverter" />
@@ -57,71 +57,5 @@
                     Text="STOP"
                     IsEnabled="{Binding IsRunning}" />
         </Grid>
-
-        <!--<StackLayout Orientation="Horizontal"
-                     HorizontalOptions="Center"
-                     Margin="0, 0, 0, 25">
-            <Button ImageSource="{Binding IsPaused, Converter={StaticResource StartButtonLabelConverter}}"
-                    Clicked="OnStartButtonClicked"
-                    Margin="0, 0, 10, 0">
-            </Button>
-            <Button Clicked="OnStopButtonClicked"
-                    ImageSource="Assets/Images/icon-stop18x18.png">
-            </Button>
-        </StackLayout>
-        <StackLayout Orientation="Vertical">
-            <Label Text="{Binding CyclesElapsed, StringFormat='Elapsed: {0}'}" />
-            <Label Text="Set the length of session:" />
-            <StackLayout Orientation="Horizontal">
-                <Frame
-                    CornerRadius="7"
-                    Padding="-2">
-                    <Entry MaxLength="2"
-                           Text="{Binding SessionLength}"
-                           HorizontalTextAlignment="Center"
-                           IsEnabled="{Binding IsEnabled, Converter={StaticResource NegationConverter}}">
-                        <Entry.Behaviors>
-                            <logic:NumericValidationBehavior />
-                        </Entry.Behaviors>
-                    </Entry>
-                </Frame>
-                <Stepper Value="{Binding SessionLength}"
-                         Increment="1"
-                         Minimum="1"
-                         Maximum="99"
-                         BackgroundColor="{StaticResource AccentColor}"
-                         IsEnabled="{Binding IsEnabled, Converter={StaticResource NegationConverter}}" />
-            </StackLayout>
-        </StackLayout>
-        <StackLayout VerticalOptions="CenterAndExpand">
-            <StackLayout Orientation="Horizontal"
-                         VerticalOptions="Center"
-                         HorizontalOptions="Center">
-                <Label Text="{Binding Minutes, Converter={StaticResource NumberToStringConverter}}"
-                       FontSize="50" />
-                <Label Text=":"
-                       FontSize="40"
-                       Margin="-5, 2, -5, 0"
-                       HorizontalOptions="Center" />
-                <Label Text="{Binding Seconds, Converter={StaticResource NumberToStringConverter}}"
-                       FontSize="50" />
-            </StackLayout>
-            <Label Text="{Binding Mode, Converter={StaticResource TimerModeEnumToStringConverter}}"
-                   HorizontalOptions="Center" />
-            <ProgressBar ProgressColor="{StaticResource AccentColor}"
-                         Progress="{Binding Progress}" />
-        </StackLayout>
-        <StackLayout Orientation="Horizontal"
-                     HorizontalOptions="Center"
-                     Margin="0, 0, 0, 25">
-            <Button ImageSource="{Binding IsPaused, Converter={StaticResource StartButtonLabelConverter}}"
-                    Clicked="OnStartButtonClicked"
-                    Margin="0, 0, 10, 0">
-            </Button>
-            <Button Clicked="OnResetButtonClicked"
-                    IsEnabled="{Binding IsEnabled}"
-                    ImageSource="Assets/Images/icon-stop18x18.png">
-            </Button>
-        </StackLayout>-->
     </StackLayout>
 </ContentPage>

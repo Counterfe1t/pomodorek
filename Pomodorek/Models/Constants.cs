@@ -4,7 +4,7 @@
     {
         public const short FocusLength = 25 * 60;
         public const short ShortRestLength = 5 * 60;
-        public const short LongRestLength = 20 * 60;
+        public const short LongRestLength = 15 * 60; // 15-30 min break
 
         public const string FocusModeLabel = "FOCUS";
         public const string ShortRestModeLabel = "REST";

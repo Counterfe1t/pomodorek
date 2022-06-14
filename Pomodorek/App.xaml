@@ -4,26 +4,24 @@
              x:Class="Pomodorek.App">
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="BackgroundColor">#181818</Color>
-            <Color x:Key="PrimaryColor">#4f4f4f</Color>
-            <Color x:Key="SecondaryColor">#757575</Color>
-            <Color x:Key="AccentColor">#e81123</Color>
+            <Color x:Key="DarkGray">#181818</Color>
+            <Color x:Key="LightGray">#373737</Color>
+            <Color x:Key="Red">#e81123</Color>
+
+            <Style TargetType="Entry">
+                <Setter Property="BackgroundColor"
+                        Value="{StaticResource DarkGray}" />
+            </Style>
 
             <Style TargetType="Button">
                 <Setter Property="BackgroundColor"
-                        Value="{StaticResource BackgroundColor}" />
-                <Setter Property="TextColor"
-                        Value="{StaticResource AccentColor}" />
-                <Setter Property="BorderColor"
-                        Value="{StaticResource AccentColor}" />
+                        Value="{StaticResource LightGray}" />
                 <Setter Property="BorderWidth"
-                        Value="2" />
-                <Setter Property="WidthRequest"
-                        Value="45" />
+                        Value="0" />
                 <Setter Property="HeightRequest"
-                        Value="45" />
+                        Value="40" />
                 <Setter Property="CornerRadius"
-                        Value="30" />
+                        Value="16" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>
