@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
+             xmlns:converters="clr-namespace:Pomodorek.Converters"
+             xmlns:behaviors="clr-namespace:Pomodorek.Behaviors"
+             x:Class="Pomodorek.MainPage"
+             x:DataType="viewmodels:MainPageViewModel">
+    <ContentPage.Resources>
+        <converters:TimeConverter x:Key="TimeConverter" />
+        <converters:TimerStatusConverter x:Key="TimerStatusConverter" />
+        <converters:NegationConverter x:Key="NegationConverter" />
+        <behaviors:NumericValidationBehavior x:Key="NumericValidationBehavior" />
+    </ContentPage.Resources>
+    <Grid Padding="25"
+          RowSpacing="10"
+          ColumnSpacing="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="75" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0"
+               Grid.ColumnSpan="2"
+               VerticalOptions="Center"
+               Text="Set number of sessions"
+               FontSize="25" />
+
+        <HorizontalStackLayout Grid.Row="1"
+                               Spacing="15">
+            <Entry MaxLength="2"
+                   WidthRequest="60"
+                   Text="{Binding SessionLength}"
+                   HorizontalTextAlignment="Center"
+                   IsEnabled="{Binding IsRunning, Converter={StaticResource NegationConverter}}">
+                <Entry.Behaviors>
+                    <behaviors:NumericValidationBehavior />
+                </Entry.Behaviors>
+            </Entry>
+            <Stepper Value="{Binding SessionLength}"
+                     Increment="1"
+                     Minimum="1"
+                     Maximum="99"
+                     IsEnabled="{Binding IsRunning, Converter={StaticResource NegationConverter}}" />
+        </HorizontalStackLayout>
+
+        <VerticalStackLayout Grid.Row="2"
+                             Grid.ColumnSpan="2"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center">
+            <Label HorizontalOptions="Center"
+                   Text="{Binding Seconds, Converter={StaticResource TimeConverter}}"
+                   FontSize="75" />
+            <Label HorizontalOptions="Center"
+                   Text="{Binding Status, Converter={StaticResource TimerStatusConverter}}"
+                   FontSize="35" />
+        </VerticalStackLayout>
+
+        <!--there is a bug regarding visual state not being updated after changes to IsEnabled property
+        https://github.com/dotnet/maui/issues/7377-->
+        <Button Grid.Row="3"
+                Grid.Column="0"
+                Text="Start"
+                FontSize="35"
+                CornerRadius="15"
+                SemanticProperties.Hint="Start timer"
+                Clicked="OnStartButtonClicked" />
+
+        <Button Grid.Row="3"
+                Grid.Column="1"
+                Text="Stop"
+                FontSize="35"
+                CornerRadius="15"
+                SemanticProperties.Hint="Stop timer"
+                Clicked="OnStopButtonClicked" />
+    </Grid>
+</ContentPage>

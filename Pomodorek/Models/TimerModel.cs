@@ -1,36 +1,40 @@
-﻿using System;
-using System.Threading;
-using Xamarin.Forms;
-
-namespace Pomodorek.Models
+﻿namespace Pomodorek.Models
 {
     public class TimerModel
     {
+        private readonly IDispatcherTimer _timer;
         private readonly Action _callback;
-        private static CancellationTokenSource _cancellationToken;
+        private static CancellationTokenSource _token;
 
+        // todo: write unit tests
         public TimerModel(Action callback)
         {
+            _timer = Application.Current.Dispatcher.CreateTimer();
+            _timer.Interval = TimeSpan.FromMilliseconds(1000);
             _callback = callback;
-            _cancellationToken = new CancellationTokenSource();
+            _token = new CancellationTokenSource();
         }
 
         public void Start()
         {
-            var token = _cancellationToken;
-            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-            {
-                if (token.IsCancellationRequested)
-                    return false;
-                _callback.Invoke();
-                return true;
-            });
+            _timer.Tick += OnTickEvent;
+            _timer.Start();
         }
 
         public void Stop()
         {
-            _cancellationToken.Cancel();
-            Interlocked.Exchange(ref _cancellationToken, new CancellationTokenSource());
+            // todo: stopping does not work od android
+            _token.Cancel();
+            Interlocked.Exchange(ref _token, new CancellationTokenSource());
+            _timer.Stop();
+            _timer.Tick -= OnTickEvent;
+        }
+
+        private void OnTickEvent(object e, EventArgs sender)
+        {
+            if (_token.IsCancellationRequested)
+                _timer.Stop();
+            _callback.Invoke();
         }
     }
 }

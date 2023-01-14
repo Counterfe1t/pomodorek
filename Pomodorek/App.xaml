@@ -1,28 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Pomodorek"
              x:Class="Pomodorek.App">
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="DarkGray">#181818</Color>
-            <Color x:Key="LightGray">#373737</Color>
-            <Color x:Key="Red">#e81123</Color>
-
-            <Style TargetType="Entry">
-                <Setter Property="BackgroundColor"
-                        Value="{StaticResource DarkGray}" />
-            </Style>
-
-            <Style TargetType="Button">
-                <Setter Property="BackgroundColor"
-                        Value="{StaticResource LightGray}" />
-                <Setter Property="BorderWidth"
-                        Value="0" />
-                <Setter Property="HeightRequest"
-                        Value="40" />
-                <Setter Property="CornerRadius"
-                        Value="16" />
-            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
