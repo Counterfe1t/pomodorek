@@ -33,9 +33,11 @@
                FontSize="25" />
 
         <HorizontalStackLayout Grid.Row="1"
+                               Grid.ColumnSpan="2"
                                Spacing="15">
             <Entry MaxLength="2"
-                   WidthRequest="60"
+                   WidthRequest="50"
+                   HeightRequest="{OnPlatform Android=50}"
                    Text="{Binding SessionLength}"
                    HorizontalTextAlignment="Center"
                    IsEnabled="{Binding IsRunning, Converter={StaticResource NegationConverter}}">
@@ -47,7 +49,7 @@
                      Increment="1"
                      Minimum="1"
                      Maximum="99"
-                     IsEnabled="{Binding IsRunning, Converter={StaticResource NegationConverter}}" />
+                     IsVisible="{Binding IsRunning, Converter={StaticResource NegationConverter}}" />
         </HorizontalStackLayout>
 
         <VerticalStackLayout Grid.Row="2"
