@@ -9,21 +9,14 @@ namespace Pomodorek.Converters
         #region IValueConverter
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var enumValue = (TimerStatusEnum)value;
-            switch (enumValue)
+
+            => (TimerStatusEnum)value switch
             {
-                case TimerStatusEnum.Focus:
-                    return Constants.FocusModeLabel;
-                case TimerStatusEnum.ShortRest:
-                    return Constants.ShortRestModeLabel;
-                case TimerStatusEnum.LongRest:
-                    return Constants.LongRestModeLabel;
-                case TimerStatusEnum.Disabled:
-                default:
-                    return string.Empty;
-            }
-        }
+                TimerStatusEnum.Focus => Constants.FocusModeLabel,
+                TimerStatusEnum.ShortRest => Constants.ShortRestModeLabel,
+                TimerStatusEnum.LongRest => Constants.LongRestModeLabel,
+                _ => string.Empty,
+            };
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

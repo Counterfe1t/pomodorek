@@ -9,6 +9,7 @@ namespace Pomodorek.ViewModels
     {
         private readonly TimerModel _timer;
         //private NotificationService _notificationService;
+        // todo: create sound service
         //private IDeviceSoundService _soundService;
 
         #region Properties
@@ -20,14 +21,14 @@ namespace Pomodorek.ViewModels
             set => SetProperty(ref _seconds, value);
         }
 
-        private TimerStatusEnum _status = TimerStatusEnum.Disabled;
+        private TimerStatusEnum _status = TimerStatusEnum.Stopped;
         public TimerStatusEnum Status
         {
             get => _status;
             set => SetProperty(ref _status, value);
         }
 
-        // todo: change property so it represents state of the timer
+        // todo: change property so it represents state of the timer (running, paused, stopped)
         private bool _isRunning = false;
         public bool IsRunning
         {
@@ -72,7 +73,7 @@ namespace Pomodorek.ViewModels
             _timer.Stop();
             Seconds = 0;
             IsRunning = false;
-            Status = TimerStatusEnum.Disabled;
+            Status = TimerStatusEnum.Stopped;
         }
 
         #region Services
@@ -92,6 +93,7 @@ namespace Pomodorek.ViewModels
             //{
             //    _notificationService.DisplayNotification(message);
             //}
+            // todo: inject notification service as dependency
             NotificationService.DisplayNotification(message);
         }
 
@@ -152,7 +154,7 @@ namespace Pomodorek.ViewModels
                     SetTimer(Constants.FocusLength, TimerStatusEnum.Focus);
                     DisplayNotification(Constants.FocusNotificationMessage);
                     break;
-                case TimerStatusEnum.Disabled:
+                case TimerStatusEnum.Stopped:
                 default:
                     break;
             }

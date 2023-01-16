@@ -2,7 +2,7 @@
 {
     public enum TimerStatusEnum
     {
-        Disabled = 0,
+        Stopped = 0,
         Focus = 1,
         ShortRest = 2,
         LongRest = 3
