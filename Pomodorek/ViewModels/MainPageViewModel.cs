@@ -5,6 +5,7 @@ using Pomodorek.Services;
 
 namespace Pomodorek.ViewModels
 {
+    // todo: write unit tests
     public class MainPageViewModel : BaseViewModel
     {
         private readonly TimerModel _timer;

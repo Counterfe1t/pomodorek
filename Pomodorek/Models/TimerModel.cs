@@ -5,7 +5,6 @@
         private readonly Action _callback;
         private static CancellationTokenSource _token;
 
-        // todo: write unit tests
         public TimerModel(Action callback)
         {
             _callback = callback;
