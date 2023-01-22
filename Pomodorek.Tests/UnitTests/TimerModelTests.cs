@@ -1,7 +1,4 @@
-﻿using Moq;
-using Pomodorek.Models;
-
-namespace Pomodorek.Tests.UnitTests
+﻿namespace Pomodorek.Tests.UnitTests
 {
     public class TimerModelTests
     {
