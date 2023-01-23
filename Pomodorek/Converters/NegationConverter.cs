@@ -1,19 +1,18 @@
 ﻿using System.Globalization;
 
-namespace Pomodorek.Converters
+namespace Pomodorek.Converters;
+
+public class NegationConverter : IValueConverter
 {
-    public class NegationConverter : IValueConverter
+    #region IValueConverter
+
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        => !(bool)value;
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        #region IValueConverter
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => !(bool)value;
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
+        throw new NotImplementedException();
     }
+
+    #endregion
 }

@@ -49,10 +49,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Views\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="3.0.0" />
 	</ItemGroup>
 

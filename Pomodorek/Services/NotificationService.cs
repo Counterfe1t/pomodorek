@@ -1,10 +1,8 @@
-﻿namespace Pomodorek.Services
-{
-    public static partial class NotificationService
-    {
-        public static void DisplayNotification(string message)
-            => DisplayNotificationHandler(message);
+﻿namespace Pomodorek.Services;
 
-        static partial void DisplayNotificationHandler(string message);
-    }
+public static partial class NotificationService
+{
+    public static void DisplayNotification(string message) => DisplayNotificationHandler(message);
+
+    static partial void DisplayNotificationHandler(string message);
 }

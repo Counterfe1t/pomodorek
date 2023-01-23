@@ -1,29 +1,28 @@
-﻿namespace Pomodorek.Behaviors
+﻿namespace Pomodorek.Behaviors;
+
+public class NumericValidationBehavior : Behavior<Entry>
 {
-    public class NumericValidationBehavior : Behavior<Entry>
+    protected override void OnAttachedTo(Entry entry)
     {
-        protected override void OnAttachedTo(Entry entry)
-        {
-            entry.TextChanged += OnEntryTextChanged;
-            base.OnAttachedTo(entry);
-        }
+        entry.TextChanged += OnEntryTextChanged;
+        base.OnAttachedTo(entry);
+    }
 
-        protected override void OnDetachingFrom(Entry entry)
-        {
-            entry.TextChanged -= OnEntryTextChanged;
-            base.OnDetachingFrom(entry);
-        }
+    protected override void OnDetachingFrom(Entry entry)
+    {
+        entry.TextChanged -= OnEntryTextChanged;
+        base.OnDetachingFrom(entry);
+    }
 
-        private static void OnEntryTextChanged(object sender, TextChangedEventArgs args)
-        {
-            if (string.IsNullOrWhiteSpace(args.NewTextValue))
-                return;
+    private static void OnEntryTextChanged(object sender, TextChangedEventArgs args)
+    {
+        if (string.IsNullOrWhiteSpace(args.NewTextValue))
+            return;
 
-            var isDigit = int.TryParse(args.NewTextValue, out int value);
+        var isDigit = int.TryParse(args.NewTextValue, out int value);
 
-            ((Entry)sender).Text = isDigit && value > 0
-                ? args.NewTextValue
-                : args.NewTextValue.Remove(args.NewTextValue.Length - 1);
-        }
+        ((Entry)sender).Text = isDigit && value > 0
+            ? args.NewTextValue
+            : args.NewTextValue.Remove(args.NewTextValue.Length - 1);
     }
 }

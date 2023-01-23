@@ -1,10 +1,9 @@
-﻿namespace Pomodorek.Resources.Enums
+﻿namespace Pomodorek.Resources.Enums;
+
+public enum TimerStatusEnum
 {
-    public enum TimerStatusEnum
-    {
-        Stopped = 0,
-        Focus = 1,
-        ShortRest = 2,
-        LongRest = 3
-    }
+    Stopped = 0,
+    Focus = 1,
+    ShortRest = 2,
+    LongRest = 3
 }

@@ -4,7 +4,7 @@
              xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
              xmlns:converters="clr-namespace:Pomodorek.Converters"
              xmlns:behaviors="clr-namespace:Pomodorek.Behaviors"
-             x:Class="Pomodorek.MainPage"
+             x:Class="Pomodorek.Views.MainPage"
              x:DataType="viewmodels:MainPageViewModel">
     <ContentPage.Resources>
         <converters:TimeConverter x:Key="TimeConverter" />
@@ -13,18 +13,10 @@
         <behaviors:NumericValidationBehavior x:Key="NumericValidationBehavior" />
     </ContentPage.Resources>
     <Grid Padding="25"
+          RowDefinitions="Auto, Auto, *, 75"
           RowSpacing="10"
+          ColumnDefinitions="*, *"
           ColumnSpacing="25">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="75" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0"
                Grid.ColumnSpan="2"

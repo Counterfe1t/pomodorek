@@ -1,43 +1,42 @@
-﻿namespace Pomodorek.Tests.UnitTests
+﻿namespace Pomodorek.Tests.UnitTests;
+
+public class TimerModelTests
 {
-    public class TimerModelTests
+    private readonly TimerModel _timer;
+    private readonly Mock<Action> _callbackMock;
+
+    public TimerModelTests()
     {
-        private readonly TimerModel _timer;
-        private readonly Mock<Action> _callbackMock;
+        _callbackMock = new Mock<Action>();
+        _timer = new TimerModel(_callbackMock.Object);
+    }
 
-        public TimerModelTests()
-        {
-            _callbackMock = new Mock<Action>();
-            _timer = new TimerModel(_callbackMock.Object);
-        }
+    [Fact]
+    public async Task Start_WhenCalled_CallbackIsInvoked()
+    {
+        // arrange
+        _callbackMock.Invocations.Clear();
 
-        [Fact]
-        public async Task Start_WhenCalled_CallbackIsInvoked()
-        {
-            // arrange
-            _callbackMock.Invocations.Clear();
+        // act
+        _timer.Start();
+        await Task.Delay(1000);
 
-            // act
-            _timer.Start();
-            await Task.Delay(1000);
+        // assert
+        _callbackMock.Verify(x => x.Invoke(), Times.AtLeastOnce);
+    }
 
-            // assert
-            _callbackMock.Verify(x => x.Invoke(), Times.AtLeastOnce);
-        }
+    [Fact]
+    public async Task Start_WhenStoppedAfterOneSecond_CallbackIsInvokedOnce()
+    {
+        // arrange
+        _callbackMock.Invocations.Clear();
 
-        [Fact]
-        public async Task Start_WhenStoppedAfterOneSecond_CallbackIsInvokedOnce()
-        {
-            // arrange
-            _callbackMock.Invocations.Clear();
+        // act
+        _timer.Start();
+        await Task.Delay(1000);
+        _timer.Stop();
 
-            // act
-            _timer.Start();
-            await Task.Delay(1000);
-            _timer.Stop();
-
-            // assert
-            _callbackMock.Verify(x => x.Invoke(), Times.Once);
-        }
+        // assert
+        _callbackMock.Verify(x => x.Invoke(), Times.Once);
     }
 }
