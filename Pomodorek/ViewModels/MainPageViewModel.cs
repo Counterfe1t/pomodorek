@@ -5,11 +5,10 @@ using Pomodorek.Services;
 
 namespace Pomodorek.ViewModels;
 
-// todo: write unit tests
 public class MainPageViewModel : BaseViewModel
 {
     private readonly TimerModel _timer;
-    //private NotificationService _notificationService;
+    private readonly INotificationService _notificationService;
     // todo: create sound service
     //private IDeviceSoundService _soundService;
 
@@ -53,9 +52,10 @@ public class MainPageViewModel : BaseViewModel
 
     #endregion
 
-    public MainPageViewModel()
+    public MainPageViewModel(INotificationService notificationService)
     {
         _timer = new TimerModel(HandleOnTickEvent);
+        _notificationService = notificationService;
     }
 
     public void StartSession()
@@ -87,16 +87,8 @@ public class MainPageViewModel : BaseViewModel
     //    }
     //}
 
-    private void DisplayNotification(string message)
-    {
-        //_notificationService = DependencyService.Get<IDeviceNotificationService>();
-        //using (_notificationService as IDisposable)
-        //{
-        //    _notificationService.DisplayNotification(message);
-        //}
-        // todo: inject notification service as dependency
-        NotificationService.DisplayNotification(message);
-    }
+    public async Task DisplayNotification(string message)
+        => await _notificationService.DisplayNotification(message);
 
     //private void DisplaySessionOverNotification()
     //{

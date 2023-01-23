@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using Pomodorek.Services;
 using Pomodorek.ViewModels;
 using Pomodorek.Views;
 
@@ -21,6 +22,9 @@ public static class MauiProgram
         builder.Services.AddSingleton<MainPageViewModel>();
         builder.Services.AddSingleton<MainPage>();
 
+#if WINDOWS || ANDROID
+        builder.Services.AddSingleton<INotificationService, NotificationService>();
+#endif
         return builder.Build();
     }
 }
