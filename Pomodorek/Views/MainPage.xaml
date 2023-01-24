@@ -12,6 +12,7 @@
         <converters:NegationConverter x:Key="NegationConverter" />
         <behaviors:NumericValidationBehavior x:Key="NumericValidationBehavior" />
     </ContentPage.Resources>
+    <!--todo: implement navigation page-->
     <Grid Padding="25"
           RowDefinitions="Auto, Auto, *, 75"
           RowSpacing="10"
@@ -44,6 +45,7 @@
                      IsVisible="{Binding IsRunning, Converter={StaticResource NegationConverter}}" />
         </HorizontalStackLayout>
 
+        <!--todo: design and implement circular progress bar-->
         <VerticalStackLayout Grid.Row="2"
                              Grid.ColumnSpan="2"
                              VerticalOptions="Center"

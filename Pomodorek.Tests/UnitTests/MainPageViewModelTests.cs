@@ -29,7 +29,7 @@ public class MainPageViewModelTests
     }
 
     [Fact]
-    public async Task StartSession_WhenCalled_StartsTimer()
+    public void StartSession_WhenCalled_StartsTimer()
     {
         // act
         _viewModel.StartSession();
@@ -39,7 +39,7 @@ public class MainPageViewModelTests
     }
 
     [Fact]
-    public async Task StopSession_WhenCalled_StopsTimer()
+    public void StopSession_WhenCalled_StopsTimer()
     {
         // act
         _viewModel.StopSession();

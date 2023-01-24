@@ -13,10 +13,8 @@ public class TimeConverter : IValueConverter
         return $"{(minutes < 10 ? "0" : "")}{minutes}:{((seconds % 60) < 10 ? "0" : "")}{seconds % 60}";
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
         throw new NotImplementedException();
-    }
 
     #endregion
 }
