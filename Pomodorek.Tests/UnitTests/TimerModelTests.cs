@@ -2,13 +2,13 @@
 
 public class TimerModelTests
 {
-    private readonly TimerModel _timer;
+    private readonly ITimer _timer;
     private readonly Mock<Action> _callbackMock;
 
     public TimerModelTests()
     {
         _callbackMock = new Mock<Action>();
-        _timer = new TimerModel(_callbackMock.Object);
+        _timer = new TimerModel();
     }
 
     [Fact]
@@ -18,7 +18,7 @@ public class TimerModelTests
         _callbackMock.Invocations.Clear();
 
         // act
-        _timer.Start();
+        _timer.Start(_callbackMock.Object);
         await Task.Delay(1000);
 
         // assert
@@ -32,7 +32,7 @@ public class TimerModelTests
         _callbackMock.Invocations.Clear();
 
         // act
-        _timer.Start();
+        _timer.Start(_callbackMock.Object);
         await Task.Delay(1000);
         _timer.Stop();
 

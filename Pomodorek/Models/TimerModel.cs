@@ -1,17 +1,17 @@
-﻿namespace Pomodorek.Models;
+﻿using Pomodorek.Services;
 
-public class TimerModel
+namespace Pomodorek.Models;
+
+public class TimerModel : ITimer
 {
-    private readonly Action _callback;
     private static CancellationTokenSource _token;
 
-    public TimerModel(Action callback)
+    public TimerModel()
     {
-        _callback = callback;
         _token = new CancellationTokenSource();
     }
 
-    public void Start()
+    public void Start(Action callback)
     {
         var token = _token;
         Task.Run(async () =>
@@ -20,7 +20,7 @@ public class TimerModel
             {
                 await Task.Delay(1000);
                 if (!token.IsCancellationRequested)
-                    _callback.Invoke();
+                    callback.Invoke();
             }
         });
     }

@@ -1,5 +1,4 @@
-﻿using Pomodorek.Models;
-using Pomodorek.Resources.Constants;
+﻿using Pomodorek.Resources.Constants;
 using Pomodorek.Resources.Enums;
 using Pomodorek.Services;
 
@@ -7,7 +6,7 @@ namespace Pomodorek.ViewModels;
 
 public class MainPageViewModel : BaseViewModel
 {
-    private readonly TimerModel _timer;
+    private readonly ITimer _timer;
     private readonly INotificationService _notificationService;
     // todo: create sound service
     //private IDeviceSoundService _soundService;
@@ -52,9 +51,11 @@ public class MainPageViewModel : BaseViewModel
 
     #endregion
 
-    public MainPageViewModel(INotificationService notificationService)
+    public MainPageViewModel(
+        ITimer timer,
+        INotificationService notificationService)
     {
-        _timer = new TimerModel(HandleOnTickEvent);
+        _timer = timer;
         _notificationService = notificationService;
     }
 
@@ -87,8 +88,8 @@ public class MainPageViewModel : BaseViewModel
     //    }
     //}
 
-    public async Task DisplayNotification(string message)
-        => await _notificationService.DisplayNotification(message);
+    public async Task DisplayNotification(string message) =>
+        await _notificationService.DisplayNotification(message);
 
     //private void DisplaySessionOverNotification()
     //{
@@ -104,7 +105,7 @@ public class MainPageViewModel : BaseViewModel
     {
         Status = mode;
         Seconds = time;
-        _timer.Start();
+        _timer.Start(HandleOnTickEvent);
     }
 
     private void HandleOnTickEvent()
