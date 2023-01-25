@@ -50,6 +50,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="3.0.0" />
+		<PackageReference Include="Plugin.LocalNotification" Version="10.1.3" />
 	</ItemGroup>
 
 </Project>
