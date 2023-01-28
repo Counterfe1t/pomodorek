@@ -6,7 +6,7 @@ namespace Pomodorek.ViewModels;
 
 public class MainPageViewModel : BaseViewModel
 {
-    private readonly ITimer _timer;
+    private readonly ITimerService _timerService;
     private readonly INotificationService _notificationService;
     // todo: create sound service
     //private IDeviceSoundService _soundService;
@@ -52,10 +52,10 @@ public class MainPageViewModel : BaseViewModel
     #endregion
 
     public MainPageViewModel(
-        ITimer timer,
+        ITimerService timer,
         INotificationService notificationService)
     {
-        _timer = timer;
+        _timerService = timer;
         _notificationService = notificationService;
     }
 
@@ -72,7 +72,7 @@ public class MainPageViewModel : BaseViewModel
 
     public void StopSession()
     {
-        _timer.Stop();
+        _timerService.Stop();
         Seconds = 0;
         IsRunning = false;
         Status = TimerStatusEnum.Stopped;
@@ -105,14 +105,14 @@ public class MainPageViewModel : BaseViewModel
     {
         Status = mode;
         Seconds = time;
-        _timer.Start(HandleOnTickEvent);
+        _timerService.Start(HandleOnTickEvent);
     }
 
     private void HandleOnTickEvent()
     {
         if (Seconds == 0)
         {
-            _timer.Stop();
+            _timerService.Stop();
             HandleOnFinishedEvent();
         }
         else

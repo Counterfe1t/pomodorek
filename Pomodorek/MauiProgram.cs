@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Maui;
 using Plugin.LocalNotification;
-using Pomodorek.Models;
 using Pomodorek.Services;
 using Pomodorek.ViewModels;
 using Pomodorek.Views;
@@ -31,7 +30,7 @@ public static class MauiProgram
     {
 #if WINDOWS || ANDROID
         builder.Services.AddSingleton<IPomodorekNotificationService, NotificationService>();
-        builder.Services.AddSingleton<ITimer, TimerModel>();
+        builder.Services.AddSingleton<ITimerService, TimerService>();
 #endif
         return builder;
     }

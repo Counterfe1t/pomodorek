@@ -3,12 +3,12 @@
 public class MainPageViewModelTests
 {
     private readonly MainPageViewModel _viewModel;
-    private readonly Mock<ITimer> _timerMock;
+    private readonly Mock<ITimerService> _timerMock;
     private readonly Mock<INotificationService> _notificationServiceMock;
 
     public MainPageViewModelTests()
     {
-        _timerMock = new Mock<ITimer>();
+        _timerMock = new Mock<ITimerService>();
         _notificationServiceMock = new Mock<INotificationService>();
         _viewModel = new MainPageViewModel(
             _timerMock.Object,

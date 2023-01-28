@@ -1,14 +1,16 @@
-﻿namespace Pomodorek.Tests.UnitTests;
+﻿using Pomodorek.Services;
 
-public class TimerModelTests
+namespace Pomodorek.Tests.UnitTests;
+
+public class TimerServiceTests
 {
-    private readonly ITimer _timer;
+    private readonly ITimerService _timer;
     private readonly Mock<Action> _callbackMock;
 
-    public TimerModelTests()
+    public TimerServiceTests()
     {
         _callbackMock = new Mock<Action>();
-        _timer = new TimerModel();
+        _timer = new TimerService();
     }
 
     [Fact]

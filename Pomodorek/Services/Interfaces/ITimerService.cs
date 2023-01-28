@@ -1,6 +1,6 @@
 ﻿namespace Pomodorek.Services;
 
-public interface ITimer
+public interface ITimerService
 {
     void Start(Action callback);
     void Stop();

@@ -1,12 +1,12 @@
-﻿using Pomodorek.Services;
+﻿namespace Pomodorek.Services;
 
-namespace Pomodorek.Models;
-
-public class TimerModel : ITimer
+public class TimerService : ITimerService
 {
+    private const short oneSecondInMs = 1000;
+
     private static CancellationTokenSource _token;
 
-    public TimerModel()
+    public TimerService()
     {
         _token = new CancellationTokenSource();
     }
@@ -18,7 +18,7 @@ public class TimerModel : ITimer
         {
             while (!token.IsCancellationRequested)
             {
-                await Task.Delay(1000);
+                await Task.Delay(oneSecondInMs);
                 if (!token.IsCancellationRequested)
                     callback.Invoke();
             }
