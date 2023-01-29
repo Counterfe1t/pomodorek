@@ -6,6 +6,9 @@ namespace Pomodorek.ViewModels;
 
 public class MainPageViewModel : BaseViewModel
 {
+#if ANDROID
+    private readonly IForegroundService _foregroundService;
+#endif
     private readonly ITimerService _timerService;
     private readonly INotificationService _notificationService;
     // todo: create sound service
@@ -52,9 +55,15 @@ public class MainPageViewModel : BaseViewModel
     #endregion
 
     public MainPageViewModel(
+#if ANDROID
+        IForegroundService foregroundService,
+#endif
         ITimerService timer,
         INotificationService notificationService)
     {
+#if ANDROID
+        _foregroundService = foregroundService;
+#endif
         _timerService = timer;
         _notificationService = notificationService;
     }
@@ -68,6 +77,9 @@ public class MainPageViewModel : BaseViewModel
         SetTimer(Constants.FocusLength, TimerStatusEnum.Focus);
         SessionsElapsed = 0;
         //PlayStartSessionSound();
+#if ANDROID
+        _foregroundService.Start();
+#endif
     }
 
     public void StopSession()
@@ -76,6 +88,9 @@ public class MainPageViewModel : BaseViewModel
         Seconds = 0;
         IsRunning = false;
         Status = TimerStatusEnum.Stopped;
+#if ANDROID
+        _foregroundService.Stop();
+#endif
     }
 
     #region Services
@@ -114,11 +129,12 @@ public class MainPageViewModel : BaseViewModel
         {
             _timerService.Stop();
             HandleOnFinishedEvent();
+            return;
         }
-        else
-            Seconds--;
+        Seconds--;
     }
 
+    // todo: figure out a way to get rid of these warnings
     private void HandleOnFinishedEvent()
     {
         switch (Status)
