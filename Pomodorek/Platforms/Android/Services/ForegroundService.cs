@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using static Android.OS.PowerManager;
 
 namespace Pomodorek.Services;
 
@@ -22,10 +23,18 @@ public class ForegroundService : Service, IForegroundService
         [GeneratedEnum] StartCommandFlags flags,
         int startId)
     {
+        // TODO: Figure out a way to send notifications and update UI without using wake lock
+        WakeLock wakeLock = null;
         if (intent.Action == StartServiceAction)
+        {
             RegisterNotification();
+            PowerManager powerManager = (PowerManager)GetSystemService(PowerService);
+            wakeLock = powerManager.NewWakeLock(WakeLockFlags.Partial, "MyApp::MyWakelockTag");
+            wakeLock.Acquire();
+        }
         else if (intent.Action == StopServiceAction)
         {
+            wakeLock?.Release();
             StopForeground(true);
             StopSelfResult(startId);
         }
