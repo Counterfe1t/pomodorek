@@ -11,7 +11,7 @@ public class MainPageViewModel : BaseViewModel
 #endif
     private readonly ITimerService _timerService;
     private readonly INotificationService _notificationService;
-    // todo: create sound service
+    // TODO: Create sound service
     //private IDeviceSoundService _soundService;
 
     #region Properties
@@ -30,7 +30,7 @@ public class MainPageViewModel : BaseViewModel
         set => SetProperty(ref _status, value);
     }
 
-    // todo: change property so it represents state of the timer (running, paused, stopped)
+    // TODO: Change property so it represents state of the timer (running, paused, stopped)
     private bool _isRunning = false;
     public bool IsRunning
     {
@@ -70,7 +70,7 @@ public class MainPageViewModel : BaseViewModel
 
     public void StartSession()
     {
-        // todo: handle pausing timer
+        // TODO: Handle pausing timer
         if (IsRunning)
             return;
         IsRunning = true;
@@ -134,13 +134,12 @@ public class MainPageViewModel : BaseViewModel
         Seconds--;
     }
 
-    // todo: figure out a way to get rid of these warnings
+    // TODO: Figure out a way to get rid of these warnings
     private void HandleOnFinishedEvent()
     {
         switch (Status)
         {
             case TimerStatusEnum.Focus:
-                // stop execution if session is over
                 if (++SessionsElapsed >= SessionLength)
                 {
                     StopSession();

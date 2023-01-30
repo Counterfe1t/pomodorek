@@ -2,7 +2,7 @@
 
 public static class Constants
 {
-    // todo: move these values to app config
+    // TODO: Move these values to app config
     public const short FocusLength = 25 * 60;
     public const short ShortRestLength = 5 * 60;
     public const short LongRestLength = 15 * 60; // 15-30 min break
