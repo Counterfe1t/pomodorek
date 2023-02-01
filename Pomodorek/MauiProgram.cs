@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Maui;
 using Plugin.LocalNotification;
+using Pomodorek.Pages;
 using Pomodorek.Services;
 using Pomodorek.ViewModels;
-using Pomodorek.Views;
 using IPomodorekNotificationService = Pomodorek.Services.INotificationService;
 
 namespace Pomodorek;
