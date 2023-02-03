@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Maui;
 using Plugin.LocalNotification;
-using Pomodorek.Pages;
 using Pomodorek.Services;
 using Pomodorek.ViewModels;
+using Pomodorek.Views;
 using IPomodorekNotificationService = Pomodorek.Services.INotificationService;
 
 namespace Pomodorek;
@@ -41,12 +41,14 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
     {
         builder.Services.AddSingleton<MainPageViewModel>();
+        builder.Services.AddSingleton<SettingsPageViewModel>();
         return builder;
     }
 
     public static MauiAppBuilder RegisterViews(this MauiAppBuilder builder)
     {
         builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddSingleton<SettingsPage>();
         return builder;
     }
 }

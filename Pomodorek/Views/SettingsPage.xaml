@@ -2,7 +2,10 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="Pomodorek.Pages.SettingsPage">
+    xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
+    x:Class="Pomodorek.Views.SettingsPage"
+    x:DataType="viewmodels:SettingsPageViewModel"
+    Title="{Binding Title}">
     <VerticalStackLayout
         VerticalOptions="Center">
         <Label

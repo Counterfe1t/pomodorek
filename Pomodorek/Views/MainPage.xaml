@@ -5,8 +5,9 @@
     xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
     xmlns:converters="clr-namespace:Pomodorek.Converters"
     xmlns:behaviors="clr-namespace:Pomodorek.Behaviors"
-    x:Class="Pomodorek.Pages.MainPage"
-    x:DataType="viewmodels:MainPageViewModel">
+    x:Class="Pomodorek.Views.MainPage"
+    x:DataType="viewmodels:MainPageViewModel"
+    Title="{Binding Title}">
     <ContentPage.Resources>
         <converters:TimeConverter
             x:Key="TimeConverter" />

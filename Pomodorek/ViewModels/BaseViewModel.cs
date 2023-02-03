@@ -5,11 +5,18 @@ namespace Pomodorek.ViewModels;
 
 public class BaseViewModel : INotifyPropertyChanged
 {
-    bool isBusy = false;
+    private bool isBusy = false;
     public bool IsBusy
     {
-        get { return isBusy; }
-        set { SetProperty(ref isBusy, value); }
+        get => isBusy;
+        set => SetProperty(ref isBusy, value);
+    }
+
+    private string title;
+    public string Title
+    {
+        get => title;
+        set => SetProperty(ref title, value);
     }
 
     protected bool SetProperty<T>(

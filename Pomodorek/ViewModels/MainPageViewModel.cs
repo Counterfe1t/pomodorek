@@ -66,6 +66,7 @@ public class MainPageViewModel : BaseViewModel
 #endif
         _timerService = timer;
         _notificationService = notificationService;
+        Title = "Pomodorek";
     }
 
     public void StartSession()
