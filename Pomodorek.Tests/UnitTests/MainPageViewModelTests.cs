@@ -32,7 +32,7 @@ public class MainPageViewModelTests
     public void StartSession_WhenCalled_StartsTimer()
     {
         // act
-        _viewModel.StartSession();
+        _viewModel.StartCommand.Execute(null);
 
         // assert
         _timerMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Once);
@@ -42,7 +42,7 @@ public class MainPageViewModelTests
     public void StopSession_WhenCalled_StopsTimer()
     {
         // act
-        _viewModel.StopSession();
+        _viewModel.StopCommand.Execute(null);
 
         // assert
         _timerMock.Verify(x => x.Stop(), Times.Once);

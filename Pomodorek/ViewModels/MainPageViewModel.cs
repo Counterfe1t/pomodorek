@@ -1,6 +1,7 @@
 ﻿using Pomodorek.Resources.Constants;
 using Pomodorek.Resources.Enums;
 using Pomodorek.Services;
+using System.Windows.Input;
 
 namespace Pomodorek.ViewModels;
 
@@ -54,6 +55,9 @@ public class MainPageViewModel : BaseViewModel
 
     #endregion
 
+    public ICommand StartCommand { get; private set; }
+    public ICommand StopCommand { get; private set; }
+
     public MainPageViewModel(
 #if ANDROID
         IForegroundService foregroundService,
@@ -67,9 +71,11 @@ public class MainPageViewModel : BaseViewModel
         _timerService = timer;
         _notificationService = notificationService;
         Title = "Pomodorek";
+        StartCommand = new Command(StartSession);
+        StopCommand = new Command(StopSession);
     }
 
-    public void StartSession()
+    private void StartSession()
     {
         // TODO: Handle pausing timer
         if (IsRunning)
@@ -83,7 +89,7 @@ public class MainPageViewModel : BaseViewModel
 #endif
     }
 
-    public void StopSession()
+    private void StopSession()
     {
         _timerService.Stop();
         Seconds = 0;
