@@ -10,6 +10,7 @@ public class MainPageViewModelTests
     {
         _timerMock = new Mock<ITimerService>();
         _notificationServiceMock = new Mock<INotificationService>();
+
         _viewModel = new MainPageViewModel(
             _timerMock.Object,
             _notificationServiceMock.Object);
@@ -29,13 +30,26 @@ public class MainPageViewModelTests
     }
 
     [Fact]
-    public void StartSession_WhenCalled_StartsTimer()
+    public void StartSession_WhenTimerIsNotRunning_StartsTimer()
     {
         // act
         _viewModel.StartCommand.Execute(null);
 
         // assert
         _timerMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Once);
+    }
+
+    [Fact]
+    public void StartSession_WhenTimerIsRunning_DoesNotStartTimer()
+    {
+        // arrange
+        _viewModel.IsRunning = true;
+
+        // act
+        _viewModel.StartCommand.Execute(null);
+
+        // assert
+        _timerMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Never);
     }
 
     [Fact]
