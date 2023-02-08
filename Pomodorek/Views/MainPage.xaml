@@ -42,7 +42,8 @@
                 HeightRequest="{OnPlatform Android=50}"
                 Text="{Binding SessionLength}"
                 HorizontalTextAlignment="Center"
-                IsEnabled="{Binding IsRunning, Converter={StaticResource NegationConverter}}">
+                IsEnabled="{Binding IsRunning, Converter={StaticResource NegationConverter}}"
+                Keyboard="Numeric">
                 <Entry.Behaviors>
                     <behaviors:NumericValidationBehavior />
                 </Entry.Behaviors>
