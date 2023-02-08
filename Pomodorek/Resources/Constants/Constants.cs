@@ -16,7 +16,4 @@ public static class Constants
     public const string ShortRestNotificationMessage = "Take a short break.";
     public const string LongRestNotificationMessage = "Take a long break.";
     public const string SessionOverNotificationMessage = "Session has ended.";
-
-    public const string TickEvent = "tick";
-    public const string FinishedEvent = "finished";
 }

@@ -13,6 +13,7 @@ public class TimerServiceTests
         _timer = new TimerService();
     }
 
+    // TODO: This fails every once in a while
     [Fact]
     public async Task Start_WhenCalled_CallbackIsInvoked()
     {
