@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Maui;
+using Microsoft.Extensions.Configuration;
 using Plugin.LocalNotification;
 using Pomodorek.Services;
 using Pomodorek.ViewModels;
 using Pomodorek.Views;
+using System.Reflection;
 using IPomodorekNotificationService = Pomodorek.Services.INotificationService;
 
 namespace Pomodorek;
@@ -21,6 +23,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             })
+            .RegisterConfiguration()
             .RegisterServices()
             .RegisterViewModels()
             .RegisterViews()
@@ -49,6 +52,19 @@ public static class MauiProgram
     {
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<SettingsPage>();
+        return builder;
+    }
+
+    public static MauiAppBuilder RegisterConfiguration(this MauiAppBuilder builder)
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+        using var stream = assembly.GetManifestResourceStream("Pomodorek.appsettings.json");
+
+        var config = new ConfigurationBuilder()
+            .AddJsonStream(stream)
+            .Build();
+
+        builder.Configuration.AddConfiguration(config);
         return builder;
     }
 }
