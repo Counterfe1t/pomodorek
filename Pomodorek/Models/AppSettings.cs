@@ -1,6 +1,6 @@
 ﻿namespace Pomodorek.Models;
 
-public class Settings
+public class AppSettings
 {
     public int FocusLengthInMin { get; set; }
     public int ShortRestLengthInMin { get; set; }
