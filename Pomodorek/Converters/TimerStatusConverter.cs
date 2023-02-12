@@ -11,10 +11,10 @@ public class TimerStatusConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
         (TimerStatusEnum)value switch
         {
-            TimerStatusEnum.Stopped => Constants.StoppedLabel,
-            TimerStatusEnum.Focus => Constants.FocusLabel,
-            TimerStatusEnum.ShortRest => Constants.ShortRestLabel,
-            TimerStatusEnum.LongRest => Constants.LongRestLabel,
+            TimerStatusEnum.Stopped => Constants.Labels.Stopped,
+            TimerStatusEnum.Focus => Constants.Labels.Focus,
+            TimerStatusEnum.ShortRest => Constants.Labels.ShortRest,
+            TimerStatusEnum.LongRest => Constants.Labels.LongRest,
             _ => string.Empty,
         };
 

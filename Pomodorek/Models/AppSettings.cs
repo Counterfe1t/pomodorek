@@ -2,7 +2,7 @@
 
 public class AppSettings
 {
-    public int FocusLengthInMin { get; set; }
-    public int ShortRestLengthInMin { get; set; }
-    public int LongRestLengthInMin { get; set; }
+    public int DefaultFocusLengthInMin { get; set; }
+    public int DefaultShortRestLengthInMin { get; set; }
+    public int DefaultLongRestLengthInMin { get; set; }
 }

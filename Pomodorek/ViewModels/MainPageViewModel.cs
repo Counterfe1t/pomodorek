@@ -1,4 +1,6 @@
-﻿using Pomodorek.Resources.Constants;
+﻿using Microsoft.Extensions.Configuration;
+using Pomodorek.Models;
+using Pomodorek.Resources.Constants;
 using Pomodorek.Resources.Enums;
 using Pomodorek.Services;
 using System.Windows.Input;
@@ -12,13 +14,18 @@ public class MainPageViewModel : BaseViewModel
 #endif
     private readonly ITimerService _timerService;
     private readonly INotificationService _notificationService;
+    private readonly ISettingsService _settingsService;
+    private readonly IConfiguration _configuration;
+
+    private AppSettings AppSettings => _configuration.Get<AppSettings>();
+
     // TODO: Create sound service
     //private IDeviceSoundService _soundService;
 
     #region Properties
 
-    private short _seconds = 0;
-    public short Seconds
+    private int _seconds = 0;
+    public int Seconds
     {
         get => _seconds;
         set => SetProperty(ref _seconds, value);
@@ -63,16 +70,20 @@ public class MainPageViewModel : BaseViewModel
         IForegroundService foregroundService,
 #endif
         ITimerService timer,
-        INotificationService notificationService)
+        INotificationService notificationService,
+        ISettingsService settingsService,
+        IConfiguration configuration)
     {
 #if ANDROID
         _foregroundService = foregroundService;
 #endif
+        Title = Constants.PageTitles.Pomodorek;
         _timerService = timer;
         _notificationService = notificationService;
-        Title = "Pomodorek";
-        StartCommand = new Command(StartSession);
+        _settingsService = settingsService;
+        _configuration = configuration;
         StopCommand = new Command(StopSession);
+        StartCommand = new Command(StartSession);
     }
 
     private void StartSession()
@@ -81,7 +92,11 @@ public class MainPageViewModel : BaseViewModel
         if (IsRunning)
             return;
         IsRunning = true;
-        SetTimer(Constants.FocusLength, TimerStatusEnum.Focus);
+        SetTimer(
+            TimerStatusEnum.Focus,
+            _settingsService.Get(
+                Constants.FocusLengthInMin,
+                AppSettings.DefaultFocusLengthInMin) * Constants.OneMinuteInSec);
         SessionsElapsed = 0;
         //PlayStartSessionSound();
 #if ANDROID
@@ -123,9 +138,9 @@ public class MainPageViewModel : BaseViewModel
     //}
     #endregion
 
-    private void SetTimer(short time, TimerStatusEnum mode)
+    private void SetTimer(TimerStatusEnum status, int time)
     {
-        Status = mode;
+        Status = status;
         Seconds = time;
         _timerService.Start(HandleOnTickEvent);
     }
@@ -149,26 +164,38 @@ public class MainPageViewModel : BaseViewModel
             case TimerStatusEnum.Focus:
                 if (++SessionsElapsed >= SessionLength)
                 {
-                    StopSession();
+                    StopCommand.Execute(null);
                     //DisplaySessionOverNotification();
-                    DisplayNotification(Constants.SessionOverNotificationMessage);
+                    DisplayNotification(Constants.NotificationMessages.SessionOver);
                     break;
                 }
 
                 if (SessionsElapsed % 4 == 0)
                 {
-                    SetTimer(Constants.LongRestLength, TimerStatusEnum.LongRest);
-                    DisplayNotification(Constants.LongRestNotificationMessage);
+                    SetTimer(
+                        TimerStatusEnum.LongRest,
+                        _settingsService.Get(
+                            Constants.LongRestLengthInMin,
+                            AppSettings.DefaultFocusLengthInMin) * 60);
+                    DisplayNotification(Constants.NotificationMessages.LongRest);
                     break;
                 }
 
-                SetTimer(Constants.ShortRestLength, TimerStatusEnum.ShortRest);
-                DisplayNotification(Constants.ShortRestNotificationMessage);
+                SetTimer(
+                    TimerStatusEnum.ShortRest,
+                    _settingsService.Get(
+                        Constants.ShortRestLengthInMin,
+                        AppSettings.DefaultShortRestLengthInMin) * 60);
+                DisplayNotification(Constants.NotificationMessages.ShortRest);
                 break;
             case TimerStatusEnum.ShortRest:
             case TimerStatusEnum.LongRest:
-                SetTimer(Constants.FocusLength, TimerStatusEnum.Focus);
-                DisplayNotification(Constants.FocusNotificationMessage);
+                SetTimer(
+                    TimerStatusEnum.Focus, 
+                    _settingsService.Get(
+                        Constants.FocusLengthInMin,
+                        AppSettings.DefaultFocusLengthInMin) * 60);
+                DisplayNotification(Constants.NotificationMessages.Focus);
                 break;
             case TimerStatusEnum.Stopped:
             default:

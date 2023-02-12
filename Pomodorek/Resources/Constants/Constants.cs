@@ -2,18 +2,32 @@
 
 public static class Constants
 {
-    // TODO: Move these values to app config
-    public const short FocusLength = 25 * 60;
-    public const short ShortRestLength = 5 * 60;
-    public const short LongRestLength = 15 * 60; // 15-30 min break
+    public const int OneMinuteInSec = 60;
 
-    public const string FocusLabel = "FOCUS";
-    public const string ShortRestLabel = "REST";
-    public const string LongRestLabel = "LONG REST";
-    public const string StoppedLabel = "STOPPED";
+    public const string FocusLengthInMin = nameof(FocusLengthInMin);
+    public const string ShortRestLengthInMin = nameof(ShortRestLengthInMin);
+    public const string LongRestLengthInMin = nameof(LongRestLengthInMin);
 
-    public const string FocusNotificationMessage = "Get back to work.";
-    public const string ShortRestNotificationMessage = "Take a short break.";
-    public const string LongRestNotificationMessage = "Take a long break.";
-    public const string SessionOverNotificationMessage = "Session has ended.";
+    public class PageTitles
+    {
+        public const string Pomodorek = nameof(Pomodorek);
+        public const string Settings = nameof(Settings);
+
+    }
+
+    public class Labels
+    {
+        public const string Focus = "FOCUS";
+        public const string ShortRest = "REST";
+        public const string LongRest = "LONG REST";
+        public const string Stopped = "STOPPED";
+    }
+
+    public class NotificationMessages
+    {
+        public const string Focus = "Get back to work.";
+        public const string ShortRest = "Take a short break.";
+        public const string LongRest = "Take a long break.";
+        public const string SessionOver = "Session has ended.";
+    }
 }

@@ -3,14 +3,86 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
+    xmlns:behaviors="clr-namespace:Pomodorek.Behaviors"
     x:Class="Pomodorek.Views.SettingsPage"
     x:DataType="viewmodels:SettingsPageViewModel"
     Title="{Binding Title}">
-    <VerticalStackLayout
-        VerticalOptions="Center">
+    <ContentPage.Resources>
+        <behaviors:NumericValidationBehavior
+            x:Key="NumericValidationBehavior" />
+    </ContentPage.Resources>
+    <Grid
+        Padding="20"
+        RowDefinitions="Auto, Auto, Auto, *, Auto"
+        RowSpacing="10"
+        ColumnDefinitions="Auto, *"
+        ColumnSpacing="25">
+
         <Label
-            Text="WORK IN PROGRESS"
             VerticalOptions="Center"
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+            Text="Focus length in minutes"></Label>
+
+        <Entry
+            Grid.Column="2"
+            WidthRequest="50"
+            HeightRequest="{OnPlatform Android=50}"
+            HorizontalOptions="Start"
+            HorizontalTextAlignment="Center"
+            MaxLength="2"
+            Text="{Binding FocusLengthInMin}"
+            Keyboard="Numeric">
+            <Entry.Behaviors>
+                <behaviors:NumericValidationBehavior />
+            </Entry.Behaviors>
+        </Entry>
+
+        <Label
+            Grid.Row="1"
+            VerticalOptions="Center"
+            Text="Short rest length in minutes"></Label>
+
+        <Entry
+            Grid.Row="1"
+            Grid.Column="2"
+            WidthRequest="50"
+            HeightRequest="{OnPlatform Android=50}"
+            HorizontalOptions="Start"
+            HorizontalTextAlignment="Center"
+            MaxLength="2"
+            Text="{Binding ShortRestLengthInMin}"
+            Keyboard="Numeric">
+            <Entry.Behaviors>
+                <behaviors:NumericValidationBehavior />
+            </Entry.Behaviors>
+        </Entry>
+
+        <Label
+            Grid.Row="2"
+            VerticalOptions="Center"
+            Text="Long rest length in minutes"></Label>
+
+        <Entry
+            Grid.Row="2"
+            Grid.Column="2"
+            WidthRequest="50"
+            HeightRequest="{OnPlatform Android=50}"
+            HorizontalOptions="Start"
+            HorizontalTextAlignment="Center"
+            MaxLength="2"
+            Text="{Binding LongRestLengthInMin}"
+            Keyboard="Numeric">
+            <Entry.Behaviors>
+                <behaviors:NumericValidationBehavior />
+            </Entry.Behaviors>
+        </Entry>
+
+        <Button
+            Grid.Row="4"
+            Grid.ColumnSpan="2"
+            Text="Save"
+            FontSize="35"
+            SemanticProperties.Hint="Save settings"
+            Command="{Binding SaveCommand}" />
+
+    </Grid>
 </ContentPage>
