@@ -1,19 +1,29 @@
-﻿namespace Pomodorek.Tests.UnitTests;
+﻿using Pomodorek.Models;
+
+namespace Pomodorek.Tests.UnitTests;
 
 public class MainPageViewModelTests
 {
     private readonly MainPageViewModel _viewModel;
     private readonly Mock<ITimerService> _timerMock;
     private readonly Mock<INotificationService> _notificationServiceMock;
+    private readonly Mock<ISettingsService> _settingsServiceMock;
+    private readonly Mock<IConfigurationService> _configurationServiceMock;
+
+    private AppSettings _appSettings => new();
 
     public MainPageViewModelTests()
     {
         _timerMock = new Mock<ITimerService>();
         _notificationServiceMock = new Mock<INotificationService>();
+        _settingsServiceMock = new Mock<ISettingsService>();
+        _configurationServiceMock = new Mock<IConfigurationService>();
 
         _viewModel = new MainPageViewModel(
             _timerMock.Object,
-            _notificationServiceMock.Object);
+            _notificationServiceMock.Object,
+            _settingsServiceMock.Object,
+            _configurationServiceMock.Object);
     }
 
     [Fact]
@@ -32,6 +42,11 @@ public class MainPageViewModelTests
     [Fact]
     public void StartSession_WhenTimerIsNotRunning_StartsTimer()
     {
+        // arrange
+        _configurationServiceMock
+            .Setup(x => x.GetAppSettings())
+            .Returns(_appSettings);
+
         // act
         _viewModel.StartCommand.Execute(null);
 

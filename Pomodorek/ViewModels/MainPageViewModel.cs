@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Pomodorek.Models;
+﻿using Pomodorek.Models;
 using Pomodorek.Resources.Constants;
 using Pomodorek.Resources.Enums;
 using Pomodorek.Services;
@@ -15,9 +14,9 @@ public class MainPageViewModel : BaseViewModel
     private readonly ITimerService _timerService;
     private readonly INotificationService _notificationService;
     private readonly ISettingsService _settingsService;
-    private readonly IConfiguration _configuration;
+    private readonly IConfigurationService _configurationService;
 
-    private AppSettings AppSettings => _configuration.Get<AppSettings>();
+    private AppSettings AppSettings => _configurationService.GetAppSettings();
 
     // TODO: Create sound service
     //private IDeviceSoundService _soundService;
@@ -69,19 +68,19 @@ public class MainPageViewModel : BaseViewModel
 #if ANDROID
         IForegroundService foregroundService,
 #endif
-        ITimerService timer,
+        ITimerService timerService,
         INotificationService notificationService,
         ISettingsService settingsService,
-        IConfiguration configuration)
+        IConfigurationService configurationService)
     {
 #if ANDROID
         _foregroundService = foregroundService;
 #endif
         Title = Constants.PageTitles.Pomodorek;
-        _timerService = timer;
+        _timerService = timerService;
         _notificationService = notificationService;
         _settingsService = settingsService;
-        _configuration = configuration;
+        _configurationService = configurationService;
         StopCommand = new Command(StopSession);
         StartCommand = new Command(StartSession);
     }
@@ -191,7 +190,7 @@ public class MainPageViewModel : BaseViewModel
             case TimerStatusEnum.ShortRest:
             case TimerStatusEnum.LongRest:
                 SetTimer(
-                    TimerStatusEnum.Focus, 
+                    TimerStatusEnum.Focus,
                     _settingsService.Get(
                         Constants.FocusLengthInMin,
                         AppSettings.DefaultFocusLengthInMin) * 60);

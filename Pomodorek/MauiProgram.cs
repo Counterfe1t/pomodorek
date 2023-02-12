@@ -35,6 +35,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<IPomodorekNotificationService, NotificationService>();
         builder.Services.AddSingleton<ITimerService, TimerService>();
         builder.Services.AddSingleton<ISettingsService, SettingsService>();
+        builder.Services.AddSingleton<IConfigurationService, ConfigurationService>();
 #endif
 #if ANDROID
         builder.Services.AddSingleton<IForegroundService, ForegroundService>();

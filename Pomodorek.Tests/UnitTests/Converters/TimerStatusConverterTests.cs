@@ -10,10 +10,10 @@ public class TimerStatusConverterTests
     }
 
     [Theory]
-    [InlineData(TimerStatusEnum.Stopped, Constants.StoppedLabel)]
-    [InlineData(TimerStatusEnum.Focus, Constants.FocusLabel)]
-    [InlineData(TimerStatusEnum.ShortRest, Constants.ShortRestLabel)]
-    [InlineData(TimerStatusEnum.LongRest, Constants.LongRestLabel)]
+    [InlineData(TimerStatusEnum.Stopped, Constants.Labels.Stopped)]
+    [InlineData(TimerStatusEnum.Focus, Constants.Labels.Focus)]
+    [InlineData(TimerStatusEnum.ShortRest, Constants.Labels.ShortRest)]
+    [InlineData(TimerStatusEnum.LongRest, Constants.Labels.LongRest)]
     [InlineData((TimerStatusEnum)1337, "")]
     public void Convert_ReturnsExcpectedResult(
         TimerStatusEnum received,

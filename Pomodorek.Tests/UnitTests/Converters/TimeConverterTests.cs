@@ -14,7 +14,7 @@ public class TimeConverterTests
     [InlineData(90, "01:30")]
     [InlineData(0, "00:00")]
     [InlineData(1337, "22:17")]
-    public void Convert_ReturnsExcpectedResult(short received, string expected)
+    public void Convert_ReturnsExcpectedResult(int received, string expected)
     {
         // act
         var result = _converter.Convert(
