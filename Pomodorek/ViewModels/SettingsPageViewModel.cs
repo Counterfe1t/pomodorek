@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Pomodorek.Models;
+﻿using Pomodorek.Models;
 using Pomodorek.Resources.Constants;
 using Pomodorek.Services;
 using System.Windows.Input;
@@ -9,9 +8,9 @@ namespace Pomodorek.ViewModels;
 public class SettingsPageViewModel : BaseViewModel
 {
     private readonly ISettingsService _settingsService;
-    private readonly IConfiguration _configuration;
+    private readonly IConfigurationService _configurationService;
 
-    private AppSettings AppSettings => _configuration.Get<AppSettings>();
+    private AppSettings AppSettings => _configurationService.GetAppSettings();
 
     #region Properties
 
@@ -43,11 +42,11 @@ public class SettingsPageViewModel : BaseViewModel
 
     public SettingsPageViewModel(
         ISettingsService settingsService,
-        IConfiguration configuration)
+        IConfigurationService configurationService)
     {
         Title = Constants.PageTitles.Settings;
         _settingsService = settingsService;
-        _configuration = configuration;
+        _configurationService = configurationService;
         SaveCommand = new Command(SaveSettings);
         InitializeCommand = new Command(Initialize);
     }

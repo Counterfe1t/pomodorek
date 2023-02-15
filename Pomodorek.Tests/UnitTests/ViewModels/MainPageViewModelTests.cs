@@ -1,6 +1,4 @@
-﻿using Pomodorek.Models;
-
-namespace Pomodorek.Tests.UnitTests;
+﻿namespace Pomodorek.Tests.UnitTests.ViewModels;
 
 public class MainPageViewModelTests
 {
@@ -10,7 +8,7 @@ public class MainPageViewModelTests
     private readonly Mock<ISettingsService> _settingsServiceMock;
     private readonly Mock<IConfigurationService> _configurationServiceMock;
 
-    private AppSettings _appSettings => new();
+    private static AppSettings AppSettings => new();
 
     public MainPageViewModelTests()
     {
@@ -45,7 +43,7 @@ public class MainPageViewModelTests
         // arrange
         _configurationServiceMock
             .Setup(x => x.GetAppSettings())
-            .Returns(_appSettings);
+            .Returns(AppSettings);
 
         // act
         _viewModel.StartCommand.Execute(null);
