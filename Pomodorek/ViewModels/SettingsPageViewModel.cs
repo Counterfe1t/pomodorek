@@ -1,34 +1,27 @@
-﻿using Pomodorek.Models;
-using Pomodorek.Resources.Constants;
-using Pomodorek.Services;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace Pomodorek.ViewModels;
 
 public class SettingsPageViewModel : BaseViewModel
 {
-    private readonly ISettingsService _settingsService;
-    private readonly IConfigurationService _configurationService;
-
-    private AppSettings AppSettings => _configurationService.GetAppSettings();
+    private int _focusLengthInMin;
+    private int _shortRestLengthInMin;
+    private int _longRestLengthInMin;
 
     #region Properties
 
-    private int _focusLengthInMin;
     public int FocusLengthInMin
     {
         get => _focusLengthInMin;
         set => SetProperty(ref _focusLengthInMin, value);
     }
 
-    private int _shortRestLengthInMin;
     public int ShortRestLengthInMin
     {
         get => _shortRestLengthInMin;
         set => SetProperty(ref _shortRestLengthInMin, value);
     }
 
-    private int _longRestLengthInMin;
     public int LongRestLengthInMin
     {
         get => _longRestLengthInMin;
@@ -37,8 +30,13 @@ public class SettingsPageViewModel : BaseViewModel
 
     #endregion
 
-    public ICommand SaveCommand { get; private set; }
+    private readonly ISettingsService _settingsService;
+    private readonly IConfigurationService _configurationService;
+
+    private AppSettings AppSettings => _configurationService.GetAppSettings();
+
     public ICommand InitializeCommand { get; private set; }
+    public ICommand SaveCommand { get; private set; }
 
     public SettingsPageViewModel(
         ISettingsService settingsService,
@@ -47,8 +45,9 @@ public class SettingsPageViewModel : BaseViewModel
         Title = Constants.PageTitles.Settings;
         _settingsService = settingsService;
         _configurationService = configurationService;
-        SaveCommand = new Command(SaveSettings);
+
         InitializeCommand = new Command(Initialize);
+        SaveCommand = new Command(SaveSettings);
     }
 
     private void Initialize()

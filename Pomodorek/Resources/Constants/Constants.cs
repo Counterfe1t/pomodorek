@@ -12,7 +12,6 @@ public static class Constants
     {
         public const string Pomodorek = nameof(Pomodorek);
         public const string Settings = nameof(Settings);
-
     }
 
     public class Labels
@@ -29,5 +28,11 @@ public static class Constants
         public const string ShortRest = "Take a short break.";
         public const string LongRest = "Take a long break.";
         public const string SessionOver = "Session has ended.";
+    }
+
+    public class Sounds
+    {
+        public const string SessionStart = "session_start.wav";
+        public const string SessionOver = "session_over.wav";
     }
 }

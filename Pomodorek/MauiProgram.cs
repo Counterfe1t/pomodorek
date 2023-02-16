@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
 using Plugin.LocalNotification;
+using Plugin.Maui.Audio;
 using Pomodorek.Services;
 using Pomodorek.ViewModels;
 using Pomodorek.Views;
@@ -36,6 +37,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<ITimerService, TimerService>();
         builder.Services.AddSingleton<ISettingsService, SettingsService>();
         builder.Services.AddSingleton<IConfigurationService, ConfigurationService>();
+        builder.Services.AddSingleton(AudioManager.Current);
+        builder.Services.AddSingleton<ISoundService, SoundService>();
 #endif
 #if ANDROID
         builder.Services.AddSingleton<IForegroundService, ForegroundService>();

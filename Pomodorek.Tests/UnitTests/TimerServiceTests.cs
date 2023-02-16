@@ -1,6 +1,4 @@
-﻿using Pomodorek.Services;
-
-namespace Pomodorek.Tests.UnitTests;
+﻿namespace Pomodorek.Tests.UnitTests;
 
 public class TimerServiceTests
 {
