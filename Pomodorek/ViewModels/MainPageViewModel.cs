@@ -82,7 +82,7 @@ public class MainPageViewModel : BaseViewModel
 
         IsRunning = true;
         SessionsElapsed = 0;
-        await PlaySessionStartSound();
+        await _soundService.PlaySound(Constants.Sounds.SessionStart);
         SetTimer(
             TimerStatusEnum.Focus,
             _settingsService.Get(
@@ -98,18 +98,8 @@ public class MainPageViewModel : BaseViewModel
         Status = TimerStatusEnum.Stopped;
     }
 
-    #region Services
-
     public async Task DisplayNotification(string message) =>
         await _notificationService.DisplayNotification(message);
-
-    public async Task PlaySessionStartSound() =>
-        await _soundService.PlaySound(Constants.Sounds.SessionStart);
-
-    public async Task PlaySessionOverSound() =>
-        await _soundService.PlaySound(Constants.Sounds.SessionOver);
-
-    #endregion
 
     private void SetTimer(TimerStatusEnum status, int seconds)
     {
@@ -138,7 +128,7 @@ public class MainPageViewModel : BaseViewModel
                 {
                     StopCommand.Execute(null);
                     await DisplayNotification(Constants.NotificationMessages.SessionOver);
-                    await PlaySessionOverSound();
+                    await _soundService.PlaySound(Constants.Sounds.SessionOver);
                     break;
                 }
 

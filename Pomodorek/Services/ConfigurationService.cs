@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Pomodorek.Models;
 
 namespace Pomodorek.Services;
 

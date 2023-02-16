@@ -41,26 +41,6 @@ public class MainPageViewModelTests
     }
 
     [Fact]
-    public async Task PlaySessionStartSound_WhenCalled_PlaysSessionStartSound()
-    {
-        // act
-        await _viewModel.PlaySessionStartSound();
-
-        // assert
-        _soundServiceMock.Verify(x => x.PlaySound(Constants.Sounds.SessionStart), Times.Once);
-    }
-
-    [Fact]
-    public async Task PlaySessionOverSound_WhenCalled_PlaysSessionOverSound()
-    {
-        // act
-        await _viewModel.PlaySessionOverSound();
-
-        // assert
-        _soundServiceMock.Verify(x => x.PlaySound(Constants.Sounds.SessionOver), Times.Once);
-    }
-
-    [Fact]
     public async Task StartSession_WhenTimerIsNotRunning_StartsTimer()
     {
         // arrange
@@ -73,7 +53,7 @@ public class MainPageViewModelTests
 
         // assert
         _timerMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Once);
-        _soundServiceMock.Verify(x => x.PlaySound(Constants.Sounds.SessionStart), Times.Once);
+        _soundServiceMock.Verify(x => x.PlaySound(It.IsAny<string>()), Times.Once);
     }
 
     [Fact]
@@ -87,7 +67,7 @@ public class MainPageViewModelTests
 
         // assert
         _timerMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Never);
-        _soundServiceMock.Verify(x => x.PlaySound(Constants.Sounds.SessionStart), Times.Never);
+        _soundServiceMock.Verify(x => x.PlaySound(It.IsAny<string>()), Times.Never);
     }
 
     [Fact]

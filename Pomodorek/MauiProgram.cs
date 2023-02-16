@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Plugin.LocalNotification;
 using Plugin.Maui.Audio;
-using Pomodorek.Services;
 using Pomodorek.ViewModels;
 using Pomodorek.Views;
 using System.Reflection;
@@ -30,14 +29,17 @@ public static class MauiProgram
             .RegisterViews()
             .Build();
 
+    #region Services
+
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
     {
 #if WINDOWS || ANDROID
+        builder.Services.AddSingleton(FileSystem.Current);
+        builder.Services.AddSingleton(AudioManager.Current);
         builder.Services.AddSingleton<IPomodorekNotificationService, NotificationService>();
         builder.Services.AddSingleton<ITimerService, TimerService>();
         builder.Services.AddSingleton<ISettingsService, SettingsService>();
         builder.Services.AddSingleton<IConfigurationService, ConfigurationService>();
-        builder.Services.AddSingleton(AudioManager.Current);
         builder.Services.AddSingleton<ISoundService, SoundService>();
 #endif
 #if ANDROID
@@ -45,6 +47,8 @@ public static class MauiProgram
 #endif
         return builder;
     }
+
+    #endregion
 
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
     {
@@ -63,7 +67,7 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterConfiguration(this MauiAppBuilder builder)
     {
         var assembly = Assembly.GetExecutingAssembly();
-        using var stream = assembly.GetManifestResourceStream("Pomodorek.appsettings.json");
+        using var stream = assembly.GetManifestResourceStream(Constants.AppSettingsFileName);
 
         var config = new ConfigurationBuilder()
             .AddJsonStream(stream)
