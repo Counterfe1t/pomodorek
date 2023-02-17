@@ -36,6 +36,7 @@ public static class MauiProgram
 #if WINDOWS || ANDROID
         builder.Services.AddSingleton(FileSystem.Current);
         builder.Services.AddSingleton(AudioManager.Current);
+        builder.Services.AddSingleton(Preferences.Default);
         builder.Services.AddSingleton<IPomodorekNotificationService, NotificationService>();
         builder.Services.AddSingleton<ITimerService, TimerService>();
         builder.Services.AddSingleton<ISettingsService, SettingsService>();

@@ -31,11 +31,11 @@ public class SettingsPageViewModelTests
 
         // assert
         _settingsServiceMock
-            .Verify(x => x.Get(Constants.FocusLengthInMin, It.IsAny<int>()), Times.Once());
+            .Verify(x => x.Get(Constants.FocusLengthInMin, It.IsAny<int>()), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Get(Constants.ShortRestLengthInMin, It.IsAny<int>()), Times.Once());
+            .Verify(x => x.Get(Constants.ShortRestLengthInMin, It.IsAny<int>()), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Get(Constants.LongRestLengthInMin, It.IsAny<int>()), Times.Once());
+            .Verify(x => x.Get(Constants.LongRestLengthInMin, It.IsAny<int>()), Times.Once);
     }
 
     [Fact]
@@ -51,10 +51,10 @@ public class SettingsPageViewModelTests
 
         // assert
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.FocusLengthInMin, It.IsAny<int>()), Times.Once());
+            .Verify(x => x.Set(Constants.FocusLengthInMin, It.IsAny<int>()), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.ShortRestLengthInMin, It.IsAny<int>()), Times.Once());
+            .Verify(x => x.Set(Constants.ShortRestLengthInMin, It.IsAny<int>()), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.LongRestLengthInMin, It.IsAny<int>()), Times.Once());
+            .Verify(x => x.Set(Constants.LongRestLengthInMin, It.IsAny<int>()), Times.Once);
     }
 }
