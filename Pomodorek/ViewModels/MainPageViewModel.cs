@@ -83,11 +83,7 @@ public class MainPageViewModel : BaseViewModel
         IsRunning = true;
         SessionsElapsed = 0;
         await _soundService.PlaySound(Constants.Sounds.SessionStart);
-        SetTimer(
-            TimerStatusEnum.Focus,
-            _settingsService.Get(
-                Constants.FocusLengthInMin,
-                AppSettings.DefaultFocusLengthInMin) * Constants.OneMinuteInSec);
+        SetTimer(TimerStatusEnum.Focus);
     }
 
     public void StopSession()
@@ -101,10 +97,10 @@ public class MainPageViewModel : BaseViewModel
     public async Task DisplayNotification(string message) =>
         await _notificationService.DisplayNotification(message);
 
-    private void SetTimer(TimerStatusEnum status, int seconds)
+    private void SetTimer(TimerStatusEnum status)
     {
         Status = status;
-        Seconds = seconds;
+        Seconds = GetDurationInMin(status) * Constants.SixtySeconds;
         _timerService.Start(async () => await HandleOnTickEvent());
     }
 
@@ -135,33 +131,36 @@ public class MainPageViewModel : BaseViewModel
                 if (SessionsElapsed % 4 == 0)
                 {
                     await DisplayNotification(Constants.NotificationMessages.LongRest);
-                    SetTimer(
-                        TimerStatusEnum.LongRest,
-                        _settingsService.Get(
-                            Constants.LongRestLengthInMin,
-                            AppSettings.DefaultFocusLengthInMin) * 60);
+                    SetTimer(TimerStatusEnum.LongRest);
                     break;
                 }
 
                 await DisplayNotification(Constants.NotificationMessages.ShortRest);
-                SetTimer(
-                    TimerStatusEnum.ShortRest,
-                    _settingsService.Get(
-                        Constants.ShortRestLengthInMin,
-                        AppSettings.DefaultShortRestLengthInMin) * 60);
+                SetTimer(TimerStatusEnum.ShortRest);
                 break;
             case TimerStatusEnum.ShortRest:
             case TimerStatusEnum.LongRest:
                 await DisplayNotification(Constants.NotificationMessages.Focus);
-                SetTimer(
-                    TimerStatusEnum.Focus,
-                    _settingsService.Get(
-                        Constants.FocusLengthInMin,
-                        AppSettings.DefaultFocusLengthInMin) * 60);
+                SetTimer(TimerStatusEnum.Focus);
                 break;
             case TimerStatusEnum.Stopped:
             default:
                 break;
         }
     }
+
+    private int GetDurationInMin(TimerStatusEnum status) =>
+        status switch
+        {
+            TimerStatusEnum.Focus => _settingsService.Get(
+                Constants.FocusLengthInMin,
+                AppSettings.DefaultFocusLengthInMin),
+            TimerStatusEnum.ShortRest => _settingsService.Get(
+                Constants.ShortRestLengthInMin,
+                AppSettings.DefaultShortRestLengthInMin),
+            TimerStatusEnum.LongRest => _settingsService.Get(
+                Constants.LongRestLengthInMin,
+                AppSettings.DefaultLongRestLengthInMin),
+            _ => 0,
+        };
 }

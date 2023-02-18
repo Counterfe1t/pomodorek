@@ -16,8 +16,8 @@ public class SoundService : ISoundService
     public async Task PlaySound(string sound)
     {
         using var stream = await _fileSystem.OpenAppPackageFileAsync(sound);
-        var foo = _audioManager
+        var player = _audioManager
             .CreatePlayer(stream);
-        foo.Play();
+        player.Play();
     }
 }

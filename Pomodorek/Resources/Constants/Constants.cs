@@ -4,7 +4,7 @@ public static class Constants
 {
     public const string AppSettingsFileName = "Pomodorek.appsettings.json";
 
-    public const int OneMinuteInSec = 60;
+    public const int SixtySeconds = 60;
 
     public const string FocusLengthInMin = nameof(FocusLengthInMin);
     public const string ShortRestLengthInMin = nameof(ShortRestLengthInMin);
