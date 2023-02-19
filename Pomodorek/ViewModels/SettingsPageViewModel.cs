@@ -4,11 +4,18 @@ namespace Pomodorek.ViewModels;
 
 public class SettingsPageViewModel : BaseViewModel
 {
+    private bool _isSoundEnabled;
     private int _focusLengthInMin;
     private int _shortRestLengthInMin;
     private int _longRestLengthInMin;
 
     #region Properties
+    
+    public bool IsSoundEnabled
+    {
+        get => _isSoundEnabled;
+        set => SetProperty(ref _isSoundEnabled, value);
+    }
 
     public int FocusLengthInMin
     {
@@ -52,18 +59,27 @@ public class SettingsPageViewModel : BaseViewModel
 
     private void Initialize()
     {
-        FocusLengthInMin =
-            _settingsService.Get(Constants.FocusLengthInMin, AppSettings.DefaultFocusLengthInMin);
-        ShortRestLengthInMin =
-            _settingsService.Get(Constants.ShortRestLengthInMin, AppSettings.DefaultShortRestLengthInMin);
-        LongRestLengthInMin =
-            _settingsService.Get(Constants.LongRestLengthInMin, AppSettings.DefaultLongRestLengthInMin);
+        IsSoundEnabled = _settingsService.Get(Constants.Settings.IsSoundEnabled, true);
+        
+        FocusLengthInMin = _settingsService.Get(
+            Constants.Settings.FocusLengthInMin,
+            AppSettings.DefaultFocusLengthInMin);
+
+        ShortRestLengthInMin = _settingsService.Get(
+            Constants.Settings.ShortRestLengthInMin,
+            AppSettings.DefaultShortRestLengthInMin);
+
+        LongRestLengthInMin = _settingsService.Get(
+            Constants.Settings.LongRestLengthInMin,
+            AppSettings.DefaultLongRestLengthInMin);
     }
 
+    // TODO: Save settings only if any changes have been made
     private void SaveSettings()
     {
-        _settingsService.Set(Constants.FocusLengthInMin, FocusLengthInMin);
-        _settingsService.Set(Constants.ShortRestLengthInMin, ShortRestLengthInMin);
-        _settingsService.Set(Constants.LongRestLengthInMin, LongRestLengthInMin);
+        _settingsService.Set(Constants.Settings.IsSoundEnabled, IsSoundEnabled);
+        _settingsService.Set(Constants.Settings.FocusLengthInMin, FocusLengthInMin);
+        _settingsService.Set(Constants.Settings.ShortRestLengthInMin, ShortRestLengthInMin);
+        _settingsService.Set(Constants.Settings.LongRestLengthInMin, LongRestLengthInMin);
     }
 }

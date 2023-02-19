@@ -153,13 +153,13 @@ public class MainPageViewModel : BaseViewModel
         status switch
         {
             TimerStatusEnum.Focus => _settingsService.Get(
-                Constants.FocusLengthInMin,
+                Constants.Settings.FocusLengthInMin,
                 AppSettings.DefaultFocusLengthInMin),
             TimerStatusEnum.ShortRest => _settingsService.Get(
-                Constants.ShortRestLengthInMin,
+                Constants.Settings.ShortRestLengthInMin,
                 AppSettings.DefaultShortRestLengthInMin),
             TimerStatusEnum.LongRest => _settingsService.Get(
-                Constants.LongRestLengthInMin,
+                Constants.Settings.LongRestLengthInMin,
                 AppSettings.DefaultLongRestLengthInMin),
             _ => 0,
         };

@@ -6,9 +6,13 @@ public static class Constants
 
     public const int SixtySeconds = 60;
 
-    public const string FocusLengthInMin = nameof(FocusLengthInMin);
-    public const string ShortRestLengthInMin = nameof(ShortRestLengthInMin);
-    public const string LongRestLengthInMin = nameof(LongRestLengthInMin);
+    public class Settings
+    {
+        public const string IsSoundEnabled = nameof(IsSoundEnabled);
+        public const string FocusLengthInMin = nameof(FocusLengthInMin);
+        public const string ShortRestLengthInMin = nameof(ShortRestLengthInMin);
+        public const string LongRestLengthInMin = nameof(LongRestLengthInMin);
+    }
 
     public class PageTitles
     {

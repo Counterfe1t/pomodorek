@@ -19,14 +19,14 @@ public class SettingsServiceTests
     {
         // arrange
         _preferencesMock
-            .Setup(x => x.Get(Constants.FocusLengthInMin, Value, null))
+            .Setup(x => x.Get(Constants.Settings.FocusLengthInMin, Value, null))
             .Returns(Value);
 
         // act
-        var result = _settingsService.Get(Constants.FocusLengthInMin, Value);
+        var result = _settingsService.Get(Constants.Settings.FocusLengthInMin, Value);
 
         // assert
-        _preferencesMock.Verify(x => x.Get(Constants.FocusLengthInMin, Value, null), Times.Once);
+        _preferencesMock.Verify(x => x.Get(Constants.Settings.FocusLengthInMin, Value, null), Times.Once);
         Assert.Equal(Value, result);
     }
 
@@ -34,9 +34,9 @@ public class SettingsServiceTests
     public void Set_WhenCalled_SetsSettingsToStorage()
     {
         // act
-        _settingsService.Set(Constants.FocusLengthInMin, Value);
+        _settingsService.Set(Constants.Settings.FocusLengthInMin, Value);
 
         // assert
-        _preferencesMock.Verify(x => x.Set(Constants.FocusLengthInMin, Value, null), Times.Once);
+        _preferencesMock.Verify(x => x.Set(Constants.Settings.FocusLengthInMin, Value, null), Times.Once);
     }
 }
