@@ -15,9 +15,6 @@ public static class MauiProgram
         MauiApp.CreateBuilder()
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
-#if ANDROID
-            .UseLocalNotification()
-#endif
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -42,8 +39,10 @@ public static class MauiProgram
         builder.Services.AddSingleton<ISettingsService, SettingsService>();
         builder.Services.AddSingleton<IConfigurationService, ConfigurationService>();
         builder.Services.AddSingleton<ISoundService, SoundService>();
+        builder.Services.AddSingleton<IAlertService, AlertService>();
 #endif
 #if ANDROID
+        builder.UseLocalNotification();
         builder.Services.AddSingleton<IForegroundService, ForegroundService>();
 #endif
         return builder;

@@ -39,6 +39,7 @@ public class SettingsPageViewModel : BaseViewModel
 
     private readonly ISettingsService _settingsService;
     private readonly IConfigurationService _configurationService;
+    private readonly IAlertService _alertService;
 
     private AppSettings AppSettings => _configurationService.GetAppSettings();
 
@@ -47,14 +48,20 @@ public class SettingsPageViewModel : BaseViewModel
 
     public SettingsPageViewModel(
         ISettingsService settingsService,
-        IConfigurationService configurationService)
+        IConfigurationService configurationService,
+        IAlertService alertService)
     {
         Title = Constants.PageTitles.Settings;
         _settingsService = settingsService;
         _configurationService = configurationService;
+        _alertService = alertService;
 
         InitializeCommand = new Command(Initialize);
-        SaveCommand = new Command(SaveSettings);
+        SaveCommand = new Command(() =>
+        {
+            SaveSettings();
+            _alertService.DisplayAlert(Constants.PageTitles.Settings, Constants.Messages.SettingsSaved);
+        });
     }
 
     private void Initialize()

@@ -28,12 +28,14 @@ public static class Constants
         public const string Stopped = "STOPPED";
     }
 
-    public class NotificationMessages
+    public class Messages
     {
         public const string Focus = "Get back to work.";
         public const string ShortRest = "Take a short break.";
         public const string LongRest = "Take a long break.";
         public const string SessionOver = "Session has ended.";
+        public const string SettingsSaved = "Settings have been saved.";
+        public const string Confirm = "OK";
     }
 
     public class Sounds

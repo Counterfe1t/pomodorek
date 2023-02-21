@@ -5,6 +5,7 @@ public class SettingsPageViewModelTests
     private readonly SettingsPageViewModel _viewModel;
     private readonly Mock<ISettingsService> _settingsServiceMock;
     private readonly Mock<IConfigurationService> _configurationServiceMock;
+    private readonly Mock<IAlertService> _alertService;
 
     private static AppSettings AppSettings => new();
 
@@ -12,10 +13,12 @@ public class SettingsPageViewModelTests
     {
         _settingsServiceMock = new Mock<ISettingsService>();
         _configurationServiceMock = new Mock<IConfigurationService>();
+        _alertService = new Mock<IAlertService>();
 
         _viewModel = new SettingsPageViewModel(
             _settingsServiceMock.Object,
-            _configurationServiceMock.Object);
+            _configurationServiceMock.Object,
+            _alertService.Object);
     }
 
     [Fact]

@@ -123,24 +123,24 @@ public class MainPageViewModel : BaseViewModel
                 if (++SessionsElapsed >= SessionLength)
                 {
                     StopCommand.Execute(null);
-                    await DisplayNotification(Constants.NotificationMessages.SessionOver);
+                    await DisplayNotification(Constants.Messages.SessionOver);
                     await _soundService.PlaySound(Constants.Sounds.SessionOver);
                     break;
                 }
 
                 if (SessionsElapsed % 4 == 0)
                 {
-                    await DisplayNotification(Constants.NotificationMessages.LongRest);
+                    await DisplayNotification(Constants.Messages.LongRest);
                     SetTimer(TimerStatusEnum.LongRest);
                     break;
                 }
 
-                await DisplayNotification(Constants.NotificationMessages.ShortRest);
+                await DisplayNotification(Constants.Messages.ShortRest);
                 SetTimer(TimerStatusEnum.ShortRest);
                 break;
             case TimerStatusEnum.ShortRest:
             case TimerStatusEnum.LongRest:
-                await DisplayNotification(Constants.NotificationMessages.Focus);
+                await DisplayNotification(Constants.Messages.Focus);
                 SetTimer(TimerStatusEnum.Focus);
                 break;
             case TimerStatusEnum.Stopped:
