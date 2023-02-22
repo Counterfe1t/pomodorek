@@ -63,5 +63,7 @@ public class SettingsPageViewModelTests
             .Verify(x => x.Set(Constants.Settings.ShortRestLengthInMin, It.IsAny<int>()), Times.Once);
         _settingsServiceMock
             .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, It.IsAny<int>()), Times.Once);
+        _alertService
+            .Verify(x => x.DisplayAlert(Constants.PageTitles.Settings, Constants.Messages.SettingsSaved));
     }
 }

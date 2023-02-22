@@ -60,6 +60,7 @@ public class SettingsPageViewModel : BaseViewModel
         SaveCommand = new Command(() =>
         {
             SaveSettings();
+            // TODO: Navigate to timer page after closing alert
             _alertService.DisplayAlert(Constants.PageTitles.Settings, Constants.Messages.SettingsSaved);
         });
     }
