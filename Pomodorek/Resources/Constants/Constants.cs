@@ -12,6 +12,7 @@ public static class Constants
         public const string FocusLengthInMin = nameof(FocusLengthInMin);
         public const string ShortRestLengthInMin = nameof(ShortRestLengthInMin);
         public const string LongRestLengthInMin = nameof(LongRestLengthInMin);
+        public const string NumberOfSessions = nameof(NumberOfSessions);
     }
 
     public class PageTitles

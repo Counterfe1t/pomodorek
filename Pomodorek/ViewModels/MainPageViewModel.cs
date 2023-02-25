@@ -5,9 +5,9 @@ namespace Pomodorek.ViewModels;
 public class MainPageViewModel : BaseViewModel
 {
     private int _seconds;
-    private TimerStatusEnum _status = TimerStatusEnum.Stopped;
-    private bool _isRunning = false;
-    private int _sessionLength = 2;
+    private TimerStatusEnum _status;
+    private bool _isRunning;
+    private int _numberOfSessions;
     private int _sessionsElapsed;
 
     #region Properties
@@ -31,10 +31,10 @@ public class MainPageViewModel : BaseViewModel
         set => SetProperty(ref _isRunning, value);
     }
 
-    public int SessionLength
+    public int NumberOfSessions
     {
-        get => _sessionLength;
-        set => SetProperty(ref _sessionLength, value);
+        get => _numberOfSessions;
+        set => SetProperty(ref _numberOfSessions, value);
     }
 
     public int SessionsElapsed
@@ -72,6 +72,8 @@ public class MainPageViewModel : BaseViewModel
 
         StartCommand = new Command(async () => await StartSession());
         StopCommand = new Command(StopSession);
+
+        NumberOfSessions = _settingsService.Get(Constants.Settings.NumberOfSessions, 2);
     }
 
     public async Task StartSession()
@@ -84,6 +86,7 @@ public class MainPageViewModel : BaseViewModel
         SessionsElapsed = 0;
         await _soundService.PlaySound(Constants.Sounds.SessionStart);
         SetTimer(TimerStatusEnum.Focus);
+        _settingsService.Set(Constants.Settings.NumberOfSessions, NumberOfSessions);
     }
 
     public void StopSession()
@@ -120,7 +123,7 @@ public class MainPageViewModel : BaseViewModel
         switch (Status)
         {
             case TimerStatusEnum.Focus:
-                if (++SessionsElapsed >= SessionLength)
+                if (++SessionsElapsed >= NumberOfSessions)
                 {
                     StopCommand.Execute(null);
                     await DisplayNotification(Constants.Messages.SessionOver);
