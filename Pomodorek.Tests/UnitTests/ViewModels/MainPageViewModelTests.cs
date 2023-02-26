@@ -54,6 +54,7 @@ public class MainPageViewModelTests
         // assert
         _timerMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Once);
         _soundServiceMock.Verify(x => x.PlaySound(It.IsAny<string>()), Times.Once);
+        _settingsServiceMock.Verify(x => x.Set(Constants.Settings.NumberOfSessions, It.IsAny<int>()), Times.Once);
     }
 
     [Fact]
@@ -68,6 +69,7 @@ public class MainPageViewModelTests
         // assert
         _timerMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Never);
         _soundServiceMock.Verify(x => x.PlaySound(It.IsAny<string>()), Times.Never);
+        _settingsServiceMock.Verify(x => x.Set(Constants.Settings.NumberOfSessions, It.IsAny<int>()), Times.Never);
     }
 
     [Fact]
