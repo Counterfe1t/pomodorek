@@ -1,6 +1,4 @@
-﻿using Pomodorek.Models;
-
-namespace Pomodorek.Services;
+﻿namespace Pomodorek.Services;
 
 public interface IConfigurationService
 {

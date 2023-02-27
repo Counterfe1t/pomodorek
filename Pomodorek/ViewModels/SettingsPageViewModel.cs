@@ -1,6 +1,4 @@
-﻿using System.Windows.Input;
-
-namespace Pomodorek.ViewModels;
+﻿namespace Pomodorek.ViewModels;
 
 public class SettingsPageViewModel : BaseViewModel
 {

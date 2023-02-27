@@ -1,8 +1,4 @@
-﻿using Pomodorek.Resources.Constants;
-using Pomodorek.Resources.Enums;
-using System.Globalization;
-
-namespace Pomodorek.Converters;
+﻿namespace Pomodorek.Converters;
 
 public class TimerStatusConverter : IValueConverter
 {

@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace Pomodorek.Converters;
+﻿namespace Pomodorek.Converters;
 
 public class NegationConverter : IValueConverter
 {
