@@ -2,35 +2,58 @@
 
 public class SettingsPageViewModel : BaseViewModel
 {
+    private bool _isChangePending;
     private bool _isSoundEnabled;
     private int _focusLengthInMin;
     private int _shortRestLengthInMin;
     private int _longRestLengthInMin;
 
     #region Properties
-    
+
+    public bool IsChangePending
+    {
+        get => _isChangePending;
+        set => SetProperty(ref _isChangePending, value);
+    }
+
     public bool IsSoundEnabled
     {
         get => _isSoundEnabled;
-        set => SetProperty(ref _isSoundEnabled, value);
+        set
+        {
+            IsChangePending = true;
+            SetProperty(ref _isSoundEnabled, value);
+        }
     }
 
     public int FocusLengthInMin
     {
         get => _focusLengthInMin;
-        set => SetProperty(ref _focusLengthInMin, value);
+        set
+        {
+            IsChangePending = true;
+            SetProperty(ref _focusLengthInMin, value);
+        }
     }
 
     public int ShortRestLengthInMin
     {
         get => _shortRestLengthInMin;
-        set => SetProperty(ref _shortRestLengthInMin, value);
+        set
+        {
+            IsChangePending = true;
+            SetProperty(ref _shortRestLengthInMin, value);
+        }
     }
 
     public int LongRestLengthInMin
     {
         get => _longRestLengthInMin;
-        set => SetProperty(ref _longRestLengthInMin, value);
+        set
+        {
+            IsChangePending = true;
+            SetProperty(ref _longRestLengthInMin, value);
+        }
     }
 
     #endregion
@@ -66,7 +89,7 @@ public class SettingsPageViewModel : BaseViewModel
     private void Initialize()
     {
         IsSoundEnabled = _settingsService.Get(Constants.Settings.IsSoundEnabled, true);
-        
+
         FocusLengthInMin = _settingsService.Get(
             Constants.Settings.FocusLengthInMin,
             AppSettings.DefaultFocusLengthInMin);
@@ -78,6 +101,8 @@ public class SettingsPageViewModel : BaseViewModel
         LongRestLengthInMin = _settingsService.Get(
             Constants.Settings.LongRestLengthInMin,
             AppSettings.DefaultLongRestLengthInMin);
+
+        IsChangePending = false;
     }
 
     // TODO: Save settings only if any changes have been made
@@ -87,5 +112,6 @@ public class SettingsPageViewModel : BaseViewModel
         _settingsService.Set(Constants.Settings.FocusLengthInMin, FocusLengthInMin);
         _settingsService.Set(Constants.Settings.ShortRestLengthInMin, ShortRestLengthInMin);
         _settingsService.Set(Constants.Settings.LongRestLengthInMin, LongRestLengthInMin);
+        IsChangePending = false;
     }
 }

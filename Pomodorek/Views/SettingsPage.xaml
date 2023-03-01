@@ -24,7 +24,7 @@
             Text="Sound enabled"></Label>
         <Switch
             Grid.Column="2"
-            IsToggled="{Binding IsSoundEnabled}"/>
+            IsToggled="{Binding IsSoundEnabled}" />
 
         <!-- 2nd row -->
         <Label
@@ -95,7 +95,8 @@
             Text="Save"
             FontSize="35"
             SemanticProperties.Hint="Save settings"
-            Command="{Binding SaveCommand}" />
+            Command="{Binding SaveCommand}"
+            IsEnabled="{Binding IsChangePending}" />
 
     </Grid>
 </ContentPage>
