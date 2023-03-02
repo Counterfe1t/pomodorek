@@ -105,7 +105,6 @@ public class SettingsPageViewModel : BaseViewModel
         IsChangePending = false;
     }
 
-    // TODO: Save settings only if any changes have been made
     private void SaveSettings()
     {
         _settingsService.Set(Constants.Settings.IsSoundEnabled, IsSoundEnabled);
