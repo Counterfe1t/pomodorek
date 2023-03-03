@@ -40,6 +40,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<IConfigurationService, ConfigurationService>();
         builder.Services.AddSingleton<ISoundService, SoundService>();
         builder.Services.AddSingleton<IAlertService, AlertService>();
+        builder.Services.AddSingleton<INavigationService, NavigationService>();
 #endif
 #if ANDROID
         builder.UseLocalNotification();
