@@ -61,6 +61,7 @@ public class SettingsPageViewModel : BaseViewModel
     private readonly ISettingsService _settingsService;
     private readonly IConfigurationService _configurationService;
     private readonly IAlertService _alertService;
+    private readonly INavigationService _navigationService;
 
     private AppSettings AppSettings => _configurationService.GetAppSettings();
 
@@ -70,19 +71,21 @@ public class SettingsPageViewModel : BaseViewModel
     public SettingsPageViewModel(
         ISettingsService settingsService,
         IConfigurationService configurationService,
-        IAlertService alertService)
+        IAlertService alertService,
+        INavigationService navigationService)
     {
         Title = Constants.PageTitles.Settings;
         _settingsService = settingsService;
         _configurationService = configurationService;
         _alertService = alertService;
+        _navigationService = navigationService;
 
         InitializeCommand = new Command(Initialize);
         SaveCommand = new Command(() =>
         {
             SaveSettings();
-            // TODO: Navigate to timer page after closing alert
             _alertService.DisplayAlert(Constants.PageTitles.Settings, Constants.Messages.SettingsSaved);
+            _navigationService.GoToTimerPageAsync();
         });
     }
 

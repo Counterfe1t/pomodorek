@@ -5,7 +5,8 @@ public class SettingsPageViewModelTests
     private readonly SettingsPageViewModel _viewModel;
     private readonly Mock<ISettingsService> _settingsServiceMock;
     private readonly Mock<IConfigurationService> _configurationServiceMock;
-    private readonly Mock<IAlertService> _alertService;
+    private readonly Mock<IAlertService> _alertServiceMock;
+    private readonly Mock<INavigationService> _navigationServiceMock;
 
     private static AppSettings AppSettings => new();
 
@@ -13,12 +14,14 @@ public class SettingsPageViewModelTests
     {
         _settingsServiceMock = new Mock<ISettingsService>();
         _configurationServiceMock = new Mock<IConfigurationService>();
-        _alertService = new Mock<IAlertService>();
+        _alertServiceMock = new Mock<IAlertService>();
+        _navigationServiceMock = new Mock<INavigationService>();
 
         _viewModel = new SettingsPageViewModel(
             _settingsServiceMock.Object,
             _configurationServiceMock.Object,
-            _alertService.Object);
+            _alertServiceMock.Object,
+            _navigationServiceMock.Object);
     }
 
     [Fact]
@@ -63,7 +66,9 @@ public class SettingsPageViewModelTests
             .Verify(x => x.Set(Constants.Settings.ShortRestLengthInMin, It.IsAny<int>()), Times.Once);
         _settingsServiceMock
             .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, It.IsAny<int>()), Times.Once);
-        _alertService
+        _alertServiceMock
             .Verify(x => x.DisplayAlert(Constants.PageTitles.Settings, Constants.Messages.SettingsSaved));
+        _navigationServiceMock
+            .Verify(x => x.GoToTimerPageAsync(), Times.Once);
     }
 }
