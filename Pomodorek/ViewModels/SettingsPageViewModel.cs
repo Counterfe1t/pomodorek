@@ -74,7 +74,7 @@ public class SettingsPageViewModel : BaseViewModel
         IAlertService alertService,
         INavigationService navigationService)
     {
-        Title = Constants.PageTitles.Settings;
+        Title = Constants.Pages.Settings;
         _settingsService = settingsService;
         _configurationService = configurationService;
         _alertService = alertService;
@@ -84,7 +84,7 @@ public class SettingsPageViewModel : BaseViewModel
         SaveCommand = new Command(() =>
         {
             SaveSettings();
-            _alertService.DisplayAlert(Constants.PageTitles.Settings, Constants.Messages.SettingsSaved);
+            _alertService.DisplayAlert(Constants.Pages.Settings, Constants.Messages.SettingsSaved);
             _navigationService.GoToTimerPageAsync();
         });
     }

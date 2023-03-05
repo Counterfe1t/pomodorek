@@ -15,7 +15,7 @@ public static class Constants
         public const string NumberOfSessions = nameof(NumberOfSessions);
     }
 
-    public class PageTitles
+    public class Pages
     {
         public const string Pomodorek = nameof(Pomodorek);
         public const string Settings = nameof(Settings);

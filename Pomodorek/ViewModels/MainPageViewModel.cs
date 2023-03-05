@@ -61,7 +61,7 @@ public class MainPageViewModel : BaseViewModel
         IConfigurationService configurationService,
         ISoundService soundService)
     {
-        Title = Constants.PageTitles.Pomodorek;
+        Title = Constants.Pages.Pomodorek;
         _timerService = timerService;
         _notificationService = notificationService;
         _settingsService = settingsService;
