@@ -81,12 +81,7 @@ public class SettingsPageViewModel : BaseViewModel
         _navigationService = navigationService;
 
         InitializeCommand = new Command(Initialize);
-        SaveCommand = new Command(() =>
-        {
-            SaveSettings();
-            _alertService.DisplayAlert(Constants.Pages.Settings, Constants.Messages.SettingsSaved);
-            _navigationService.GoToTimerPageAsync();
-        });
+        SaveCommand = new Command(async () => await SaveSettings());
     }
 
     private void Initialize()
@@ -108,12 +103,15 @@ public class SettingsPageViewModel : BaseViewModel
         IsChangePending = false;
     }
 
-    private void SaveSettings()
+    private async Task SaveSettings()
     {
         _settingsService.Set(Constants.Settings.IsSoundEnabled, IsSoundEnabled);
         _settingsService.Set(Constants.Settings.FocusLengthInMin, FocusLengthInMin);
         _settingsService.Set(Constants.Settings.ShortRestLengthInMin, ShortRestLengthInMin);
         _settingsService.Set(Constants.Settings.LongRestLengthInMin, LongRestLengthInMin);
         IsChangePending = false;
+
+        await _alertService.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsSaved);
+        await _navigationService.GoToTimerPageAsync();
     }
 }
