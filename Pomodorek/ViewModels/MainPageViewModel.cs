@@ -87,6 +87,7 @@ public class MainPageViewModel : BaseViewModel
         _settingsService.Set(Constants.Settings.NumberOfSessions, NumberOfSessions);
     }
 
+    // TODO: Show simple session summary
     public void StopSession()
     {
         _timerService.Stop();
@@ -116,6 +117,7 @@ public class MainPageViewModel : BaseViewModel
         Seconds--;
     }
 
+    // TODO: Does awaiting async calls delay the work of the timer?
     private async Task HandleOnFinishedEvent()
     {
         switch (Status)
