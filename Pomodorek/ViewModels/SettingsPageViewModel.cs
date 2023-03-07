@@ -103,6 +103,7 @@ public class SettingsPageViewModel : BaseViewModel
         IsChangePending = false;
     }
 
+    // TODO: Add simple validation (rest duration cannot be longer than focus duration)
     private async Task SaveSettings()
     {
         _settingsService.Set(Constants.Settings.IsSoundEnabled, IsSoundEnabled);
