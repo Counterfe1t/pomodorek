@@ -41,7 +41,7 @@ public class MainPageViewModelTests
     }
 
     [Fact]
-    public async Task StartSession_WhenTimerIsNotRunning_StartsTimer()
+    public void StartSession_WhenTimerIsNotRunning_StartsTimer()
     {
         // arrange
         _configurationServiceMock
@@ -49,7 +49,7 @@ public class MainPageViewModelTests
             .Returns(AppSettings);
 
         // act
-        await _viewModel.StartSession();
+        _viewModel.StartCommand.Execute(null);
 
         // assert
         _timerMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Once);
@@ -58,13 +58,13 @@ public class MainPageViewModelTests
     }
 
     [Fact]
-    public async Task StartSession_WhenTimerIsRunning_DoesNotStartTimer()
+    public void StartSession_WhenTimerIsRunning_DoesNotStartTimer()
     {
         // arrange
         _viewModel.IsRunning = true;
 
         // act
-        await _viewModel.StartSession();
+        _viewModel.StartCommand.Execute(null);
 
         // assert
         _timerMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Never);
@@ -76,7 +76,7 @@ public class MainPageViewModelTests
     public void StopSession_WhenCalled_StopsTimer()
     {
         // act
-        _viewModel.StopSession();
+        _viewModel.StopCommand.Execute(null);
 
         // assert
         _timerMock.Verify(x => x.Stop(), Times.Once);

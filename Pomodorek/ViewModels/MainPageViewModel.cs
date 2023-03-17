@@ -74,7 +74,7 @@ public class MainPageViewModel : BaseViewModel
         NumberOfSessions = _settingsService.Get(Constants.Settings.NumberOfSessions, 2);
     }
 
-    public async Task StartSession()
+    private async Task StartSession()
     {
         // TODO: Handle pausing timer
         if (IsRunning)
@@ -88,7 +88,7 @@ public class MainPageViewModel : BaseViewModel
     }
 
     // TODO: Show simple session summary
-    public void StopSession()
+    private void StopSession()
     {
         _timerService.Stop();
         Seconds = 0;
