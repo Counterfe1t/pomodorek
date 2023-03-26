@@ -36,6 +36,7 @@
             Grid.Column="2"
             WidthRequest="150"
             HorizontalOptions="Start"
+            IsEnabled="{Binding IsSoundEnabled}"
             Maximum="1"
             Minimum="0"
             Value="{Binding SoundVolume}" />
