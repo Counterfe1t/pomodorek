@@ -4,6 +4,7 @@ public class SettingsPageViewModel : BaseViewModel
 {
     private bool _isChangePending;
     private bool _isSoundEnabled;
+    private double _soundVolume;
     private int _focusLengthInMin;
     private int _shortRestLengthInMin;
     private int _longRestLengthInMin;
@@ -23,6 +24,16 @@ public class SettingsPageViewModel : BaseViewModel
         {
             IsChangePending = true;
             SetProperty(ref _isSoundEnabled, value);
+        }
+    }
+
+    public double SoundVolume
+    {
+        get => _soundVolume;
+        set
+        {
+            IsChangePending = true;
+            SetProperty(ref _soundVolume, value);
         }
     }
 
@@ -84,9 +95,16 @@ public class SettingsPageViewModel : BaseViewModel
         SaveCommand = new Command(async () => await SaveSettings());
     }
 
+    // TODO: Add option to restore default settings
     private void Initialize()
     {
-        IsSoundEnabled = _settingsService.Get(Constants.Settings.IsSoundEnabled, true);
+        IsSoundEnabled = _settingsService.Get(
+            Constants.Settings.IsSoundEnabled,
+            AppSettings.DefualtIsSoundEnabled);
+
+        SoundVolume = _settingsService.Get(
+            Constants.Settings.SoundVolume,
+            AppSettings.DefualtSoundVolume);
 
         FocusLengthInMin = _settingsService.Get(
             Constants.Settings.FocusLengthInMin,
@@ -107,6 +125,7 @@ public class SettingsPageViewModel : BaseViewModel
     private async Task SaveSettings()
     {
         _settingsService.Set(Constants.Settings.IsSoundEnabled, IsSoundEnabled);
+        _settingsService.Set(Constants.Settings.SoundVolume, SoundVolume);
         _settingsService.Set(Constants.Settings.FocusLengthInMin, FocusLengthInMin);
         _settingsService.Set(Constants.Settings.ShortRestLengthInMin, ShortRestLengthInMin);
         _settingsService.Set(Constants.Settings.LongRestLengthInMin, LongRestLengthInMin);

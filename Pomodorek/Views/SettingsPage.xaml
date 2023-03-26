@@ -13,7 +13,7 @@
     </ContentPage.Resources>
     <Grid
         Padding="20"
-        RowDefinitions="Auto, Auto, Auto, Auto, *, Auto"
+        RowDefinitions="Auto, Auto, Auto, Auto, Auto, *, Auto"
         RowSpacing="10"
         ColumnDefinitions="Auto, *"
         ColumnSpacing="25">
@@ -30,9 +30,23 @@
         <Label
             Grid.Row="1"
             VerticalOptions="Center"
+            Text="Sound volume"></Label>
+        <Slider
+            Grid.Row="1"
+            Grid.Column="2"
+            WidthRequest="150"
+            HorizontalOptions="Start"
+            Maximum="1"
+            Minimum="0"
+            Value="{Binding SoundVolume}" />
+
+        <!-- 3rd row -->
+        <Label
+            Grid.Row="2"
+            VerticalOptions="Center"
             Text="Focus length in minutes"></Label>
         <Entry
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="2"
             WidthRequest="50"
             HeightRequest="{OnPlatform Android=50}"
@@ -46,13 +60,13 @@
             </Entry.Behaviors>
         </Entry>
 
-        <!-- 3rd row -->
+        <!-- 4th row -->
         <Label
-            Grid.Row="2"
+            Grid.Row="3"
             VerticalOptions="Center"
             Text="Short rest length in minutes"></Label>
         <Entry
-            Grid.Row="2"
+            Grid.Row="3"
             Grid.Column="2"
             WidthRequest="50"
             HeightRequest="{OnPlatform Android=50}"
@@ -66,13 +80,13 @@
             </Entry.Behaviors>
         </Entry>
 
-        <!-- 4th row -->
+        <!-- 5th row -->
         <Label
-            Grid.Row="3"
+            Grid.Row="4"
             VerticalOptions="Center"
             Text="Long rest length in minutes"></Label>
         <Entry
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="2"
             WidthRequest="50"
             HeightRequest="{OnPlatform Android=50}"
@@ -86,11 +100,11 @@
             </Entry.Behaviors>
         </Entry>
 
-        <!-- 5th row -->
-
         <!-- 6th row -->
+
+        <!-- 7th row -->
         <Button
-            Grid.Row="5"
+            Grid.Row="6"
             Grid.ColumnSpan="2"
             Text="Save"
             FontSize="35"

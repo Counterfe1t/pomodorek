@@ -8,17 +8,22 @@ public class SoundServiceTests
     private readonly Mock<IAudioManager> _audioManagerMock;
     private readonly Mock<IFileSystem> _fileSystemMock;
     private readonly Mock<ISettingsService> _settingsService;
+    private readonly Mock<IConfigurationService> _configurationServiceMock;
+
+    private static AppSettings AppSettings => new();
 
     public SoundServiceTests()
     {
         _audioManagerMock = new Mock<IAudioManager>();
         _fileSystemMock = new Mock<IFileSystem>();
         _settingsService = new Mock<ISettingsService>();
+        _configurationServiceMock = new Mock<IConfigurationService>();
 
         _soundService = new SoundService(
             _audioManagerMock.Object,
             _fileSystemMock.Object,
-            _settingsService.Object);
+            _settingsService.Object,
+            _configurationServiceMock.Object);
     }
 
     [Fact]
@@ -31,6 +36,9 @@ public class SoundServiceTests
         _settingsService
             .Setup(x => x.Get(Constants.Settings.IsSoundEnabled, It.IsAny<bool>()))
             .Returns(true);
+
+        _configurationServiceMock
+            .Setup(x => x.GetAppSettings()).Returns(AppSettings);
 
         _fileSystemMock
             .Setup(x => x.OpenAppPackageFileAsync(It.IsAny<string>()))

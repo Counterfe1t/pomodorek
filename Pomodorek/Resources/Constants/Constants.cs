@@ -9,6 +9,7 @@ public static class Constants
     public class Settings
     {
         public const string IsSoundEnabled = nameof(IsSoundEnabled);
+        public const string SoundVolume = nameof(SoundVolume);
         public const string FocusLengthInMin = nameof(FocusLengthInMin);
         public const string ShortRestLengthInMin = nameof(ShortRestLengthInMin);
         public const string LongRestLengthInMin = nameof(LongRestLengthInMin);

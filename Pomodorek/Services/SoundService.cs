@@ -7,28 +7,38 @@ public class SoundService : ISoundService
     private readonly IAudioManager _audioManager;
     private readonly IFileSystem _fileSystem;
     private readonly ISettingsService _settingsService;
+    private readonly IConfigurationService _configurationService;
+
+    private AppSettings AppSettings => _configurationService.GetAppSettings();
 
     private bool IsSoundEnabled => _settingsService.Get(Constants.Settings.IsSoundEnabled, true);
 
     public SoundService(
         IAudioManager audioManager,
         IFileSystem fileSystem,
-        ISettingsService settingsService)
+        ISettingsService settingsService,
+        IConfigurationService configurationService)
     {
         _audioManager = audioManager;
         _fileSystem = fileSystem;
         _settingsService = settingsService;
+        _configurationService = configurationService;
     }
 
-    // TODO: Implement increasing and decreasing sound volume
     public async Task PlaySound(string sound)
     {
         if (!IsSoundEnabled)
             return;
 
         using var stream = await _fileSystem.OpenAppPackageFileAsync(sound);
+
         var player = _audioManager
             .CreatePlayer(stream);
+        
+        player.Volume = _settingsService.Get(
+            Constants.Settings.SoundVolume,
+            AppSettings.DefualtSoundVolume);
+        
         player.Play();
     }
 }
