@@ -76,7 +76,7 @@ public class MainPageViewModel : BaseViewModel
 
     private async Task StartSession()
     {
-        // TODO: Handle pausing timer
+        // TODO: Handle pausing and resuming timer
         if (IsRunning)
             return;
 
@@ -96,6 +96,7 @@ public class MainPageViewModel : BaseViewModel
         Status = TimerStatusEnum.Stopped;
     }
 
+    // TODO: Should this be invoked by a command?
     public async Task DisplayNotification(string message) =>
         await _notificationService.DisplayNotification(message);
 
