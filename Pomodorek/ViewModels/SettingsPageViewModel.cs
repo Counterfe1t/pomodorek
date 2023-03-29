@@ -4,7 +4,7 @@ public class SettingsPageViewModel : BaseViewModel
 {
     private bool _isChangePending;
     private bool _isSoundEnabled;
-    private double _soundVolume;
+    private float _soundVolume;
     private int _focusLengthInMin;
     private int _shortRestLengthInMin;
     private int _longRestLengthInMin;
@@ -27,7 +27,7 @@ public class SettingsPageViewModel : BaseViewModel
         }
     }
 
-    public double SoundVolume
+    public float SoundVolume
     {
         get => _soundVolume;
         set
@@ -100,11 +100,11 @@ public class SettingsPageViewModel : BaseViewModel
     {
         IsSoundEnabled = _settingsService.Get(
             Constants.Settings.IsSoundEnabled,
-            AppSettings.DefualtIsSoundEnabled);
+            AppSettings.DefaultIsSoundEnabled);
 
         SoundVolume = _settingsService.Get(
             Constants.Settings.SoundVolume,
-            AppSettings.DefualtSoundVolume);
+            AppSettings.DefaultSoundVolume);
 
         FocusLengthInMin = _settingsService.Get(
             Constants.Settings.FocusLengthInMin,

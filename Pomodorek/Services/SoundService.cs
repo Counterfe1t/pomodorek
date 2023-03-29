@@ -37,7 +37,7 @@ public class SoundService : ISoundService
         
         player.Volume = _settingsService.Get(
             Constants.Settings.SoundVolume,
-            AppSettings.DefualtSoundVolume);
+            AppSettings.DefaultSoundVolume);
         
         player.Play();
     }
