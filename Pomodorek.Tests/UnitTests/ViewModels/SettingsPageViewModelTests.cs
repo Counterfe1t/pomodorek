@@ -39,6 +39,8 @@ public class SettingsPageViewModelTests
         _settingsServiceMock
             .Verify(x => x.Get(Constants.Settings.IsSoundEnabled, It.IsAny<bool>()), Times.Once);
         _settingsServiceMock
+            .Verify(x => x.Get(Constants.Settings.SoundVolume, It.IsAny<float>()), Times.Once);
+        _settingsServiceMock
             .Verify(x => x.Get(Constants.Settings.FocusLengthInMin, It.IsAny<int>()), Times.Once);
         _settingsServiceMock
             .Verify(x => x.Get(Constants.Settings.ShortRestLengthInMin, It.IsAny<int>()), Times.Once);
@@ -60,6 +62,8 @@ public class SettingsPageViewModelTests
         // assert
         _settingsServiceMock
             .Verify(x => x.Set(Constants.Settings.IsSoundEnabled, It.IsAny<bool>()), Times.Once);
+        _settingsServiceMock
+            .Verify(x => x.Set(Constants.Settings.SoundVolume, It.IsAny<float>()), Times.Once);
         _settingsServiceMock
             .Verify(x => x.Set(Constants.Settings.FocusLengthInMin, It.IsAny<int>()), Times.Once);
         _settingsServiceMock
