@@ -78,6 +78,7 @@ public class SettingsPageViewModel : BaseViewModel
 
     public ICommand InitializeCommand { get; private set; }
     public ICommand SaveCommand { get; private set; }
+    public ICommand RestoreCommand { get; private set; }
 
     public SettingsPageViewModel(
         ISettingsService settingsService,
@@ -91,12 +92,12 @@ public class SettingsPageViewModel : BaseViewModel
         _alertService = alertService;
         _navigationService = navigationService;
 
-        InitializeCommand = new Command(Initialize);
+        InitializeCommand = new Command(InitializeSettings);
         SaveCommand = new Command(async () => await SaveSettings());
+        RestoreCommand = new Command(async () => await RestoreDefaultSettings());
     }
 
-    // TODO: Add option to restore default settings
-    private void Initialize()
+    private void InitializeSettings()
     {
         IsSoundEnabled = _settingsService.Get(
             Constants.Settings.IsSoundEnabled,
@@ -133,5 +134,24 @@ public class SettingsPageViewModel : BaseViewModel
 
         await _alertService.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsSaved);
         await _navigationService.GoToTimerPageAsync();
+    }
+
+    // TODO: Add unit test
+    private async Task RestoreDefaultSettings()
+    {
+        IsSoundEnabled = AppSettings.DefaultIsSoundEnabled;
+        SoundVolume = AppSettings.DefaultSoundVolume;
+        FocusLengthInMin = AppSettings.DefaultFocusLengthInMin;
+        ShortRestLengthInMin = AppSettings.DefaultShortRestLengthInMin;
+        LongRestLengthInMin = AppSettings.DefaultLongRestLengthInMin;
+        IsChangePending = false;
+
+        _settingsService.Set(Constants.Settings.IsSoundEnabled, AppSettings.DefaultIsSoundEnabled);
+        _settingsService.Set(Constants.Settings.SoundVolume, AppSettings.DefaultSoundVolume);
+        _settingsService.Set(Constants.Settings.FocusLengthInMin, AppSettings.DefaultFocusLengthInMin);
+        _settingsService.Set(Constants.Settings.ShortRestLengthInMin, AppSettings.DefaultShortRestLengthInMin);
+        _settingsService.Set(Constants.Settings.LongRestLengthInMin, AppSettings.DefaultLongRestLengthInMin);
+
+        await _alertService.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsRestored);
     }
 }

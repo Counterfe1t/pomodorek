@@ -15,7 +15,7 @@
         Padding="20"
         RowDefinitions="Auto, Auto, Auto, Auto, Auto, *, Auto"
         RowSpacing="10"
-        ColumnDefinitions="Auto, *"
+        ColumnDefinitions="*, *"
         ColumnSpacing="25">
 
         <!-- 1st row -->
@@ -106,12 +106,17 @@
         <!-- 7th row -->
         <Button
             Grid.Row="6"
-            Grid.ColumnSpan="2"
             Text="Save"
             FontSize="35"
             SemanticProperties.Hint="Save settings"
             Command="{Binding SaveCommand}"
             IsEnabled="{Binding IsChangePending}" />
-
+        <Button
+            Grid.Row="6"
+            Grid.Column="2"
+            Text="Restore defaults"
+            FontSize="35"
+            SemanticProperties.Hint="Restore default settings"
+            Command="{Binding RestoreCommand}" />
     </Grid>
 </ContentPage>

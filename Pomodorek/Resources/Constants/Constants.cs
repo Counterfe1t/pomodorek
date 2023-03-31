@@ -37,6 +37,7 @@ public static class Constants
         public const string LongRest = "Take a long break.";
         public const string SessionOver = "Session has ended.";
         public const string SettingsSaved = "Settings have been saved.";
+        public const string SettingsRestored = "Default settings have been restored.";
         public const string Confirm = "OK";
     }
 
