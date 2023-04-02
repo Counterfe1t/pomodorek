@@ -136,7 +136,6 @@ public class SettingsPageViewModel : BaseViewModel
         await _navigationService.GoToTimerPageAsync();
     }
 
-    // TODO: Add unit test
     private async Task RestoreDefaultSettings()
     {
         IsSoundEnabled = AppSettings.DefaultIsSoundEnabled;

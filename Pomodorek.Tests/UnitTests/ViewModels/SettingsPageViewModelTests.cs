@@ -8,7 +8,14 @@ public class SettingsPageViewModelTests
     private readonly Mock<IAlertService> _alertServiceMock;
     private readonly Mock<INavigationService> _navigationServiceMock;
 
-    private static AppSettings AppSettings => new();
+    private static AppSettings AppSettings => new()
+    {
+        DefaultIsSoundEnabled = true,
+        DefaultSoundVolume = 1,
+        DefaultFocusLengthInMin = 3,
+        DefaultShortRestLengthInMin = 3,
+        DefaultLongRestLengthInMin = 7
+    };
 
     public SettingsPageViewModelTests()
     {
@@ -25,7 +32,7 @@ public class SettingsPageViewModelTests
     }
 
     [Fact]
-    public void Initialize_WhenCalled_InitializesProperties()
+    public void InitializeSettings_WhenCalled_InitializesProperties()
     {
         // arrange
         _configurationServiceMock
@@ -74,5 +81,31 @@ public class SettingsPageViewModelTests
             .Verify(x => x.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsSaved));
         _navigationServiceMock
             .Verify(x => x.GoToTimerPageAsync(), Times.Once);
+    }
+
+    [Fact]
+    public void RestoreDefaultSettings_WhenCalled_RestoresDefaultSettings()
+    {
+        // arrange
+        _configurationServiceMock
+            .Setup(x => x.GetAppSettings())
+            .Returns(AppSettings);
+
+        // act
+        _viewModel.RestoreCommand.Execute(null);
+
+        // assert
+        _settingsServiceMock
+            .Verify(x => x.Set(Constants.Settings.IsSoundEnabled, AppSettings.DefaultIsSoundEnabled), Times.Once);
+        _settingsServiceMock
+            .Verify(x => x.Set(Constants.Settings.SoundVolume, AppSettings.DefaultSoundVolume), Times.Once);
+        _settingsServiceMock
+            .Verify(x => x.Set(Constants.Settings.FocusLengthInMin, AppSettings.DefaultFocusLengthInMin), Times.Once);
+        _settingsServiceMock
+            .Verify(x => x.Set(Constants.Settings.ShortRestLengthInMin, AppSettings.DefaultShortRestLengthInMin), Times.Once);
+        _settingsServiceMock
+            .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, AppSettings.DefaultLongRestLengthInMin), Times.Once);
+        _alertServiceMock
+            .Verify(x => x.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsRestored));
     }
 }
