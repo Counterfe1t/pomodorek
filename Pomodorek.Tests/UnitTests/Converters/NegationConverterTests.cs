@@ -10,9 +10,10 @@ public class NegationConverterTests
     }
 
     [Theory]
+    [InlineData(null, false)]
     [InlineData(false, true)]
     [InlineData(true, false)]
-    public void Convert_ReturnsExcpectedResult(bool received, bool expected)
+    public void Convert_ReturnsExcpectedResult(bool? received, bool expected)
     {
         // act
         var result = _converter.Convert(
