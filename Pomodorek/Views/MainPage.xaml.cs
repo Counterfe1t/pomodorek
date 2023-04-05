@@ -1,6 +1,4 @@
-﻿using Pomodorek.ViewModels;
-
-namespace Pomodorek.Views;
+﻿namespace Pomodorek.Views;
 
 public partial class MainPage : ContentPage
 {

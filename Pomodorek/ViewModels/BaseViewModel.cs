@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-namespace Pomodorek.ViewModels;
+﻿namespace Pomodorek.ViewModels;
 
 public class BaseViewModel : INotifyPropertyChanged
 {

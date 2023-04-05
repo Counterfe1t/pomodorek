@@ -1,10 +1,4 @@
-﻿using CommunityToolkit.Maui;
-using Microsoft.Extensions.Configuration;
-using Plugin.LocalNotification;
-using Plugin.Maui.Audio;
-using Pomodorek.ViewModels;
-using Pomodorek.Views;
-using System.Reflection;
+﻿using Plugin.LocalNotification;
 using IPomodorekNotificationService = Pomodorek.Services.INotificationService;
 
 namespace Pomodorek;

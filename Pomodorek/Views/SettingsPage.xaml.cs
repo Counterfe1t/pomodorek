@@ -1,5 +1,3 @@
-using Pomodorek.ViewModels;
-
 namespace Pomodorek.Views;
 
 public partial class SettingsPage : ContentPage

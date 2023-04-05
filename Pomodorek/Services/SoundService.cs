@@ -1,6 +1,4 @@
-﻿using Plugin.Maui.Audio;
-
-namespace Pomodorek.Services;
+﻿namespace Pomodorek.Services;
 
 public class SoundService : ISoundService
 {

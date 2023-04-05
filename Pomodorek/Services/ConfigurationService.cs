@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace Pomodorek.Services;
+﻿namespace Pomodorek.Services;
 
 public class ConfigurationService : IConfigurationService
 {

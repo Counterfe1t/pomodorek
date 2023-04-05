@@ -1,6 +1,14 @@
-﻿global using Pomodorek.Models;
+﻿global using CommunityToolkit.Maui;
+global using Microsoft.Extensions.Configuration;
+global using Plugin.Maui.Audio;
+global using Pomodorek.Models;
 global using Pomodorek.Resources.Constants;
 global using Pomodorek.Resources.Enums;
 global using Pomodorek.Services;
+global using Pomodorek.ViewModels;
+global using Pomodorek.Views;
+global using System.ComponentModel;
 global using System.Globalization;
+global using System.Reflection;
+global using System.Runtime.CompilerServices;
 global using System.Windows.Input;
