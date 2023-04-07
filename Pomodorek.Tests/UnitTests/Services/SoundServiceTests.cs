@@ -67,6 +67,9 @@ public class SoundServiceTests
             .Setup(x => x.Get(Constants.Settings.IsSoundEnabled, It.IsAny<bool>()))
             .Returns(false);
 
+        _configurationServiceMock
+            .Setup(x => x.GetAppSettings()).Returns(AppSettings);
+
         _fileSystemMock
             .Setup(x => x.OpenAppPackageFileAsync(It.IsAny<string>()))
             .ReturnsAsync(audioStream.Object);

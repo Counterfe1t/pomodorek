@@ -9,7 +9,8 @@ public class SoundService : ISoundService
 
     private AppSettings AppSettings => _configurationService.GetAppSettings();
 
-    private bool IsSoundEnabled => _settingsService.Get(Constants.Settings.IsSoundEnabled, true);
+    private bool IsSoundEnabled =>
+        _settingsService.Get(Constants.Settings.IsSoundEnabled, AppSettings.DefaultIsSoundEnabled);
 
     public SoundService(
         IAudioManager audioManager,
@@ -28,20 +29,16 @@ public class SoundService : ISoundService
         if (!IsSoundEnabled)
             return;
 
-        var stream = await _fileSystem.OpenAppPackageFileAsync(sound);
-        var player = _audioManager.CreatePlayer(stream);
-        
+        using var stream = await _fileSystem.OpenAppPackageFileAsync(sound);
+        using var player = _audioManager.CreatePlayer(stream);
+
         player.Volume = _settingsService.Get(
             Constants.Settings.SoundVolume,
             AppSettings.DefaultSoundVolume);
 
         player.Play();
 
-        // TODO: Release used memory once player has stopped playing
         // For some reason IAudioPlayer.Duration always returns 0
-        await Task.Delay(5000);
-
-        stream?.Dispose();
-        player?.Dispose();
+        await Task.Delay(3000);
     }
 }
