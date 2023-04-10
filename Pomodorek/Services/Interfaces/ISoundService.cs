@@ -2,5 +2,5 @@
 
 public interface ISoundService
 {
-    Task PlaySound(string sound);
+    Task PlaySoundAsync(string sound);
 }

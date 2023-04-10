@@ -84,7 +84,7 @@ public class MainPageViewModel : BaseViewModel
         SessionsElapsed = 0;
         SetTimer(TimerStatusEnum.Focus);
         _settingsService.Set(Constants.Settings.NumberOfSessions, NumberOfSessions);
-        _ = _soundService.PlaySound(Constants.Sounds.SessionStart);
+        _ = _soundService.PlaySoundAsync(Constants.Sounds.SessionStart);
     }
 
     // TODO: Show simple session summary
@@ -129,7 +129,7 @@ public class MainPageViewModel : BaseViewModel
                 {
                     StopCommand.Execute(null);
                     await DisplayNotification(Constants.Messages.SessionOver);
-                    _ = _soundService.PlaySound(Constants.Sounds.SessionOver);
+                    _ = _soundService.PlaySoundAsync(Constants.Sounds.SessionOver);
                     break;
                 }
 

@@ -24,7 +24,7 @@ public class SoundService : ISoundService
         _configurationService = configurationService;
     }
 
-    public async Task PlaySound(string sound)
+    public async Task PlaySoundAsync(string sound)
     {
         if (!IsSoundEnabled)
             return;

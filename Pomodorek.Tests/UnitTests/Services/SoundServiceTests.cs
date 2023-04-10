@@ -27,7 +27,7 @@ public class SoundServiceTests
     }
 
     [Fact]
-    public async Task PlaySound_WhenSoundEnabled_PlaysSound()
+    public async Task PlaySoundAsync_WhenSoundEnabled_PlaysSound()
     {
         // arrange
         var audioPlayerMock = new Mock<IAudioPlayer>();
@@ -49,7 +49,7 @@ public class SoundServiceTests
             .Returns(audioPlayerMock.Object);
 
         // act
-        await _soundService.PlaySound(It.IsAny<string>());
+        await _soundService.PlaySoundAsync(It.IsAny<string>());
 
         // assert
         _audioManagerMock.Verify(x => x.CreatePlayer(It.IsAny<Stream>()), Times.Once);
@@ -57,7 +57,7 @@ public class SoundServiceTests
     }
 
     [Fact]
-    public async Task PlaySound_WhenSoundDisabled_DoesNotPlaySound()
+    public async Task PlaySoundAsync_WhenSoundDisabled_DoesNotPlaySound()
     {
         // arrange
         var audioPlayerMock = new Mock<IAudioPlayer>();
@@ -79,7 +79,7 @@ public class SoundServiceTests
             .Returns(audioPlayerMock.Object);
 
         // act
-        await _soundService.PlaySound(It.IsAny<string>());
+        await _soundService.PlaySoundAsync(It.IsAny<string>());
 
         // assert
         _audioManagerMock.Verify(x => x.CreatePlayer(It.IsAny<Stream>()), Times.Never);

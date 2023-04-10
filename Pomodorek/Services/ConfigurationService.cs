@@ -9,6 +9,5 @@ public class ConfigurationService : IConfigurationService
         _configuration = configuration;
     }
 
-    public AppSettings GetAppSettings() =>
-        _configuration.Get<AppSettings>();
+    public AppSettings GetAppSettings() => _configuration.Get<AppSettings>();
 }
