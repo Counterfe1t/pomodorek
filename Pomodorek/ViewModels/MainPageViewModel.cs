@@ -68,13 +68,16 @@ public class MainPageViewModel : BaseViewModel
         _configurationService = configurationService;
         _soundService = soundService;
 
-        StartCommand = new Command(async () => await StartSession());
+        StartCommand = new Command(StartSession);
         StopCommand = new Command(StopSession);
 
         NumberOfSessions = _settingsService.Get(Constants.Settings.NumberOfSessions, 2);
     }
 
-    private async Task StartSession()
+    public async Task DisplayNotification(string message) =>
+        await _notificationService.DisplayNotification(message);
+
+    private void StartSession()
     {
         // TODO: Handle pausing and resuming timer
         if (IsRunning)
@@ -84,7 +87,7 @@ public class MainPageViewModel : BaseViewModel
         SessionsElapsed = 0;
         SetTimer(TimerStatusEnum.Focus);
         _settingsService.Set(Constants.Settings.NumberOfSessions, NumberOfSessions);
-        _ = _soundService.PlaySoundAsync(Constants.Sounds.SessionStart);
+        _soundService.PlaySoundAsync(Constants.Sounds.SessionStart);
     }
 
     // TODO: Show simple session summary
@@ -95,10 +98,6 @@ public class MainPageViewModel : BaseViewModel
         IsRunning = false;
         Status = TimerStatusEnum.Stopped;
     }
-
-    // TODO: Should this be invoked by a command?
-    public async Task DisplayNotification(string message) =>
-        await _notificationService.DisplayNotification(message);
 
     private void SetTimer(TimerStatusEnum status)
     {
