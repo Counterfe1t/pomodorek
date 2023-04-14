@@ -76,7 +76,6 @@ public class SettingsPageViewModel : BaseViewModel
 
     private AppSettings AppSettings => _configurationService.GetAppSettings();
 
-    public ICommand InitializeCommand { get; private set; }
     public ICommand SaveCommand { get; private set; }
     public ICommand RestoreCommand { get; private set; }
 
@@ -92,12 +91,11 @@ public class SettingsPageViewModel : BaseViewModel
         _alertService = alertService;
         _navigationService = navigationService;
 
-        InitializeCommand = new Command(InitializeSettings);
         SaveCommand = new Command(async () => await SaveSettings());
         RestoreCommand = new Command(async () => await RestoreDefaultSettings());
     }
 
-    private void InitializeSettings()
+    public void InitializeSettings()
     {
         IsSoundEnabled = _settingsService.Get(
             Constants.Settings.IsSoundEnabled,

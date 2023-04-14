@@ -11,9 +11,9 @@ public partial class SettingsPage : ContentPage
 		_viewModel = viewModel;
 	}
 
-    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    protected override void OnAppearing()
     {
-        base.OnNavigatedTo(args);
-        _viewModel.InitializeCommand.Execute(null);
+        base.OnAppearing();
+		_viewModel?.InitializeSettings();
     }
 }

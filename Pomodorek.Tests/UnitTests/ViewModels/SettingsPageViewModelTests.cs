@@ -40,7 +40,7 @@ public class SettingsPageViewModelTests
             .Returns(AppSettings);
 
         // act
-        _viewModel.InitializeCommand.Execute(null);
+        _viewModel.InitializeSettings();
 
         // assert
         _settingsServiceMock
