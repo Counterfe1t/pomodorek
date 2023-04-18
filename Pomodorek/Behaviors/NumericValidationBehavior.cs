@@ -7,22 +7,25 @@ public class NumericValidationBehavior : Behavior<Entry>
         entry.TextChanged += OnEntryTextChanged;
         base.OnAttachedTo(entry);
     }
-
+    
     protected override void OnDetachingFrom(Entry entry)
     {
         entry.TextChanged -= OnEntryTextChanged;
         base.OnDetachingFrom(entry);
     }
 
-    private static void OnEntryTextChanged(object sender, TextChangedEventArgs args)
+    public static void OnEntryTextChanged(object sender, TextChangedEventArgs args)
     {
         if (string.IsNullOrWhiteSpace(args.NewTextValue))
+        {
+            ((Entry)sender).Text = string.Empty;
             return;
+        }
 
         var isDigit = int.TryParse(args.NewTextValue, out int value);
 
         ((Entry)sender).Text = isDigit && value > 0
-            ? args.NewTextValue
-            : args.NewTextValue.Remove(args.NewTextValue.Length - 1);
+            ? args.NewTextValue.Trim()
+            : args.OldTextValue;
     }
-}
+}          

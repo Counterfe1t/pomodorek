@@ -1,4 +1,5 @@
 global using Moq;
+global using Pomodorek.Behaviors;
 global using Pomodorek.Converters;
 global using Pomodorek.Models;
 global using Pomodorek.Resources.Constants;
