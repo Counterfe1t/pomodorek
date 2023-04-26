@@ -5,6 +5,7 @@ public class NumericValidationBehaviorTests
     [Theory]
     [InlineData(null, "")]
     [InlineData("", "")]
+    [InlineData("foo", null)]
     [InlineData("1337", "1337")]
     [InlineData(" 2137 ", "2137")]
     public void OnEntryTextChanged_ReturnsExpectedResult(string received, string expected)
