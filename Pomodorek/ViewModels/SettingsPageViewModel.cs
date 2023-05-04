@@ -97,26 +97,11 @@ public class SettingsPageViewModel : BaseViewModel
 
     public void InitializeSettings()
     {
-        IsSoundEnabled = _settingsService.Get(
-            Constants.Settings.IsSoundEnabled,
-            AppSettings.DefaultIsSoundEnabled);
-
-        SoundVolume = _settingsService.Get(
-            Constants.Settings.SoundVolume,
-            AppSettings.DefaultSoundVolume);
-
-        FocusLengthInMin = _settingsService.Get(
-            Constants.Settings.FocusLengthInMin,
-            AppSettings.DefaultFocusLengthInMin);
-
-        ShortRestLengthInMin = _settingsService.Get(
-            Constants.Settings.ShortRestLengthInMin,
-            AppSettings.DefaultShortRestLengthInMin);
-
-        LongRestLengthInMin = _settingsService.Get(
-            Constants.Settings.LongRestLengthInMin,
-            AppSettings.DefaultLongRestLengthInMin);
-
+        IsSoundEnabled = _settingsService.Get(Constants.Settings.IsSoundEnabled, AppSettings.DefaultIsSoundEnabled);
+        SoundVolume = _settingsService.Get(Constants.Settings.SoundVolume, AppSettings.DefaultSoundVolume);
+        FocusLengthInMin = _settingsService.Get(Constants.Settings.FocusLengthInMin, AppSettings.DefaultFocusLengthInMin);
+        ShortRestLengthInMin = _settingsService.Get(Constants.Settings.ShortRestLengthInMin, AppSettings.DefaultShortRestLengthInMin);
+        LongRestLengthInMin = _settingsService.Get(Constants.Settings.LongRestLengthInMin, AppSettings.DefaultLongRestLengthInMin);
         IsChangePending = false;
     }
 
