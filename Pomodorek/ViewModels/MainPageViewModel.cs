@@ -51,8 +51,8 @@ public class MainPageViewModel : BaseViewModel
 
     private AppSettings AppSettings => _configurationService.GetAppSettings();
 
-    public ICommand StartCommand { get; private set; }
-    public ICommand StopCommand { get; private set; }
+    public ICommand StartCommand { get; }
+    public ICommand StopCommand { get; }
 
     public MainPageViewModel(
         ITimerService timerService,
@@ -114,7 +114,7 @@ public class MainPageViewModel : BaseViewModel
             await HandleOnFinishedEvent();
             return;
         }
-        Seconds--;
+        --Seconds;
     }
 
     // TODO: Does awaiting async calls delay the work of the timer?

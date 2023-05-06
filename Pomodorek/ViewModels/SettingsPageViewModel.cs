@@ -76,8 +76,8 @@ public class SettingsPageViewModel : BaseViewModel
 
     private AppSettings AppSettings => _configurationService.GetAppSettings();
 
-    public ICommand SaveCommand { get; private set; }
-    public ICommand RestoreCommand { get; private set; }
+    public ICommand SaveCommand { get; }
+    public ICommand RestoreCommand { get; }
 
     public SettingsPageViewModel(
         ISettingsService settingsService,
