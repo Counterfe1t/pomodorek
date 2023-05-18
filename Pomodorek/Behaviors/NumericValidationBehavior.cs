@@ -7,7 +7,7 @@ public class NumericValidationBehavior : Behavior<Entry>
         entry.TextChanged += OnEntryTextChanged;
         base.OnAttachedTo(entry);
     }
-    
+
     protected override void OnDetachingFrom(Entry entry)
     {
         entry.TextChanged -= OnEntryTextChanged;
@@ -28,4 +28,4 @@ public class NumericValidationBehavior : Behavior<Entry>
             ? args.NewTextValue.Trim()
             : args.OldTextValue;
     }
-}          
+}
