@@ -40,7 +40,7 @@
                 MaxLength="2"
                 WidthRequest="50"
                 HeightRequest="{OnPlatform Android=50}"
-                Text="{Binding NumberOfSessions}"
+                Text="{Binding SessionsCount}"
                 HorizontalTextAlignment="Center"
                 IsEnabled="{Binding IsRunning, Converter={StaticResource NegationConverter}}"
                 Keyboard="Numeric">
@@ -49,7 +49,7 @@
                 </Entry.Behaviors>
             </Entry>
             <Stepper
-                Value="{Binding NumberOfSessions}"
+                Value="{Binding SessionsCount}"
                 Increment="1"
                 Minimum="1"
                 Maximum="99"
@@ -91,5 +91,13 @@
             SemanticProperties.Hint="Stop timer"
             Command="{Binding StopCommand}" />
 
+        <!-- for some reason on Android buttons do not take up 100% width -->
+        <BoxView
+            IsVisible="{OnPlatform Android=True, WinUI=False}"
+            Color="Transparent"
+            ZIndex="-1"
+            Grid.Row="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="2" />
     </Grid>
 </ContentPage>

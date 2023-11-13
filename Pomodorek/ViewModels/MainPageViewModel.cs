@@ -5,8 +5,9 @@ public class MainPageViewModel : BaseViewModel
     private int _seconds;
     private TimerStatusEnum _status;
     private bool _isRunning;
-    private int _numberOfSessions;
-    private int _sessionsElapsed;
+    private int _sessionsCount;
+    private int _sessionsPassed;
+    private DateTime _startTime;
 
     #region Properties
 
@@ -29,16 +30,16 @@ public class MainPageViewModel : BaseViewModel
         set => SetProperty(ref _isRunning, value);
     }
 
-    public int NumberOfSessions
+    public int SessionsCount
     {
-        get => _numberOfSessions;
-        set => SetProperty(ref _numberOfSessions, value);
+        get => _sessionsCount;
+        set => SetProperty(ref _sessionsCount, value);
     }
 
-    public int SessionsElapsed
+    public int SessionsPassed
     {
-        get => _sessionsElapsed;
-        set => SetProperty(ref _sessionsElapsed, value);
+        get => _sessionsPassed;
+        set => SetProperty(ref _sessionsPassed, value);
     }
 
     #endregion
@@ -48,6 +49,7 @@ public class MainPageViewModel : BaseViewModel
     private readonly ISettingsService _settingsService;
     private readonly IConfigurationService _configurationService;
     private readonly ISoundService _soundService;
+    private readonly IMessageService _messageService;
 
     private AppSettings AppSettings => _configurationService.GetAppSettings();
 
@@ -59,7 +61,8 @@ public class MainPageViewModel : BaseViewModel
         INotificationService notificationService,
         ISettingsService settingsService,
         IConfigurationService configurationService,
-        ISoundService soundService)
+        ISoundService soundService,
+        IMessageService messageService)
     {
         Title = Constants.Pages.Pomodorek;
         _timerService = timerService;
@@ -67,15 +70,23 @@ public class MainPageViewModel : BaseViewModel
         _settingsService = settingsService;
         _configurationService = configurationService;
         _soundService = soundService;
+        _messageService = messageService;
 
         StartCommand = new Command(StartSession);
         StopCommand = new Command(StopSession);
 
-        NumberOfSessions = _settingsService.Get(Constants.Settings.NumberOfSessions, 2);
+        SessionsCount = _settingsService.Get(Constants.Settings.SessionsCount, AppSettings.DefaultSessionsCount);
+
+        _messageService.Register((message) =>
+        {
+            if (message != Constants.AppLifecycleEvents.Resumed || !IsRunning)
+                return;
+
+            Seconds = CalculateSecondsLeft();
+        });
     }
 
-    public async Task DisplayNotification(string message) =>
-        await _notificationService.DisplayNotification(message);
+    public void DisplayNotification(string message) => _notificationService.DisplayNotification(message);
 
     private void StartSession()
     {
@@ -84,9 +95,9 @@ public class MainPageViewModel : BaseViewModel
             return;
 
         IsRunning = true;
-        SessionsElapsed = 0;
+        SessionsPassed = 0;
         SetTimer(TimerStatusEnum.Focus);
-        _settingsService.Set(Constants.Settings.NumberOfSessions, NumberOfSessions);
+        _settingsService.Set(Constants.Settings.SessionsCount, SessionsCount);
         _soundService.PlaySoundAsync(Constants.Sounds.SessionStart);
     }
 
@@ -103,19 +114,26 @@ public class MainPageViewModel : BaseViewModel
     {
         Status = status;
         Seconds = GetDurationInMin(status) * Constants.SixtySeconds;
+
+        _startTime = DateTime.Now;
         _timerService.Start(async () => await HandleOnTickEvent());
     }
 
     private async Task HandleOnTickEvent()
     {
-        if (Seconds == 0)
+        if (Seconds <= 0)
         {
             _timerService.Stop();
             await HandleOnFinishedEvent();
+
             return;
         }
+
         --Seconds;
     }
+
+    private int CalculateSecondsLeft() =>
+        GetDurationInMin(Status) - (int)((DateTime.Now.Ticks - _startTime.Ticks) / Constants.OneSecondInTicks);
 
     // TODO: Does awaiting async calls delay the work of the timer?
     // TODO: Demand user input before starting another interval
@@ -124,27 +142,29 @@ public class MainPageViewModel : BaseViewModel
         switch (Status)
         {
             case TimerStatusEnum.Focus:
-                if (++SessionsElapsed >= NumberOfSessions)
+                if (++SessionsPassed >= SessionsCount)
                 {
                     StopCommand.Execute(null);
-                    await DisplayNotification(Constants.Messages.SessionOver);
-                    _ = _soundService.PlaySoundAsync(Constants.Sounds.SessionOver);
+                    DisplayNotification(Constants.Messages.SessionOver);
+                    await _soundService.PlaySoundAsync(Constants.Sounds.SessionOver);
                     break;
                 }
 
-                if (SessionsElapsed % 4 == 0)
+                // if four sessions passed trigger long rest
+                if (SessionsPassed % 4 == 0)
                 {
-                    await DisplayNotification(Constants.Messages.LongRest);
+                    DisplayNotification(Constants.Messages.LongRest);
                     SetTimer(TimerStatusEnum.LongRest);
                     break;
                 }
 
-                await DisplayNotification(Constants.Messages.ShortRest);
+                DisplayNotification(Constants.Messages.ShortRest);
                 SetTimer(TimerStatusEnum.ShortRest);
+
                 break;
             case TimerStatusEnum.ShortRest:
             case TimerStatusEnum.LongRest:
-                await DisplayNotification(Constants.Messages.Focus);
+                DisplayNotification(Constants.Messages.Focus);
                 SetTimer(TimerStatusEnum.Focus);
                 break;
             case TimerStatusEnum.Stopped:
@@ -156,15 +176,12 @@ public class MainPageViewModel : BaseViewModel
     private int GetDurationInMin(TimerStatusEnum status) =>
         status switch
         {
-            TimerStatusEnum.Focus => _settingsService.Get(
-                Constants.Settings.FocusLengthInMin,
-                AppSettings.DefaultFocusLengthInMin),
-            TimerStatusEnum.ShortRest => _settingsService.Get(
-                Constants.Settings.ShortRestLengthInMin,
-                AppSettings.DefaultShortRestLengthInMin),
-            TimerStatusEnum.LongRest => _settingsService.Get(
-                Constants.Settings.LongRestLengthInMin,
-                AppSettings.DefaultLongRestLengthInMin),
+            TimerStatusEnum.Focus =>
+                _settingsService.Get(Constants.Settings.FocusLengthInMin, AppSettings.DefaultFocusLengthInMin),
+            TimerStatusEnum.ShortRest =>
+                _settingsService.Get(Constants.Settings.ShortRestLengthInMin, AppSettings.DefaultShortRestLengthInMin),
+            TimerStatusEnum.LongRest =>
+                _settingsService.Get(Constants.Settings.LongRestLengthInMin, AppSettings.DefaultLongRestLengthInMin),
             _ => 0,
         };
 }

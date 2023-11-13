@@ -19,6 +19,7 @@ public class TimerService : ITimerService
             while (!token.IsCancellationRequested)
             {
                 await Task.Delay(_oneSecondInMs);
+
                 if (!token.IsCancellationRequested)
                     callback.Invoke();
             }

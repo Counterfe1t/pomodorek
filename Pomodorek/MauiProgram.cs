@@ -1,7 +1,4 @@
-﻿using Plugin.LocalNotification;
-using IPomodorekNotificationService = Pomodorek.Services.INotificationService;
-
-namespace Pomodorek;
+﻿namespace Pomodorek;
 
 public static class MauiProgram
 {
@@ -20,30 +17,24 @@ public static class MauiProgram
             .RegisterViews()
             .Build();
 
-    #region Services
-
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
     {
 #if WINDOWS || ANDROID
         builder.Services.AddSingleton(FileSystem.Current);
         builder.Services.AddSingleton(AudioManager.Current);
         builder.Services.AddSingleton(Preferences.Default);
-        builder.Services.AddSingleton<IPomodorekNotificationService, NotificationService>();
+        builder.Services.AddSingleton(WeakReferenceMessenger.Default);
+        builder.Services.AddSingleton<INotificationService, NotificationService>();
         builder.Services.AddSingleton<ITimerService, TimerService>();
         builder.Services.AddSingleton<ISettingsService, SettingsService>();
         builder.Services.AddSingleton<IConfigurationService, ConfigurationService>();
         builder.Services.AddSingleton<ISoundService, SoundService>();
         builder.Services.AddSingleton<IAlertService, AlertService>();
         builder.Services.AddSingleton<INavigationService, NavigationService>();
-#endif
-#if ANDROID
-        builder.UseLocalNotification();
-        builder.Services.AddSingleton<IForegroundService, ForegroundService>();
+        builder.Services.AddSingleton<IMessageService, MessageService>();
 #endif
         return builder;
     }
-
-    #endregion
 
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
     {

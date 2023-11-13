@@ -4,6 +4,5 @@ namespace Pomodorek.Services;
 
 public class NotificationService : INotificationService
 {
-    public async Task DisplayNotification(string message)
-        => await Toast.Make(message).Show();
+    public void DisplayNotification(string message) => Toast.Make(message).Show();
 }

@@ -3,5 +3,6 @@
 public interface ITimerService
 {
     void Start(Action callback);
+
     void Stop();
 }

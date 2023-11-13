@@ -8,8 +8,7 @@ public class MainPageViewModelTests
     private readonly Mock<ISettingsService> _settingsServiceMock;
     private readonly Mock<IConfigurationService> _configurationServiceMock;
     private readonly Mock<ISoundService> _soundServiceMock;
-
-    private static AppSettings AppSettings => new();
+    private readonly Mock<IMessageService> _messageServiceMock;
 
     public MainPageViewModelTests()
     {
@@ -18,13 +17,19 @@ public class MainPageViewModelTests
         _settingsServiceMock = new Mock<ISettingsService>();
         _configurationServiceMock = new Mock<IConfigurationService>();
         _soundServiceMock = new Mock<ISoundService>();
+        _messageServiceMock = new Mock<IMessageService>();
+
+        _configurationServiceMock
+            .Setup(x => x.GetAppSettings())
+            .Returns(new AppSettings());
 
         _viewModel = new MainPageViewModel(
             _timerMock.Object,
             _notificationServiceMock.Object,
             _settingsServiceMock.Object,
             _configurationServiceMock.Object,
-            _soundServiceMock.Object);
+            _soundServiceMock.Object,
+            _messageServiceMock.Object);
     }
 
     [Fact]
@@ -34,7 +39,7 @@ public class MainPageViewModelTests
         var message = "foo";
 
         // act
-        await _viewModel.DisplayNotification(message);
+        _viewModel.DisplayNotification(message);
 
         // assert
         _notificationServiceMock.Verify(x => x.DisplayNotification(message), Times.Once);
@@ -43,18 +48,13 @@ public class MainPageViewModelTests
     [Fact]
     public void StartSession_WhenTimerIsNotRunning_StartsTimer()
     {
-        // arrange
-        _configurationServiceMock
-            .Setup(x => x.GetAppSettings())
-            .Returns(AppSettings);
-
         // act
         _viewModel.StartCommand.Execute(null);
 
         // assert
         _timerMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Once);
         _soundServiceMock.Verify(x => x.PlaySoundAsync(It.IsAny<string>()), Times.Once);
-        _settingsServiceMock.Verify(x => x.Set(Constants.Settings.NumberOfSessions, It.IsAny<int>()), Times.Once);
+        _settingsServiceMock.Verify(x => x.Set(Constants.Settings.SessionsCount, It.IsAny<int>()), Times.Once);
     }
 
     [Fact]
@@ -69,7 +69,7 @@ public class MainPageViewModelTests
         // assert
         _timerMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Never);
         _soundServiceMock.Verify(x => x.PlaySoundAsync(It.IsAny<string>()), Times.Never);
-        _settingsServiceMock.Verify(x => x.Set(Constants.Settings.NumberOfSessions, It.IsAny<int>()), Times.Never);
+        _settingsServiceMock.Verify(x => x.Set(Constants.Settings.SessionsCount, It.IsAny<int>()), Times.Never);
     }
 
     [Fact]
