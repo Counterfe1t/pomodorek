@@ -1,6 +1,6 @@
 ﻿namespace Pomodorek.ViewModels;
 
-public class SettingsPageViewModel : BaseViewModel
+public partial class SettingsPageViewModel : BaseViewModel
 {
     private bool _isChangePending;
     private bool _isSoundEnabled;
@@ -76,9 +76,6 @@ public class SettingsPageViewModel : BaseViewModel
 
     private AppSettings AppSettings => _configurationService.GetAppSettings();
 
-    public ICommand SaveCommand { get; }
-    public ICommand RestoreCommand { get; }
-
     public SettingsPageViewModel(
         ISettingsService settingsService,
         IConfigurationService configurationService,
@@ -90,9 +87,6 @@ public class SettingsPageViewModel : BaseViewModel
         _configurationService = configurationService;
         _alertService = alertService;
         _navigationService = navigationService;
-
-        SaveCommand = new Command(async () => await SaveSettings());
-        RestoreCommand = new Command(async () => await RestoreDefaultSettings());
     }
 
     public void InitializeSettings()
@@ -106,7 +100,8 @@ public class SettingsPageViewModel : BaseViewModel
     }
 
     // TODO: Add simple validation (rest duration cannot be longer than focus duration)
-    private async Task SaveSettings()
+    [RelayCommand]
+    private async Task SaveSettingsAsync()
     {
         _settingsService.Set(Constants.Settings.IsSoundEnabled, IsSoundEnabled);
         _settingsService.Set(Constants.Settings.SoundVolume, SoundVolume);
@@ -119,7 +114,8 @@ public class SettingsPageViewModel : BaseViewModel
         await _navigationService.GoToTimerPageAsync();
     }
 
-    private async Task RestoreDefaultSettings()
+    [RelayCommand]
+    private async Task RestoreSettingsAsync()
     {
         IsSoundEnabled = AppSettings.DefaultIsSoundEnabled;
         SoundVolume = AppSettings.DefaultSoundVolume;

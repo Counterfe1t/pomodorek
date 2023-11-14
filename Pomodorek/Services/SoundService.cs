@@ -24,12 +24,12 @@ public class SoundService : ISoundService
         _configurationService = configurationService;
     }
 
-    public async Task PlaySoundAsync(string sound)
+    public async Task PlaySoundAsync(string fileName)
     {
         if (!IsSoundEnabled)
             return;
 
-        using var stream = await _fileSystem.OpenAppPackageFileAsync(sound);
+        using var stream = await _fileSystem.OpenAppPackageFileAsync(fileName);
         using var player = _audioManager.CreatePlayer(stream);
 
         player.Volume = _settingsService.Get(

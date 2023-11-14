@@ -1,4 +1,5 @@
 ﻿global using CommunityToolkit.Maui;
+global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.Mvvm.Messaging;
 global using Microsoft.Extensions.Configuration;
 global using Plugin.Maui.Audio;

@@ -109,7 +109,7 @@
             Text="Save"
             FontSize="35"
             SemanticProperties.Hint="Save settings"
-            Command="{Binding SaveCommand}"
+            Command="{Binding SaveSettingsCommand}"
             IsEnabled="{Binding IsChangePending}" />
         <Button
             Grid.Row="6"
@@ -117,6 +117,6 @@
             Text="Restore defaults"
             FontSize="35"
             SemanticProperties.Hint="Restore default settings"
-            Command="{Binding RestoreCommand}" />
+            Command="{Binding RestoreSettingsCommand}" />
     </Grid>
 </ContentPage>

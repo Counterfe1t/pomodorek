@@ -4,5 +4,6 @@ namespace Pomodorek.Services;
 
 public class NotificationService : INotificationService
 {
-    public void DisplayNotification(string message) => Toast.Make(message).Show();
+    // TODO: If possible customize windows notification
+    public async Task DisplayNotificationAsync(string message) => await Toast.Make(message).Show();
 }

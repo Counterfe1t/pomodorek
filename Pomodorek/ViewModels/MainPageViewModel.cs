@@ -1,20 +1,22 @@
 ﻿namespace Pomodorek.ViewModels;
 
-public class MainPageViewModel : BaseViewModel
+public partial class MainPageViewModel : BaseViewModel
 {
-    private int _seconds;
-    private TimerStatusEnum _status;
     private bool _isRunning;
+    private TimerStatusEnum _status;
+    private DateTime _startTime;
+    private int _seconds;
     private int _sessionsCount;
     private int _sessionsPassed;
-    private DateTime _startTime;
 
     #region Properties
 
-    public int Seconds
+    // TODO: Make these properties observable
+    // TODO: Change property so it represents state of the timer (running, paused, stopped)
+    public bool IsRunning
     {
-        get => _seconds;
-        set => SetProperty(ref _seconds, value);
+        get => _isRunning;
+        set => SetProperty(ref _isRunning, value);
     }
 
     public TimerStatusEnum Status
@@ -23,11 +25,10 @@ public class MainPageViewModel : BaseViewModel
         set => SetProperty(ref _status, value);
     }
 
-    // TODO: Change property so it represents state of the timer (running, paused, stopped)
-    public bool IsRunning
+    public int Seconds
     {
-        get => _isRunning;
-        set => SetProperty(ref _isRunning, value);
+        get => _seconds;
+        set => SetProperty(ref _seconds, value);
     }
 
     public int SessionsCount
@@ -50,11 +51,9 @@ public class MainPageViewModel : BaseViewModel
     private readonly IConfigurationService _configurationService;
     private readonly ISoundService _soundService;
     private readonly IMessageService _messageService;
+    private readonly IDateTimeService _dateTimeService;
 
     private AppSettings AppSettings => _configurationService.GetAppSettings();
-
-    public ICommand StartCommand { get; }
-    public ICommand StopCommand { get; }
 
     public MainPageViewModel(
         ITimerService timerService,
@@ -62,7 +61,8 @@ public class MainPageViewModel : BaseViewModel
         ISettingsService settingsService,
         IConfigurationService configurationService,
         ISoundService soundService,
-        IMessageService messageService)
+        IMessageService messageService,
+        IDateTimeService dateTimeService)
     {
         Title = Constants.Pages.Pomodorek;
         _timerService = timerService;
@@ -71,9 +71,7 @@ public class MainPageViewModel : BaseViewModel
         _configurationService = configurationService;
         _soundService = soundService;
         _messageService = messageService;
-
-        StartCommand = new Command(StartSession);
-        StopCommand = new Command(StopSession);
+        _dateTimeService = dateTimeService;
 
         SessionsCount = _settingsService.Get(Constants.Settings.SessionsCount, AppSettings.DefaultSessionsCount);
 
@@ -86,54 +84,64 @@ public class MainPageViewModel : BaseViewModel
         });
     }
 
-    public void DisplayNotification(string message) => _notificationService.DisplayNotification(message);
-
-    private void StartSession()
+    [RelayCommand]
+    public void Start()
     {
         // TODO: Handle pausing and resuming timer
         if (IsRunning)
             return;
 
-        IsRunning = true;
         SessionsPassed = 0;
         SetTimer(TimerStatusEnum.Focus);
+        
         _settingsService.Set(Constants.Settings.SessionsCount, SessionsCount);
-        _soundService.PlaySoundAsync(Constants.Sounds.SessionStart);
+
+        Task.Run(async () => await PlaySound(Constants.Sounds.SessionStart));
     }
 
-    // TODO: Show simple session summary
-    private void StopSession()
+    [RelayCommand]
+    public void Stop()
     {
         _timerService.Stop();
-        Seconds = 0;
         IsRunning = false;
         Status = TimerStatusEnum.Stopped;
+        Seconds = 0;
+        // TODO: Show simple session summary
     }
+
+    public async Task DisplayNotification(string message) => await _notificationService.DisplayNotificationAsync(message);
+
+    public async Task PlaySound(string fileName) => await _soundService.PlaySoundAsync(fileName);
 
     private void SetTimer(TimerStatusEnum status)
     {
+        IsRunning = true;
         Status = status;
-        Seconds = GetDurationInMin(status) * Constants.SixtySeconds;
+        Seconds = GetDurationInMin(status) * Constants.OneMinuteInSeconds;
 
-        _startTime = DateTime.Now;
+        _startTime = _dateTimeService.Now;
         _timerService.Start(async () => await HandleOnTickEvent());
     }
 
     private async Task HandleOnTickEvent()
     {
-        if (Seconds <= 0)
+        if (Seconds > 0)
         {
-            _timerService.Stop();
-            await HandleOnFinishedEvent();
-
+            --Seconds;
             return;
         }
 
-        --Seconds;
+        _timerService.Stop();
+        await HandleOnFinishedEvent();
     }
 
-    private int CalculateSecondsLeft() =>
-        GetDurationInMin(Status) - (int)((DateTime.Now.Ticks - _startTime.Ticks) / Constants.OneSecondInTicks);
+    private int CalculateSecondsLeft()
+    {
+        var durationInSeconds = GetDurationInMin(Status) * Constants.OneMinuteInSeconds;
+        var secondsElapsed = (int)((_dateTimeService.Now.Ticks - _startTime.Ticks) / Constants.OneSecondInTicks);
+
+        return durationInSeconds - secondsElapsed;
+    }
 
     // TODO: Does awaiting async calls delay the work of the timer?
     // TODO: Demand user input before starting another interval
@@ -145,26 +153,26 @@ public class MainPageViewModel : BaseViewModel
                 if (++SessionsPassed >= SessionsCount)
                 {
                     StopCommand.Execute(null);
-                    DisplayNotification(Constants.Messages.SessionOver);
-                    await _soundService.PlaySoundAsync(Constants.Sounds.SessionOver);
+                    await DisplayNotification(Constants.Messages.SessionOver);
+                    await PlaySound(Constants.Sounds.SessionOver);
                     break;
                 }
 
                 // if four sessions passed trigger long rest
                 if (SessionsPassed % 4 == 0)
                 {
-                    DisplayNotification(Constants.Messages.LongRest);
+                    await DisplayNotification(Constants.Messages.LongRest);
                     SetTimer(TimerStatusEnum.LongRest);
                     break;
                 }
 
-                DisplayNotification(Constants.Messages.ShortRest);
+                await DisplayNotification(Constants.Messages.ShortRest);
                 SetTimer(TimerStatusEnum.ShortRest);
 
                 break;
             case TimerStatusEnum.ShortRest:
             case TimerStatusEnum.LongRest:
-                DisplayNotification(Constants.Messages.Focus);
+                await DisplayNotification(Constants.Messages.Focus);
                 SetTimer(TimerStatusEnum.Focus);
                 break;
             case TimerStatusEnum.Stopped:

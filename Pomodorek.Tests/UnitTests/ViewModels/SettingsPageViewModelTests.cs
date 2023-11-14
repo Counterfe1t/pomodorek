@@ -64,7 +64,7 @@ public class SettingsPageViewModelTests
             .Returns(AppSettings);
 
         // act
-        _viewModel.SaveCommand.Execute(null);
+        _viewModel.SaveSettingsCommand.Execute(null);
 
         // assert
         _settingsServiceMock
@@ -92,7 +92,7 @@ public class SettingsPageViewModelTests
             .Returns(AppSettings);
 
         // act
-        _viewModel.RestoreCommand.Execute(null);
+        _viewModel.RestoreSettingsCommand.Execute(null);
 
         // assert
         _settingsServiceMock

@@ -2,5 +2,5 @@
 
 public interface INotificationService
 {
-    void DisplayNotification(string message);
+    Task DisplayNotificationAsync(string message);
 }

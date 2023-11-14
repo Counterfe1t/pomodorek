@@ -15,7 +15,7 @@
 		<ApplicationTitle>Pomodorek</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.pomodorek</ApplicationId>
+		<ApplicationId>com.counterfe1t.pomodorek</ApplicationId>
 		<ApplicationIdGuid>8e0bb442-fde6-4d02-9797-97c5e5692296</ApplicationIdGuid>
 
 		<!-- Versions -->
