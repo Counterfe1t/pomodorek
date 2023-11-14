@@ -33,7 +33,7 @@ public class MainPageViewModelTests
     }
 
     [Fact]
-    public async Task DisplayNotification_WhenCalled_InvokesNotificationService()
+    public void DisplayNotification_WhenCalled_InvokesNotificationService()
     {
         // arrange
         var message = "foo";
