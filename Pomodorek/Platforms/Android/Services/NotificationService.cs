@@ -1,13 +1,14 @@
 ﻿using Android.App;
 using Android.OS;
 using AndroidX.Core.App;
-using Pomodorek.Platforms.Android;
 using AndroidApp = Android.App.Application;
 
 namespace Pomodorek.Services;
 
 public class NotificationService : INotificationService
 {
+    private const string _channelId = "General";
+
     private readonly NotificationManager _manager;
 
     public NotificationService()
@@ -17,12 +18,6 @@ public class NotificationService : INotificationService
 
     public async Task DisplayNotificationAsync(string message)
     {
-        if (await RequestNotificationPermissionAsync() == false)
-        {
-            // TODO: Log error
-            return;
-        }
-
         using var builder = new NotificationCompat.Builder(AndroidApp.Context, nameof(NotificationService));
 
         builder.SetContentTitle(Constants.ApplicationName);
@@ -30,26 +25,16 @@ public class NotificationService : INotificationService
         builder.SetPriority((int)NotificationPriority.Max);
 
         // TODO: Add custom icon
-        builder.SetSmallIcon(Resource.Drawable.abc_seekbar_tick_mark_material);
+        builder.SetSmallIcon(Resource.Drawable.ic_clock_black_24dp);
 
         if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
         {
-            var channelId = "general";
-            var channel = new NotificationChannel(channelId, channelId, NotificationImportance.Max);
-
+            var channel = new NotificationChannel(_channelId, _channelId, NotificationImportance.Max);
             _manager.CreateNotificationChannel(channel);
-            builder.SetChannelId(channelId);
+
+            builder.SetChannelId(_channelId);
         }
 
-        var notification = builder.Build();
-        _manager.Notify(0, notification);
-    }
-
-    private static async Task<bool> RequestNotificationPermissionAsync()
-    {
-        if (await Permissions.CheckStatusAsync<NotificationPermission>() == PermissionStatus.Granted)
-            return true;
-
-        return await Permissions.RequestAsync<NotificationPermission>() == PermissionStatus.Granted;
+        _manager.Notify(0, builder.Build());
     }
 }

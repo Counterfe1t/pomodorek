@@ -9,8 +9,6 @@ public partial class MainPageViewModel : BaseViewModel
     private int _sessionsCount;
     private int _sessionsPassed;
 
-    #region Properties
-
     // TODO: Make these properties observable
     // TODO: Change property so it represents state of the timer (running, paused, stopped)
     public bool IsRunning
@@ -42,8 +40,6 @@ public partial class MainPageViewModel : BaseViewModel
         get => _sessionsPassed;
         set => SetProperty(ref _sessionsPassed, value);
     }
-
-    #endregion
 
     private readonly ITimerService _timerService;
     private readonly INotificationService _notificationService;

@@ -9,8 +9,6 @@ public partial class SettingsPageViewModel : BaseViewModel
     private int _shortRestLengthInMin;
     private int _longRestLengthInMin;
 
-    #region Properties
-
     public bool IsChangePending
     {
         get => _isChangePending;
@@ -66,8 +64,6 @@ public partial class SettingsPageViewModel : BaseViewModel
             SetProperty(ref _longRestLengthInMin, value);
         }
     }
-
-    #endregion
 
     private readonly ISettingsService _settingsService;
     private readonly IConfigurationService _configurationService;
