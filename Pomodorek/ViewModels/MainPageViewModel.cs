@@ -1,40 +1,42 @@
-﻿namespace Pomodorek.ViewModels;
+﻿using System.Text.Json;
 
+namespace Pomodorek.ViewModels;
+
+// TODO: Use community MVVM source generators
 public partial class MainPageViewModel : BaseViewModel
 {
-    private bool _isRunning;
-    private TimerStatusEnum _status;
-    private DateTime _startTime;
-    private int _seconds;
-    private int _sessionsCount;
-    private int _sessionsPassed;
+    private DateTime _triggerAlarmAt;
 
-    // TODO: Make these properties observable
     // TODO: Change property so it represents state of the timer (running, paused, stopped)
+    private bool _isRunning;
     public bool IsRunning
     {
         get => _isRunning;
         set => SetProperty(ref _isRunning, value);
     }
 
-    public TimerStatusEnum Status
-    {
-        get => _status;
-        set => SetProperty(ref _status, value);
-    }
-
+    private int _seconds;
     public int Seconds
     {
         get => _seconds;
         set => SetProperty(ref _seconds, value);
     }
 
+    private TimerStatusEnum _status;
+    public TimerStatusEnum Status
+    {
+        get => _status;
+        set => SetProperty(ref _status, value);
+    }
+
+    private int _sessionsCount;
     public int SessionsCount
     {
         get => _sessionsCount;
         set => SetProperty(ref _sessionsCount, value);
     }
 
+    private int _sessionsPassed;
     public int SessionsPassed
     {
         get => _sessionsPassed;
@@ -46,7 +48,6 @@ public partial class MainPageViewModel : BaseViewModel
     private readonly ISettingsService _settingsService;
     private readonly IConfigurationService _configurationService;
     private readonly ISoundService _soundService;
-    private readonly IMessageService _messageService;
     private readonly IDateTimeService _dateTimeService;
 
     private AppSettings AppSettings => _configurationService.GetAppSettings();
@@ -57,7 +58,6 @@ public partial class MainPageViewModel : BaseViewModel
         ISettingsService settingsService,
         IConfigurationService configurationService,
         ISoundService soundService,
-        IMessageService messageService,
         IDateTimeService dateTimeService)
     {
         Title = Constants.Pages.Pomodorek;
@@ -66,24 +66,15 @@ public partial class MainPageViewModel : BaseViewModel
         _settingsService = settingsService;
         _configurationService = configurationService;
         _soundService = soundService;
-        _messageService = messageService;
         _dateTimeService = dateTimeService;
 
         SessionsCount = _settingsService.Get(Constants.Settings.SessionsCount, AppSettings.DefaultSessionsCount);
-
-        _messageService.Register((message) =>
-        {
-            if (message != Constants.AppLifecycleEvents.Resumed || !IsRunning)
-                return;
-
-            Seconds = CalculateSecondsLeft();
-        });
     }
 
+    // TODO: Handle pausing and resuming timer
     [RelayCommand]
     public void Start()
     {
-        // TODO: Handle pausing and resuming timer
         if (IsRunning)
             return;
 
@@ -95,55 +86,74 @@ public partial class MainPageViewModel : BaseViewModel
         Task.Run(async () => await PlaySound(Constants.Sounds.SessionStart));
     }
 
+    // TODO: Show simple session summary
     [RelayCommand]
-    public void Stop()
-    {
-        _timerService.Stop();
-        IsRunning = false;
-        Status = TimerStatusEnum.Stopped;
-        Seconds = 0;
-        // TODO: Show simple session summary
-    }
+    public void Stop() => StopTimer();
 
-    public async Task DisplayNotification(string message) => await _notificationService.DisplayNotificationAsync(message);
+    public async Task DisplayNotification(string message)
+    {
+#if WINDOWS
+        await _notificationService.DisplayNotificationAsync(new NotificationDto
+        {
+            Content = message,
+        });
+#endif
+    }
 
     public async Task PlaySound(string fileName) => await _soundService.PlaySoundAsync(fileName);
 
     private void SetTimer(TimerStatusEnum status)
     {
+        var durationInMin = GetDurationInMin(status);
         IsRunning = true;
         Status = status;
-        Seconds = GetDurationInMin(status) * Constants.OneMinuteInSeconds;
+        Seconds = durationInMin * Constants.OneMinuteInSec;
+        _triggerAlarmAt = _dateTimeService.Now.AddMinutes(GetDurationInMin(status)).AddSeconds(1);
 
-        _startTime = _dateTimeService.Now;
+#if ANDROID
+        var notification = new NotificationDto
+        {
+            Id = 2137,
+            Title = status.ToString(),
+            TriggerAlarmAt = _triggerAlarmAt,
+            MaxProgress = Seconds,
+            IsOngoing = true,
+            OnlyAlertOnce = true,
+        };
+
+        _settingsService.Set(nameof(notification), JsonSerializer.Serialize(notification));
+#endif
+
         _timerService.Start(async () => await HandleOnTickEvent());
+    }
+
+    private void StopTimer()
+    {
+        _timerService.Stop();
+
+        IsRunning = false;
+        Status = TimerStatusEnum.Stopped;
+        Seconds = 0;
     }
 
     private async Task HandleOnTickEvent()
     {
-        if (Seconds > 0)
+        var seconds = (int)(_triggerAlarmAt - _dateTimeService.Now).TotalSeconds;
+        if (seconds > 0)
         {
-            --Seconds;
+            Seconds = seconds;
             return;
         }
 
         _timerService.Stop();
-        await HandleOnFinishedEvent();
-    }
-
-    private int CalculateSecondsLeft()
-    {
-        var durationInSeconds = GetDurationInMin(Status) * Constants.OneMinuteInSeconds;
-        var secondsElapsed = (int)((_dateTimeService.Now.Ticks - _startTime.Ticks) / Constants.OneSecondInTicks);
-
-        return durationInSeconds - secondsElapsed;
+        await HandleOnFinishedEvent(Status);
     }
 
     // TODO: Does awaiting async calls delay the work of the timer?
     // TODO: Demand user input before starting another interval
-    private async Task HandleOnFinishedEvent()
+    private async Task HandleOnFinishedEvent(TimerStatusEnum status)
     {
-        switch (Status)
+        switch (status)
         {
             case TimerStatusEnum.Focus:
                 if (++SessionsPassed >= SessionsCount)

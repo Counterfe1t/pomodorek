@@ -2,9 +2,7 @@
 
 public class TimerService : ITimerService
 {
-    private const short _oneSecondInMs = 1000;
-
-    private static CancellationTokenSource _token;
+    private CancellationTokenSource _token;
 
     public TimerService()
     {
@@ -18,10 +16,12 @@ public class TimerService : ITimerService
         {
             while (!token.IsCancellationRequested)
             {
-                await Task.Delay(_oneSecondInMs);
+                await Task.Delay(Constants.OneSecondInMs);
 
-                if (!token.IsCancellationRequested)
-                    callback.Invoke();
+                if (token.IsCancellationRequested)
+                    return;
+
+                callback.Invoke();
             }
         });
     }

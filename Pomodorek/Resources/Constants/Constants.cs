@@ -5,13 +5,9 @@ public static class Constants
     public const string ApplicationName = "Pomodorek";
     public const string AppSettingsFileName = "Pomodorek.appsettings.json";
 
-    public const int OneMinuteInSeconds = 60;
+    public const int OneMinuteInSec = 60;
     public const int OneSecondInTicks = 10_000_000;
-
-    public class AppLifecycleEvents
-    {
-        public const string Resumed = nameof(Resumed);
-    }
+    public const int OneSecondInMs = 1_000;
 
     public class Settings
     {

@@ -25,14 +25,4 @@ public partial class App : Application
 
         return window;
     }
-
-    // There is a bug which causes resume event to be raised twice on windows machines.
-    // https://github.com/dotnet/maui/issues/7894
-#if !WINDOWS
-    protected override void OnResume()
-    {
-        base.OnResume();
-        WeakReferenceMessenger.Default.Send(Constants.AppLifecycleEvents.Resumed);
-    }
-#endif
 }

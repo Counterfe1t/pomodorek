@@ -2,5 +2,5 @@
 
 public interface INotificationService
 {
-    Task DisplayNotificationAsync(string message);
+    Task DisplayNotificationAsync(NotificationDto notification);
 }
