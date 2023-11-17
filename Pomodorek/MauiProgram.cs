@@ -33,6 +33,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<INavigationService, NavigationService>();
         builder.Services.AddSingleton<IMessageService, MessageService>();
         builder.Services.AddSingleton<IDateTimeService, DateTimeService>();
+        builder.Services.AddSingleton<IPermissionsService, PermissionsService>();
 #endif
         return builder;
     }

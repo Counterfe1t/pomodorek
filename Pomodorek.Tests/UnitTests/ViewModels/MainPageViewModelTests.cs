@@ -9,6 +9,7 @@ public class MainPageViewModelTests
     private readonly Mock<IConfigurationService> _configurationServiceMock;
     private readonly Mock<ISoundService> _soundServiceMock;
     private readonly Mock<IDateTimeService> _dateTimeServiceMock;
+    private readonly Mock<IPermissionsService> _permissionsServiceMock;
 
     public MainPageViewModelTests()
     {
@@ -18,6 +19,7 @@ public class MainPageViewModelTests
         _configurationServiceMock = new Mock<IConfigurationService>();
         _soundServiceMock = new Mock<ISoundService>();
         _dateTimeServiceMock = new Mock<IDateTimeService>();
+        _permissionsServiceMock = new Mock<IPermissionsService>();
 
         _configurationServiceMock
             .Setup(x => x.GetAppSettings())
@@ -29,7 +31,8 @@ public class MainPageViewModelTests
             _settingsServiceMock.Object,
             _configurationServiceMock.Object,
             _soundServiceMock.Object,
-            _dateTimeServiceMock.Object);
+            _dateTimeServiceMock.Object,
+            _permissionsServiceMock.Object);
     }
 
     //[Fact]

@@ -6,37 +6,37 @@ namespace Pomodorek.ViewModels;
 public partial class MainPageViewModel : BaseViewModel
 {
     private DateTime _triggerAlarmAt;
+    private bool _isRunning;
+    private int _seconds;
+    private TimerStatusEnum _status;
+    private int _sessionsCount;
+    private int _sessionsPassed;
 
     // TODO: Change property so it represents state of the timer (running, paused, stopped)
-    private bool _isRunning;
     public bool IsRunning
     {
         get => _isRunning;
         set => SetProperty(ref _isRunning, value);
     }
 
-    private int _seconds;
     public int Seconds
     {
         get => _seconds;
         set => SetProperty(ref _seconds, value);
     }
 
-    private TimerStatusEnum _status;
     public TimerStatusEnum Status
     {
         get => _status;
         set => SetProperty(ref _status, value);
     }
 
-    private int _sessionsCount;
     public int SessionsCount
     {
         get => _sessionsCount;
         set => SetProperty(ref _sessionsCount, value);
     }
 
-    private int _sessionsPassed;
     public int SessionsPassed
     {
         get => _sessionsPassed;
@@ -49,6 +49,7 @@ public partial class MainPageViewModel : BaseViewModel
     private readonly IConfigurationService _configurationService;
     private readonly ISoundService _soundService;
     private readonly IDateTimeService _dateTimeService;
+    private readonly IPermissionsService _permissionsService;
 
     private AppSettings AppSettings => _configurationService.GetAppSettings();
 
@@ -58,7 +59,8 @@ public partial class MainPageViewModel : BaseViewModel
         ISettingsService settingsService,
         IConfigurationService configurationService,
         ISoundService soundService,
-        IDateTimeService dateTimeService)
+        IDateTimeService dateTimeService,
+        IPermissionsService permissionsService)
     {
         Title = Constants.Pages.Pomodorek;
         _timerService = timerService;
@@ -67,6 +69,7 @@ public partial class MainPageViewModel : BaseViewModel
         _configurationService = configurationService;
         _soundService = soundService;
         _dateTimeService = dateTimeService;
+        _permissionsService = permissionsService;
 
         SessionsCount = _settingsService.Get(Constants.Settings.SessionsCount, AppSettings.DefaultSessionsCount);
     }
@@ -92,15 +95,19 @@ public partial class MainPageViewModel : BaseViewModel
 
     public async Task DisplayNotification(string message)
     {
-#if WINDOWS
-        await _notificationService.DisplayNotificationAsync(new NotificationDto
+        if (DeviceInfo.Platform == DevicePlatform.WinUI)
         {
-            Content = message,
-        });
-#endif
+            await _notificationService.DisplayNotificationAsync(new NotificationDto
+            {
+                Content = message,
+            });
+        }
     }
 
     public async Task PlaySound(string fileName) => await _soundService.PlaySoundAsync(fileName);
+
+    public async Task CheckAndRequestPermissionsAsync() =>
+        await _permissionsService.CheckAndRequestPermissionsAsync();
 
     private void SetTimer(TimerStatusEnum status)
     {
@@ -110,19 +117,18 @@ public partial class MainPageViewModel : BaseViewModel
         Seconds = durationInMin * Constants.OneMinuteInSec;
         _triggerAlarmAt = _dateTimeService.Now.AddMinutes(GetDurationInMin(status)).AddSeconds(1);
 
-#if ANDROID
-        var notification = new NotificationDto
+        if (DeviceInfo.Platform == DevicePlatform.Android)
         {
-            Id = 2137,
-            Title = status.ToString(),
-            TriggerAlarmAt = _triggerAlarmAt,
-            MaxProgress = Seconds,
-            IsOngoing = true,
-            OnlyAlertOnce = true,
-        };
-
-        _settingsService.Set(nameof(notification), JsonSerializer.Serialize(notification));
-#endif
+            _settingsService.Set(nameof(NotificationDto), JsonSerializer.Serialize(new NotificationDto
+            {
+                Id = 2137,
+                Title = status.ToString(),
+                TriggerAlarmAt = _triggerAlarmAt,
+                MaxProgress = Seconds,
+                IsOngoing = true,
+                OnlyAlertOnce = true,
+            }));
+        }
 
         _timerService.Start(async () => await HandleOnTickEvent());
     }

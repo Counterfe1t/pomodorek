@@ -52,18 +52,6 @@ public class TimerService : Service, ITimerService
         Interlocked.Exchange(ref _token, new CancellationTokenSource()).Cancel();
     }
 
-    private void StartForegroundService()
-    {
-        var startIntent = new Intent(MainActivity.ActivityCurrent, typeof(TimerService));
-        MainActivity.ActivityCurrent.StartService(startIntent);
-    }
-
-    private void StopForegroundService()
-    {
-        var stopIntent = new Intent(MainActivity.ActivityCurrent, typeof(TimerService));
-        MainActivity.ActivityCurrent.StopService(stopIntent);
-    }
-
     public override IBinder OnBind(Intent intent)
     {
         throw new NotImplementedException();
@@ -77,10 +65,22 @@ public class TimerService : Service, ITimerService
         return StartCommandResult.NotSticky;
     }
 
+    private void StartForegroundService()
+    {
+        var startIntent = new Intent(MainActivity.ActivityCurrent, typeof(TimerService));
+        MainActivity.ActivityCurrent.StartService(startIntent);
+    }
+
+    private void StopForegroundService()
+    {
+        var stopIntent = new Intent(MainActivity.ActivityCurrent, typeof(TimerService));
+        MainActivity.ActivityCurrent.StopService(stopIntent);
+    }
+
     private void DisplayProgressNotification()
     {
-        var notificationJson = _settingsService.Get("notification", string.Empty);
-        var notification = JsonSerializer.Deserialize<NotificationDto>(notificationJson);
+        var serializedNotification = _settingsService.Get(nameof(NotificationDto), string.Empty);
+        var notification = JsonSerializer.Deserialize<NotificationDto>(serializedNotification);
 
         notification.Content = "Timer is running";
         notification.IsOngoing = true;
@@ -91,7 +91,7 @@ public class TimerService : Service, ITimerService
         Task.Run(async () =>
         {
             var token = _token;
-            var seconds = (int)(notification.TriggerAlarmAt - DateTime.Now).TotalSeconds;
+            var seconds = (int)(notification.TriggerAlarmAt - _dateTimeService.Now).TotalSeconds;
 
             while (seconds >= 0 && !token.IsCancellationRequested)
             {
@@ -101,7 +101,7 @@ public class TimerService : Service, ITimerService
                 notification.CurrentProgress = seconds;
                 StartForeground(notification.Id, NotificationHelper.BuildNotification(notification));
 
-                seconds = (int)(notification.TriggerAlarmAt - DateTime.Now).TotalSeconds;
+                seconds = (int)(notification.TriggerAlarmAt - _dateTimeService.Now).TotalSeconds;
             }
 
             StopForegroundService();

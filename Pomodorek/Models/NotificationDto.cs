@@ -8,7 +8,6 @@ public class NotificationDto
 
     public string Content { get; set; }
 
-#if ANDROID
     public bool IsOngoing { get; set; }
 
     public bool OnlyAlertOnce { get; set; }
@@ -18,5 +17,4 @@ public class NotificationDto
     public int CurrentProgress { get; set; }
 
     public DateTime TriggerAlarmAt { get; set; }
-#endif
 }

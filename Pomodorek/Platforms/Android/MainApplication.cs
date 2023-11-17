@@ -20,7 +20,6 @@ public class MainApplication : MauiApplication
     {
         base.OnCreate();
         CreateNotificationChannel();
-        // TODO: Ask for necessary permissions
     }
 
     [SuppressMessage("Interoperability", "CA1416:Validate platform compatibility")]
