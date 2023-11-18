@@ -2,19 +2,23 @@
 
 public partial class MainPageViewModel : BaseViewModel
 {
-    private DateTime _triggerAlarmAt;
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsRunning))]
+    private TimerStateEnum _state = TimerStateEnum.Stopped;
 
     [ObservableProperty]
     private int _seconds;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(IsRunning))]
-    private TimerStateEnum _timerState = TimerStateEnum.Stopped;
+    [NotifyPropertyChangedFor(nameof(Alarm))]
+    private DateTime _triggerAlarmAt;
 
     [ObservableProperty]
-    private PomodorekSession _session;
+    private Session _session;
 
-    public bool IsRunning => TimerState == TimerStateEnum.Running;
+    public bool IsRunning => State == TimerStateEnum.Running;
+
+    public string Alarm => $"Alarm: {TriggerAlarmAt.ToLocalTime():HH:mm}";
 
     private readonly ITimerService _timerService;
     private readonly INotificationService _notificationService;
@@ -54,12 +58,10 @@ public partial class MainPageViewModel : BaseViewModel
         if (IsRunning)
             return;
 
-        // TODO: Delegate this to session handler
-        Session.IntervalsElapsed = 0;
         _settingsService.Set(Constants.Settings.IntervalsCount, Session.IntervalsCount);
         Task.Run(async () => await PlaySound(Constants.Sounds.SessionStart));
 
-        SetTimer(IntervalEnum.Work);
+        SetTimer(Session.CurrentInterval);
     }
 
     // TODO: Show simple session summary
@@ -84,23 +86,19 @@ public partial class MainPageViewModel : BaseViewModel
 
     private void Initialize()
     {
-        TimerState = TimerStateEnum.Stopped;
-        Seconds = GetDurationInMin(IntervalEnum.Work) * Constants.OneMinuteInSec;
-        Session = new()
-        {
-            Interval = IntervalEnum.Work,
-            IntervalsCount = _settingsService.Get(Constants.Settings.IntervalsCount, AppSettings.DefaultSessionsCount),
-        };
+        State = TimerStateEnum.Stopped;
+        Seconds = GetIntervalLengthInMin(IntervalEnum.Work) * Constants.OneMinuteInSec;
+        Session = new() { CurrentInterval = IntervalEnum.Work };
     }
 
     private void SetTimer(IntervalEnum interval)
     {
-        Session.Interval = interval;
+        State = TimerStateEnum.Running;
+        Session.CurrentInterval = interval;
 
-        var durationInMin = GetDurationInMin(interval);
-        TimerState = TimerStateEnum.Running;
+        var durationInMin = GetIntervalLengthInMin(interval);
         Seconds = durationInMin * Constants.OneMinuteInSec;
-        _triggerAlarmAt = _dateTimeService.Now.AddMinutes(GetDurationInMin(interval)).AddSeconds(1);
+        TriggerAlarmAt = _dateTimeService.Now.AddMinutes(durationInMin).AddSeconds(1);
 
         if (DeviceInfo.Platform == DevicePlatform.Android)
         {
@@ -108,7 +106,7 @@ public partial class MainPageViewModel : BaseViewModel
             {
                 Id = 2137,
                 Title = interval.ToString(),
-                TriggerAlarmAt = _triggerAlarmAt,
+                TriggerAlarmAt = TriggerAlarmAt,
                 MaxProgress = Seconds,
                 IsOngoing = true,
                 OnlyAlertOnce = true
@@ -121,14 +119,12 @@ public partial class MainPageViewModel : BaseViewModel
     private void StopTimer()
     {
         _timerService.Stop();
-        TimerState = TimerStateEnum.Stopped;
-        Session.Interval = IntervalEnum.Work;
-        Seconds = GetDurationInMin(IntervalEnum.Work) * Constants.OneMinuteInSec;
+        Initialize();
     }
 
     private async Task HandleOnTickEvent()
     {
-        var seconds = (int)(_triggerAlarmAt - _dateTimeService.Now).TotalSeconds;
+        var seconds = (int)(TriggerAlarmAt - _dateTimeService.Now).TotalSeconds;
         if (seconds > 0)
         {
             Seconds = seconds;
@@ -136,52 +132,56 @@ public partial class MainPageViewModel : BaseViewModel
         }
 
         _timerService.Stop();
-        await HandleOnFinishedEvent(Session.Interval);
+        State = TimerStateEnum.Stopped;
+
+        await HandleOnFinishedEvent(Session.CurrentInterval);
+
+        Seconds = GetIntervalLengthInMin(Session.CurrentInterval) * Constants.OneMinuteInSec;
     }
 
     // TODO: Does awaiting async calls delay the work of the timer?
     // TODO: Demand user input before starting another interval
     private async Task HandleOnFinishedEvent(IntervalEnum interval)
     {
+        Session.IntervalsCount++;
+
         switch (interval)
         {
             case IntervalEnum.Work:
-                Session.IntervalsElapsed++;
-
-                if (Session.IsFinished)
-                {
-                    StopCommand.Execute(null);
-                    await DisplayNotification(Constants.Messages.SessionOver);
-                    await PlaySound(Constants.Sounds.SessionOver);
-                    break;
-                }
+                Session.WorkIntervalsCount++;
 
                 if (Session.IsLongRest)
                 {
+                    Session.CurrentInterval = IntervalEnum.LongRest;
                     await DisplayNotification(Constants.Messages.LongRest);
-                    SetTimer(IntervalEnum.LongRest);
                     break;
                 }
 
+                Session.CurrentInterval = IntervalEnum.ShortRest;
                 await DisplayNotification(Constants.Messages.ShortRest);
-                SetTimer(IntervalEnum.ShortRest);
-
                 break;
             case IntervalEnum.ShortRest:
-            case IntervalEnum.LongRest:
+                Session.ShortRestIntervalsCount++;
+                Session.CurrentInterval = IntervalEnum.Work;
                 await DisplayNotification(Constants.Messages.Focus);
-                SetTimer(IntervalEnum.Work);
+                break;
+            case IntervalEnum.LongRest:
+                Session.LongRestIntervalsCount++;
+                Session.CurrentInterval = IntervalEnum.Work;
+                await DisplayNotification(Constants.Messages.Focus);
                 break;
             default:
                 break;
         }
+
+        _ = PlaySound(Constants.Sounds.SessionOver);
     }
 
-    private int GetDurationInMin(IntervalEnum interval) =>
+    private int GetIntervalLengthInMin(IntervalEnum interval) =>
         interval switch
         {
             IntervalEnum.Work =>
-                _settingsService.Get(Constants.Settings.WorkLengthInMin, AppSettings.DefaultFocusLengthInMin),
+                _settingsService.Get(Constants.Settings.WorkLengthInMin, AppSettings.DefaultWorkLengthInMin),
             IntervalEnum.ShortRest =>
                 _settingsService.Get(Constants.Settings.ShortRestLengthInMin, AppSettings.DefaultShortRestLengthInMin),
             IntervalEnum.LongRest =>

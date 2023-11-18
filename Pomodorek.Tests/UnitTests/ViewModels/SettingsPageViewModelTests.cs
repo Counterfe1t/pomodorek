@@ -12,7 +12,7 @@ public class SettingsPageViewModelTests
     {
         DefaultIsSoundEnabled = true,
         DefaultSoundVolume = 1,
-        DefaultFocusLengthInMin = 3,
+        DefaultWorkLengthInMin = 3,
         DefaultShortRestLengthInMin = 3,
         DefaultLongRestLengthInMin = 7
     };
@@ -100,7 +100,7 @@ public class SettingsPageViewModelTests
         _settingsServiceMock
             .Verify(x => x.Set(Constants.Settings.SoundVolume, AppSettings.DefaultSoundVolume), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.WorkLengthInMin, AppSettings.DefaultFocusLengthInMin), Times.Once);
+            .Verify(x => x.Set(Constants.Settings.WorkLengthInMin, AppSettings.DefaultWorkLengthInMin), Times.Once);
         _settingsServiceMock
             .Verify(x => x.Set(Constants.Settings.ShortRestLengthInMin, AppSettings.DefaultShortRestLengthInMin), Times.Once);
         _settingsServiceMock

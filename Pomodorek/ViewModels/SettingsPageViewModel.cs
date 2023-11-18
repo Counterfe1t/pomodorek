@@ -89,7 +89,7 @@ public partial class SettingsPageViewModel : BaseViewModel
     {
         IsSoundEnabled = _settingsService.Get(Constants.Settings.IsSoundEnabled, AppSettings.DefaultIsSoundEnabled);
         SoundVolume = _settingsService.Get(Constants.Settings.SoundVolume, AppSettings.DefaultSoundVolume);
-        WorkLengthInMin = _settingsService.Get(Constants.Settings.WorkLengthInMin, AppSettings.DefaultFocusLengthInMin);
+        WorkLengthInMin = _settingsService.Get(Constants.Settings.WorkLengthInMin, AppSettings.DefaultWorkLengthInMin);
         ShortRestLengthInMin = _settingsService.Get(Constants.Settings.ShortRestLengthInMin, AppSettings.DefaultShortRestLengthInMin);
         LongRestLengthInMin = _settingsService.Get(Constants.Settings.LongRestLengthInMin, AppSettings.DefaultLongRestLengthInMin);
         IsChangePending = false;
@@ -115,14 +115,14 @@ public partial class SettingsPageViewModel : BaseViewModel
     {
         IsSoundEnabled = AppSettings.DefaultIsSoundEnabled;
         SoundVolume = AppSettings.DefaultSoundVolume;
-        WorkLengthInMin = AppSettings.DefaultFocusLengthInMin;
+        WorkLengthInMin = AppSettings.DefaultWorkLengthInMin;
         ShortRestLengthInMin = AppSettings.DefaultShortRestLengthInMin;
         LongRestLengthInMin = AppSettings.DefaultLongRestLengthInMin;
         IsChangePending = false;
 
         _settingsService.Set(Constants.Settings.IsSoundEnabled, AppSettings.DefaultIsSoundEnabled);
         _settingsService.Set(Constants.Settings.SoundVolume, AppSettings.DefaultSoundVolume);
-        _settingsService.Set(Constants.Settings.WorkLengthInMin, AppSettings.DefaultFocusLengthInMin);
+        _settingsService.Set(Constants.Settings.WorkLengthInMin, AppSettings.DefaultWorkLengthInMin);
         _settingsService.Set(Constants.Settings.ShortRestLengthInMin, AppSettings.DefaultShortRestLengthInMin);
         _settingsService.Set(Constants.Settings.LongRestLengthInMin, AppSettings.DefaultLongRestLengthInMin);
 

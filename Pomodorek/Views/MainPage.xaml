@@ -15,89 +15,105 @@
             x:Key="IntervalConverter" />
         <converters:NegationConverter
             x:Key="NegationConverter" />
-        <behaviors:NumericValidationBehavior
-            x:Key="NumericValidationBehavior" />
     </ContentPage.Resources>
     <Grid
         Padding="25"
-        RowDefinitions="Auto, Auto, *, 75"
+        RowDefinitions="Auto, *, 75"
         RowSpacing="10"
         ColumnDefinitions="*, *"
         ColumnSpacing="25">
 
-        <Label
+        <VerticalStackLayout
             Grid.Row="0"
-            Grid.ColumnSpan="2"
-            VerticalOptions="Center"
-            Text="Set number of sessions"
-            FontSize="25" />
-
-        <HorizontalStackLayout
-            Grid.Row="1"
-            Grid.ColumnSpan="2"
-            Spacing="15">
-            <Entry
-                MaxLength="2"
-                WidthRequest="50"
-                HeightRequest="{OnPlatform Android=50}"
-                Text="{Binding Session.IntervalsCount}"
-                HorizontalTextAlignment="Center"
-                IsEnabled="{Binding IsRunning, Converter={StaticResource NegationConverter}}"
-                Keyboard="Numeric">
-                <Entry.Behaviors>
-                    <behaviors:NumericValidationBehavior />
-                </Entry.Behaviors>
-            </Entry>
-            <Stepper
-                Value="{Binding Session.IntervalsCount}"
-                Increment="1"
-                Minimum="1"
-                Maximum="99"
-                IsVisible="{Binding IsRunning, Converter={StaticResource NegationConverter}}" />
-        </HorizontalStackLayout>
+            Grid.ColumnSpan="2">
+            <StackLayout
+                Orientation="Horizontal"
+                Spacing="5">
+                <Label
+                    Text="Intervals:"
+                    FontSize="15" />
+                <Label
+                    Text="{Binding Session.IntervalsCount}"
+                    FontSize="15" />
+            </StackLayout>
+            <StackLayout
+                Orientation="Horizontal"
+                Spacing="5">
+                <Label
+                    Text="Work:"
+                    FontSize="15" />
+                <Label
+                    Text="{Binding Session.WorkIntervalsCount}"
+                    FontSize="15" />
+            </StackLayout>
+            <StackLayout
+                Orientation="Horizontal"
+                Spacing="5">
+                <Label
+                    Text="Short rest:"
+                    FontSize="15" />
+                <Label
+                    Text="{Binding Session.ShortRestIntervalsCount}"
+                    FontSize="15" />
+            </StackLayout>
+            <StackLayout
+                Orientation="Horizontal"
+                Spacing="5">
+                <Label
+                    Text="Long rest:"
+                    FontSize="15" />
+                <Label
+                    Text="{Binding Session.LongRestIntervalsCount}"
+                    FontSize="15" />
+            </StackLayout>
+        </VerticalStackLayout>
 
         <VerticalStackLayout
-            Grid.Row="2"
+            Grid.Row="1"
             Grid.ColumnSpan="2"
             VerticalOptions="Center"
             HorizontalOptions="Center">
+            <Label
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsRunning}"
+                Text="{Binding Alarm}"
+                FontSize="20" />
             <Label
                 HorizontalOptions="Center"
                 Text="{Binding Seconds, Converter={StaticResource TimeConverter}}"
                 FontSize="75" />
             <Label
                 HorizontalOptions="Center"
-                Text="{Binding Session.Interval, Converter={StaticResource IntervalConverter}}"
+                Text="{Binding Session.CurrentInterval, Converter={StaticResource IntervalConverter}}"
                 FontSize="35" />
+
         </VerticalStackLayout>
 
         <!-- there is a bug regarding visual state not being updated after changes to IsEnabled property
         https://github.com/dotnet/maui/issues/7377 -->
         <Button
-            Grid.Row="3"
+            Grid.Row="2"
             Grid.Column="0"
             Text="Start"
             FontSize="35"
             CornerRadius="15"
-            SemanticProperties.Hint="Start timer"
             Command="{Binding StartCommand}" />
 
         <Button
-            Grid.Row="3"
+            Grid.Row="2"
             Grid.Column="1"
             Text="Stop"
             FontSize="35"
             CornerRadius="15"
-            SemanticProperties.Hint="Stop timer"
             Command="{Binding StopCommand}" />
 
         <!-- for some reason on Android buttons do not take up 100% width -->
         <BoxView
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
             IsVisible="{OnPlatform Android=True, WinUI=False}"
             Color="Transparent"
-            ZIndex="-1"
-            Grid.Row="3"
-            Grid.Column="0"
-            Grid.ColumnSpan="2" />
+            ZIndex="-1" />
     </Grid>
 </ContentPage>

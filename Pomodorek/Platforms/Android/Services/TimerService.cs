@@ -91,7 +91,7 @@ public class TimerService : Service, ITimerService
             var token = _token;
             var seconds = (int)(notification.TriggerAlarmAt - _dateTimeService.Now).TotalSeconds;
 
-            while (seconds >= 0 && !token.IsCancellationRequested)
+            while (seconds > 0 && !token.IsCancellationRequested)
             {
                 await Task.Delay(1000);
 
@@ -108,7 +108,7 @@ public class TimerService : Service, ITimerService
                 return;
 
             notification.Title = "Alarm";
-            notification.Content = "Session ended";
+            notification.Content = "Interval ended";
             notification.OnlyAlertOnce = false;
             notification.IsOngoing = false;
             notification.MaxProgress = 0;
