@@ -8,7 +8,7 @@ public class NotificationHelper
 {
     public static readonly string NotificaionChannelId = "General";
 
-    public static Notification BuildNotification(NotificationDto notification)
+    public static global::Android.App.Notification BuildNotification(Models.Notification notification)
     {
         using var builder = new NotificationCompat.Builder(AndroidApp.Context, NotificaionChannelId)
             .SetPriority(NotificationCompat.PriorityMax)

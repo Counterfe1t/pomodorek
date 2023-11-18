@@ -11,8 +11,8 @@
     <ContentPage.Resources>
         <converters:TimeConverter
             x:Key="TimeConverter" />
-        <converters:TimerStatusConverter
-            x:Key="TimerStatusConverter" />
+        <converters:IntervalConverter
+            x:Key="IntervalConverter" />
         <converters:NegationConverter
             x:Key="NegationConverter" />
         <behaviors:NumericValidationBehavior
@@ -40,7 +40,7 @@
                 MaxLength="2"
                 WidthRequest="50"
                 HeightRequest="{OnPlatform Android=50}"
-                Text="{Binding SessionsCount}"
+                Text="{Binding Session.IntervalsCount}"
                 HorizontalTextAlignment="Center"
                 IsEnabled="{Binding IsRunning, Converter={StaticResource NegationConverter}}"
                 Keyboard="Numeric">
@@ -49,7 +49,7 @@
                 </Entry.Behaviors>
             </Entry>
             <Stepper
-                Value="{Binding SessionsCount}"
+                Value="{Binding Session.IntervalsCount}"
                 Increment="1"
                 Minimum="1"
                 Maximum="99"
@@ -67,7 +67,7 @@
                 FontSize="75" />
             <Label
                 HorizontalOptions="Center"
-                Text="{Binding Status, Converter={StaticResource TimerStatusConverter}}"
+                Text="{Binding Session.Interval, Converter={StaticResource IntervalConverter}}"
                 FontSize="35" />
         </VerticalStackLayout>
 

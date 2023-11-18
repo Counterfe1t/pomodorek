@@ -1,9 +1,12 @@
-﻿namespace Pomodorek.Services;
+﻿using System.Diagnostics;
+
+namespace Pomodorek.Services;
 
 public class PermissionsService : IPermissionsService
 {
-    public Task<PermissionStatus> CheckAndRequestPermissionsAsync()
+    public async Task<PermissionStatus> CheckAndRequestPermissionsAsync()
     {
-        throw new PlatformNotSupportedException("Requesting permissions is only supported on Android.");
+        Debug.WriteLine("Requesting permissions is only supported on Android.");
+        return await Task.FromResult(PermissionStatus.Unknown);
     }
 }

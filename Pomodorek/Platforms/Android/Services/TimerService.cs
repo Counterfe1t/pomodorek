@@ -2,9 +2,7 @@
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Pomodorek.Converters;
 using Pomodorek.Platforms.Android.Helpers;
-using System.Text.Json;
 
 namespace Pomodorek.Services;
 
@@ -79,8 +77,8 @@ public class TimerService : Service, ITimerService
 
     private void DisplayProgressNotification()
     {
-        var serializedNotification = _settingsService.Get(nameof(NotificationDto), string.Empty);
-        var notification = JsonSerializer.Deserialize<NotificationDto>(serializedNotification);
+        var serializedNotification = _settingsService.Get(nameof(Models.Notification), string.Empty);
+        var notification = JsonSerializer.Deserialize<Models.Notification>(serializedNotification);
 
         notification.Content = "Timer is running";
         notification.IsOngoing = true;

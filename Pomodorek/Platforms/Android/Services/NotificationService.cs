@@ -12,7 +12,7 @@ public class NotificationService : INotificationService
         _notificationManager = NotificationManager.FromContext(Android.App.Application.Context);
     }
 
-    public async Task DisplayNotificationAsync(NotificationDto notification) =>
+    public async Task DisplayNotificationAsync(Models.Notification notification) =>
         await Task.Run(() => {
             _notificationManager.Notify(notification.Id, NotificationHelper.BuildNotification(notification));
         });

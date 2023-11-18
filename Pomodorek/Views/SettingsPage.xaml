@@ -21,7 +21,7 @@
         <!-- 1st row -->
         <Label
             VerticalOptions="Center"
-            Text="Sound enabled"></Label>
+            Text="Sound enabled" />
         <Switch
             Grid.Column="2"
             IsToggled="{Binding IsSoundEnabled}" />
@@ -30,7 +30,7 @@
         <Label
             Grid.Row="1"
             VerticalOptions="Center"
-            Text="Sound volume"></Label>
+            Text="Sound volume" />
         <Slider
             Grid.Row="1"
             Grid.Column="2"
@@ -45,7 +45,7 @@
         <Label
             Grid.Row="2"
             VerticalOptions="Center"
-            Text="Focus length in minutes"></Label>
+            Text="Focus length in minutes" />
         <Entry
             Grid.Row="2"
             Grid.Column="2"
@@ -54,7 +54,7 @@
             HorizontalOptions="Start"
             HorizontalTextAlignment="Center"
             MaxLength="2"
-            Text="{Binding FocusLengthInMin}"
+            Text="{Binding WorkLengthInMin}"
             Keyboard="Numeric">
             <Entry.Behaviors>
                 <behaviors:NumericValidationBehavior />
@@ -65,7 +65,7 @@
         <Label
             Grid.Row="3"
             VerticalOptions="Center"
-            Text="Short rest length in minutes"></Label>
+            Text="Short rest length in minutes" />
         <Entry
             Grid.Row="3"
             Grid.Column="2"
@@ -85,7 +85,7 @@
         <Label
             Grid.Row="4"
             VerticalOptions="Center"
-            Text="Long rest length in minutes"></Label>
+            Text="Long rest length in minutes" />
         <Entry
             Grid.Row="4"
             Grid.Column="2"

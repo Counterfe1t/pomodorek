@@ -48,7 +48,7 @@ public class SettingsPageViewModelTests
         _settingsServiceMock
             .Verify(x => x.Get(Constants.Settings.SoundVolume, It.IsAny<float>()), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Get(Constants.Settings.FocusLengthInMin, It.IsAny<int>()), Times.Once);
+            .Verify(x => x.Get(Constants.Settings.WorkLengthInMin, It.IsAny<int>()), Times.Once);
         _settingsServiceMock
             .Verify(x => x.Get(Constants.Settings.ShortRestLengthInMin, It.IsAny<int>()), Times.Once);
         _settingsServiceMock
@@ -72,7 +72,7 @@ public class SettingsPageViewModelTests
         _settingsServiceMock
             .Verify(x => x.Set(Constants.Settings.SoundVolume, It.IsAny<float>()), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.FocusLengthInMin, It.IsAny<int>()), Times.Once);
+            .Verify(x => x.Set(Constants.Settings.WorkLengthInMin, It.IsAny<int>()), Times.Once);
         _settingsServiceMock
             .Verify(x => x.Set(Constants.Settings.ShortRestLengthInMin, It.IsAny<int>()), Times.Once);
         _settingsServiceMock
@@ -100,7 +100,7 @@ public class SettingsPageViewModelTests
         _settingsServiceMock
             .Verify(x => x.Set(Constants.Settings.SoundVolume, AppSettings.DefaultSoundVolume), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.FocusLengthInMin, AppSettings.DefaultFocusLengthInMin), Times.Once);
+            .Verify(x => x.Set(Constants.Settings.WorkLengthInMin, AppSettings.DefaultFocusLengthInMin), Times.Once);
         _settingsServiceMock
             .Verify(x => x.Set(Constants.Settings.ShortRestLengthInMin, AppSettings.DefaultShortRestLengthInMin), Times.Once);
         _settingsServiceMock

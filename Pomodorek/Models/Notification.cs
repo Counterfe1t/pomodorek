@@ -1,6 +1,6 @@
 ﻿namespace Pomodorek.Models;
 
-public class NotificationDto
+public class Notification
 {
     public int Id { get; set; }
 

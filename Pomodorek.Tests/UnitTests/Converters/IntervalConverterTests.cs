@@ -1,22 +1,21 @@
 ﻿namespace Pomodorek.Tests.UnitTests.Converters;
 
-public class TimerStatusConverterTests
+public class IntervalConverterTests
 {
-    private readonly TimerStatusConverter _converter;
+    private readonly IntervalConverter _converter;
 
-    public TimerStatusConverterTests()
+    public IntervalConverterTests()
     {
-        _converter = new TimerStatusConverter();
+        _converter = new IntervalConverter();
     }
 
     [Theory]
-    [InlineData(TimerStatusEnum.Stopped, Constants.Labels.Stopped)]
-    [InlineData(TimerStatusEnum.Focus, Constants.Labels.Focus)]
-    [InlineData(TimerStatusEnum.ShortRest, Constants.Labels.ShortRest)]
-    [InlineData(TimerStatusEnum.LongRest, Constants.Labels.LongRest)]
-    [InlineData((TimerStatusEnum)1337, "")]
+    [InlineData(IntervalEnum.Work, Constants.Labels.Work)]
+    [InlineData(IntervalEnum.ShortRest, Constants.Labels.ShortRest)]
+    [InlineData(IntervalEnum.LongRest, Constants.Labels.LongRest)]
+    [InlineData((IntervalEnum)1337, "")]
     public void Convert_ReturnsExcpectedResult(
-        TimerStatusEnum received,
+        IntervalEnum received,
         string expected)
     {
         // act

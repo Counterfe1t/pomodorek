@@ -58,7 +58,7 @@ public class MainPageViewModelTests
     }
 
     [Fact]
-    public void Start_WhenTimerIsNotRunning_StartsTimer()
+    public void Start_StartsTimer()
     {
         // act
         _viewModel.StartCommand.Execute(null);
@@ -68,24 +68,7 @@ public class MainPageViewModelTests
 
         _soundServiceMock.Verify(x => x.PlaySoundAsync(It.IsAny<string>()), Times.Once);
         
-        _settingsServiceMock.Verify(x => x.Set(Constants.Settings.SessionsCount, It.IsAny<int>()), Times.Once);
-    }
-
-    [Fact]
-    public void Start_WhenTimerIsRunning_DoesNotStartTimer()
-    {
-        // arrange
-        _viewModel.IsRunning = true;
-
-        // act
-        _viewModel.StartCommand.Execute(null);
-
-        // assert
-        _timerServiceMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Never);
-        
-        _soundServiceMock.Verify(x => x.PlaySoundAsync(It.IsAny<string>()), Times.Never);
-        
-        _settingsServiceMock.Verify(x => x.Set(Constants.Settings.SessionsCount, It.IsAny<int>()), Times.Never);
+        _settingsServiceMock.Verify(x => x.Set(Constants.Settings.IntervalsCount, It.IsAny<int>()), Times.Once);
     }
 
     [Fact]

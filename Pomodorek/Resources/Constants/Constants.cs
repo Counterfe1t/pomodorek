@@ -13,10 +13,10 @@ public static class Constants
     {
         public const string IsSoundEnabled = nameof(IsSoundEnabled);
         public const string SoundVolume = nameof(SoundVolume);
-        public const string FocusLengthInMin = nameof(FocusLengthInMin);
+        public const string WorkLengthInMin = nameof(WorkLengthInMin);
         public const string ShortRestLengthInMin = nameof(ShortRestLengthInMin);
         public const string LongRestLengthInMin = nameof(LongRestLengthInMin);
-        public const string SessionsCount = nameof(SessionsCount);
+        public const string IntervalsCount = nameof(IntervalsCount);
     }
 
     public class Pages
@@ -27,10 +27,9 @@ public static class Constants
 
     public class Labels
     {
-        public const string Focus = "FOCUS";
-        public const string ShortRest = "REST";
-        public const string LongRest = "LONG REST";
-        public const string Stopped = "STOPPED";
+        public const string Work = "Work";
+        public const string ShortRest = "Rest";
+        public const string LongRest = "Long rest";
     }
 
     public class Messages
