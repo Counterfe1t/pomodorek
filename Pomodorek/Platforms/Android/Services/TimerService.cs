@@ -63,7 +63,7 @@ public class TimerService : Service, ITimerService
         return StartCommandResult.NotSticky;
     }
 
-    private T GetService<T>() => (T)MauiApplication.Current.Services.GetService(typeof(T));
+    private TService GetService<TService>() => (TService)MauiApplication.Current.Services.GetService(typeof(TService));
 
     private void StartForegroundService()
     {
