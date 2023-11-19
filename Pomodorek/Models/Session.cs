@@ -37,5 +37,7 @@ public class Session : ObservableObject
         set => SetProperty(ref _longRestIntervalsCount, value);
     }
 
+    public DateTime TriggerAlarmAt { get; set; }
+
     public bool IsLongRest => WorkIntervalsCount % 4 == 0;
 }

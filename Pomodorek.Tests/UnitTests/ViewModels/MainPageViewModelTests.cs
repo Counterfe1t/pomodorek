@@ -1,74 +1,40 @@
-﻿namespace Pomodorek.Tests.UnitTests.ViewModels;
+﻿using Pomodorek.Interfaces;
+
+namespace Pomodorek.Tests.UnitTests.ViewModels;
 
 public class MainPageViewModelTests
 {
     private readonly MainPageViewModel _viewModel;
     private readonly Mock<ITimerService> _timerServiceMock;
-    private readonly Mock<INotificationService> _notificationServiceMock;
     private readonly Mock<ISettingsService> _settingsServiceMock;
-    private readonly Mock<IConfigurationService> _configurationServiceMock;
-    private readonly Mock<ISoundService> _soundServiceMock;
     private readonly Mock<IDateTimeService> _dateTimeServiceMock;
     private readonly Mock<IPermissionsService> _permissionsServiceMock;
+    private readonly Mock<ISessionService> _sessionServiceMock;
 
     public MainPageViewModelTests()
     {
         _timerServiceMock = new Mock<ITimerService>();
-        _notificationServiceMock = new Mock<INotificationService>();
         _settingsServiceMock = new Mock<ISettingsService>();
-        _configurationServiceMock = new Mock<IConfigurationService>();
-        _soundServiceMock = new Mock<ISoundService>();
         _dateTimeServiceMock = new Mock<IDateTimeService>();
         _permissionsServiceMock = new Mock<IPermissionsService>();
-
-        _configurationServiceMock
-            .Setup(x => x.GetAppSettings())
-            .Returns(new AppSettings());
+        _sessionServiceMock = new Mock<ISessionService>();
 
         _viewModel = new MainPageViewModel(
             _timerServiceMock.Object,
-            _notificationServiceMock.Object,
             _settingsServiceMock.Object,
-            _configurationServiceMock.Object,
-            _soundServiceMock.Object,
             _dateTimeServiceMock.Object,
-            _permissionsServiceMock.Object);
-    }
-
-    //[Fact]
-    //public async Task DisplayNotification_InvokesNotificationService()
-    //{
-    //    // act
-    //    await _viewModel.DisplayNotification(string.Empty);
-    //    // assert
-    //    _notificationServiceMock.Verify(x => x.DisplayNotificationAsync(It.IsAny<Notification>()), Times.Once);
-    //}
-
-    [Fact]
-    public async Task PlaySound_InvokesSoundService()
-    {
-        // arrange
-        var fileName = "sound.wav";
-
-        // act
-        await _viewModel.PlaySound(fileName);
-
-        // assert
-        _soundServiceMock.Verify(x => x.PlaySoundAsync(fileName), Times.Once);
+            _permissionsServiceMock.Object,
+            _sessionServiceMock.Object);
     }
 
     [Fact]
-    public void Start_StartsTimer()
+    public void Start_TimerIsNotRunning_StartsTimer()
     {
         // act
         _viewModel.StartCommand.Execute(null);
 
         // assert
         _timerServiceMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Once);
-
-        _soundServiceMock.Verify(x => x.PlaySoundAsync(It.IsAny<string>()), Times.Once);
-        
-        _settingsServiceMock.Verify(x => x.Set(Constants.Settings.IntervalsCount, It.IsAny<int>()), Times.Once);
     }
 
     [Fact]
@@ -82,10 +48,6 @@ public class MainPageViewModelTests
 
         // assert
         _timerServiceMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Never);
-
-        _soundServiceMock.Verify(x => x.PlaySoundAsync(It.IsAny<string>()), Times.Never);
-
-        _settingsServiceMock.Verify(x => x.Set(Constants.Settings.IntervalsCount, It.IsAny<int>()), Times.Never);
     }
 
     [Fact]

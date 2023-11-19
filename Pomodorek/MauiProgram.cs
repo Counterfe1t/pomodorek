@@ -1,4 +1,6 @@
-﻿namespace Pomodorek;
+﻿using Pomodorek.Interfaces;
+
+namespace Pomodorek;
 
 public static class MauiProgram
 {
@@ -34,6 +36,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<IMessageService, MessageService>();
         builder.Services.AddSingleton<IDateTimeService, DateTimeService>();
         builder.Services.AddSingleton<IPermissionsService, PermissionsService>();
+        builder.Services.AddSingleton<ISessionService, SessionService>();
 #endif
         return builder;
     }

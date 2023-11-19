@@ -107,8 +107,7 @@ public class TimerService : Service, ITimerService
             if (token.IsCancellationRequested)
                 return;
 
-            notification.Title = "Alarm";
-            notification.Content = "Interval ended";
+            notification.Content = "Timer finished";
             notification.OnlyAlertOnce = false;
             notification.IsOngoing = false;
             notification.MaxProgress = 0;

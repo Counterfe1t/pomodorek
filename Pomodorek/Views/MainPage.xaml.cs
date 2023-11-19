@@ -11,6 +11,13 @@ public partial class MainPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await (BindingContext as MainPageViewModel).CheckAndRequestPermissionsAsync();
+        var viewModel = BindingContext as MainPageViewModel;
+
+        await viewModel.CheckAndRequestPermissionsAsync();
+
+        if (!viewModel.IsRunning)
+        {
+            viewModel.Initialize();
+        }
     }
 }
