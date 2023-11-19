@@ -11,7 +11,9 @@ public partial class TimerPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        var viewModel = BindingContext as TimerPageViewModel;
+
+        if (BindingContext is not TimerPageViewModel viewModel)
+            return;
 
         await viewModel.CheckAndRequestPermissionsAsync();
 
