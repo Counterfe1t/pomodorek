@@ -1,8 +1,8 @@
 ﻿namespace Pomodorek.Views;
 
-public partial class MainPage : ContentPage
+public partial class TimerPage : ContentPage
 {
-    public MainPage(MainPageViewModel viewModel)
+    public TimerPage(TimerPageViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;
@@ -11,7 +11,7 @@ public partial class MainPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        var viewModel = BindingContext as MainPageViewModel;
+        var viewModel = BindingContext as TimerPageViewModel;
 
         await viewModel.CheckAndRequestPermissionsAsync();
 

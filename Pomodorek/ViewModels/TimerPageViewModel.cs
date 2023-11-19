@@ -2,7 +2,7 @@
 
 namespace Pomodorek.ViewModels;
 
-public partial class MainPageViewModel : BaseViewModel
+public partial class TimerPageViewModel : BaseViewModel
 {
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsRunning))]
@@ -27,7 +27,7 @@ public partial class MainPageViewModel : BaseViewModel
     private readonly IPermissionsService _permissionsService;
     private readonly ISessionService _sessionService;
 
-    public MainPageViewModel(
+    public TimerPageViewModel(
         ITimerService timerService,
         IDateTimeService dateTimeService,
         IPermissionsService permissionsService,
@@ -74,8 +74,7 @@ public partial class MainPageViewModel : BaseViewModel
         var intervalLengthInMin = _sessionService.GetIntervalLengthInMin(Session.CurrentInterval);
         Seconds = intervalLengthInMin * Constants.OneMinuteInSec;
 
-        TriggerAlarmAt = _dateTimeService.Now.AddMinutes(intervalLengthInMin).AddSeconds(1);
-        Session.TriggerAlarmAt = TriggerAlarmAt;
+        Session.TriggerAlarmAt = TriggerAlarmAt = _dateTimeService.Now.AddMinutes(intervalLengthInMin).AddSeconds(1);
         
         _sessionService.StartInterval(Session);
         _timerService.Start(HandleOnTickEvent);

@@ -8,8 +8,8 @@
 
     <ShellContent
         Title="Pomodorek"
-        ContentTemplate="{DataTemplate views:MainPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate views:TimerPage}"
+        Route="TimerPage" />
 
     <ShellContent
         Title="Settings"

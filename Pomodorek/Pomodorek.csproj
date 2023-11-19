@@ -57,15 +57,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<MauiXaml Update="Views\SettingsPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
 		<EmbeddedResource Include="appsettings.json">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
 	</ItemGroup>
-
 </Project>

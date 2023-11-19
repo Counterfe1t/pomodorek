@@ -2,26 +2,23 @@
 
 namespace Pomodorek.Tests.UnitTests.ViewModels;
 
-public class MainPageViewModelTests
+public class TimerPageViewModelTests
 {
-    private readonly MainPageViewModel _viewModel;
+    private readonly TimerPageViewModel _viewModel;
     private readonly Mock<ITimerService> _timerServiceMock;
-    private readonly Mock<ISettingsService> _settingsServiceMock;
     private readonly Mock<IDateTimeService> _dateTimeServiceMock;
     private readonly Mock<IPermissionsService> _permissionsServiceMock;
     private readonly Mock<ISessionService> _sessionServiceMock;
 
-    public MainPageViewModelTests()
+    public TimerPageViewModelTests()
     {
         _timerServiceMock = new Mock<ITimerService>();
-        _settingsServiceMock = new Mock<ISettingsService>();
         _dateTimeServiceMock = new Mock<IDateTimeService>();
         _permissionsServiceMock = new Mock<IPermissionsService>();
         _sessionServiceMock = new Mock<ISessionService>();
 
-        _viewModel = new MainPageViewModel(
+        _viewModel = new TimerPageViewModel(
             _timerServiceMock.Object,
-            _settingsServiceMock.Object,
             _dateTimeServiceMock.Object,
             _permissionsServiceMock.Object,
             _sessionServiceMock.Object);
