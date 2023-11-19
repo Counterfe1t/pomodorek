@@ -27,11 +27,20 @@ public class TimerPageViewModelTests
     [Fact]
     public void Start_TimerIsNotRunning_StartsTimer()
     {
+        // arrange
+        _viewModel.Session = new Session();
+
+        _dateTimeServiceMock
+            .Setup(x => x.Now)
+            .Returns(DateTime.Now);
+        
         // act
         _viewModel.StartCommand.Execute(null);
 
         // assert
         _timerServiceMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Once);
+
+        _sessionServiceMock.Verify(x => x.StartInterval(It.IsAny<Session>()), Times.Once);
     }
 
     [Fact]
@@ -45,11 +54,22 @@ public class TimerPageViewModelTests
 
         // assert
         _timerServiceMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Never);
+
+        _sessionServiceMock.Verify(x => x.StartInterval(It.IsAny<Session>()), Times.Never);
     }
 
     [Fact]
     public void Stop_StopsTimer()
     {
+        // arrange
+        _sessionServiceMock
+            .Setup(x => x.GetNewSession())
+            .Returns(new Session());
+
+        _dateTimeServiceMock
+            .Setup(x => x.Now)
+            .Returns(DateTime.Now);
+
         // act
         _viewModel.StopCommand.Execute(null);
 
