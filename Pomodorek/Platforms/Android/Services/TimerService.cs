@@ -17,9 +17,9 @@ public class TimerService : Service, ITimerService
 
     public TimerService()
     {
-        _notificationService = (INotificationService)MauiApplication.Current.Services.GetService(typeof(INotificationService));
-        _settingsService = (ISettingsService)MauiApplication.Current.Services.GetService(typeof(ISettingsService));
-        _dateTimeService = (IDateTimeService)MauiApplication.Current.Services.GetService(typeof(IDateTimeService));
+        _notificationService = GetService<INotificationService>();
+        _settingsService = GetService<ISettingsService>();
+        _dateTimeService = GetService<IDateTimeService>();
      
         _token = new CancellationTokenSource();
     }
@@ -62,6 +62,8 @@ public class TimerService : Service, ITimerService
 
         return StartCommandResult.NotSticky;
     }
+
+    private T GetService<T>() => (T)MauiApplication.Current.Services.GetService(typeof(T));
 
     private void StartForegroundService()
     {

@@ -32,5 +32,4 @@ public class BaseSessionService
 
     public void PlaySound(string fileName) =>
         Task.Run(async () => await _soundService.PlaySoundAsync(fileName));
-
 }
