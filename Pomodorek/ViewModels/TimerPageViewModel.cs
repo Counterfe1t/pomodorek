@@ -4,17 +4,29 @@ namespace Pomodorek.ViewModels;
 
 public partial class TimerPageViewModel : BaseViewModel
 {
+    /// <summary>
+    /// Timer's state (Stopped, Running, Paused).
+    /// </summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsRunning))]
     private TimerStateEnum _state = TimerStateEnum.Stopped;
 
+    /// <summary>
+    /// Seconds remaining until the end of the current interval.
+    /// </summary>
     [ObservableProperty]
-    private int _seconds;
+    private int _time;
 
+    /// <summary>
+    /// Precise date and time of the scheduled alarm.
+    /// </summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Alarm))]
     public DateTime _triggerAlarmAt;
 
+    /// <summary>
+    /// This object represents the session in progress.
+    /// </summary>
     [ObservableProperty]
     private Session _session;
 
@@ -61,7 +73,12 @@ public partial class TimerPageViewModel : BaseViewModel
     public void Initialize()
     {
         Session = _sessionService.GetNewSession();
-        Seconds = _sessionService.GetIntervalLengthInMin(IntervalEnum.Work) * Constants.OneMinuteInSec;
+        UpdateTimerUI();
+    }
+
+    public void UpdateTimerUI()
+    {
+        Time = _sessionService.GetIntervalLengthInMin(IntervalEnum.Work) * Constants.OneMinuteInSec;
     }
 
     public async Task CheckAndRequestPermissionsAsync() =>
@@ -70,11 +87,11 @@ public partial class TimerPageViewModel : BaseViewModel
     private void StartTimer()
     {
         State = TimerStateEnum.Running;
-
-        var intervalLengthInMin = _sessionService.GetIntervalLengthInMin(Session.CurrentInterval);
-        Seconds = intervalLengthInMin * Constants.OneMinuteInSec;
-
-        Session.TriggerAlarmAt = TriggerAlarmAt = _dateTimeService.Now.AddMinutes(intervalLengthInMin).AddSeconds(1);
+        UpdateTimerUI();
+        Session.TriggerAlarmAt = TriggerAlarmAt =
+            _dateTimeService.Now
+                .AddMinutes(_sessionService.GetIntervalLengthInMin(Session.CurrentInterval))
+                .AddSeconds(1);
         
         _sessionService.StartInterval(Session);
         _timerService.Start(HandleOnTickEvent);
@@ -84,15 +101,15 @@ public partial class TimerPageViewModel : BaseViewModel
     {
         _timerService.Stop();
         State = TimerStateEnum.Stopped;
-        Seconds = _sessionService.GetIntervalLengthInMin(Session.CurrentInterval) * Constants.OneMinuteInSec;
+        UpdateTimerUI();
     }
 
     private void HandleOnTickEvent()
     {
-        var seconds = (int)(TriggerAlarmAt - _dateTimeService.Now).TotalSeconds;
-        if (seconds > 0)
+        var secondsRemaining = (int)(TriggerAlarmAt - _dateTimeService.Now).TotalSeconds;
+        if (secondsRemaining > 0)
         {
-            Seconds = seconds;
+            Time = secondsRemaining;
             return;
         }
 

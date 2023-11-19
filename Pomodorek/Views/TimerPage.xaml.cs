@@ -17,7 +17,7 @@ public partial class TimerPage : ContentPage
 
         if (!viewModel.IsRunning)
         {
-            viewModel.Initialize();
+            viewModel.UpdateTimerUI();
         }
     }
 }
