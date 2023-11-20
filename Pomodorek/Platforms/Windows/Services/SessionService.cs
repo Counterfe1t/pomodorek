@@ -1,6 +1,4 @@
-﻿using Pomodorek.Interfaces;
-
-namespace Pomodorek.Services;
+﻿namespace Pomodorek.Services;
 
 public class SessionService : BaseSessionService, ISessionService
 {
@@ -15,11 +13,6 @@ public class SessionService : BaseSessionService, ISessionService
     {
         _notificationService = notificationService;
     }
-
-    public Session GetNewSession() => new()
-    {
-        CurrentInterval = IntervalEnum.Work
-    };
 
     public void StartInterval(Session session)
     {

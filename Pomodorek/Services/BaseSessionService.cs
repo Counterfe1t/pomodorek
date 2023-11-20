@@ -18,6 +18,8 @@ public class BaseSessionService
         _soundService = soundService;
     }
 
+    public static Session GetNewSession() => new() { CurrentInterval = IntervalEnum.Work };
+
     public int GetIntervalLengthInMin(IntervalEnum interval) =>
         interval switch
         {

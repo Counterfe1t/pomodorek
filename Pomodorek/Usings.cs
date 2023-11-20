@@ -11,6 +11,7 @@ global using Pomodorek.Resources.Enums;
 global using Pomodorek.Services;
 global using Pomodorek.ViewModels;
 global using Pomodorek.Views;
+global using System.Diagnostics.CodeAnalysis;
 global using System.Globalization;
 global using System.Reflection;
 global using System.Text.Json;

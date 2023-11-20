@@ -6,6 +6,7 @@ public class AndroidPermissions : Permissions.BasePlatformPermission
         new List<(string androidPermission, bool isRuntime)>
         {
             (global::Android.Manifest.Permission.ForegroundService, true),
-            (global::Android.Manifest.Permission.PostNotifications, true)
+            (global::Android.Manifest.Permission.PostNotifications, true),
+            (global::Android.Manifest.Permission.ScheduleExactAlarm, true)
         }.ToArray();
 }

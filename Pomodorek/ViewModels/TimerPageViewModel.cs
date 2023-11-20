@@ -1,6 +1,4 @@
-﻿using Pomodorek.Interfaces;
-
-namespace Pomodorek.ViewModels;
+﻿namespace Pomodorek.ViewModels;
 
 public partial class TimerPageViewModel : BaseViewModel
 {
@@ -66,13 +64,13 @@ public partial class TimerPageViewModel : BaseViewModel
     [RelayCommand]
     public void Stop()
     {
-        Session = _sessionService.GetNewSession();
-        StopTimer();
+        Session = BaseSessionService.GetNewSession();
+        StopTimer(true);
     }
 
     public void Initialize()
     {
-        Session = _sessionService.GetNewSession();
+        Session = BaseSessionService.GetNewSession();
         UpdateTimerUI();
     }
 
@@ -97,16 +95,16 @@ public partial class TimerPageViewModel : BaseViewModel
         _timerService.Start(HandleOnTickEvent);
     }
 
-    private void StopTimer()
+    private void StopTimer(bool isCancelled)
     {
-        _timerService.Stop();
+        _timerService.Stop(isCancelled);
         State = TimerStateEnum.Stopped;
         UpdateTimerUI();
     }
 
     private void HandleOnTickEvent()
     {
-        var secondsRemaining = (int)(TriggerAlarmAt - _dateTimeService.Now).TotalSeconds;
+        var secondsRemaining = (int)TriggerAlarmAt.Subtract(_dateTimeService.Now).TotalSeconds;
         if (secondsRemaining > 0)
         {
             Time = secondsRemaining;
@@ -114,6 +112,6 @@ public partial class TimerPageViewModel : BaseViewModel
         }
 
         _sessionService.FinishInterval(Session);
-        StopTimer();
+        StopTimer(false);
     }
 }

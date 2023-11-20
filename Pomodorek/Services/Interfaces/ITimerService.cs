@@ -4,5 +4,5 @@ public interface ITimerService
 {
     void Start(Action callback);
 
-    void Stop();
+    void Stop(bool isCancelled = false);
 }

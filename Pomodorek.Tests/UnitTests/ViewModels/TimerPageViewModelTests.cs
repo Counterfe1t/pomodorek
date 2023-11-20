@@ -1,6 +1,4 @@
-﻿using Pomodorek.Interfaces;
-
-namespace Pomodorek.Tests.UnitTests.ViewModels;
+﻿namespace Pomodorek.Tests.UnitTests.ViewModels;
 
 public class TimerPageViewModelTests
 {
@@ -62,10 +60,6 @@ public class TimerPageViewModelTests
     public void Stop_StopsTimer()
     {
         // arrange
-        _sessionServiceMock
-            .Setup(x => x.GetNewSession())
-            .Returns(new Session());
-
         _dateTimeServiceMock
             .Setup(x => x.Now)
             .Returns(DateTime.Now);
@@ -74,6 +68,6 @@ public class TimerPageViewModelTests
         _viewModel.StopCommand.Execute(null);
 
         // assert
-        _timerServiceMock.Verify(x => x.Stop(), Times.Once);
+        _timerServiceMock.Verify(x => x.Stop(true), Times.Once);
     }
 }

@@ -32,10 +32,7 @@ public class SoundService : ISoundService
         using var stream = await _fileSystem.OpenAppPackageFileAsync(fileName);
         using var player = _audioManager.CreatePlayer(stream);
 
-        player.Volume = _settingsService.Get(
-            Constants.Settings.SoundVolume,
-            AppSettings.DefaultSoundVolume);
-
+        player.Volume = _settingsService.Get(Constants.Settings.SoundVolume, AppSettings.DefaultSoundVolume);
         player.Play();
 
         // For some reason IAudioPlayer.Duration always returns 0
