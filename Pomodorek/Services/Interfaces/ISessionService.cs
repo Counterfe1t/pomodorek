@@ -7,4 +7,6 @@ public interface ISessionService
     void FinishInterval(Session session);
 
     int GetIntervalLengthInMin(IntervalEnum interval);
+
+    int GetIntervalLengthInSec(IntervalEnum interval);
 }

@@ -1,8 +1,6 @@
 ﻿using Android.App;
 using Android.OS;
 using Android.Runtime;
-using Pomodorek.Platforms.Android.Helpers;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Pomodorek;
 
@@ -29,8 +27,8 @@ public class MainApplication : MauiApplication
         {
             var manager = NotificationManager.FromContext(Context);
             var channel = new NotificationChannel(
-                NotificationHelper.NotificaionChannelId,
-                NotificationHelper.NotificaionChannelId,
+                Pomodorek.Services.NotificationService.NotificaionChannelId,
+                Pomodorek.Services.NotificationService.NotificaionChannelId,
                 NotificationImportance.Max);
             manager.CreateNotificationChannel(channel);
         }

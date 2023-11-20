@@ -2,8 +2,8 @@
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Pomodorek.Platforms.Android.Helpers;
 using Pomodorek.Platforms.Android.Receivers;
+using Pomodorek.Platforms.Android.Services;
 
 namespace Pomodorek.Services;
 
@@ -18,9 +18,9 @@ public class TimerService : Service, ITimerService
 
     public TimerService()
     {
-        _notificationService = GetService<INotificationService>();
-        _settingsService = GetService<ISettingsService>();
-        _dateTimeService = GetService<IDateTimeService>();
+        _notificationService = ServiceHelper.GetService<INotificationService>();
+        _settingsService = ServiceHelper.GetService<ISettingsService>();
+        _dateTimeService = ServiceHelper.GetService<IDateTimeService>();
 
         _token = new CancellationTokenSource();
     }
@@ -41,6 +41,70 @@ public class TimerService : Service, ITimerService
                     return;
 
                 callback.Invoke();
+            }
+        });
+    }
+
+    public void Stop(bool isCancelled)
+    {
+        if (isCancelled)
+            CancelAlarm();
+
+        StopForegroundService();
+
+        Interlocked.Exchange(ref _token, new CancellationTokenSource()).Cancel();
+    }
+
+    public override IBinder OnBind(Intent intent)
+    {
+        throw new NotImplementedException();
+    }
+
+    [return: GeneratedEnum]
+    public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
+    {
+        DisplayProgressNotification();
+
+        return StartCommandResult.NotSticky;
+    }
+
+    private void StartForegroundService()
+    {
+        var startIntent = new Intent(MainActivity.ActivityCurrent, typeof(TimerService));
+        MainActivity.ActivityCurrent.StartService(startIntent);
+    }
+
+    private void StopForegroundService()
+    {
+        var stopIntent = new Intent(MainActivity.ActivityCurrent, typeof(TimerService));
+        MainActivity.ActivityCurrent.StopService(stopIntent);
+    }
+
+    private void DisplayProgressNotification()
+    {
+        var serializedNotification = _settingsService.Get(nameof(Models.Notification), string.Empty);
+        var notification = JsonSerializer.Deserialize<Models.Notification>(serializedNotification);
+        
+        notification.Content = "Timer is running";
+        notification.IsOngoing = true;
+        notification.OnlyAlertOnce = true;
+        notification.TriggerAlarmAt.AddSeconds(-1);
+        StartForeground(notification.Id, Services.NotificationService.BuildNotification(notification));
+
+        Task.Run(async () =>
+        {
+            var token = _token;
+            var secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_dateTimeService.Now).TotalSeconds;
+
+            while (secondsRemaining > 0 && !token.IsCancellationRequested)
+            {
+                await Task.Delay(Constants.OneSecondInMs);
+
+                notification.Content = TimeConverter.FormatTime(secondsRemaining);
+                notification.CurrentProgress = secondsRemaining;
+                StartForeground(notification.Id, Services.NotificationService.BuildNotification(notification));
+
+                secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_dateTimeService.Now).TotalSeconds;
             }
         });
     }
@@ -76,69 +140,5 @@ public class TimerService : Service, ITimerService
 
         var alarmManager = (AlarmManager)MainActivity.ActivityCurrent.GetSystemService(AlarmService);
         alarmManager.Cancel(pendingIntent);
-    }
-
-    public void Stop(bool isCancelled)
-    {
-        if (isCancelled)
-            CancelAlarm();
-
-        StopForegroundService();
-
-        Interlocked.Exchange(ref _token, new CancellationTokenSource()).Cancel();
-    }
-
-    public override IBinder OnBind(Intent intent)
-    {
-        throw new NotImplementedException();
-    }
-
-    [return: GeneratedEnum]
-    public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
-    {
-        DisplayProgressNotification();
-
-        return StartCommandResult.NotSticky;
-    }
-
-    private TService GetService<TService>() => (TService)MauiApplication.Current.Services.GetService(typeof(TService));
-
-    private void StartForegroundService()
-    {
-        var startIntent = new Intent(MainActivity.ActivityCurrent, typeof(TimerService));
-        MainActivity.ActivityCurrent.StartService(startIntent);
-    }
-
-    private void StopForegroundService()
-    {
-        var stopIntent = new Intent(MainActivity.ActivityCurrent, typeof(TimerService));
-        MainActivity.ActivityCurrent.StopService(stopIntent);
-    }
-
-    private void DisplayProgressNotification()
-    {
-        var serializedNotification = _settingsService.Get(nameof(Models.Notification), string.Empty);
-        var notification = JsonSerializer.Deserialize<Models.Notification>(serializedNotification);
-        notification.Content = "Timer is running";
-        notification.IsOngoing = true;
-        notification.OnlyAlertOnce = true;
-        StartForeground(notification.Id, NotificationHelper.BuildNotification(notification));
-
-        Task.Run(async () =>
-        {
-            var token = _token;
-            var secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_dateTimeService.Now).TotalSeconds;
-
-            while (secondsRemaining > 0 && !token.IsCancellationRequested)
-            {
-                await Task.Delay(Constants.OneSecondInMs);
-
-                notification.Content = TimeConverter.FormatTime(secondsRemaining);
-                notification.CurrentProgress = secondsRemaining;
-                StartForeground(notification.Id, NotificationHelper.BuildNotification(notification));
-
-                secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_dateTimeService.Now).TotalSeconds;
-            }
-        });
     }
 }

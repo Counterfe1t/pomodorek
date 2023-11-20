@@ -1,4 +1,5 @@
 ﻿using Android.Content;
+using Pomodorek.Platforms.Android.Services;
 
 namespace Pomodorek.Platforms.Android.Receivers;
 
@@ -10,8 +11,8 @@ public class AlarmReceiver : BroadcastReceiver
 
     public AlarmReceiver()
     {
-        _notificationService = (INotificationService)MauiApplication.Current.Services.GetService(typeof(INotificationService));
-        _settingsService = (ISettingsService)MauiApplication.Current.Services.GetService(typeof(ISettingsService));
+        _notificationService = ServiceHelper.GetService<INotificationService>();
+        _settingsService = ServiceHelper.GetService<ISettingsService>();
     }
 
     public override async void OnReceive(Context context, Intent intent)

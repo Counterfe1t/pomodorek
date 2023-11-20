@@ -32,6 +32,8 @@ public class BaseSessionService
             _ => 0
         };
 
+    public int GetIntervalLengthInSec(IntervalEnum interval) => GetIntervalLengthInMin(interval) * Constants.OneMinuteInSec;
+    
     public void PlaySound(string fileName) =>
         Task.Run(async () => await _soundService.PlaySoundAsync(fileName));
 }

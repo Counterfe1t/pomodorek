@@ -76,7 +76,7 @@ public partial class TimerPageViewModel : BaseViewModel
 
     public void UpdateTimerUI()
     {
-        Time = _sessionService.GetIntervalLengthInMin(IntervalEnum.Work) * Constants.OneMinuteInSec;
+        Time = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
     }
 
     public async Task CheckAndRequestPermissionsAsync() =>
