@@ -2,7 +2,6 @@
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Pomodorek.Platforms.Android.Helpers;
 using Pomodorek.Platforms.Android.Receivers;
 
 namespace Pomodorek.Services;
@@ -43,39 +42,6 @@ public class TimerService : Service, ITimerService
                 callback.Invoke();
             }
         });
-    }
-
-    [SuppressMessage("Interoperability", "CA1416:Validate platform compatibility")]
-    private void SetAlarm()
-    {
-        var serializedNotification = _settingsService.Get(nameof(Models.Notification), string.Empty);
-        var notification = JsonSerializer.Deserialize<Models.Notification>(serializedNotification);
-
-        var unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        var triggerAlarmAtMs = (long)notification.TriggerAlarmAt.ToUniversalTime().Subtract(unixEpoch).TotalMilliseconds;
-
-        var intent = new Intent(MainActivity.ActivityCurrent, typeof(AlarmReceiver));
-        var pendingIntent = PendingIntent.GetBroadcast(MainActivity.ActivityCurrent, 1, intent, PendingIntentFlags.Immutable);
-
-        var alarmManager = (AlarmManager)MainActivity.ActivityCurrent.GetSystemService(AlarmService);
-
-        if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
-        {
-            alarmManager.SetExactAndAllowWhileIdle(AlarmType.RtcWakeup, triggerAlarmAtMs, pendingIntent);
-        }
-        else if (Build.VERSION.SdkInt >= BuildVersionCodes.Kitkat)
-        {
-            alarmManager.SetExact(AlarmType.RtcWakeup, triggerAlarmAtMs, pendingIntent);
-        }
-    }
-
-    private void CancelAlarm()
-    {
-        var intent = new Intent(MainActivity.ActivityCurrent, typeof(AlarmReceiver));
-        var pendingIntent = PendingIntent.GetBroadcast(MainActivity.ActivityCurrent, 1, intent, PendingIntentFlags.Immutable);
-
-        var alarmManager = (AlarmManager)MainActivity.ActivityCurrent.GetSystemService(AlarmService);
-        alarmManager.Cancel(pendingIntent);
     }
 
     public void Stop(bool isCancelled)
@@ -122,7 +88,7 @@ public class TimerService : Service, ITimerService
         notification.Content = "Timer is running";
         notification.IsOngoing = true;
         notification.OnlyAlertOnce = true;
-        StartForeground(notification.Id, NotificationHelper.BuildNotification(notification));
+        StartForeground(notification.Id, Services.NotificationService.BuildNotification(notification));
 
         Task.Run(async () =>
         {
@@ -135,10 +101,43 @@ public class TimerService : Service, ITimerService
 
                 notification.Content = TimeConverter.FormatTime(secondsRemaining);
                 notification.CurrentProgress = secondsRemaining;
-                StartForeground(notification.Id, NotificationHelper.BuildNotification(notification));
+                StartForeground(notification.Id, Services.NotificationService.BuildNotification(notification));
 
                 secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_dateTimeService.Now).TotalSeconds;
             }
         });
+    }
+
+    [SuppressMessage("Interoperability", "CA1416:Validate platform compatibility")]
+    private void SetAlarm()
+    {
+        var serializedNotification = _settingsService.Get(nameof(Models.Notification), string.Empty);
+        var notification = JsonSerializer.Deserialize<Models.Notification>(serializedNotification);
+
+        var unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        var triggerAlarmAtMs = (long)notification.TriggerAlarmAt.ToUniversalTime().Subtract(unixEpoch).TotalMilliseconds;
+
+        var intent = new Intent(MainActivity.ActivityCurrent, typeof(AlarmReceiver));
+        var pendingIntent = PendingIntent.GetBroadcast(MainActivity.ActivityCurrent, 1, intent, PendingIntentFlags.Immutable);
+
+        var alarmManager = (AlarmManager)MainActivity.ActivityCurrent.GetSystemService(AlarmService);
+
+        if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+        {
+            alarmManager.SetExactAndAllowWhileIdle(AlarmType.RtcWakeup, triggerAlarmAtMs, pendingIntent);
+        }
+        else if (Build.VERSION.SdkInt >= BuildVersionCodes.Kitkat)
+        {
+            alarmManager.SetExact(AlarmType.RtcWakeup, triggerAlarmAtMs, pendingIntent);
+        }
+    }
+
+    private void CancelAlarm()
+    {
+        var intent = new Intent(MainActivity.ActivityCurrent, typeof(AlarmReceiver));
+        var pendingIntent = PendingIntent.GetBroadcast(MainActivity.ActivityCurrent, 1, intent, PendingIntentFlags.Immutable);
+
+        var alarmManager = (AlarmManager)MainActivity.ActivityCurrent.GetSystemService(AlarmService);
+        alarmManager.Cancel(pendingIntent);
     }
 }

@@ -21,7 +21,7 @@ public class SessionService : BaseSessionService, ISessionService
             Id = 2137,
             Title = session.CurrentInterval.ToString(),
             TriggerAlarmAt = session.TriggerAlarmAt,
-            MaxProgress = GetIntervalLengthInMin(session.CurrentInterval) * Constants.OneMinuteInSec,
+            MaxProgress = GetIntervalLengthInSec(session.CurrentInterval),
             IsOngoing = true,
             OnlyAlertOnce = true
         }));
