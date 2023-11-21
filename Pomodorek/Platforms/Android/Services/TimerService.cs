@@ -88,7 +88,7 @@ public class TimerService : Service, ITimerService
         notification.Content = "Timer is running";
         notification.IsOngoing = true;
         notification.OnlyAlertOnce = true;
-        notification.TriggerAlarmAt.AddSeconds(-1);
+        notification.TriggerAlarmAt = notification.TriggerAlarmAt.AddSeconds(-1);
         StartForeground(notification.Id, Services.NotificationService.BuildNotification(notification));
 
         Task.Run(async () =>

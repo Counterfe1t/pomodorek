@@ -15,23 +15,23 @@ public class SessionService : BaseSessionService, ISessionService
 
     public void StartInterval(Session session)
     {
-        PlaySound(Constants.Sounds.SessionStart);
+        PlaySound(Constants.Sounds.IntervalStart);
+
         _settingsService.Set(nameof(Notification), JsonSerializer.Serialize(new Notification
         {
             Id = 2137,
             Title = session.CurrentInterval.ToString(),
+            Content = GetIntervalFinishedMessage(session),
             TriggerAlarmAt = session.TriggerAlarmAt,
-            MaxProgress = GetIntervalLengthInSec(session.CurrentInterval),
-            IsOngoing = true,
-            OnlyAlertOnce = true
+            MaxProgress = GetIntervalLengthInSec(session.CurrentInterval)
         }));
     }
 
     public void FinishInterval(Session session)
     {
-        session.IntervalsCount++;
-        PlaySound(Constants.Sounds.SessionOver);
+        PlaySound(Constants.Sounds.IntervalOver);
 
+        session.IntervalsCount++;
         switch (session.CurrentInterval)
         {
             case IntervalEnum.Work:

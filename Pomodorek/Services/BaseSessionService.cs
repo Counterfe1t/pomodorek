@@ -33,7 +33,17 @@ public class BaseSessionService
         };
 
     public int GetIntervalLengthInSec(IntervalEnum interval) => GetIntervalLengthInMin(interval) * Constants.OneMinuteInSec;
-    
+
+    public string GetIntervalFinishedMessage(Session session)
+    {
+        if (session.CurrentInterval != IntervalEnum.Work)
+            return Constants.Messages.Work;
+
+        return session.WorkIntervalsCount % 4 == 3
+            ? Constants.Messages.LongRest
+            : Constants.Messages.ShortRest;
+    }
+
     public void PlaySound(string fileName) =>
         Task.Run(async () => await _soundService.PlaySoundAsync(fileName));
 }

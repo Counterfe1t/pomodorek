@@ -14,40 +14,21 @@ public class SessionService : BaseSessionService, ISessionService
         _notificationService = notificationService;
     }
 
-    public void StartInterval(Session session)
-    {
-        PlaySound(Constants.Sounds.SessionStart);
-    }
+    public void StartInterval(Session session) => PlaySound(Constants.Sounds.IntervalStart);
 
     public void FinishInterval(Session session)
     {
-        session.IntervalsCount++;
-        PlaySound(Constants.Sounds.SessionOver);
+        PlaySound(Constants.Sounds.IntervalOver);
 
+        session.IntervalsCount++;
         switch (session.CurrentInterval)
         {
             case IntervalEnum.Work:
-                session.WorkIntervalsCount++;
-
-                if (session.IsLongRest)
-                {
-                    session.CurrentInterval = IntervalEnum.LongRest;
-                    DisplayNotification(Constants.Messages.LongRest);
-                    break;
-                }
-
-                session.CurrentInterval = IntervalEnum.ShortRest;
-                DisplayNotification(Constants.Messages.ShortRest);
+                FinishWorkInterval(session);
                 break;
             case IntervalEnum.ShortRest:
-                session.ShortRestIntervalsCount++;
-                session.CurrentInterval = IntervalEnum.Work;
-                DisplayNotification(Constants.Messages.Focus);
-                break;
             case IntervalEnum.LongRest:
-                session.LongRestIntervalsCount++;
-                session.CurrentInterval = IntervalEnum.Work;
-                DisplayNotification(Constants.Messages.Focus);
+                FinishRestInterval(session);
                 break;
             default:
                 break;
@@ -59,4 +40,30 @@ public class SessionService : BaseSessionService, ISessionService
         {
             Content = content
         }));
+
+    private void FinishWorkInterval(Session session)
+    {
+        session.WorkIntervalsCount++;
+
+        if (session.IsLongRest)
+        {
+            session.CurrentInterval = IntervalEnum.LongRest;
+            DisplayNotification(Constants.Messages.LongRest);
+            return;
+        }
+
+        session.CurrentInterval = IntervalEnum.ShortRest;
+        DisplayNotification(Constants.Messages.ShortRest);
+    }
+
+    private void FinishRestInterval(Session session)
+    {
+        if (session.CurrentInterval == IntervalEnum.ShortRest)
+            session.ShortRestIntervalsCount++;
+        else
+            session.LongRestIntervalsCount++;
+
+        session.CurrentInterval = IntervalEnum.Work;
+        DisplayNotification(Constants.Messages.Work);
+    }
 }

@@ -34,7 +34,7 @@ public static class Constants
 
     public class Messages
     {
-        public const string Focus = "Get back to work.";
+        public const string Work = "Get back to work.";
         public const string ShortRest = "Take a short break.";
         public const string LongRest = "Take a long break.";
         public const string SessionOver = "Session has ended.";
@@ -46,7 +46,7 @@ public static class Constants
 
     public class Sounds
     {
-        public const string SessionStart = "session_start.wav";
-        public const string SessionOver = "session_over.wav";
+        public const string IntervalStart = "session_start.wav";
+        public const string IntervalOver = "session_over.wav";
     }
 }
