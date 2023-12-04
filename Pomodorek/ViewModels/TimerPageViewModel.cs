@@ -23,7 +23,7 @@ public partial class TimerPageViewModel : BaseViewModel
     public DateTime _triggerAlarmAt;
 
     /// <summary>
-    /// This object represents the session in progress.
+    /// This object represents the <a cref="Models.Session" /> in progress.
     /// </summary>
     [ObservableProperty]
     private Session _session;

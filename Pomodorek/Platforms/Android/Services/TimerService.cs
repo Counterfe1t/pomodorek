@@ -85,7 +85,7 @@ public class TimerService : Service, ITimerService
         var serializedNotification = _settingsService.Get(nameof(Models.Notification), string.Empty);
         var notification = JsonSerializer.Deserialize<Models.Notification>(serializedNotification);
         
-        notification.Content = "Timer is running";
+        notification.Content = Constants.Messages.TimerIsRunning;
         notification.IsOngoing = true;
         notification.OnlyAlertOnce = true;
         notification.TriggerAlarmAt = notification.TriggerAlarmAt.AddSeconds(-1);
@@ -115,8 +115,11 @@ public class TimerService : Service, ITimerService
         var serializedNotification = _settingsService.Get(nameof(Models.Notification), string.Empty);
         var notification = JsonSerializer.Deserialize<Models.Notification>(serializedNotification);
 
-        var unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        var triggerAlarmAtMs = (long)notification.TriggerAlarmAt.ToUniversalTime().Subtract(unixEpoch).TotalMilliseconds;
+        var triggerAlarmAtMs = (long)notification
+            .TriggerAlarmAt
+            .ToUniversalTime()
+            .Subtract(_dateTimeService.UnixEpoch)
+            .TotalMilliseconds;
 
         var intent = new Intent(MainActivity.ActivityCurrent, typeof(AlarmReceiver));
         var pendingIntent = PendingIntent.GetBroadcast(MainActivity.ActivityCurrent, 1, intent, PendingIntentFlags.Immutable);

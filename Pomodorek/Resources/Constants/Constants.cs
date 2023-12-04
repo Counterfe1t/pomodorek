@@ -42,6 +42,7 @@ public static class Constants
         public const string SettingsRestored = "Default settings have been restored.";
         public const string Confirm = "Okay";
         public const string Cancel = "Cancel";
+        public const string TimerIsRunning = "Timer is running";
     }
 
     public class Sounds

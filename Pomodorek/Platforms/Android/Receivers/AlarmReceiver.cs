@@ -26,6 +26,13 @@ public class AlarmReceiver : BroadcastReceiver
     private async Task DisplayNotificationAsync()
     {
         var serializedNotification = _settingsService.Get(nameof(Notification), string.Empty);
+
+        if (string.IsNullOrWhiteSpace(serializedNotification))
+        {
+            // TODO: Add error logging
+            return;
+        }
+
         var notification = JsonSerializer.Deserialize<Notification>(serializedNotification);
         notification.Id = 1337;
         notification.CurrentProgress = 0;
