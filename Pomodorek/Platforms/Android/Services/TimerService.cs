@@ -94,7 +94,7 @@ public class TimerService : Service, ITimerService
         Task.Run(async () =>
         {
             var token = _token;
-            var secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_dateTimeService.Now).TotalSeconds;
+            var secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
 
             while (secondsRemaining > 0 && !token.IsCancellationRequested)
             {
@@ -104,7 +104,7 @@ public class TimerService : Service, ITimerService
                 notification.CurrentProgress = secondsRemaining;
                 StartForeground(notification.Id, Services.NotificationService.BuildNotification(notification));
 
-                secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_dateTimeService.Now).TotalSeconds;
+                secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
             }
         });
     }

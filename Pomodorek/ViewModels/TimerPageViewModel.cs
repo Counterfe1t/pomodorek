@@ -87,7 +87,7 @@ public partial class TimerPageViewModel : BaseViewModel
         State = TimerStateEnum.Running;
         UpdateTimerUI();
         Session.TriggerAlarmAt = TriggerAlarmAt =
-            _dateTimeService.Now
+            _dateTimeService.UtcNow
                 .AddMinutes(_sessionService.GetIntervalLengthInMin(Session.CurrentInterval))
                 .AddSeconds(1);
         
@@ -104,7 +104,7 @@ public partial class TimerPageViewModel : BaseViewModel
 
     private void HandleOnTickEvent()
     {
-        var secondsRemaining = (int)TriggerAlarmAt.Subtract(_dateTimeService.Now).TotalSeconds;
+        var secondsRemaining = (int)TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
         if (secondsRemaining > 0)
         {
             Time = secondsRemaining;

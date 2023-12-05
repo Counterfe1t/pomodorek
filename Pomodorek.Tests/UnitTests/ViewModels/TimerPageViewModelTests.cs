@@ -29,7 +29,7 @@ public class TimerPageViewModelTests
         _viewModel.Session = new Session();
 
         _dateTimeServiceMock
-            .Setup(x => x.Now)
+            .Setup(x => x.UtcNow)
             .Returns(DateTime.Now);
         
         // act
@@ -61,7 +61,7 @@ public class TimerPageViewModelTests
     {
         // arrange
         _dateTimeServiceMock
-            .Setup(x => x.Now)
+            .Setup(x => x.UtcNow)
             .Returns(DateTime.Now);
 
         // act
