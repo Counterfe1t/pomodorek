@@ -23,7 +23,7 @@ public partial class TimerPageViewModel : BaseViewModel
     public DateTime _triggerAlarmAt;
 
     /// <summary>
-    /// This object represents the <a cref="Models.Session" /> in progress.
+    /// This object represents the <see cref="Models.Session"/> in progress.
     /// </summary>
     [ObservableProperty]
     private Session _session;
@@ -90,7 +90,7 @@ public partial class TimerPageViewModel : BaseViewModel
             _dateTimeService.UtcNow
                 .AddMinutes(_sessionService.GetIntervalLengthInMin(Session.CurrentInterval))
                 .AddSeconds(1);
-        
+
         _sessionService.StartInterval(Session);
         _timerService.Start(HandleOnTickEvent);
     }
