@@ -31,7 +31,6 @@ public static class MauiProgram
         builder.Services.AddSingleton<ISoundService, SoundService>();
         builder.Services.AddSingleton<IAlertService, AlertService>();
         builder.Services.AddSingleton<INavigationService, NavigationService>();
-        builder.Services.AddSingleton<IMessageService, MessageService>();
         builder.Services.AddSingleton<IDateTimeService, DateTimeService>();
         builder.Services.AddSingleton<IPermissionsService, PermissionsService>();
         builder.Services.AddSingleton<ISessionService, SessionService>();
