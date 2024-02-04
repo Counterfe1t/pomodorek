@@ -18,7 +18,7 @@ public class BaseSessionService
         _soundService = soundService;
     }
 
-    public static Session GetNewSession() => new() { CurrentInterval = IntervalEnum.Work };
+    public static SessionModel GetNewSession() => new() { CurrentInterval = IntervalEnum.Work };
 
     public int GetIntervalLengthInMin(IntervalEnum interval) =>
         interval switch
@@ -34,7 +34,7 @@ public class BaseSessionService
 
     public int GetIntervalLengthInSec(IntervalEnum interval) => GetIntervalLengthInMin(interval) * Constants.OneMinuteInSec;
 
-    public string GetIntervalFinishedMessage(Session session)
+    public string GetIntervalFinishedMessage(SessionModel session)
     {
         if (session.CurrentInterval != IntervalEnum.Work)
             return Constants.Messages.Work;

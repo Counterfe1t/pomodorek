@@ -26,7 +26,7 @@ public class TimerPageViewModelTests
     public void Start_TimerIsNotRunning_StartsTimer()
     {
         // arrange
-        _viewModel.Session = new Session();
+        _viewModel.Session = new SessionModel();
 
         _dateTimeServiceMock
             .Setup(x => x.UtcNow)
@@ -38,7 +38,7 @@ public class TimerPageViewModelTests
         // assert
         _timerServiceMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Once);
 
-        _sessionServiceMock.Verify(x => x.StartInterval(It.IsAny<Session>()), Times.Once);
+        _sessionServiceMock.Verify(x => x.StartInterval(It.IsAny<SessionModel>()), Times.Once);
     }
 
     [Fact]
@@ -53,7 +53,7 @@ public class TimerPageViewModelTests
         // assert
         _timerServiceMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Never);
 
-        _sessionServiceMock.Verify(x => x.StartInterval(It.IsAny<Session>()), Times.Never);
+        _sessionServiceMock.Verify(x => x.StartInterval(It.IsAny<SessionModel>()), Times.Never);
     }
 
     [Fact]

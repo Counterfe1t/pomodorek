@@ -1,6 +1,6 @@
 ﻿namespace Pomodorek.Models;
 
-public class Session : ObservableObject
+public class SessionModel : ObservableObject
 {
     private IntervalEnum _currentInterval;
     private int _intervalsCount;

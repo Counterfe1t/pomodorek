@@ -25,7 +25,7 @@ public class AlarmReceiver : BroadcastReceiver
 
     private async Task DisplayNotificationAsync()
     {
-        var serializedNotification = _settingsService.Get(nameof(Notification), string.Empty);
+        var serializedNotification = _settingsService.Get(nameof(NotificationModel), string.Empty);
 
         if (string.IsNullOrWhiteSpace(serializedNotification))
         {
@@ -33,7 +33,7 @@ public class AlarmReceiver : BroadcastReceiver
             return;
         }
 
-        var notification = JsonSerializer.Deserialize<Notification>(serializedNotification);
+        var notification = JsonSerializer.Deserialize<NotificationModel>(serializedNotification);
         notification.Id = 1337;
         notification.CurrentProgress = 0;
         notification.MaxProgress = 0;

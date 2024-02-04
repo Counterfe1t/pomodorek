@@ -23,10 +23,10 @@ public partial class TimerPageViewModel : BaseViewModel
     public DateTime _triggerAlarmAt;
 
     /// <summary>
-    /// This object represents the <see cref="Models.Session"/> in progress.
+    /// This object represents the <see cref="SessionModel"/> in progress.
     /// </summary>
     [ObservableProperty]
-    private Session _session;
+    private SessionModel _session;
 
     public bool IsRunning => State == TimerStateEnum.Running;
 

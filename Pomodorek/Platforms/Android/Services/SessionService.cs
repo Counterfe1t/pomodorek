@@ -7,17 +7,19 @@ public class SessionService : BaseSessionService, ISessionService
     public SessionService(
         IConfigurationService configurationService,
         ISettingsService settingsService,
-        ISoundService soundService)
-        : base(configurationService, settingsService, soundService)
+        ISoundService soundService) : base(
+            configurationService,
+            settingsService,
+            soundService)
     {
         _settingsService = settingsService;
     }
 
-    public void StartInterval(Session session)
+    public void StartInterval(SessionModel session)
     {
         PlaySound(Constants.Sounds.IntervalStart);
 
-        _settingsService.Set(nameof(Notification), JsonSerializer.Serialize(new Notification
+        _settingsService.Set(nameof(NotificationModel), JsonSerializer.Serialize(new NotificationModel
         {
             Id = 2137,
             Title = session.CurrentInterval.ToString(),
@@ -27,7 +29,7 @@ public class SessionService : BaseSessionService, ISessionService
         }));
     }
 
-    public void FinishInterval(Session session)
+    public void FinishInterval(SessionModel session)
     {
         PlaySound(Constants.Sounds.IntervalOver);
 
@@ -54,6 +56,7 @@ public class SessionService : BaseSessionService, ISessionService
                 session.CurrentInterval = IntervalEnum.Work;
                 break;
             default:
+                session.CurrentInterval = IntervalEnum.Work;
                 break;
         }
     }

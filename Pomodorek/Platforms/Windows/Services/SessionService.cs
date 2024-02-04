@@ -8,15 +8,17 @@ public class SessionService : BaseSessionService, ISessionService
         IConfigurationService configurationService,
         ISettingsService settingsService,
         INotificationService notificationService,
-        ISoundService soundService)
-        : base(configurationService, settingsService, soundService)
+        ISoundService soundService) : base(
+            configurationService,
+            settingsService,
+            soundService)
     {
         _notificationService = notificationService;
     }
 
-    public void StartInterval(Session session) => PlaySound(Constants.Sounds.IntervalStart);
+    public void StartInterval(SessionModel session) => PlaySound(Constants.Sounds.IntervalStart);
 
-    public void FinishInterval(Session session)
+    public void FinishInterval(SessionModel session)
     {
         PlaySound(Constants.Sounds.IntervalOver);
 
@@ -36,12 +38,12 @@ public class SessionService : BaseSessionService, ISessionService
     }
 
     private void DisplayNotification(string content) =>
-        Task.Run(async () => await _notificationService.DisplayNotificationAsync(new Notification
+        Task.Run(async () => await _notificationService.DisplayNotificationAsync(new NotificationModel
         {
             Content = content
         }));
 
-    private void FinishWorkInterval(Session session)
+    private void FinishWorkInterval(SessionModel session)
     {
         session.WorkIntervalsCount++;
 
@@ -56,7 +58,7 @@ public class SessionService : BaseSessionService, ISessionService
         DisplayNotification(Constants.Messages.ShortRest);
     }
 
-    private void FinishRestInterval(Session session)
+    private void FinishRestInterval(SessionModel session)
     {
         if (session.CurrentInterval == IntervalEnum.ShortRest)
             session.ShortRestIntervalsCount++;

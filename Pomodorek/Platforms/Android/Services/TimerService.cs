@@ -82,8 +82,8 @@ public class TimerService : Service, ITimerService
 
     private void DisplayProgressNotification()
     {
-        var serializedNotification = _settingsService.Get(nameof(Models.Notification), string.Empty);
-        var notification = JsonSerializer.Deserialize<Models.Notification>(serializedNotification);
+        var serializedNotification = _settingsService.Get(nameof(NotificationModel), string.Empty);
+        var notification = JsonSerializer.Deserialize<NotificationModel>(serializedNotification);
         
         notification.Content = Constants.Messages.TimerIsRunning;
         notification.IsOngoing = true;
@@ -112,8 +112,8 @@ public class TimerService : Service, ITimerService
     [SuppressMessage("Interoperability", "CA1416:Validate platform compatibility")]
     private void SetAlarm()
     {
-        var serializedNotification = _settingsService.Get(nameof(Models.Notification), string.Empty);
-        var notification = JsonSerializer.Deserialize<Models.Notification>(serializedNotification);
+        var serializedNotification = _settingsService.Get(nameof(NotificationModel), string.Empty);
+        var notification = JsonSerializer.Deserialize<NotificationModel>(serializedNotification);
 
         var triggerAlarmAtMs = (long)notification
             .TriggerAlarmAt

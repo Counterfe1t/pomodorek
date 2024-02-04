@@ -2,9 +2,9 @@
 
 public interface ISessionService
 {
-    void StartInterval(Session session);
+    void StartInterval(SessionModel session);
 
-    void FinishInterval(Session session);
+    void FinishInterval(SessionModel session);
 
     int GetIntervalLengthInMin(IntervalEnum interval);
 
