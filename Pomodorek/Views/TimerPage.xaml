@@ -25,7 +25,7 @@
 
         <VerticalStackLayout
             Grid.Row="0"
-            Grid.ColumnSpan="2">
+            Grid.Column="0">
             <StackLayout
                 Orientation="Horizontal"
                 Spacing="5">
@@ -67,6 +67,17 @@
                     FontSize="15" />
             </StackLayout>
         </VerticalStackLayout>
+
+        <Button
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalOptions="End" 
+            CornerRadius="100"
+            WidthRequest="60"
+            HeightRequest="60"
+            Padding="0"
+            Text="RESET"
+            Command="{Binding ResetCommand}" />
 
         <VerticalStackLayout
             Grid.Row="1"

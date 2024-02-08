@@ -20,6 +20,8 @@ public class TimerPageViewModelTests
             _dateTimeServiceMock.Object,
             _permissionsServiceMock.Object,
             _sessionServiceMock.Object);
+
+        _timerServiceMock.Invocations.Clear();
     }
 
     [Fact]
@@ -68,6 +70,25 @@ public class TimerPageViewModelTests
         _viewModel.StopCommand.Execute(null);
 
         // assert
+        _timerServiceMock.Verify(x => x.Stop(true), Times.Once);
+    }
+
+    [Fact]
+    public void Reset_StopsTimerAndResetsSession()
+    {
+        // arrange
+        var expectedSession = BaseSessionService.GetNewSession();
+
+        // act
+        _viewModel.ResetCommand.Execute(null);
+
+        // assert
+        Assert.Equal(expectedSession.IntervalsCount, _viewModel.Session.IntervalsCount);
+        Assert.Equal(expectedSession.WorkIntervalsCount, _viewModel.Session.WorkIntervalsCount);
+        Assert.Equal(expectedSession.ShortRestIntervalsCount, _viewModel.Session.ShortRestIntervalsCount);
+        Assert.Equal(expectedSession.LongRestIntervalsCount, _viewModel.Session.LongRestIntervalsCount);
+        Assert.Equal(expectedSession.TriggerAlarmAt, _viewModel.Session.TriggerAlarmAt);
+
         _timerServiceMock.Verify(x => x.Stop(true), Times.Once);
     }
 }

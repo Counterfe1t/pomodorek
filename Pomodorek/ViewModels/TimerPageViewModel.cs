@@ -48,7 +48,8 @@ public partial class TimerPageViewModel : BaseViewModel
         _dateTimeService = dateTimeService;
         _permissionsService = permissionsService;
         _sessionService = sessionService;
-        Initialize();
+        Reset();
+        UpdateTimerUI();
     }
 
     // TODO: Handle pausing and resuming timer
@@ -62,25 +63,17 @@ public partial class TimerPageViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    public void Stop()
-    {
-        Session = BaseSessionService.GetNewSession();
-        StopTimer(true);
-    }
+    public void Stop() => StopTimer(true);
 
-    public void Initialize()
-    {
-        Session = BaseSessionService.GetNewSession();
-        UpdateTimerUI();
-    }
+    [RelayCommand]
+    public void Reset() => StopTimerAndResetSession();
 
     public void UpdateTimerUI()
     {
         Time = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
     }
 
-    public async Task CheckAndRequestPermissionsAsync() =>
-        await _permissionsService.CheckAndRequestPermissionsAsync();
+    public async Task CheckAndRequestPermissionsAsync() => await _permissionsService.CheckAndRequestPermissionsAsync();
 
     private void StartTimer()
     {
@@ -100,6 +93,12 @@ public partial class TimerPageViewModel : BaseViewModel
         _timerService.Stop(isCancelled);
         State = TimerStateEnum.Stopped;
         UpdateTimerUI();
+    }
+
+    private void StopTimerAndResetSession()
+    {
+        Session = BaseSessionService.GetNewSession();
+        StopTimer(true);
     }
 
     private void HandleOnTickEvent()
