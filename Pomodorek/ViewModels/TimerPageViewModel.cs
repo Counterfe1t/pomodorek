@@ -7,6 +7,7 @@ public partial class TimerPageViewModel : BaseViewModel
     /// </summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsRunning))]
+    [NotifyPropertyChangedFor(nameof(IsStopped))]
     private TimerStateEnum _state = TimerStateEnum.Stopped;
 
     /// <summary>
@@ -26,9 +27,11 @@ public partial class TimerPageViewModel : BaseViewModel
     /// This object represents the <see cref="SessionModel"/> in progress.
     /// </summary>
     [ObservableProperty]
-    private SessionModel _session;
+    private SessionModel _session = BaseSessionService.GetNewSession();
 
     public bool IsRunning => State == TimerStateEnum.Running;
+    
+    public bool IsStopped => State == TimerStateEnum.Stopped;
 
     public string Alarm => TriggerAlarmAt.ToLocalTime().ToString("HH:mm");
 
@@ -48,19 +51,13 @@ public partial class TimerPageViewModel : BaseViewModel
         _dateTimeService = dateTimeService;
         _permissionsService = permissionsService;
         _sessionService = sessionService;
-        Reset();
-        UpdateTimerUI();
     }
 
-    // TODO: Handle pausing and resuming timer
     [RelayCommand]
-    public void Start()
-    {
-        if (IsRunning)
-            return;
+    public void Start() => StartTimer();
 
-        StartTimer();
-    }
+    [RelayCommand]
+    public void Pause() => PauseTimer();
 
     [RelayCommand]
     public void Stop() => StopTimer(true);
@@ -68,39 +65,39 @@ public partial class TimerPageViewModel : BaseViewModel
     [RelayCommand]
     public void Reset() => StopTimerAndResetSession();
 
-    public void UpdateTimerUI()
-    {
-        Time = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
-    }
+    public void UpdateTimerUI() => Time = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
 
     public async Task CheckAndRequestPermissionsAsync() => await _permissionsService.CheckAndRequestPermissionsAsync();
 
     private void StartTimer()
     {
         State = TimerStateEnum.Running;
-        UpdateTimerUI();
-        Session.TriggerAlarmAt = TriggerAlarmAt =
-            _dateTimeService.UtcNow
-                .AddMinutes(_sessionService.GetIntervalLengthInMin(Session.CurrentInterval))
-                .AddSeconds(1);
+        Session.TriggerAlarmAt = TriggerAlarmAt = _dateTimeService.UtcNow.AddSeconds(Time).AddSeconds(1);
 
         _sessionService.StartInterval(Session);
         _timerService.Start(HandleOnTickEvent);
+    }
+
+    private void PauseTimer()
+    {
+        _timerService.Stop(true);
+        State = TimerStateEnum.Paused;
     }
 
     private void StopTimer(bool isCancelled)
     {
         _timerService.Stop(isCancelled);
         State = TimerStateEnum.Stopped;
-        UpdateTimerUI();
+        Time = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
     }
 
     private void StopTimerAndResetSession()
     {
         Session = BaseSessionService.GetNewSession();
         StopTimer(true);
+        Time = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
     }
-
+    
     private void HandleOnTickEvent()
     {
         var secondsRemaining = (int)TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;

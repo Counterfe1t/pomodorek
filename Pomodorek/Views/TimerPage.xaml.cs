@@ -17,9 +17,7 @@ public partial class TimerPage : ContentPage
 
         await viewModel.CheckAndRequestPermissionsAsync();
 
-        if (!viewModel.IsRunning)
-        {
+        if (viewModel.IsStopped)
             viewModel.UpdateTimerUI();
-        }
     }
 }

@@ -25,10 +25,10 @@ public class TimerPageViewModelTests
     }
 
     [Fact]
-    public void Start_TimerIsNotRunning_StartsTimer()
+    public void Start_StartsTimer()
     {
         // arrange
-        _viewModel.Session = new SessionModel();
+        _viewModel.Session = BaseSessionService.GetNewSession();
 
         _dateTimeServiceMock
             .Setup(x => x.UtcNow)
@@ -38,24 +38,23 @@ public class TimerPageViewModelTests
         _viewModel.StartCommand.Execute(null);
 
         // assert
-        _timerServiceMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Once);
+        Assert.True(_viewModel.IsRunning);
 
-        _sessionServiceMock.Verify(x => x.StartInterval(It.IsAny<SessionModel>()), Times.Once);
+        _timerServiceMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Once);
+        _sessionServiceMock
+            .Verify(x => x.StartInterval(It.Is<SessionModel>(y => y.CurrentInterval == IntervalEnum.Work)), Times.Once);
     }
 
     [Fact]
-    public void Start_TimerIsRunning_DoesNotStartTimer()
+    public void Pause_PausesTimer()
     {
-        // arrange
-        _viewModel.State = TimerStateEnum.Running;
-
         // act
-        _viewModel.StartCommand.Execute(null);
+        _viewModel.PauseCommand.Execute(null);
 
         // assert
-        _timerServiceMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Never);
+        Assert.True(_viewModel.State == TimerStateEnum.Paused);
 
-        _sessionServiceMock.Verify(x => x.StartInterval(It.IsAny<SessionModel>()), Times.Never);
+        _timerServiceMock.Verify(x => x.Stop(true), Times.Once);
     }
 
     [Fact]
@@ -70,6 +69,8 @@ public class TimerPageViewModelTests
         _viewModel.StopCommand.Execute(null);
 
         // assert
+        Assert.True(_viewModel.IsStopped);
+
         _timerServiceMock.Verify(x => x.Stop(true), Times.Once);
     }
 
@@ -83,6 +84,7 @@ public class TimerPageViewModelTests
         _viewModel.ResetCommand.Execute(null);
 
         // assert
+        Assert.True(_viewModel.IsStopped);
         Assert.Equal(expectedSession.IntervalsCount, _viewModel.Session.IntervalsCount);
         Assert.Equal(expectedSession.WorkIntervalsCount, _viewModel.Session.WorkIntervalsCount);
         Assert.Equal(expectedSession.ShortRestIntervalsCount, _viewModel.Session.ShortRestIntervalsCount);

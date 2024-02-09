@@ -127,13 +127,9 @@ public class TimerService : Service, ITimerService
         var alarmManager = (AlarmManager)MainActivity.ActivityCurrent.GetSystemService(AlarmService);
 
         if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
-        {
             alarmManager.SetExactAndAllowWhileIdle(AlarmType.RtcWakeup, triggerAlarmAtMs, pendingIntent);
-        }
         else if (Build.VERSION.SdkInt >= BuildVersionCodes.Kitkat)
-        {
             alarmManager.SetExact(AlarmType.RtcWakeup, triggerAlarmAtMs, pendingIntent);
-        }
     }
 
     private void CancelAlarm()

@@ -23,6 +23,7 @@
         ColumnDefinitions="*, *"
         ColumnSpacing="25">
 
+        <!-- 1st row -->
         <VerticalStackLayout
             Grid.Row="0"
             Grid.Column="0">
@@ -71,7 +72,7 @@
         <Button
             Grid.Row="0"
             Grid.Column="1"
-            HorizontalOptions="End" 
+            HorizontalOptions="End"
             CornerRadius="100"
             WidthRequest="60"
             HeightRequest="60"
@@ -79,31 +80,36 @@
             Text="RESET"
             Command="{Binding ResetCommand}" />
 
-        <VerticalStackLayout
+        <!-- 2nd row -->
+        <Grid
             Grid.Row="1"
             Grid.ColumnSpan="2"
+            RowDefinitions="30, *, Auto"
             VerticalOptions="Center"
             HorizontalOptions="Center">
             <Label
+                Grid.Row="0"
                 HorizontalOptions="Center"
                 IsVisible="{Binding IsRunning}"
                 Text="{Binding Alarm}"
                 FontSize="20" />
             <Label
+                Grid.Row="1"
                 HorizontalOptions="Center"
                 Text="{Binding Time, Converter={StaticResource TimeConverter}}"
                 FontSize="75" />
             <Label
+                Grid.Row="2"
                 HorizontalOptions="Center"
                 Text="{Binding Session.CurrentInterval, Converter={StaticResource IntervalConverter}}"
                 FontSize="35" />
-        </VerticalStackLayout>
+        </Grid>
 
-        <!-- there is a bug regarding visual state not being updated after changes to IsEnabled property
-        https://github.com/dotnet/maui/issues/7377 -->
+        <!-- 3rd row -->
         <Button
             Grid.Row="2"
             Grid.Column="0"
+            IsVisible="{Binding IsRunning, Converter={StaticResource NegationConverter}}"
             Text="Start"
             FontSize="35"
             CornerRadius="15"
@@ -111,7 +117,17 @@
 
         <Button
             Grid.Row="2"
+            Grid.Column="0"
+            IsVisible="{Binding IsRunning}"
+            Text="Pause"
+            FontSize="35"
+            CornerRadius="15"
+            Command="{Binding PauseCommand}" />
+
+        <Button
+            Grid.Row="2"
             Grid.Column="1"
+            IsEnabled="{Binding IsStopped, Converter={StaticResource NegationConverter}}"
             Text="Stop"
             FontSize="35"
             CornerRadius="15"
