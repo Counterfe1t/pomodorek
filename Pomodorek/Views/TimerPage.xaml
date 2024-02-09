@@ -127,7 +127,6 @@
         <Button
             Grid.Row="2"
             Grid.Column="1"
-            IsEnabled="{Binding IsStopped, Converter={StaticResource NegationConverter}}"
             Text="Stop"
             FontSize="35"
             CornerRadius="15"

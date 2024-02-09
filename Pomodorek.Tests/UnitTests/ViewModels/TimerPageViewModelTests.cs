@@ -25,20 +25,13 @@ public class TimerPageViewModelTests
     }
 
     [Fact]
-    public void Start_StartsTimer()
+    public void StartCommand_StartsTimer()
     {
-        // arrange
-        _viewModel.Session = BaseSessionService.GetNewSession();
-
-        _dateTimeServiceMock
-            .Setup(x => x.UtcNow)
-            .Returns(DateTime.Now);
-        
         // act
         _viewModel.StartCommand.Execute(null);
 
         // assert
-        Assert.True(_viewModel.IsRunning);
+        Assert.Equal(TimerStateEnum.Running, _viewModel.State);
 
         _timerServiceMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Once);
         _sessionServiceMock
@@ -46,45 +39,60 @@ public class TimerPageViewModelTests
     }
 
     [Fact]
-    public void Pause_PausesTimer()
+    public void PauseCommand_PausesTimer()
     {
         // act
         _viewModel.PauseCommand.Execute(null);
 
         // assert
-        Assert.True(_viewModel.State == TimerStateEnum.Paused);
+        Assert.Equal(TimerStateEnum.Paused, _viewModel.State);
 
         _timerServiceMock.Verify(x => x.Stop(true), Times.Once);
     }
 
     [Fact]
-    public void Stop_StopsTimer()
+    public void StopCommand_TimerIsRunning_StopsTimer()
     {
         // arrange
-        _dateTimeServiceMock
-            .Setup(x => x.UtcNow)
-            .Returns(DateTime.Now);
+        _viewModel.State = TimerStateEnum.Running;
 
         // act
         _viewModel.StopCommand.Execute(null);
 
         // assert
-        Assert.True(_viewModel.IsStopped);
+        Assert.Equal(TimerStateEnum.Stopped, _viewModel.State);
 
         _timerServiceMock.Verify(x => x.Stop(true), Times.Once);
     }
 
     [Fact]
-    public void Reset_StopsTimerAndResetsSession()
+    public void StopCommand_TimerIsStopped_DoesNotStopTimer()
+    {
+        // arrange
+        _viewModel.State = TimerStateEnum.Stopped;
+
+        // act
+        _viewModel.StopCommand.Execute(null);
+
+        // assert
+        Assert.Equal(TimerStateEnum.Stopped, _viewModel.State);
+
+        _timerServiceMock.Verify(x => x.Stop(true), Times.Never);
+    }
+
+    [Fact]
+    public void ResetCommand_TimerIsRunning_StopsTimerAndResetsSession()
     {
         // arrange
         var expectedSession = BaseSessionService.GetNewSession();
+
+        _viewModel.State = TimerStateEnum.Running;
 
         // act
         _viewModel.ResetCommand.Execute(null);
 
         // assert
-        Assert.True(_viewModel.IsStopped);
+        Assert.Equal(TimerStateEnum.Stopped, _viewModel.State);
         Assert.Equal(expectedSession.IntervalsCount, _viewModel.Session.IntervalsCount);
         Assert.Equal(expectedSession.WorkIntervalsCount, _viewModel.Session.WorkIntervalsCount);
         Assert.Equal(expectedSession.ShortRestIntervalsCount, _viewModel.Session.ShortRestIntervalsCount);
@@ -92,5 +100,27 @@ public class TimerPageViewModelTests
         Assert.Equal(expectedSession.TriggerAlarmAt, _viewModel.Session.TriggerAlarmAt);
 
         _timerServiceMock.Verify(x => x.Stop(true), Times.Once);
+    }
+
+    [Fact]
+    public void ResetCommand_TimerIsStopped_DoesNotStopTimerAndResetsSession()
+    {
+        // arrange
+        var expectedSession = BaseSessionService.GetNewSession();
+
+        _viewModel.State = TimerStateEnum.Stopped;
+
+        // act
+        _viewModel.ResetCommand.Execute(null);
+
+        // assert
+        Assert.Equal(TimerStateEnum.Stopped, _viewModel.State);
+        Assert.Equal(expectedSession.IntervalsCount, _viewModel.Session.IntervalsCount);
+        Assert.Equal(expectedSession.WorkIntervalsCount, _viewModel.Session.WorkIntervalsCount);
+        Assert.Equal(expectedSession.ShortRestIntervalsCount, _viewModel.Session.ShortRestIntervalsCount);
+        Assert.Equal(expectedSession.LongRestIntervalsCount, _viewModel.Session.LongRestIntervalsCount);
+        Assert.Equal(expectedSession.TriggerAlarmAt, _viewModel.Session.TriggerAlarmAt);
+
+        _timerServiceMock.Verify(x => x.Stop(true), Times.Never);
     }
 }

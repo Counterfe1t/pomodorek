@@ -54,22 +54,7 @@ public partial class TimerPageViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    public void Start() => StartTimer();
-
-    [RelayCommand]
-    public void Pause() => PauseTimer();
-
-    [RelayCommand]
-    public void Stop() => StopTimer(true);
-
-    [RelayCommand]
-    public void Reset() => StopTimerAndResetSession();
-
-    public void UpdateTimerUI() => Time = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
-
-    public async Task CheckAndRequestPermissionsAsync() => await _permissionsService.CheckAndRequestPermissionsAsync();
-
-    private void StartTimer()
+    void Start()
     {
         State = TimerStateEnum.Running;
         Session.TriggerAlarmAt = TriggerAlarmAt = _dateTimeService.UtcNow.AddSeconds(Time).AddSeconds(1);
@@ -78,24 +63,38 @@ public partial class TimerPageViewModel : BaseViewModel
         _timerService.Start(HandleOnTickEvent);
     }
 
-    private void PauseTimer()
+    [RelayCommand]
+    void Pause()
     {
         _timerService.Stop(true);
         State = TimerStateEnum.Paused;
     }
 
-    private void StopTimer(bool isCancelled)
+    [RelayCommand]
+    void Stop()
     {
-        _timerService.Stop(isCancelled);
-        State = TimerStateEnum.Stopped;
-        Time = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
+        if (IsStopped)
+            return;
+
+        StopTimer(true);
     }
 
-    private void StopTimerAndResetSession()
+    [RelayCommand]
+    void Reset()
     {
         Session = BaseSessionService.GetNewSession();
-        StopTimer(true);
-        Time = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
+        Stop();
+    }
+
+    public void UpdateTimerUI() => Time = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
+
+    public async Task CheckAndRequestPermissionsAsync() => await _permissionsService.CheckAndRequestPermissionsAsync();
+
+    private void StopTimer(bool isStoppedManually)
+    {
+        _timerService.Stop(isStoppedManually);
+        State = TimerStateEnum.Stopped;
+        UpdateTimerUI();
     }
     
     private void HandleOnTickEvent()
