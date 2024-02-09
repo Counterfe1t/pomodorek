@@ -25,7 +25,7 @@ public class TimerPageViewModelTests
     }
 
     [Fact]
-    public void Start_StartsTimer()
+    public void StartCommand_StartsTimer()
     {
         // arrange
         _viewModel.Session = BaseSessionService.GetNewSession();
@@ -33,7 +33,7 @@ public class TimerPageViewModelTests
         _dateTimeServiceMock
             .Setup(x => x.UtcNow)
             .Returns(DateTime.Now);
-        
+
         // act
         _viewModel.StartCommand.Execute(null);
 
@@ -46,7 +46,7 @@ public class TimerPageViewModelTests
     }
 
     [Fact]
-    public void Pause_PausesTimer()
+    public void PauseCommand_PausesTimer()
     {
         // act
         _viewModel.PauseCommand.Execute(null);
@@ -58,7 +58,7 @@ public class TimerPageViewModelTests
     }
 
     [Fact]
-    public void Stop_StopsTimer()
+    public void StopCommand_StopsTimer()
     {
         // arrange
         _dateTimeServiceMock
@@ -75,7 +75,7 @@ public class TimerPageViewModelTests
     }
 
     [Fact]
-    public void Reset_StopsTimerAndResetsSession()
+    public void ResetCommand_StopsTimerAndResetsSession()
     {
         // arrange
         var expectedSession = BaseSessionService.GetNewSession();
