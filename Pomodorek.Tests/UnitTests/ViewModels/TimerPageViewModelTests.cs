@@ -15,6 +15,10 @@ public class TimerPageViewModelTests
         _permissionsServiceMock = new Mock<IPermissionsService>();
         _sessionServiceMock = new Mock<ISessionService>();
 
+        _sessionServiceMock
+            .Setup(x => x.GetSession())
+            .Returns(BaseSessionService.GetNewSession);
+
         _viewModel = new TimerPageViewModel(
             _timerServiceMock.Object,
             _dateTimeServiceMock.Object,
@@ -84,7 +88,7 @@ public class TimerPageViewModelTests
     public void ResetCommand_TimerIsRunning_StopsTimerAndResetsSession()
     {
         // arrange
-        var expectedSession = BaseSessionService.GetNewSession();
+        var expectedSession = BaseSessionService.GetNewSession;
 
         _viewModel.State = TimerStateEnum.Running;
 
@@ -106,7 +110,7 @@ public class TimerPageViewModelTests
     public void ResetCommand_TimerIsStopped_DoesNotStopTimerAndResetsSession()
     {
         // arrange
-        var expectedSession = BaseSessionService.GetNewSession();
+        var expectedSession = BaseSessionService.GetNewSession;
 
         _viewModel.State = TimerStateEnum.Stopped;
 

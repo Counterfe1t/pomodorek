@@ -2,6 +2,10 @@
 
 public interface ISessionService
 {
+    SessionModel GetSession();
+
+    void SaveSession(SessionModel session);
+
     void StartInterval(SessionModel session);
 
     void FinishInterval(SessionModel session);

@@ -17,6 +17,7 @@ public static class Constants
         public const string ShortRestLengthInMin = nameof(ShortRestLengthInMin);
         public const string LongRestLengthInMin = nameof(LongRestLengthInMin);
         public const string IntervalsCount = nameof(IntervalsCount);
+        public const string SavedSession = nameof(SavedSession);
     }
 
     public class Pages

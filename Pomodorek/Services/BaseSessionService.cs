@@ -8,6 +8,14 @@ public class BaseSessionService
 
     private AppSettings AppSettings => _configurationService.GetAppSettings();
 
+    public static SessionModel GetNewSession => new()
+    {
+        IntervalsCount = 0,
+        LongRestIntervalsCount = 0,
+        ShortRestIntervalsCount = 0,
+        CurrentInterval = IntervalEnum.Work
+    };
+
     public BaseSessionService(
         IConfigurationService configurationService,
         ISettingsService settingsService,
@@ -18,7 +26,16 @@ public class BaseSessionService
         _soundService = soundService;
     }
 
-    public static SessionModel GetNewSession() => new() { CurrentInterval = IntervalEnum.Work };
+    public SessionModel GetSession()
+    {
+        var serializedSession = _settingsService.Get(Constants.Settings.SavedSession, string.Empty);
+        if (string.IsNullOrWhiteSpace(serializedSession))
+            return GetNewSession;
+
+        return JsonSerializer.Deserialize<SessionModel>(serializedSession);
+    }
+
+    public void SaveSession(SessionModel session) => _settingsService.Set(Constants.Settings.SavedSession, JsonSerializer.Serialize(session));
 
     public int GetIntervalLengthInMin(IntervalEnum interval) =>
         interval switch
@@ -44,6 +61,5 @@ public class BaseSessionService
             : Constants.Messages.ShortRest;
     }
 
-    public void PlaySound(string fileName) =>
-        Task.Run(async () => await _soundService.PlaySoundAsync(fileName));
+    public void PlaySound(string fileName) => Task.Run(async () => await _soundService.PlaySoundAsync(fileName));
 }

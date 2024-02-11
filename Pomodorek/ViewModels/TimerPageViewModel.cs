@@ -17,23 +17,14 @@ public partial class TimerPageViewModel : BaseViewModel
     private int _time;
 
     /// <summary>
-    /// Precise date and time of the scheduled alarm.
+    /// This object represents the session in progress.
     /// </summary>
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(Alarm))]
-    public DateTime _triggerAlarmAt;
-
-    /// <summary>
-    /// This object represents the <see cref="SessionModel"/> in progress.
-    /// </summary>
-    [ObservableProperty]
-    private SessionModel _session = BaseSessionService.GetNewSession();
+    private SessionModel _session;
 
     public bool IsRunning => State == TimerStateEnum.Running;
     
     public bool IsStopped => State == TimerStateEnum.Stopped;
-
-    public string Alarm => TriggerAlarmAt.ToLocalTime().ToString("HH:mm");
 
     private readonly ITimerService _timerService;
     private readonly IDateTimeService _dateTimeService;
@@ -51,13 +42,15 @@ public partial class TimerPageViewModel : BaseViewModel
         _dateTimeService = dateTimeService;
         _permissionsService = permissionsService;
         _sessionService = sessionService;
+
+        Session = _sessionService.GetSession();
     }
 
     [RelayCommand]
     void Start()
     {
         State = TimerStateEnum.Running;
-        Session.TriggerAlarmAt = TriggerAlarmAt = _dateTimeService.UtcNow.AddSeconds(Time).AddSeconds(1);
+        Session.TriggerAlarmAt = _dateTimeService.UtcNow.AddSeconds(Time).AddSeconds(1);
 
         _sessionService.StartInterval(Session);
         _timerService.Start(HandleOnTickEvent);
@@ -66,8 +59,10 @@ public partial class TimerPageViewModel : BaseViewModel
     [RelayCommand]
     void Pause()
     {
-        _timerService.Stop(true);
         State = TimerStateEnum.Paused;
+
+        _timerService.Stop(true);
+        _sessionService.SaveSession(Session);
     }
 
     [RelayCommand]
@@ -82,8 +77,16 @@ public partial class TimerPageViewModel : BaseViewModel
     [RelayCommand]
     void Reset()
     {
-        Session = BaseSessionService.GetNewSession();
-        Stop();
+        Session = BaseSessionService.GetNewSession;
+
+        if (IsStopped)
+        {
+            UpdateTimerUI();
+            _sessionService.SaveSession(Session);
+            return;
+        }
+
+        StopTimer(true);
     }
 
     public void UpdateTimerUI() => Time = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
@@ -92,14 +95,16 @@ public partial class TimerPageViewModel : BaseViewModel
 
     private void StopTimer(bool isStoppedManually)
     {
-        _timerService.Stop(isStoppedManually);
         State = TimerStateEnum.Stopped;
+
+        _timerService.Stop(isStoppedManually);
+        _sessionService.SaveSession(Session);
         UpdateTimerUI();
     }
     
     private void HandleOnTickEvent()
     {
-        var secondsRemaining = (int)TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
+        var secondsRemaining = (int)Session.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
         if (secondsRemaining > 0)
         {
             Time = secondsRemaining;

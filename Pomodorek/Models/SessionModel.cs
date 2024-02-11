@@ -3,6 +3,7 @@
 public class SessionModel : ObservableObject
 {
     private IntervalEnum _currentInterval;
+    private DateTime _triggerAlarmAt;
     private int _intervalsCount;
     private int _workIntervalsCount;
     private int _shortRestIntervalsCount;
@@ -38,7 +39,11 @@ public class SessionModel : ObservableObject
         set => SetProperty(ref _longRestIntervalsCount, value);
     }
 
-    public DateTime TriggerAlarmAt { get; set; }
+    public DateTime TriggerAlarmAt
+    {
+        get => _triggerAlarmAt;
+        set => SetProperty(ref _triggerAlarmAt, value);
+    }
 
     public bool IsLongRest => WorkIntervalsCount % 4 == 0;
 }
