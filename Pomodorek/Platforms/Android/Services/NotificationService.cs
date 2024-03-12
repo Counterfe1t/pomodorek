@@ -15,7 +15,7 @@ public class NotificationService : INotificationService
         _notificationManager = NotificationManager.FromContext(Android.App.Application.Context);
     }
 
-    public static Android.App.Notification BuildNotification(Models.NotificationModel notification)
+    public static Notification BuildNotification(NotificationModel notification)
     {
         var intent = new Intent(Android.App.Application.Context, typeof(MainActivity));
         var contentIntent = PendingIntent.GetActivity(Android.App.Application.Context, 0, intent, PendingIntentFlags.Immutable);
@@ -34,9 +34,6 @@ public class NotificationService : INotificationService
         return builder.Build();
     }
 
-    public async Task DisplayNotificationAsync(Models.NotificationModel notification) =>
-        await Task.Run(() =>
-        {
-            _notificationManager.Notify(notification.Id, BuildNotification(notification));
-        });
+    public async Task DisplayNotificationAsync(NotificationModel notification) =>
+        await Task.Run(() => _notificationManager.Notify(notification.Id, BuildNotification(notification)));
 }

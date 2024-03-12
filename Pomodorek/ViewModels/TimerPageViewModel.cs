@@ -53,7 +53,7 @@ public partial class TimerPageViewModel : BaseViewModel
         Session.TriggerAlarmAt = _dateTimeService.UtcNow.AddSeconds(Time).AddSeconds(1);
 
         _sessionService.StartInterval(Session);
-        _timerService.Start(HandleOnTickEvent);
+        _timerService.Start(OnTick);
     }
 
     [RelayCommand]
@@ -102,7 +102,7 @@ public partial class TimerPageViewModel : BaseViewModel
         UpdateTimerUI();
     }
     
-    private void HandleOnTickEvent()
+    private void OnTick()
     {
         var secondsRemaining = (int)Session.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
         if (secondsRemaining > 0)

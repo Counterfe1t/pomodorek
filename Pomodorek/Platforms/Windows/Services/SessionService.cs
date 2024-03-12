@@ -8,10 +8,8 @@ public class SessionService : BaseSessionService, ISessionService
         IConfigurationService configurationService,
         ISettingsService settingsService,
         INotificationService notificationService,
-        ISoundService soundService) : base(
-            configurationService,
-            settingsService,
-            soundService)
+        ISoundService soundService)
+        : base(configurationService, settingsService, soundService)
     {
         _notificationService = notificationService;
     }
