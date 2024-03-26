@@ -40,7 +40,7 @@ public class TimerService : Service, ITimerService
                 if (token.IsCancellationRequested)
                     return;
 
-                callback.Invoke();
+                callback?.Invoke();
             }
         });
     }

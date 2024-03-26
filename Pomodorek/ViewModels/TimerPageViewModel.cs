@@ -81,7 +81,7 @@ public partial class TimerPageViewModel : BaseViewModel
 
         if (IsStopped)
         {
-            UpdateTimerUI();
+            UpdateTimerCounter();
             _sessionService.SaveSession(Session);
             return;
         }
@@ -89,7 +89,16 @@ public partial class TimerPageViewModel : BaseViewModel
         StopTimer(true);
     }
 
-    public void UpdateTimerUI() => Time = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
+    public void UpdateTimerCounter(int? seconds = null)
+    {
+        if (seconds is null)
+        {
+            Time = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
+            return;
+        }
+
+        Time = seconds.Value;
+    }
 
     public async Task CheckAndRequestPermissionsAsync() => await _permissionsService.CheckAndRequestPermissionsAsync();
 
@@ -99,7 +108,7 @@ public partial class TimerPageViewModel : BaseViewModel
 
         _timerService.Stop(isStoppedManually);
         _sessionService.SaveSession(Session);
-        UpdateTimerUI();
+        UpdateTimerCounter();
     }
     
     private void OnTick()
@@ -107,7 +116,7 @@ public partial class TimerPageViewModel : BaseViewModel
         var secondsRemaining = (int)Session.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
         if (secondsRemaining > 0)
         {
-            Time = secondsRemaining;
+            UpdateTimerCounter(secondsRemaining);
             return;
         }
 
