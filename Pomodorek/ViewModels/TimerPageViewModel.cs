@@ -91,7 +91,7 @@ public partial class TimerPageViewModel : BaseViewModel
 
     public void UpdateTimerCounter(int? seconds = null)
     {
-        if (seconds is null)
+        if (seconds is null || seconds < 0)
         {
             Time = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
             return;
