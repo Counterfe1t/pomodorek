@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.LifecycleEvents;
-
-namespace Pomodorek;
+﻿namespace Pomodorek;
 
 public static class MauiProgram
 {

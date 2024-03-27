@@ -1,4 +1,4 @@
-﻿namespace Pomodorek.Resources.Enums;
+﻿namespace Pomodorek.Models.Enums;
 
 public enum IntervalEnum
 {

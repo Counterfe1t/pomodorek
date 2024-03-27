@@ -1,4 +1,4 @@
-﻿namespace Pomodorek.Resources.Constants;
+﻿namespace Pomodorek.Models.Constants;
 
 public static class Constants
 {
