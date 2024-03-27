@@ -35,7 +35,7 @@ public class SoundService : ISoundService
         player.Volume = _settingsService.Get(Constants.Settings.SoundVolume, AppSettings.DefaultSoundVolume);
         player.Play();
 
-        // For some reason IAudioPlayer.Duration always returns 0
+        // TODO: Fix issue with IAudioPlayer.Duration always returning zero.
         await Task.Delay(3000);
     }
 }

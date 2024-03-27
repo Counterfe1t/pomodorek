@@ -1,4 +1,6 @@
-﻿namespace Pomodorek;
+﻿using Microsoft.Maui.LifecycleEvents;
+
+namespace Pomodorek;
 
 public static class MauiProgram
 {
@@ -6,6 +8,15 @@ public static class MauiProgram
         MauiApp.CreateBuilder()
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
+            .ConfigureLifecycleEvents(events =>
+            {
+#if WINDOWS
+                events.AddWindows(windows => windows.OnWindowCreated(window =>
+                {
+                    WinUI.Program.CurrentWindow = window as MauiWinUIWindow;
+                }));
+#endif
+            })
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
