@@ -21,11 +21,17 @@
     <Grid
         Padding="25"
         RowDefinitions="Auto, *, 75"
-        RowSpacing="10"
-        ColumnDefinitions="*, *"
-        ColumnSpacing="25">
+        RowSpacing="0"
+        ColumnDefinitions="*"
+        ColumnSpacing="0">
 
         <!-- 1st row -->
+        <!--
+        <ImageButton
+            Grid.Row="0"
+            HorizontalOptions="End"
+            Source="icon_info.png" />
+        
         <VerticalStackLayout
             Grid.Row="0"
             Grid.Column="0">
@@ -69,78 +75,76 @@
                     Text="{Binding Session.LongRestIntervalsCount}"
                     FontSize="15" />
             </StackLayout>
-        </VerticalStackLayout>
-
-        <Button
-            Grid.Row="0"
-            Grid.Column="1"
-            HorizontalOptions="End"
-            CornerRadius="100"
-            WidthRequest="60"
-            HeightRequest="60"
-            Padding="0"
-            Text="RESET"
-            Command="{Binding ResetCommand}" />
+        </VerticalStackLayout>-->
 
         <!-- 2nd row -->
+        <BoxView
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            CornerRadius="120"
+            WidthRequest="240"
+            HeightRequest="240" />
+
         <Grid
             Grid.Row="1"
             Grid.ColumnSpan="2"
             RowDefinitions="30, *, Auto"
             VerticalOptions="Center"
             HorizontalOptions="Center">
-            <Label
+            <StackLayout
                 Grid.Row="0"
+                Orientation="Horizontal"
                 HorizontalOptions="Center"
-                IsVisible="{Binding IsRunning}"
-                Text="{Binding Session.TriggerAlarmAt, Converter={StaticResource AlarmConverter}}"
-                FontSize="20" />
+                Spacing="5"
+                IsVisible="{Binding IsRunning}">
+                <Image
+                    Source="icon_alarm.png" />
+                <Label
+                    Text="{Binding Session.TriggerAlarmAt, Converter={StaticResource AlarmConverter}}"
+                    FontSize="20" />
+            </StackLayout>
             <Label
                 Grid.Row="1"
                 HorizontalOptions="Center"
                 Text="{Binding Time, Converter={StaticResource TimeConverter}}"
-                FontSize="75" />
+                FontSize="70" />
             <Label
                 Grid.Row="2"
                 HorizontalOptions="Center"
+                TextColor="{StaticResource Primary}"
                 Text="{Binding Session.CurrentInterval, Converter={StaticResource IntervalConverter}}"
-                FontSize="35" />
+                FontSize="30" />
         </Grid>
 
         <!-- 3rd row -->
-        <Button
+        <StackLayout
             Grid.Row="2"
-            Grid.Column="0"
-            IsVisible="{Binding IsRunning, Converter={StaticResource NegationConverter}}"
-            Text="Start"
-            FontSize="35"
-            CornerRadius="15"
-            Command="{Binding StartCommand}" />
+            Orientation="Horizontal"
+            HorizontalOptions="Center"
+            Spacing="8">
+            <ImageButton
+                Grid.Row="2"
+                Source="icon_reset.png"
+                BackgroundColor="Transparent"
+                Command="{Binding ResetCommand}" />
 
-        <Button
-            Grid.Row="2"
-            Grid.Column="0"
-            IsVisible="{Binding IsRunning}"
-            Text="Pause"
-            FontSize="35"
-            CornerRadius="15"
-            Command="{Binding PauseCommand}" />
+            <ImageButton
+                Grid.Row="2"
+                Source="icon_start.png"
+                IsVisible="{Binding IsRunning, Converter={StaticResource NegationConverter}}"
+                Command="{Binding StartCommand}" />
 
-        <Button
-            Grid.Row="2"
-            Grid.Column="1"
-            Text="Stop"
-            FontSize="35"
-            CornerRadius="15"
-            Command="{Binding StopCommand}" />
+            <ImageButton
+                Grid.Row="2"
+                Source="icon_pause.png"
+                IsVisible="{Binding IsRunning}"
+                Command="{Binding PauseCommand}" />
 
-        <!-- for some reason on Android buttons do not take up 100% width -->
-        <BoxView
-            Grid.Row="2"
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            IsVisible="{OnPlatform Android=True, WinUI=False}"
-            Color="Transparent"
-            ZIndex="-1" />
+            <ImageButton
+                Grid.Row="2"
+                Source="icon_stop.png"
+                BackgroundColor="Transparent"
+                Command="{Binding StopCommand}" />
+        </StackLayout>
     </Grid>
 </ContentPage>

@@ -4,16 +4,17 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:Pomodorek.Views"
-    Shell.FlyoutBehavior="Flyout">
-
+    Shell.FlyoutWidth="{OnPlatform Android=250, WinUI=200 }"
+    Shell.FlyoutBehavior="{OnPlatform Android=Flyout, WinUI=Locked }">
     <ShellContent
         Title="Pomodorek"
-        ContentTemplate="{DataTemplate views:TimerPage}"
-        Route="TimerPage" />
+        FlyoutIcon="icon_clock.png"
+        Route="TimerPage"
+        ContentTemplate="{DataTemplate views:TimerPage}" />
 
     <ShellContent
         Title="Settings"
-        ContentTemplate="{DataTemplate views:SettingsPage}"
-        Route="SettingsPage" />
-
+        FlyoutIcon="icon_gear.png"
+        Route="SettingsPage"
+        ContentTemplate="{DataTemplate views:SettingsPage}" />
 </Shell>

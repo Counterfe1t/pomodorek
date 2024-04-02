@@ -38,17 +38,17 @@
         TargetType="BoxView">
         <Setter
             Property="Color"
-            Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
+            Value="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray900}}" />
     </Style>
 
     <Style
         TargetType="Button">
         <Setter
             Property="TextColor"
-            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Primary}}" />
+            Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
         <Setter
             Property="BackgroundColor"
-            Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+            Value="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray900}}" />
         <Setter
             Property="FontFamily"
             Value="OpenSansRegular" />
@@ -56,11 +56,17 @@
             Property="FontSize"
             Value="14" />
         <Setter
-            Property="CornerRadius"
-            Value="8" />
-        <Setter
             Property="Padding"
-            Value="14,10" />
+            Value="0" />
+        <Setter
+            Property="HeightRequest"
+            Value="{OnPlatform Android=60, WinUI=60}" />
+        <Setter
+            Property="WidthRequest"
+            Value="{OnPlatform Android=60, WinUI=60}" />
+        <Setter
+            Property="CornerRadius"
+            Value="{OnPlatform Android=30, WinUI=80}" />
         <Setter
             Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
@@ -233,6 +239,9 @@
     <Style
         TargetType="ImageButton">
         <Setter
+            Property="BackgroundColor"
+            Value="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray900}}" />
+        <Setter
             Property="Opacity"
             Value="1" />
         <Setter
@@ -242,8 +251,17 @@
             Property="BorderWidth"
             Value="0" />
         <Setter
+            Property="HeightRequest"
+            Value="{OnPlatform Android=60, WinUI=60}" />
+        <Setter
+            Property="WidthRequest"
+            Value="{OnPlatform Android=60, WinUI=60}" />
+        <Setter
             Property="CornerRadius"
-            Value="0" />
+            Value="{OnPlatform Android=30, WinUI=80}" />
+        <Setter
+            Property="Aspect"
+            Value="Center" />
         <Setter
             Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
@@ -268,7 +286,7 @@
         TargetType="Label">
         <Setter
             Property="TextColor"
-            Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" />
+            Value="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource White}}" />
         <Setter
             Property="FontFamily"
             Value="OpenSansRegular" />
@@ -646,7 +664,7 @@
             Value="0" />
         <Setter
             Property="BackgroundColor"
-            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
+            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}" />
     </Style>
 
     <Style
@@ -671,8 +689,11 @@
             Property="Shell.NavBarHasShadow"
             Value="False" />
         <Setter
+            Property="Shell.NavBarIsVisible"
+            Value="{OnPlatform Android=True, WinUI=False}" />
+        <Setter
             Property="Shell.TabBarBackgroundColor"
-            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
+            Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource Black}}" />
         <Setter
             Property="Shell.TabBarForegroundColor"
             Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
@@ -694,7 +715,7 @@
             Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource White}}" />
         <Setter
             Property="IconColor"
-            Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource White}}" />
+            Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>
 
     <Style
