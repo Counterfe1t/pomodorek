@@ -19,18 +19,23 @@
             x:Key="AlarmConverter" />
     </ContentPage.Resources>
     <Grid
-        Padding="25"
-        RowDefinitions="Auto, *, 75"
+        Padding="15"
+        RowDefinitions="60, *, 100"
         RowSpacing="0"
         ColumnDefinitions="*"
         ColumnSpacing="0">
 
         <!-- 1st row -->
-        <ImageButton
+        <StackLayout
             Grid.Row="0"
             HorizontalOptions="End"
-            Source="icon_info.png"
-            Command="{Binding ShowSessionDetailsPopupCommand}" />
+            HeightRequest="60"
+            WidthRequest="60">
+            <ImageButton
+                VerticalOptions="CenterAndExpand"
+                Source="icon_info.png"
+                Command="{Binding ShowSessionDetailsPopupCommand}" />
+        </StackLayout>
 
         <!-- 2nd row -->
         <BoxView
@@ -76,30 +81,37 @@
             Grid.Row="2"
             Orientation="Horizontal"
             HorizontalOptions="Center"
-            Spacing="8">
-            <ImageButton
-                Grid.Row="2"
-                Source="icon_reset.png"
-                BackgroundColor="Transparent"
-                Command="{Binding ResetCommand}" />
-
-            <ImageButton
-                Grid.Row="2"
-                Source="icon_start.png"
-                IsVisible="{Binding IsRunning, Converter={StaticResource NegationConverter}}"
-                Command="{Binding StartCommand}" />
-
-            <ImageButton
-                Grid.Row="2"
-                Source="icon_pause.png"
-                IsVisible="{Binding IsRunning}"
-                Command="{Binding PauseCommand}" />
-
-            <ImageButton
-                Grid.Row="2"
-                Source="icon_stop.png"
-                BackgroundColor="Transparent"
-                Command="{Binding StopCommand}" />
+            Spacing="10">
+            <StackLayout
+                HeightRequest="60"
+                WidthRequest="60">
+                <ImageButton
+                    VerticalOptions="CenterAndExpand"
+                    Source="icon_reset.png"
+                    Command="{Binding ResetCommand}" />
+            </StackLayout>
+            <StackLayout
+                HeightRequest="60"
+                WidthRequest="60">
+                <ImageButton
+                    VerticalOptions="CenterAndExpand"
+                    Source="icon_start.png"
+                    IsVisible="{Binding IsRunning, Converter={StaticResource NegationConverter}}"
+                    Command="{Binding StartCommand}" />
+                <ImageButton
+                    VerticalOptions="CenterAndExpand"
+                    Source="icon_pause.png"
+                    IsVisible="{Binding IsRunning}"
+                    Command="{Binding PauseCommand}" />
+            </StackLayout>
+            <StackLayout
+                HeightRequest="60"
+                WidthRequest="60">
+                <ImageButton
+                    VerticalOptions="CenterAndExpand"
+                    Source="icon_stop.png"
+                    Command="{Binding StopCommand}" />
+            </StackLayout>
         </StackLayout>
     </Grid>
 </ContentPage>

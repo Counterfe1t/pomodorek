@@ -85,6 +85,25 @@
                                 Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
                         </VisualState.Setters>
                     </VisualState>
+                    <VisualState
+                        x:Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState
+                        x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter
+                                Property="HeightRequest"
+                                Value="{OnPlatform Android=56, WinUI=56, Default=56}" />
+                            <Setter
+                                Property="WidthRequest"
+                                Value="{OnPlatform Android=56, WinUI=56, Default=56}" />
+                        </VisualState.Setters>
+                    </VisualState>
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
@@ -258,7 +277,7 @@
             Value="{OnPlatform Android=60, WinUI=60, Default=60}" />
         <Setter
             Property="CornerRadius"
-            Value="{OnPlatform Android=30, WinUI=80, Default=60}" />
+            Value="{OnPlatform Android=30, WinUI=30, Default=30}" />
         <Setter
             Property="Aspect"
             Value="Center" />
@@ -275,6 +294,25 @@
                             <Setter
                                 Property="Opacity"
                                 Value="0.5" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState
+                        x:Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState
+                        x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter
+                                Property="HeightRequest"
+                                Value="{OnPlatform Android=56, WinUI=56, Default=56}" />
+                            <Setter
+                                Property="WidthRequest"
+                                Value="{OnPlatform Android=56, WinUI=56, Default=56}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>

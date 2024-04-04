@@ -97,6 +97,7 @@ public partial class TimerPageViewModel : BaseViewModel
         StopTimer(true);
     }
 
+    // TODO: Unit tests missing
     [RelayCommand]
     void ShowSessionDetailsPopup()
     {
@@ -104,6 +105,7 @@ public partial class TimerPageViewModel : BaseViewModel
         _popupService.ShowPopup(_popup);
     }
 
+    // TODO: Unit tests missing
     [RelayCommand]
     void CloseSessionDetailsPopup() => _popup?.Close();
 
