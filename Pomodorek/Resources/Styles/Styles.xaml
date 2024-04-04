@@ -60,13 +60,13 @@
             Value="0" />
         <Setter
             Property="HeightRequest"
-            Value="{OnPlatform Android=60, WinUI=60}" />
+            Value="{OnPlatform Android=60, WinUI=60, Default=60}" />
         <Setter
             Property="WidthRequest"
-            Value="{OnPlatform Android=60, WinUI=60}" />
+            Value="{OnPlatform Android=60, WinUI=60, Default=60}" />
         <Setter
             Property="CornerRadius"
-            Value="{OnPlatform Android=30, WinUI=80}" />
+            Value="{OnPlatform Android=30, WinUI=80, Default=60}" />
         <Setter
             Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
@@ -252,13 +252,13 @@
             Value="0" />
         <Setter
             Property="HeightRequest"
-            Value="{OnPlatform Android=60, WinUI=60}" />
+            Value="{OnPlatform Android=60, WinUI=60, Default=60}" />
         <Setter
             Property="WidthRequest"
-            Value="{OnPlatform Android=60, WinUI=60}" />
+            Value="{OnPlatform Android=60, WinUI=60, Default=60}" />
         <Setter
             Property="CornerRadius"
-            Value="{OnPlatform Android=30, WinUI=80}" />
+            Value="{OnPlatform Android=30, WinUI=80, Default=60}" />
         <Setter
             Property="Aspect"
             Value="Center" />
@@ -690,7 +690,7 @@
             Value="False" />
         <Setter
             Property="Shell.NavBarIsVisible"
-            Value="{OnPlatform Android=True, WinUI=False}" />
+            Value="{OnPlatform Android=True, WinUI=False, Default=True}" />
         <Setter
             Property="Shell.TabBarBackgroundColor"
             Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource Black}}" />

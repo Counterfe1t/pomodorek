@@ -3,6 +3,11 @@
 public partial class TimerPageViewModel : BaseViewModel
 {
     /// <summary>
+    /// Popup for displaying <see cref="SessionModel" /> details.
+    /// </summary>
+    private SessionDetailsPopup _popup;
+
+    /// <summary>
     /// Timer's state (Stopped, Running, Paused).
     /// </summary>
     [ObservableProperty]
@@ -30,18 +35,21 @@ public partial class TimerPageViewModel : BaseViewModel
     private readonly IDateTimeService _dateTimeService;
     private readonly IPermissionsService _permissionsService;
     private readonly ISessionService _sessionService;
+    private readonly IPopupService _popupService;
 
     public TimerPageViewModel(
         ITimerService timerService,
         IDateTimeService dateTimeService,
         IPermissionsService permissionsService,
-        ISessionService sessionService)
+        ISessionService sessionService,
+        IPopupService popupService)
         : base(Constants.Pages.Pomodorek)
     {
         _timerService = timerService;
         _dateTimeService = dateTimeService;
         _permissionsService = permissionsService;
         _sessionService = sessionService;
+        _popupService = popupService;
 
         Session = _sessionService.GetSession();
     }
@@ -88,6 +96,16 @@ public partial class TimerPageViewModel : BaseViewModel
 
         StopTimer(true);
     }
+
+    [RelayCommand]
+    void ShowSessionDetailsPopup()
+    {
+        _popup = new SessionDetailsPopup();
+        _popupService.ShowPopup(_popup);
+    }
+
+    [RelayCommand]
+    void CloseSessionDetailsPopup() => _popup?.Close();
 
     public void UpdateTimerCounter(int? seconds = null)
     {

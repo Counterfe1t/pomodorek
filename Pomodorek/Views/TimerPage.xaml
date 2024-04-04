@@ -26,56 +26,11 @@
         ColumnSpacing="0">
 
         <!-- 1st row -->
-        <!--
         <ImageButton
             Grid.Row="0"
             HorizontalOptions="End"
-            Source="icon_info.png" />
-        
-        <VerticalStackLayout
-            Grid.Row="0"
-            Grid.Column="0">
-            <StackLayout
-                Orientation="Horizontal"
-                Spacing="5">
-                <Label
-                    Text="Intervals:"
-                    FontSize="15" />
-                <Label
-                    Text="{Binding Session.IntervalsCount}"
-                    FontSize="15" />
-            </StackLayout>
-            <StackLayout
-                Orientation="Horizontal"
-                Spacing="5">
-                <Label
-                    Text="Work:"
-                    FontSize="15" />
-                <Label
-                    Text="{Binding Session.WorkIntervalsCount}"
-                    FontSize="15" />
-            </StackLayout>
-            <StackLayout
-                Orientation="Horizontal"
-                Spacing="5">
-                <Label
-                    Text="Short rest:"
-                    FontSize="15" />
-                <Label
-                    Text="{Binding Session.ShortRestIntervalsCount}"
-                    FontSize="15" />
-            </StackLayout>
-            <StackLayout
-                Orientation="Horizontal"
-                Spacing="5">
-                <Label
-                    Text="Long rest:"
-                    FontSize="15" />
-                <Label
-                    Text="{Binding Session.LongRestIntervalsCount}"
-                    FontSize="15" />
-            </StackLayout>
-        </VerticalStackLayout>-->
+            Source="icon_info.png"
+            Command="{Binding ShowSessionDetailsPopupCommand}" />
 
         <!-- 2nd row -->
         <BoxView

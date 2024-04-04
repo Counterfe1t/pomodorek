@@ -1,4 +1,6 @@
-﻿namespace Pomodorek.Tests.UnitTests.ViewModels;
+﻿using Pomodorek.Services.Interfaces;
+
+namespace Pomodorek.Tests.UnitTests.ViewModels;
 
 public class TimerPageViewModelTests
 {
@@ -7,6 +9,7 @@ public class TimerPageViewModelTests
     private readonly Mock<IDateTimeService> _dateTimeServiceMock;
     private readonly Mock<IPermissionsService> _permissionsServiceMock;
     private readonly Mock<ISessionService> _sessionServiceMock;
+    private readonly Mock<IPopupService> _popupServiceMock;
 
     public TimerPageViewModelTests()
     {
@@ -14,6 +17,7 @@ public class TimerPageViewModelTests
         _dateTimeServiceMock = new Mock<IDateTimeService>();
         _permissionsServiceMock = new Mock<IPermissionsService>();
         _sessionServiceMock = new Mock<ISessionService>();
+        _popupServiceMock = new Mock<IPopupService>();
 
         _sessionServiceMock
             .Setup(x => x.GetSession())
@@ -23,7 +27,8 @@ public class TimerPageViewModelTests
             _timerServiceMock.Object,
             _dateTimeServiceMock.Object,
             _permissionsServiceMock.Object,
-            _sessionServiceMock.Object);
+            _sessionServiceMock.Object,
+            _popupServiceMock.Object);
 
         _timerServiceMock.Invocations.Clear();
     }

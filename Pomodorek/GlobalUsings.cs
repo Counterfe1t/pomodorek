@@ -1,4 +1,5 @@
 ﻿global using CommunityToolkit.Maui;
+global using CommunityToolkit.Maui.Views;
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.Mvvm.Messaging;
@@ -10,6 +11,7 @@ global using Pomodorek.Models;
 global using Pomodorek.Models.Constants;
 global using Pomodorek.Models.Enums;
 global using Pomodorek.Services;
+global using Pomodorek.Services.Interfaces;
 global using Pomodorek.ViewModels;
 global using Pomodorek.Views;
 global using System.Diagnostics.CodeAnalysis;
