@@ -1,6 +1,4 @@
-﻿using Pomodorek.Services.Interfaces;
-
-namespace Pomodorek.Tests.UnitTests.ViewModels;
+﻿namespace Pomodorek.Tests.UnitTests.ViewModels;
 
 public class TimerPageViewModelTests
 {
@@ -10,6 +8,7 @@ public class TimerPageViewModelTests
     private readonly Mock<IPermissionsService> _permissionsServiceMock;
     private readonly Mock<ISessionService> _sessionServiceMock;
     private readonly Mock<IPopupService> _popupServiceMock;
+    private readonly Mock<IAlertService> _alertServiceMock;
 
     public TimerPageViewModelTests()
     {
@@ -18,6 +17,7 @@ public class TimerPageViewModelTests
         _permissionsServiceMock = new Mock<IPermissionsService>();
         _sessionServiceMock = new Mock<ISessionService>();
         _popupServiceMock = new Mock<IPopupService>();
+        _alertServiceMock = new Mock<IAlertService>();
 
         _sessionServiceMock
             .Setup(x => x.GetSession())
@@ -28,7 +28,8 @@ public class TimerPageViewModelTests
             _dateTimeServiceMock.Object,
             _permissionsServiceMock.Object,
             _sessionServiceMock.Object,
-            _popupServiceMock.Object);
+            _popupServiceMock.Object,
+            _alertServiceMock.Object);
 
         _timerServiceMock.Invocations.Clear();
     }
@@ -97,6 +98,10 @@ public class TimerPageViewModelTests
 
         _viewModel.State = TimerStateEnum.Running;
 
+        _alertServiceMock
+            .Setup(x => x.DisplayConfirmAsync(_viewModel.Title, Constants.Messages.ResetSession))
+            .ReturnsAsync(true);
+
         // act
         _viewModel.ResetCommand.Execute(null);
 
@@ -119,6 +124,10 @@ public class TimerPageViewModelTests
 
         _viewModel.State = TimerStateEnum.Stopped;
 
+        _alertServiceMock
+            .Setup(x => x.DisplayConfirmAsync(_viewModel.Title, Constants.Messages.ResetSession))
+            .ReturnsAsync(true);
+
         // act
         _viewModel.ResetCommand.Execute(null);
 
@@ -129,6 +138,25 @@ public class TimerPageViewModelTests
         Assert.Equal(expectedSession.ShortRestIntervalsCount, _viewModel.Session.ShortRestIntervalsCount);
         Assert.Equal(expectedSession.LongRestIntervalsCount, _viewModel.Session.LongRestIntervalsCount);
         Assert.Equal(expectedSession.TriggerAlarmAt, _viewModel.Session.TriggerAlarmAt);
+
+        _timerServiceMock.Verify(x => x.Stop(true), Times.Never);
+    }
+
+    [Fact]
+    public void ResetCommand_ActionWasCanceled_DoesNotStopTimerAndDoesNotResetSession()
+    {
+        // arrange
+        _viewModel.State = TimerStateEnum.Running;
+
+        _alertServiceMock
+            .Setup(x => x.DisplayConfirmAsync(_viewModel.Title, Constants.Messages.ResetSession))
+            .ReturnsAsync(false);
+
+        // act
+        _viewModel.ResetCommand.Execute(null);
+
+        // assert
+        Assert.Equal(TimerStateEnum.Running, _viewModel.State);
 
         _timerServiceMock.Verify(x => x.Stop(true), Times.Never);
     }

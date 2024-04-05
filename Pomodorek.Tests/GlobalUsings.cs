@@ -5,6 +5,7 @@ global using Pomodorek.Models;
 global using Pomodorek.Models.Constants;
 global using Pomodorek.Models.Enums;
 global using Pomodorek.Services;
+global using Pomodorek.Services.Interfaces;
 global using Pomodorek.ViewModels;
 global using System.Globalization;
 global using Xunit;

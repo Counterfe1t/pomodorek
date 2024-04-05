@@ -32,7 +32,7 @@ public class SettingsPageViewModelTests
     }
 
     [Fact]
-    public void InitializeSettings_WhenCalled_InitializesProperties()
+    public void InitializeSettings_InitializesProperties()
     {
         // arrange
         _configurationServiceMock
@@ -56,7 +56,7 @@ public class SettingsPageViewModelTests
     }
 
     [Fact]
-    public void SaveSettings_WhenCalled_SavesSettingsToStorage()
+    public void SaveSettings_SavesSettingsToStorage()
     {
         // arrange
         _configurationServiceMock
@@ -84,12 +84,46 @@ public class SettingsPageViewModelTests
     }
 
     [Fact]
-    public void RestoreDefaultSettings_WhenCalled_RestoresDefaultSettings()
+    public void RestoreDefaultSettings_ActionWasCanceled_DoesNotRestoreDefaultSettings()
     {
         // arrange
         _configurationServiceMock
             .Setup(x => x.GetAppSettings())
             .Returns(AppSettings);
+
+        _alertServiceMock
+            .Setup(x => x.DisplayConfirmAsync(_viewModel.Title, Constants.Messages.RestoreDefaultSettings))
+            .ReturnsAsync(false);
+
+        // act
+        _viewModel.RestoreSettingsCommand.Execute(null);
+
+        // assert
+        _settingsServiceMock
+            .Verify(x => x.Set(Constants.Settings.IsSoundEnabled, AppSettings.DefaultIsSoundEnabled), Times.Never);
+        _settingsServiceMock
+            .Verify(x => x.Set(Constants.Settings.SoundVolume, AppSettings.DefaultSoundVolume), Times.Never);
+        _settingsServiceMock
+            .Verify(x => x.Set(Constants.Settings.WorkLengthInMin, AppSettings.DefaultWorkLengthInMin), Times.Never);
+        _settingsServiceMock
+            .Verify(x => x.Set(Constants.Settings.ShortRestLengthInMin, AppSettings.DefaultShortRestLengthInMin), Times.Never);
+        _settingsServiceMock
+            .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, AppSettings.DefaultLongRestLengthInMin), Times.Never);
+        _alertServiceMock
+            .Verify(x => x.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsRestored), Times.Never);
+    }
+
+    [Fact]
+    public void RestoreDefaultSettings_ActionWasNotCanceled_RestoresDefaultSettings()
+    {
+        // arrange
+        _configurationServiceMock
+            .Setup(x => x.GetAppSettings())
+            .Returns(AppSettings);
+
+        _alertServiceMock
+            .Setup(x => x.DisplayConfirmAsync(_viewModel.Title, Constants.Messages.RestoreDefaultSettings))
+            .ReturnsAsync(true);
 
         // act
         _viewModel.RestoreSettingsCommand.Execute(null);
@@ -106,6 +140,6 @@ public class SettingsPageViewModelTests
         _settingsServiceMock
             .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, AppSettings.DefaultLongRestLengthInMin), Times.Once);
         _alertServiceMock
-            .Verify(x => x.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsRestored));
+            .Verify(x => x.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsRestored), Times.Once);
     }
 }

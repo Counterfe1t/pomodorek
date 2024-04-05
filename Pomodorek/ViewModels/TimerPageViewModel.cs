@@ -36,13 +36,15 @@ public partial class TimerPageViewModel : BaseViewModel
     private readonly IPermissionsService _permissionsService;
     private readonly ISessionService _sessionService;
     private readonly IPopupService _popupService;
+    private readonly IAlertService _alertService;
 
     public TimerPageViewModel(
         ITimerService timerService,
         IDateTimeService dateTimeService,
         IPermissionsService permissionsService,
         ISessionService sessionService,
-        IPopupService popupService)
+        IPopupService popupService,
+        IAlertService alertService)
         : base(Constants.Pages.Pomodorek)
     {
         _timerService = timerService;
@@ -50,8 +52,9 @@ public partial class TimerPageViewModel : BaseViewModel
         _permissionsService = permissionsService;
         _sessionService = sessionService;
         _popupService = popupService;
+        _alertService = alertService;
 
-        Session = _sessionService.GetSession();
+        Session = sessionService.GetSession();
     }
 
     [RelayCommand]
@@ -83,8 +86,11 @@ public partial class TimerPageViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    void Reset()
+    async Task Reset()
     {
+        if (!await _alertService.DisplayConfirmAsync(Title, Constants.Messages.ResetSession))
+            return;
+
         Session = BaseSessionService.GetNewSession;
 
         if (IsStopped)

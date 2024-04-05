@@ -44,6 +44,8 @@ public static class Constants
         public const string Confirm = "Okay";
         public const string Cancel = "Cancel";
         public const string TimerIsRunning = "Timer is running";
+        public const string ResetSession = "This action will reset the current session in progress.\nAre you sure?";
+        public const string RestoreDefaultSettings = "This action will restore default settings.\nAre you sure?";
     }
 
     public class Sounds

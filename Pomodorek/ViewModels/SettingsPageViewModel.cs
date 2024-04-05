@@ -109,6 +109,9 @@ public partial class SettingsPageViewModel : BaseViewModel
     [RelayCommand]
     private async Task RestoreSettingsAsync()
     {
+        if (!await _alertService.DisplayConfirmAsync(Title, Constants.Messages.RestoreDefaultSettings))
+            return;
+
         IsSoundEnabled = AppSettings.DefaultIsSoundEnabled;
         SoundVolume = AppSettings.DefaultSoundVolume;
         WorkLengthInMin = AppSettings.DefaultWorkLengthInMin;
