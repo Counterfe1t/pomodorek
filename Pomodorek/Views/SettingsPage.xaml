@@ -111,13 +111,23 @@
             Orientation="Horizontal"
             HorizontalOptions="End"
             Spacing="10">
-            <ImageButton
-                Source="icon_save.png"
-                Command="{Binding SaveSettingsCommand}"
-                IsVisible="{Binding IsChangePending}" />
-            <ImageButton
-                Source="icon_reset.png"
-                Command="{Binding RestoreSettingsCommand}" />
+            <StackLayout
+                HeightRequest="60"
+                WidthRequest="60">
+                <ImageButton
+                    VerticalOptions="CenterAndExpand"
+                    Source="icon_save.png"
+                    Command="{Binding SaveSettingsCommand}"
+                    IsVisible="{Binding IsChangePending}" />
+            </StackLayout>
+            <StackLayout
+                HeightRequest="60"
+                WidthRequest="60">
+                <ImageButton
+                    VerticalOptions="CenterAndExpand"
+                    Source="icon_reset.png"
+                    Command="{Binding RestoreSettingsCommand}" />
+            </StackLayout>
         </StackLayout>
     </Grid>
 </ContentPage>
