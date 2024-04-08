@@ -212,7 +212,7 @@
             Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
         <Setter
             Property="BackgroundColor"
-            Value="Transparent" />
+            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}" />
         <Setter
             Property="FontFamily"
             Value="OpenSansRegular" />
@@ -570,7 +570,7 @@
         TargetType="Slider">
         <Setter
             Property="MinimumTrackColor"
-            Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+            Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" />
         <Setter
             Property="MaximumTrackColor"
             Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
@@ -641,7 +641,7 @@
                         <VisualState.Setters>
                             <Setter
                                 Property="OnColor"
-                                Value="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource Gray200}}" />
+                                Value="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Primary}}" />
                             <Setter
                                 Property="ThumbColor"
                                 Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
@@ -710,13 +710,19 @@
         ApplyToDerivedTypes="True">
         <Setter
             Property="Shell.BackgroundColor"
-            Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Gray950}}" />
+            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}" />
         <Setter
             Property="Shell.ForegroundColor"
-            Value="{OnPlatform WinUI={StaticResource Primary}, Default={StaticResource White}}" />
+            Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+        <Setter
+            Property="Shell.FlyoutWidth"
+            Value="{OnPlatform WinUI=175, Default=250 }" />
+        <Setter
+            Property="Shell.FlyoutBehavior"
+            Value="{OnPlatform Default=Flyout }" />
         <Setter
             Property="Shell.TitleColor"
-            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}" />
+            Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         <Setter
             Property="Shell.DisabledColor"
             Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
@@ -728,13 +734,13 @@
             Value="False" />
         <Setter
             Property="Shell.NavBarIsVisible"
-            Value="{OnPlatform Android=True, WinUI=False, Default=True}" />
+            Value="{OnPlatform WinUI=False, Default=True}" />
         <Setter
             Property="Shell.TabBarBackgroundColor"
-            Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource Black}}" />
+            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
         <Setter
             Property="Shell.TabBarForegroundColor"
-            Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}" />
         <Setter
             Property="Shell.TabBarTitleColor"
             Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />

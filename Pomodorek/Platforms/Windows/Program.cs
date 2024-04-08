@@ -6,7 +6,7 @@ namespace Pomodorek.WinUI;
 
 public class Program
 {
-    public static App App;
+    public static App App { get; set; }
 
     public static MauiWinUIWindow CurrentWindow { get; set; }
 

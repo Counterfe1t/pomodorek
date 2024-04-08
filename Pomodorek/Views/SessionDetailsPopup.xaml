@@ -11,6 +11,7 @@
     <VerticalStackLayout>
         <Frame
             Padding="25"
+            BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}"
             WidthRequest="350"
             HeightRequest="300">
             <Grid
@@ -35,6 +36,7 @@
                 <Label
                     Grid.Row="1"
                     Grid.Column="1"
+                    HorizontalOptions="End"
                     Text="{Binding Session.IntervalsCount}"
                     FontSize="15" />
 
@@ -47,6 +49,7 @@
                 <Label
                     Grid.Row="2"
                     Grid.Column="1"
+                    HorizontalOptions="End"
                     Text="{Binding Session.WorkIntervalsCount}"
                     FontSize="15" />
 
@@ -59,6 +62,7 @@
                 <Label
                     Grid.Row="3"
                     Grid.Column="1"
+                    HorizontalOptions="End"
                     Text="{Binding Session.ShortRestIntervalsCount}"
                     FontSize="15" />
 
@@ -71,6 +75,7 @@
                 <Label
                     Grid.Row="4"
                     Grid.Column="1"
+                    HorizontalOptions="End"
                     Text="{Binding Session.LongRestIntervalsCount}"
                     FontSize="15" />
 
@@ -82,6 +87,8 @@
                     Grid.ColumnSpan="2"
                     HorizontalOptions="Center"
                     Text="CLOSE"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="{StaticResource White}"
                     Command="{Binding CloseSessionDetailsPopupCommand}" />
             </Grid>
         </Frame>
