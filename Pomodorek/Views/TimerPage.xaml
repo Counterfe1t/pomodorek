@@ -58,6 +58,7 @@
                 Spacing="5"
                 IsVisible="{Binding IsRunning}">
                 <Image
+                    HeightRequest="{OnPlatform Default=18}"
                     Source="icon_alarm.png" />
                 <Label
                     Text="{Binding Session.TriggerAlarmAt, Converter={StaticResource AlarmConverter}}"
