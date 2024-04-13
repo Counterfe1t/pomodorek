@@ -58,7 +58,7 @@ public partial class TimerPageViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    void Start()
+    private void Start()
     {
         State = TimerStateEnum.Running;
         Session.TriggerAlarmAt = _dateTimeService.UtcNow.AddSeconds(Time).AddSeconds(1);
@@ -68,7 +68,7 @@ public partial class TimerPageViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    void Pause()
+    private void Pause()
     {
         State = TimerStateEnum.Paused;
 
@@ -77,7 +77,7 @@ public partial class TimerPageViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    void Stop()
+    private void Stop()
     {
         if (IsStopped)
             return;
@@ -86,7 +86,7 @@ public partial class TimerPageViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    async Task Reset()
+    private async Task Reset()
     {
         if (!await _alertService.DisplayConfirmAsync(Title, Constants.Messages.ResetSession))
             return;
@@ -105,7 +105,7 @@ public partial class TimerPageViewModel : BaseViewModel
 
     // TODO: Unit tests missing
     [RelayCommand]
-    void ShowSessionDetailsPopup()
+    private void ShowSessionDetailsPopup()
     {
         _popup = new SessionDetailsPopup();
         _popupService.ShowPopup(_popup);
@@ -113,7 +113,7 @@ public partial class TimerPageViewModel : BaseViewModel
 
     // TODO: Unit tests missing
     [RelayCommand]
-    void CloseSessionDetailsPopup() => _popup?.Close();
+    private void CloseSessionDetailsPopup() => _popup?.Close();
 
     public void UpdateTimerCounter(int? seconds = null)
     {
