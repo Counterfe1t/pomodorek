@@ -27,7 +27,7 @@ public class SoundServiceTests
     }
 
     [Fact]
-    public async Task PlaySoundAsync_WhenSoundEnabled_PlaysSound()
+    public async Task PlaySoundAsync_SoundIsEnabled_PlaysSound()
     {
         // arrange
         var audioPlayerMock = new Mock<IAudioPlayer>();
@@ -57,7 +57,7 @@ public class SoundServiceTests
     }
 
     [Fact]
-    public async Task PlaySoundAsync_WhenSoundDisabled_DoesNotPlaySound()
+    public async Task PlaySoundAsync_SoundIsDisabled_DoesNotPlaySound()
     {
         // arrange
         var audioPlayerMock = new Mock<IAudioPlayer>();
