@@ -1,4 +1,5 @@
 global using Moq;
+global using Plugin.Maui.Audio;
 global using Pomodorek.Behaviors;
 global using Pomodorek.Converters;
 global using Pomodorek.Models;
@@ -8,4 +9,5 @@ global using Pomodorek.Services;
 global using Pomodorek.Services.Interfaces;
 global using Pomodorek.ViewModels;
 global using System.Globalization;
+global using System.Text;
 global using Xunit;

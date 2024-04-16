@@ -1,6 +1,4 @@
-﻿using Plugin.Maui.Audio;
-
-namespace Pomodorek.Tests.UnitTests.Services;
+﻿namespace Pomodorek.Tests.UnitTests.Services;
 
 public class SoundServiceTests
 {
@@ -9,6 +7,7 @@ public class SoundServiceTests
     private readonly Mock<IFileSystem> _fileSystemMock;
     private readonly Mock<ISettingsService> _settingsService;
     private readonly Mock<IConfigurationService> _configurationServiceMock;
+    private readonly Mock<IAudioPlayer> _audioPlayerMock;
 
     private static AppSettings AppSettings => new();
 
@@ -18,6 +17,7 @@ public class SoundServiceTests
         _fileSystemMock = new Mock<IFileSystem>();
         _settingsService = new Mock<ISettingsService>();
         _configurationServiceMock = new Mock<IConfigurationService>();
+        _audioPlayerMock = new Mock<IAudioPlayer>();
 
         _soundService = new SoundService(
             _audioManagerMock.Object,
@@ -30,8 +30,7 @@ public class SoundServiceTests
     public async Task PlaySoundAsync_SoundIsEnabled_PlaysSound()
     {
         // arrange
-        var audioPlayerMock = new Mock<IAudioPlayer>();
-        var audioStream = new Mock<Stream>();
+        var audioStream = new MemoryStream(Encoding.UTF8.GetBytes(string.Empty));
 
         _settingsService
             .Setup(x => x.Get(Constants.Settings.IsSoundEnabled, It.IsAny<bool>()))
@@ -42,26 +41,25 @@ public class SoundServiceTests
 
         _fileSystemMock
             .Setup(x => x.OpenAppPackageFileAsync(It.IsAny<string>()))
-            .ReturnsAsync(audioStream.Object);
+            .ReturnsAsync(audioStream);
 
         _audioManagerMock
-            .Setup(x => x.CreatePlayer(audioStream.Object))
-            .Returns(audioPlayerMock.Object);
+            .Setup(x => x.CreatePlayer(audioStream))
+            .Returns(_audioPlayerMock.Object);
 
         // act
         await _soundService.PlaySoundAsync(It.IsAny<string>());
 
         // assert
         _audioManagerMock.Verify(x => x.CreatePlayer(It.IsAny<Stream>()), Times.Once);
-        audioPlayerMock.Verify(x => x.Play(), Times.Once);
+        _audioPlayerMock.Verify(x => x.Play(), Times.Once);
     }
 
     [Fact]
     public async Task PlaySoundAsync_SoundIsDisabled_DoesNotPlaySound()
     {
         // arrange
-        var audioPlayerMock = new Mock<IAudioPlayer>();
-        var audioStream = new Mock<Stream>();
+        var audioStream = new MemoryStream(Encoding.UTF8.GetBytes(string.Empty));
 
         _settingsService
             .Setup(x => x.Get(Constants.Settings.IsSoundEnabled, It.IsAny<bool>()))
@@ -72,17 +70,17 @@ public class SoundServiceTests
 
         _fileSystemMock
             .Setup(x => x.OpenAppPackageFileAsync(It.IsAny<string>()))
-            .ReturnsAsync(audioStream.Object);
+            .ReturnsAsync(audioStream);
 
         _audioManagerMock
-            .Setup(x => x.CreatePlayer(audioStream.Object))
-            .Returns(audioPlayerMock.Object);
+            .Setup(x => x.CreatePlayer(audioStream))
+            .Returns(_audioPlayerMock.Object);
 
         // act
         await _soundService.PlaySoundAsync(It.IsAny<string>());
 
         // assert
         _audioManagerMock.Verify(x => x.CreatePlayer(It.IsAny<Stream>()), Times.Never);
-        audioPlayerMock.Verify(x => x.Play(), Times.Never);
+        _audioPlayerMock.Verify(x => x.Play(), Times.Never);
     }
 }
