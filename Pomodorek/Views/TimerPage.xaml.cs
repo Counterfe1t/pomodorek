@@ -18,6 +18,6 @@ public partial class TimerPage : ContentPage
         await viewModel.CheckAndRequestPermissionsAsync();
 
         if (viewModel.IsStopped)
-            viewModel.UpdateTimerCounter();
+            viewModel.UpdateTimer();
     }
 }

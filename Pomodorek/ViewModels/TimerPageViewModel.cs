@@ -95,7 +95,7 @@ public partial class TimerPageViewModel : BaseViewModel
 
         if (IsStopped)
         {
-            UpdateTimerCounter();
+            UpdateTimer();
             _sessionService.SaveSession(Session);
             return;
         }
@@ -115,7 +115,7 @@ public partial class TimerPageViewModel : BaseViewModel
     [RelayCommand]
     private void CloseSessionDetailsPopup() => _popup?.Close();
 
-    public void UpdateTimerCounter(int? seconds = null)
+    public void UpdateTimer(int? seconds = null)
     {
         if (seconds is null || seconds < 0)
         {
@@ -134,7 +134,7 @@ public partial class TimerPageViewModel : BaseViewModel
 
         _timerService.Stop(isStoppedManually);
         _sessionService.SaveSession(Session);
-        UpdateTimerCounter();
+        UpdateTimer();
     }
     
     private void OnTick()
@@ -142,7 +142,7 @@ public partial class TimerPageViewModel : BaseViewModel
         int secondsRemaining = (int)Session.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
         if (secondsRemaining > 0)
         {
-            UpdateTimerCounter(secondsRemaining);
+            UpdateTimer(secondsRemaining);
             return;
         }
 
