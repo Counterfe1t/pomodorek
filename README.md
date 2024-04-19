@@ -6,9 +6,11 @@ Pomodorek is a cross-platform application built using <a href="https://dotnet.mi
 
 Whenever you have to complete a task requiring your undivided attention just use this tool to boost your focus and productivity. It's really simple!
 1. Start the timer and get to work.
-2. After 25 minutes take a 5 minute break.
+2. After 25 minutes take a 5 minute break. (interval lengths are fully customizable in the application settings)
 3. Every 4 intervals take a longer break to recharge you batteries, but worry not - Pomodorek will adjust the interval length for you!
 4. Continue until your assignment is completed.
+
+In time you will be able to accurately estimate how many intervals certain task take to complete. This will further help you organize your time and resources to achieve desired goals.
 
 ## Supported platforms 💻📱
 
