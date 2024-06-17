@@ -11,7 +11,7 @@ public class PermissionsService : IPermissionsService
 
         if (Permissions.ShouldShowRationale<AndroidPermissions>())
         {
-            // Prompt the user with additional information as to why the permission is needed
+            // TODO Prompt the user with additional information as to why the permission is needed
         }
 
         return await Permissions.RequestAsync<AndroidPermissions>();

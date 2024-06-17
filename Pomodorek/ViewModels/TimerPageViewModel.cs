@@ -8,7 +8,7 @@ public partial class TimerPageViewModel : BaseViewModel
     private SessionDetailsPopup _popup;
 
     /// <summary>
-    /// Timer's state (Stopped, Running, Paused).
+    /// Timer's state (stopped, running or paused).
     /// </summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsRunning))]
@@ -22,7 +22,7 @@ public partial class TimerPageViewModel : BaseViewModel
     private int _time;
 
     /// <summary>
-    /// This object represents the session in progress.
+    /// Session currently in progress.
     /// </summary>
     [ObservableProperty]
     private SessionModel _session;
@@ -103,7 +103,7 @@ public partial class TimerPageViewModel : BaseViewModel
         StopTimer(true);
     }
 
-    // TODO: Unit tests missing
+    // TODO Unit tests missing
     [RelayCommand]
     private void ShowSessionDetailsPopup()
     {
@@ -111,7 +111,7 @@ public partial class TimerPageViewModel : BaseViewModel
         _popupService.ShowPopup(_popup);
     }
 
-    // TODO: Unit tests missing
+    // TODO Unit tests missing
     [RelayCommand]
     private void CloseSessionDetailsPopup() => _popup?.Close();
 

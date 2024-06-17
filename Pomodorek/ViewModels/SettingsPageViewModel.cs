@@ -91,7 +91,7 @@ public partial class SettingsPageViewModel : BaseViewModel
         IsChangePending = false;
     }
 
-    // TODO: Add simple validation (rest duration cannot be longer than focus duration)
+    // TODO Add simple validation (rest duration cannot be longer than focus duration)
     [RelayCommand]
     private async Task SaveSettingsAsync()
     {

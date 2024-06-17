@@ -29,7 +29,7 @@ public class AlarmReceiver : BroadcastReceiver
 
         if (string.IsNullOrWhiteSpace(serializedNotification))
         {
-            // TODO: Add error logging
+            // TODO Add error logging
             return;
         }
 
