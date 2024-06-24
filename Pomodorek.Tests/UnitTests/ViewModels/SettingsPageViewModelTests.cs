@@ -3,6 +3,7 @@
 public class SettingsPageViewModelTests
 {
     private readonly SettingsPageViewModel _viewModel;
+
     private readonly Mock<ISettingsService> _settingsServiceMock;
     private readonly Mock<IConfigurationService> _configurationServiceMock;
     private readonly Mock<IAlertService> _alertServiceMock;

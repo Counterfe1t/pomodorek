@@ -28,7 +28,7 @@ public partial class TimerPageViewModel : BaseViewModel
     private SessionModel _session;
 
     public bool IsRunning => State == TimerStateEnum.Running;
-    
+
     public bool IsStopped => State == TimerStateEnum.Stopped;
 
     private readonly ITimerService _timerService;
@@ -103,17 +103,14 @@ public partial class TimerPageViewModel : BaseViewModel
         StopTimer(true);
     }
 
-    // TODO Unit tests missing
     [RelayCommand]
     private void ShowSessionDetailsPopup()
     {
-        _popup = new SessionDetailsPopup();
-        _popupService.ShowPopup(_popup);
+        _popup = _popupService.ShowSessionDetailsPopup();
     }
 
-    // TODO Unit tests missing
     [RelayCommand]
-    private void CloseSessionDetailsPopup() => _popup?.Close();
+    private void CloseSessionDetailsPopup() => _popupService.ClosePopup(_popup);
 
     public void UpdateTimer(int? seconds = null)
     {

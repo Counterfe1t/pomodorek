@@ -3,6 +3,7 @@
 public class TimerPageViewModelTests
 {
     private readonly TimerPageViewModel _viewModel;
+
     private readonly Mock<ITimerService> _timerServiceMock;
     private readonly Mock<IDateTimeService> _dateTimeServiceMock;
     private readonly Mock<IPermissionsService> _permissionsServiceMock;
@@ -159,5 +160,25 @@ public class TimerPageViewModelTests
         Assert.Equal(TimerStateEnum.Running, _viewModel.State);
 
         _timerServiceMock.Verify(x => x.Stop(true), Times.Never);
+    }
+
+    [Fact]
+    public void ShowSessionDetailsPopupCommand_DisplaysSessionDetailsPopup()
+    {
+        // act
+        _viewModel.ShowSessionDetailsPopupCommand.Execute(null);
+
+        // assert
+        _popupServiceMock.Verify(x => x.ShowSessionDetailsPopup(), Times.Once);
+    }
+
+    [Fact]
+    public void CloseSessionDetailsPopupCommand_ClosesSessionDetailsPopup()
+    {
+        // act
+        _viewModel.CloseSessionDetailsPopupCommand.Execute(null);
+
+        // assert
+        _popupServiceMock.Verify(x => x.ClosePopup(It.IsAny<Popup>()));
     }
 }

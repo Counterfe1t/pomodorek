@@ -3,8 +3,14 @@
 public interface IPopupService
 {
     /// <summary>
-    /// Display popup dialog.
+    /// Close popup dialog.
     /// </summary>
-    /// <param name="popup"><see cref="Popup" /> object to be displayed.</param>
-    void ShowPopup(Popup popup);
+    /// <param name="popup"><see cref="Popup" /> object to be closed.</param>
+    void ClosePopup(Popup popup);
+
+    /// <summary>
+    /// Display popup with session details.
+    /// </summary>
+    /// <returns><see cref="SessionDetailsPopup" /> object to be displayed.</returns>
+    SessionDetailsPopup ShowSessionDetailsPopup();
 }

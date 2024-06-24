@@ -2,6 +2,14 @@
 
 public class PopupService : IPopupService
 {
-    // TODO Unit tests missing
-    public void ShowPopup(Popup popup) => Application.Current?.MainPage?.ShowPopup(popup);
+    public void ClosePopup(Popup popup) => popup?.Close();
+
+    public SessionDetailsPopup ShowSessionDetailsPopup()
+    {
+        var popup = new SessionDetailsPopup();
+
+        Application.Current?.MainPage?.ShowPopup(popup);
+
+        return popup;
+    }
 }

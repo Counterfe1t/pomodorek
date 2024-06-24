@@ -1,3 +1,4 @@
+global using CommunityToolkit.Maui.Views;
 global using Moq;
 global using Plugin.Maui.Audio;
 global using Pomodorek.Behaviors;
