@@ -2,6 +2,8 @@
 
 public class AppSettings
 {
+    public bool DefaultIsDarkThemeEnabled { get; set; }
+
     public bool DefaultIsSoundEnabled { get; set; }
 
     public float DefaultSoundVolume { get; set; }

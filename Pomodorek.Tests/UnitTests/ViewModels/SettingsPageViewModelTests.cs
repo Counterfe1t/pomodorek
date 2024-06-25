@@ -8,9 +8,11 @@ public class SettingsPageViewModelTests
     private readonly Mock<IConfigurationService> _configurationServiceMock;
     private readonly Mock<IAlertService> _alertServiceMock;
     private readonly Mock<INavigationService> _navigationServiceMock;
+    private readonly Mock<IApplicationService> _applicationServiceMock;
 
-    private static AppSettings AppSettings => new()
+    private AppSettings _appSettings => new()
     {
+        DefaultIsDarkThemeEnabled = true,
         DefaultIsSoundEnabled = true,
         DefaultSoundVolume = 1,
         DefaultWorkLengthInMin = 3,
@@ -24,26 +26,33 @@ public class SettingsPageViewModelTests
         _configurationServiceMock = new Mock<IConfigurationService>();
         _alertServiceMock = new Mock<IAlertService>();
         _navigationServiceMock = new Mock<INavigationService>();
+        _applicationServiceMock = new Mock<IApplicationService>();
+
+        _configurationServiceMock
+            .Setup(x => x.AppSettings)
+            .Returns(_appSettings);
+
+        _applicationServiceMock
+            .Setup(x => x.Application)
+            .Returns(new Application());
 
         _viewModel = new SettingsPageViewModel(
             _settingsServiceMock.Object,
             _configurationServiceMock.Object,
             _alertServiceMock.Object,
-            _navigationServiceMock.Object);
+            _navigationServiceMock.Object,
+            _applicationServiceMock.Object);
     }
 
     [Fact]
     public void InitializeSettings_InitializesProperties()
     {
-        // arrange
-        _configurationServiceMock
-            .Setup(x => x.GetAppSettings())
-            .Returns(AppSettings);
-
         // act
         _viewModel.InitializeSettings();
 
         // assert
+        _settingsServiceMock
+            .Verify(x => x.Get(Constants.Settings.IsDarkThemeEnabled, It.IsAny<bool>()), Times.Once);
         _settingsServiceMock
             .Verify(x => x.Get(Constants.Settings.IsSoundEnabled, It.IsAny<bool>()), Times.Once);
         _settingsServiceMock
@@ -59,15 +68,12 @@ public class SettingsPageViewModelTests
     [Fact]
     public void SaveSettings_SavesSettingsToStorage()
     {
-        // arrange
-        _configurationServiceMock
-            .Setup(x => x.GetAppSettings())
-            .Returns(AppSettings);
-
         // act
         _viewModel.SaveSettingsCommand.Execute(null);
 
         // assert
+        _settingsServiceMock
+            .Verify(x => x.Set(Constants.Settings.IsDarkThemeEnabled, It.IsAny<bool>()), Times.Once);
         _settingsServiceMock
             .Verify(x => x.Set(Constants.Settings.IsSoundEnabled, It.IsAny<bool>()), Times.Once);
         _settingsServiceMock
@@ -88,10 +94,6 @@ public class SettingsPageViewModelTests
     public void RestoreDefaultSettings_ActionWasCanceled_DoesNotRestoreDefaultSettings()
     {
         // arrange
-        _configurationServiceMock
-            .Setup(x => x.GetAppSettings())
-            .Returns(AppSettings);
-
         _alertServiceMock
             .Setup(x => x.DisplayConfirmAsync(_viewModel.Title, Constants.Messages.RestoreDefaultSettings))
             .ReturnsAsync(false);
@@ -101,15 +103,17 @@ public class SettingsPageViewModelTests
 
         // assert
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.IsSoundEnabled, AppSettings.DefaultIsSoundEnabled), Times.Never);
+            .Verify(x => x.Set(Constants.Settings.IsDarkThemeEnabled, _appSettings.DefaultIsDarkThemeEnabled), Times.Never);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.SoundVolume, AppSettings.DefaultSoundVolume), Times.Never);
+            .Verify(x => x.Set(Constants.Settings.IsSoundEnabled, _appSettings.DefaultIsSoundEnabled), Times.Never);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.WorkLengthInMin, AppSettings.DefaultWorkLengthInMin), Times.Never);
+            .Verify(x => x.Set(Constants.Settings.SoundVolume, _appSettings.DefaultSoundVolume), Times.Never);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.ShortRestLengthInMin, AppSettings.DefaultShortRestLengthInMin), Times.Never);
+            .Verify(x => x.Set(Constants.Settings.WorkLengthInMin, _appSettings.DefaultWorkLengthInMin), Times.Never);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, AppSettings.DefaultLongRestLengthInMin), Times.Never);
+            .Verify(x => x.Set(Constants.Settings.ShortRestLengthInMin, _appSettings.DefaultShortRestLengthInMin), Times.Never);
+        _settingsServiceMock
+            .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, _appSettings.DefaultLongRestLengthInMin), Times.Never);
         _alertServiceMock
             .Verify(x => x.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsRestored), Times.Never);
     }
@@ -118,10 +122,6 @@ public class SettingsPageViewModelTests
     public void RestoreDefaultSettings_ActionWasNotCanceled_RestoresDefaultSettings()
     {
         // arrange
-        _configurationServiceMock
-            .Setup(x => x.GetAppSettings())
-            .Returns(AppSettings);
-
         _alertServiceMock
             .Setup(x => x.DisplayConfirmAsync(_viewModel.Title, Constants.Messages.RestoreDefaultSettings))
             .ReturnsAsync(true);
@@ -131,15 +131,17 @@ public class SettingsPageViewModelTests
 
         // assert
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.IsSoundEnabled, AppSettings.DefaultIsSoundEnabled), Times.Once);
+            .Verify(x => x.Set(Constants.Settings.IsDarkThemeEnabled, _appSettings.DefaultIsDarkThemeEnabled), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.SoundVolume, AppSettings.DefaultSoundVolume), Times.Once);
+            .Verify(x => x.Set(Constants.Settings.IsSoundEnabled, _appSettings.DefaultIsSoundEnabled), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.WorkLengthInMin, AppSettings.DefaultWorkLengthInMin), Times.Once);
+            .Verify(x => x.Set(Constants.Settings.SoundVolume, _appSettings.DefaultSoundVolume), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.ShortRestLengthInMin, AppSettings.DefaultShortRestLengthInMin), Times.Once);
+            .Verify(x => x.Set(Constants.Settings.WorkLengthInMin, _appSettings.DefaultWorkLengthInMin), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, AppSettings.DefaultLongRestLengthInMin), Times.Once);
+            .Verify(x => x.Set(Constants.Settings.ShortRestLengthInMin, _appSettings.DefaultShortRestLengthInMin), Times.Once);
+        _settingsServiceMock
+            .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, _appSettings.DefaultLongRestLengthInMin), Times.Once);
         _alertServiceMock
             .Verify(x => x.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsRestored), Times.Once);
     }

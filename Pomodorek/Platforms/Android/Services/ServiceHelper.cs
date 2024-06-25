@@ -3,5 +3,5 @@
 public class ServiceHelper
 {
     public static TService GetService<TService>() =>
-        (TService)MauiApplication.Current.Services.GetService(typeof(TService));
+        (TService)IPlatformApplication.Current.Services.GetService(typeof(TService));
 }

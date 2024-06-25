@@ -11,6 +11,7 @@ public static class Constants
 
     public class Settings
     {
+        public const string IsDarkThemeEnabled = nameof(IsDarkThemeEnabled);
         public const string IsSoundEnabled = nameof(IsSoundEnabled);
         public const string SoundVolume = nameof(SoundVolume);
         public const string WorkLengthInMin = nameof(WorkLengthInMin);

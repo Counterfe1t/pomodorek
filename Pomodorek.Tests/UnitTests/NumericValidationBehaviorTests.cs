@@ -18,6 +18,6 @@ public class NumericValidationBehaviorTests
         NumericValidationBehavior.OnEntryTextChanged(sender, args);
 
         // assert
-        Assert.True(sender.Text == expected);
+        Assert.Equal(expected, sender.Text);
     }
 }

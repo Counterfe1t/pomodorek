@@ -2,11 +2,10 @@
 
 public class BaseSessionService
 {
-    private readonly IConfigurationService _configurationService;
     private readonly ISettingsService _settingsService;
     private readonly ISoundService _soundService;
 
-    private AppSettings AppSettings => _configurationService.GetAppSettings();
+    private readonly AppSettings _appSettings;
 
     public static SessionModel GetNewSession => new()
     {
@@ -21,7 +20,7 @@ public class BaseSessionService
         ISettingsService settingsService,
         ISoundService soundService)
     {
-        _configurationService = configurationService;
+        _appSettings = configurationService.AppSettings;
         _settingsService = settingsService;
         _soundService = soundService;
     }
@@ -41,11 +40,11 @@ public class BaseSessionService
         interval switch
         {
             IntervalEnum.Work =>
-                _settingsService.Get(Constants.Settings.WorkLengthInMin, AppSettings.DefaultWorkLengthInMin),
+                _settingsService.Get(Constants.Settings.WorkLengthInMin, _appSettings.DefaultWorkLengthInMin),
             IntervalEnum.ShortRest =>
-                _settingsService.Get(Constants.Settings.ShortRestLengthInMin, AppSettings.DefaultShortRestLengthInMin),
+                _settingsService.Get(Constants.Settings.ShortRestLengthInMin, _appSettings.DefaultShortRestLengthInMin),
             IntervalEnum.LongRest =>
-                _settingsService.Get(Constants.Settings.LongRestLengthInMin, AppSettings.DefaultLongRestLengthInMin),
+                _settingsService.Get(Constants.Settings.LongRestLengthInMin, _appSettings.DefaultLongRestLengthInMin),
             _ => 0
         };
 

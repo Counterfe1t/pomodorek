@@ -3,8 +3,7 @@
 public interface IConfigurationService
 {
     /// <summary>
-    /// Get application configuration.
-    /// </summary>
-    /// <returns><see cref="AppSettings" /> object containing application configuration</returns>
-    AppSettings GetAppSettings();
+    /// Application settings.
+    /// </summary> 
+    AppSettings AppSettings { get; }
 }
