@@ -36,7 +36,7 @@ public class TimerPageViewModelTests
     }
 
     [Fact]
-    public void StartCommand_StartsTimer()
+    public void StartCommand_ShouldStartTimer()
     {
         // act
         _viewModel.StartCommand.Execute(null);
@@ -45,12 +45,13 @@ public class TimerPageViewModelTests
         Assert.Equal(TimerStateEnum.Running, _viewModel.State);
 
         _timerServiceMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Once);
-        _sessionServiceMock
-            .Verify(x => x.StartInterval(It.Is<SessionModel>(y => y.CurrentInterval == IntervalEnum.Work)), Times.Once);
+        _sessionServiceMock.Verify(
+            x => x.StartInterval(It.Is<SessionModel>(y => y.CurrentInterval == IntervalEnum.Work)),
+            Times.Once);
     }
 
     [Fact]
-    public void PauseCommand_PausesTimer()
+    public void PauseCommand_ShouldPauseTimer()
     {
         // act
         _viewModel.PauseCommand.Execute(null);
@@ -62,7 +63,7 @@ public class TimerPageViewModelTests
     }
 
     [Fact]
-    public void StopCommand_TimerIsRunning_StopsTimer()
+    public void StopCommand_TimerIsRunning_ShouldStopTimer()
     {
         // arrange
         _viewModel.State = TimerStateEnum.Running;
@@ -77,7 +78,7 @@ public class TimerPageViewModelTests
     }
 
     [Fact]
-    public void StopCommand_TimerIsStopped_DoesNotStopTimer()
+    public void StopCommand_TimerIsStopped_ShouldNotStopTimer()
     {
         // arrange
         _viewModel.State = TimerStateEnum.Stopped;
@@ -92,7 +93,7 @@ public class TimerPageViewModelTests
     }
 
     [Fact]
-    public void ResetCommand_TimerIsRunning_StopsTimerAndResetsSession()
+    public void ResetCommand_TimerIsRunning_ShouldStopTimerAndShouldResetSession()
     {
         // arrange
         var expectedSession = BaseSessionService.GetNewSession;
@@ -118,7 +119,7 @@ public class TimerPageViewModelTests
     }
 
     [Fact]
-    public void ResetCommand_TimerIsStopped_DoesNotStopTimerAndResetsSession()
+    public void ResetCommand_TimerIsStopped_ShouldNotStopTimerAndShouldResetSession()
     {
         // arrange
         var expectedSession = BaseSessionService.GetNewSession;
@@ -144,7 +145,7 @@ public class TimerPageViewModelTests
     }
 
     [Fact]
-    public void ResetCommand_ActionWasCanceled_DoesNotStopTimerAndDoesNotResetSession()
+    public void ResetCommand_ActionWasCanceled_ShouldNotStopTimerAndShouldNotResetSession()
     {
         // arrange
         _viewModel.State = TimerStateEnum.Running;
@@ -163,7 +164,7 @@ public class TimerPageViewModelTests
     }
 
     [Fact]
-    public void ShowSessionDetailsPopupCommand_DisplaysSessionDetailsPopup()
+    public void ShowSessionDetailsPopupCommand_ShouldDisplaySessionDetailsPopup()
     {
         // act
         _viewModel.ShowSessionDetailsPopupCommand.Execute(null);
@@ -173,12 +174,22 @@ public class TimerPageViewModelTests
     }
 
     [Fact]
-    public void CloseSessionDetailsPopupCommand_ClosesSessionDetailsPopup()
+    public void CloseSessionDetailsPopupCommand_ShouldCloseSessionDetailsPopup()
     {
         // act
         _viewModel.CloseSessionDetailsPopupCommand.Execute(null);
 
         // assert
         _popupServiceMock.Verify(x => x.ClosePopup(It.IsAny<Popup>()));
+    }
+
+    [Fact]
+    public async Task CheckAndRequestPermissionsAsync_ShouldCheckAndRequestPermissions()
+    {
+        // act
+        await _viewModel.CheckAndRequestPermissionsAsync();
+
+        // assert
+        _permissionsServiceMock.Verify(x => x.CheckAndRequestPermissionsAsync(), Times.Once);
     }
 }
