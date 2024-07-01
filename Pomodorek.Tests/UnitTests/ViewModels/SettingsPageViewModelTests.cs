@@ -22,11 +22,11 @@ public class SettingsPageViewModelTests
 
     public SettingsPageViewModelTests()
     {
-        _settingsServiceMock = new Mock<ISettingsService>();
-        _configurationServiceMock = new Mock<IConfigurationService>();
-        _alertServiceMock = new Mock<IAlertService>();
-        _navigationServiceMock = new Mock<INavigationService>();
-        _applicationServiceMock = new Mock<IApplicationService>();
+        _settingsServiceMock = new();
+        _configurationServiceMock = new();
+        _alertServiceMock = new();
+        _navigationServiceMock = new();
+        _applicationServiceMock = new();
 
         _configurationServiceMock
             .Setup(x => x.AppSettings)
@@ -36,7 +36,7 @@ public class SettingsPageViewModelTests
             .Setup(x => x.Application)
             .Returns(new Application());
 
-        _viewModel = new SettingsPageViewModel(
+        _viewModel = new(
             _settingsServiceMock.Object,
             _configurationServiceMock.Object,
             _alertServiceMock.Object,

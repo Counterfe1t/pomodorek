@@ -13,18 +13,18 @@ public class TimerPageViewModelTests
 
     public TimerPageViewModelTests()
     {
-        _timerServiceMock = new Mock<ITimerService>();
-        _dateTimeServiceMock = new Mock<IDateTimeService>();
-        _permissionsServiceMock = new Mock<IPermissionsService>();
-        _sessionServiceMock = new Mock<ISessionService>();
-        _popupServiceMock = new Mock<IPopupService>();
-        _alertServiceMock = new Mock<IAlertService>();
+        _timerServiceMock = new();
+        _dateTimeServiceMock = new();
+        _permissionsServiceMock = new();
+        _sessionServiceMock = new();
+        _popupServiceMock = new();
+        _alertServiceMock = new();
 
         _sessionServiceMock
             .Setup(x => x.GetSession())
             .Returns(BaseSessionService.GetNewSession);
 
-        _viewModel = new TimerPageViewModel(
+        _viewModel = new(
             _timerServiceMock.Object,
             _dateTimeServiceMock.Object,
             _permissionsServiceMock.Object,

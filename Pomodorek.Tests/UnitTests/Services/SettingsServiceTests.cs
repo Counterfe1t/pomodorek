@@ -4,13 +4,13 @@ public class SettingsServiceTests
 {
     private const int Value = 1337;
 
-    private readonly SettingsService _settingsService;
+    private readonly ISettingsService _settingsService;
 
     private readonly Mock<IPreferences> _preferencesMock;
 
     public SettingsServiceTests()
     {
-        _preferencesMock = new Mock<IPreferences>();
+        _preferencesMock = new();
 
         _settingsService = new SettingsService(_preferencesMock.Object);
     }
@@ -27,8 +27,9 @@ public class SettingsServiceTests
         var result = _settingsService.Get(Constants.Settings.WorkLengthInMin, Value);
 
         // assert
-        _preferencesMock.Verify(x => x.Get(Constants.Settings.WorkLengthInMin, Value, null), Times.Once);
         Assert.Equal(Value, result);
+
+        _preferencesMock.Verify(x => x.Get(Constants.Settings.WorkLengthInMin, Value, null), Times.Once);
     }
 
     [Fact]

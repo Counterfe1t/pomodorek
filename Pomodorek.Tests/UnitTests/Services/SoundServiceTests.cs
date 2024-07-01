@@ -2,7 +2,8 @@
 
 public class SoundServiceTests
 {
-    private readonly SoundService _soundService;
+    private readonly ISoundService _soundService;
+
     private readonly Mock<IAudioManager> _audioManagerMock;
     private readonly Mock<IFileSystem> _fileSystemMock;
     private readonly Mock<ISettingsService> _settingsService;
@@ -13,11 +14,11 @@ public class SoundServiceTests
 
     public SoundServiceTests()
     {
-        _audioManagerMock = new Mock<IAudioManager>();
-        _fileSystemMock = new Mock<IFileSystem>();
-        _settingsService = new Mock<ISettingsService>();
-        _configurationServiceMock = new Mock<IConfigurationService>();
-        _audioPlayerMock = new Mock<IAudioPlayer>();
+        _audioManagerMock = new();
+        _fileSystemMock = new();
+        _settingsService = new();
+        _configurationServiceMock = new();
+        _audioPlayerMock = new();
 
         _configurationServiceMock
             .Setup(x => x.AppSettings)
