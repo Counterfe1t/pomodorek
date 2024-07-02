@@ -11,6 +11,6 @@ public interface ITimerService
     /// <summary>
     /// Stop the timer.
     /// </summary>
-    /// <param name="isCancelled">Boolean value indicating if the timer was cancelled manually.</param>
-    void Stop(bool isCancelled = false);
+    /// <param name="isStoppedManually">Boolean value indicating if the timer was stopped manually.</param>
+    void Stop(bool isStoppedManually = false);
 }

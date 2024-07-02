@@ -45,9 +45,9 @@ public class TimerService : Service, ITimerService
         });
     }
 
-    public void Stop(bool isCancelled)
+    public void Stop(bool isStoppedManually)
     {
-        if (isCancelled)
+        if (isStoppedManually)
             CancelAlarm();
 
         StopForegroundService();
@@ -82,7 +82,7 @@ public class TimerService : Service, ITimerService
 
     private void DisplayProgressNotification()
     {
-        var serializedNotification = _settingsService.Get(nameof(NotificationModel), string.Empty);
+        string serializedNotification = _settingsService.Get(nameof(NotificationModel), string.Empty);
         var notification = JsonSerializer.Deserialize<NotificationModel>(serializedNotification);
         
         notification.Content = Constants.Messages.TimerIsRunning;
@@ -94,7 +94,7 @@ public class TimerService : Service, ITimerService
         Task.Run(async () =>
         {
             var token = _token;
-            var secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
+            int secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
 
             while (secondsRemaining > 0 && !token.IsCancellationRequested)
             {
@@ -112,7 +112,7 @@ public class TimerService : Service, ITimerService
     [SuppressMessage("Interoperability", "CA1416:Validate platform compatibility")]
     private void SetAlarm()
     {
-        var serializedNotification = _settingsService.Get(nameof(NotificationModel), string.Empty);
+        string serializedNotification = _settingsService.Get(nameof(NotificationModel), string.Empty);
         var notification = JsonSerializer.Deserialize<NotificationModel>(serializedNotification);
 
         var triggerAlarmAtMs = (long)notification

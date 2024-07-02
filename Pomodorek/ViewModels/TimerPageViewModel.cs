@@ -96,7 +96,9 @@ public partial class TimerPageViewModel : BaseViewModel
         if (IsStopped)
         {
             UpdateTimer();
+
             _sessionService.SaveSession(Session);
+            
             return;
         }
 
@@ -131,6 +133,7 @@ public partial class TimerPageViewModel : BaseViewModel
 
         _timerService.Stop(isStoppedManually);
         _sessionService.SaveSession(Session);
+
         UpdateTimer();
     }
     
@@ -144,6 +147,7 @@ public partial class TimerPageViewModel : BaseViewModel
         }
 
         _sessionService.FinishInterval(Session);
+
         StopTimer(false);
     }
 }

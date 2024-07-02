@@ -26,5 +26,6 @@ public class TimerService : ITimerService
         });
     }
 
-    public void Stop(bool isCancelled) => Interlocked.Exchange(ref _token, new CancellationTokenSource()).Cancel();
+    public void Stop(bool isStoppedManually) =>
+        Interlocked.Exchange(ref _token, new CancellationTokenSource()).Cancel();
 }
