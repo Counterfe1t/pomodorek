@@ -1,13 +1,14 @@
 ﻿namespace Pomodorek.Services;
 
-public class SessionService : BaseSessionService, ISessionService
+public class SessionService : BaseSessionService
 {
     private readonly ISettingsService _settingsService;
 
     public SessionService(
         IConfigurationService configurationService,
         ISettingsService settingsService,
-        ISoundService soundService) : base(
+        ISoundService soundService)
+        : base(
             configurationService,
             settingsService,
             soundService)
@@ -15,7 +16,7 @@ public class SessionService : BaseSessionService, ISessionService
         _settingsService = settingsService;
     }
 
-    public void StartInterval(SessionModel session)
+    public override void StartInterval(SessionModel session)
     {
         PlaySound(Constants.Sounds.IntervalStart);
 
@@ -29,7 +30,7 @@ public class SessionService : BaseSessionService, ISessionService
         }));
     }
 
-    public void FinishInterval(SessionModel session)
+    public override void FinishInterval(SessionModel session)
     {
         PlaySound(Constants.Sounds.IntervalOver);
 

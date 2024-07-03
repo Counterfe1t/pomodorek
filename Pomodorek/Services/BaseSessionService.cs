@@ -1,6 +1,7 @@
 ﻿namespace Pomodorek.Services;
 
-public class BaseSessionService
+// TODO Add unit tests
+public abstract class BaseSessionService : ISessionService
 {
     private readonly ISettingsService _settingsService;
     private readonly ISoundService _soundService;
@@ -24,6 +25,10 @@ public class BaseSessionService
         _settingsService = settingsService;
         _soundService = soundService;
     }
+
+    public abstract void StartInterval(SessionModel session);
+
+    public abstract void FinishInterval(SessionModel session);
 
     public SessionModel GetSession()
     {
