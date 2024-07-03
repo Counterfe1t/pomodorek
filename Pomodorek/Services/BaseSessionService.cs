@@ -1,6 +1,5 @@
 ﻿namespace Pomodorek.Services;
 
-// TODO Add unit tests
 public abstract class BaseSessionService : ISessionService
 {
     private readonly ISettingsService _settingsService;
@@ -32,14 +31,15 @@ public abstract class BaseSessionService : ISessionService
 
     public SessionModel GetSession()
     {
-        var serializedSession = _settingsService.Get(Constants.Settings.SavedSession, string.Empty);
+        string serializedSession = _settingsService.Get(Constants.Settings.SavedSession, string.Empty);
         if (string.IsNullOrWhiteSpace(serializedSession))
             return GetNewSession;
 
         return JsonSerializer.Deserialize<SessionModel>(serializedSession);
     }
 
-    public void SaveSession(SessionModel session) => _settingsService.Set(Constants.Settings.SavedSession, JsonSerializer.Serialize(session));
+    public void SaveSession(SessionModel session) =>
+        _settingsService.Set(Constants.Settings.SavedSession, JsonSerializer.Serialize(session));
 
     public int GetIntervalLengthInMin(IntervalEnum interval) =>
         interval switch
@@ -53,7 +53,8 @@ public abstract class BaseSessionService : ISessionService
             _ => 0
         };
 
-    public int GetIntervalLengthInSec(IntervalEnum interval) => GetIntervalLengthInMin(interval) * Constants.OneMinuteInSec;
+    public int GetIntervalLengthInSec(IntervalEnum interval) =>
+        GetIntervalLengthInMin(interval) * Constants.OneMinuteInSec;
 
     public string GetIntervalFinishedMessage(SessionModel session)
     {
@@ -65,5 +66,6 @@ public abstract class BaseSessionService : ISessionService
             : Constants.Messages.ShortRest;
     }
 
-    public void PlaySound(string fileName) => Task.Run(async () => await _soundService.PlaySoundAsync(fileName));
+    public void PlaySound(string fileName) =>
+        Task.Run(async () => await _soundService.PlaySoundAsync(fileName));
 }
