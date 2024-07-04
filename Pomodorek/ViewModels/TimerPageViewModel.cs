@@ -98,7 +98,7 @@ public partial class TimerPageViewModel : BaseViewModel
             UpdateTimer();
 
             _sessionService.SaveSession(Session);
-            
+
             return;
         }
 
@@ -136,7 +136,7 @@ public partial class TimerPageViewModel : BaseViewModel
 
         UpdateTimer();
     }
-    
+
     private void OnTick()
     {
         int secondsRemaining = (int)Session.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
