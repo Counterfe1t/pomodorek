@@ -1,4 +1,4 @@
-﻿namespace Pomodorek.Services;
+﻿namespace Pomodorek.Interfaces;
 
 public interface INavigationService
 {

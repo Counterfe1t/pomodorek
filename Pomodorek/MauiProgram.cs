@@ -1,9 +1,12 @@
-﻿namespace Pomodorek;
+﻿using Pomodorek.Interfaces;
+
+namespace Pomodorek;
 
 public static class MauiProgram
 {
     public static MauiApp CreateMauiApp() =>
-        MauiApp.CreateBuilder()
+        MauiApp
+            .CreateBuilder()
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
             .ConfigureLifecycleEvents(events =>

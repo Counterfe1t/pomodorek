@@ -1,4 +1,6 @@
-﻿namespace Pomodorek;
+﻿using Pomodorek.Interfaces;
+
+namespace Pomodorek;
 
 public partial class App : Application
 {

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Pomodorek.Interfaces;
 
 namespace Pomodorek.Services;
 

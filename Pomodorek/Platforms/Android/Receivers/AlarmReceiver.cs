@@ -1,4 +1,5 @@
 ﻿using Android.Content;
+using Pomodorek.Interfaces;
 using Pomodorek.Platforms.Android.Services;
 
 namespace Pomodorek.Platforms.Android.Receivers;

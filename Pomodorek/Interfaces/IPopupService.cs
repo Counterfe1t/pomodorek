@@ -1,4 +1,4 @@
-﻿namespace Pomodorek.Services.Interfaces;
+﻿namespace Pomodorek.Interfaces;
 
 public interface IPopupService
 {

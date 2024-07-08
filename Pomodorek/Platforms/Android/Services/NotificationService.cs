@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
 using AndroidX.Core.App;
+using Pomodorek.Interfaces;
 
 namespace Pomodorek.Services;
 

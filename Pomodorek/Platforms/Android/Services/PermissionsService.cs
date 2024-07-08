@@ -1,4 +1,5 @@
-﻿using Pomodorek.Platforms.Android;
+﻿using Pomodorek.Interfaces;
+using Pomodorek.Platforms.Android;
 
 namespace Pomodorek.Services;
 
