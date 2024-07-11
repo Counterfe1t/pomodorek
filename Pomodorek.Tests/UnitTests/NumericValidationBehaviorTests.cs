@@ -3,21 +3,27 @@
 public class NumericValidationBehaviorTests
 {
     [Theory]
-    [InlineData(null, "")]
-    [InlineData("", "")]
-    [InlineData("foo", null)]
-    [InlineData("1337", "1337")]
-    [InlineData(" 2137 ", "2137")]
-    public void OnEntryTextChanged_ReturnsExpectedResult(string received, string expected)
+    [MemberData(nameof(OnEntryTextChangedTestData))]
+    public void OnEntryTextChanged_ShouldSetExpectedTextValue(string received, string expected)
     {
         // arrange
-        var sender = new Entry();
+        var entry = new Entry();
         var args = new TextChangedEventArgs(null, received);
 
         // act
-        NumericValidationBehavior.OnEntryTextChanged(sender, args);
+        NumericValidationBehavior.OnEntryTextChanged(entry, args);
 
         // assert
-        Assert.Equal(expected, sender.Text);
+        Assert.Equal(expected, entry.Text);
     }
+
+    public static TheoryData<string?, string?> OnEntryTextChangedTestData =>
+        new()
+        {
+            { null, "" },
+            { "", "" },
+            { "foo", null },
+            { "1337", "1337" },
+            { " 2137 ", "2137" }
+        };
 }

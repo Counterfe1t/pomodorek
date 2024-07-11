@@ -192,4 +192,32 @@ public class TimerPageViewModelTests
         // assert
         _permissionsServiceMock.Verify(x => x.CheckAndRequestPermissionsAsync(), Times.Once);
     }
+
+    [Theory]
+    [MemberData(nameof(UpdateTimerTestData))]
+    public void UpdateTimer_ShouldSetExpectedTimeValue(int? value, int expectedValue, int invocations)
+    {
+        // arrange
+        _sessionServiceMock
+            .Setup(x => x.GetIntervalLengthInSec(_viewModel.Session.CurrentInterval))
+            .Returns(expectedValue);
+
+        // act
+        _viewModel.UpdateTimer(value);
+
+        // assert
+        Assert.Equal(expectedValue, _viewModel.Time);
+
+        _sessionServiceMock
+            .Verify(x => x.GetIntervalLengthInSec(_viewModel.Session.CurrentInterval), Times.Exactly(invocations));
+    }
+
+    public static TheoryData<int?, int, int> UpdateTimerTestData =>
+        new()
+        {
+            { 1337, 1337, 0 },
+            { 0, 0, 0 },
+            { -1, 60, 1 },
+            { null, 60, 1 }
+        };
 }
