@@ -1,6 +1,4 @@
-﻿using Pomodorek.Interfaces;
-
-namespace Pomodorek.ViewModels;
+﻿namespace Pomodorek.ViewModels;
 
 public partial class TimerPageViewModel : BaseViewModel
 {

@@ -1,6 +1,4 @@
-﻿using Pomodorek.Interfaces;
-
-namespace Pomodorek;
+﻿namespace Pomodorek;
 
 public static class MauiProgram
 {

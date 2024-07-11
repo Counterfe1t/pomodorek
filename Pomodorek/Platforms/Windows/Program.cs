@@ -11,7 +11,7 @@ public class Program
     public static MauiWinUIWindow CurrentWindow { get; set; }
 
     [STAThread]
-    static async Task<int> Main()
+    private static async Task<int> Main()
     {
         WinRT.ComWrappersSupport.InitializeComWrappers();
 

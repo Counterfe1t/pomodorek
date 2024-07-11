@@ -1,6 +1,4 @@
-﻿using Pomodorek.Interfaces;
-
-namespace Pomodorek.Services;
+﻿namespace Pomodorek.Services;
 
 public class SettingsService : ISettingsService
 {

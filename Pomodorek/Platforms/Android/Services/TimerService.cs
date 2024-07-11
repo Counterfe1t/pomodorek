@@ -2,7 +2,6 @@
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Pomodorek.Interfaces;
 using Pomodorek.Platforms.Android.Receivers;
 using Pomodorek.Platforms.Android.Services;
 
