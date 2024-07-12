@@ -23,7 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Pomodorek\Pomodorek.csproj" />
+		<ProjectReference Include="..\..\src\Pomodorek\Pomodorek.csproj" />
 	</ItemGroup>
 
 </Project>
