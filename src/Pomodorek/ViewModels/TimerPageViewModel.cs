@@ -134,7 +134,7 @@ public partial class TimerPageViewModel : BaseViewModel
 
     private void OnTick()
     {
-        int secondsRemaining = (int)Session.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
+        var secondsRemaining = (int)Session.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
         if (secondsRemaining > 0)
         {
             UpdateTimer(secondsRemaining);
