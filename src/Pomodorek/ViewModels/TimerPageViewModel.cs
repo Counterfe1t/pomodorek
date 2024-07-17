@@ -19,7 +19,7 @@ public partial class TimerPageViewModel : BaseViewModel
     /// Seconds remaining until the end of the current interval.
     /// </summary>
     [ObservableProperty]
-    private int _time;
+    private int _secondsRemaining;
 
     /// <summary>
     /// Session currently in progress.
@@ -61,7 +61,7 @@ public partial class TimerPageViewModel : BaseViewModel
     private void Start()
     {
         State = TimerStateEnum.Running;
-        Session.TriggerAlarmAt = _dateTimeService.UtcNow.AddSeconds(Time).AddSeconds(1);
+        Session.TriggerAlarmAt = _dateTimeService.UtcNow.AddSeconds(SecondsRemaining + 1);
 
         _sessionService.StartInterval(Session);
         _timerService.Start(OnTick);
@@ -95,7 +95,7 @@ public partial class TimerPageViewModel : BaseViewModel
 
         if (IsStopped)
         {
-            UpdateTimer();
+            UpdateClock();
 
             _sessionService.SaveSession(Session);
 
@@ -111,12 +111,12 @@ public partial class TimerPageViewModel : BaseViewModel
     [RelayCommand]
     private void CloseSessionDetailsPopup() => _popupService.ClosePopup(_popup);
 
-    public void UpdateTimer(int? secondsRemaining = null)
+    public void UpdateClock(int? secondsRemaining = null)
     {
         if (!secondsRemaining.HasValue || secondsRemaining.Value < 0)
-            Time = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
+            SecondsRemaining = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
         else
-            Time = secondsRemaining.Value;
+            SecondsRemaining = secondsRemaining.Value;
     }
 
     public async Task CheckAndRequestPermissionsAsync() =>
@@ -129,7 +129,7 @@ public partial class TimerPageViewModel : BaseViewModel
         _timerService.Stop(isStoppedManually);
         _sessionService.SaveSession(Session);
 
-        UpdateTimer();
+        UpdateClock();
     }
 
     private void OnTick()
@@ -137,7 +137,7 @@ public partial class TimerPageViewModel : BaseViewModel
         var secondsRemaining = (int)Session.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
         if (secondsRemaining > 0)
         {
-            UpdateTimer(secondsRemaining);
+            UpdateClock(secondsRemaining);
             return;
         }
 

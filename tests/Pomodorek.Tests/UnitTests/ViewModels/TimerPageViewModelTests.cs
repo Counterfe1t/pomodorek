@@ -194,8 +194,11 @@ public class TimerPageViewModelTests
     }
 
     [Theory]
-    [MemberData(nameof(UpdateTimerTestData))]
-    public void UpdateTimer_ShouldSetExpectedTimeValue(int? value, int expectedValue, int invocations)
+    [MemberData(nameof(UpdateClockTestData))]
+    public void UpdateClock_ShouldSetExpectedSecondsRemainingValue(
+        int? value,
+        int expectedValue,
+        int invocations)
     {
         // arrange
         _sessionServiceMock
@@ -203,16 +206,16 @@ public class TimerPageViewModelTests
             .Returns(expectedValue);
 
         // act
-        _viewModel.UpdateTimer(value);
+        _viewModel.UpdateClock(value);
 
         // assert
-        Assert.Equal(expectedValue, _viewModel.Time);
+        Assert.Equal(expectedValue, _viewModel.SecondsRemaining);
 
         _sessionServiceMock
             .Verify(x => x.GetIntervalLengthInSec(_viewModel.Session.CurrentInterval), Times.Exactly(invocations));
     }
 
-    public static TheoryData<int?, int, int> UpdateTimerTestData =>
+    public static TheoryData<int?, int, int> UpdateClockTestData =>
         new()
         {
             { 1337, 1337, 0 },
