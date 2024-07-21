@@ -82,7 +82,7 @@ public class TimerService : Service, ITimerService
 
     private void DisplayProgressNotification()
     {
-        string serializedNotification = _settingsService.Get(nameof(NotificationModel), string.Empty);
+        var serializedNotification = _settingsService.Get(nameof(NotificationModel), string.Empty);
         var notification = JsonSerializer.Deserialize<NotificationModel>(serializedNotification);
         
         notification.Content = Constants.Messages.TimerIsRunning;
@@ -94,7 +94,7 @@ public class TimerService : Service, ITimerService
         Task.Run(async () =>
         {
             var token = _token;
-            int secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
+            var secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
 
             while (secondsRemaining > 0 && !token.IsCancellationRequested)
             {
@@ -112,9 +112,8 @@ public class TimerService : Service, ITimerService
     [SuppressMessage("Interoperability", "CA1416:Validate platform compatibility")]
     private void SetAlarm()
     {
-        string serializedNotification = _settingsService.Get(nameof(NotificationModel), string.Empty);
+        var serializedNotification = _settingsService.Get(nameof(NotificationModel), string.Empty);
         var notification = JsonSerializer.Deserialize<NotificationModel>(serializedNotification);
-
         var triggerAlarmAtMs = (long)notification
             .TriggerAlarmAt
             .ToUniversalTime()
@@ -123,7 +122,6 @@ public class TimerService : Service, ITimerService
 
         var intent = new Intent(MainActivity.ActivityCurrent, typeof(AlarmReceiver));
         var pendingIntent = PendingIntent.GetBroadcast(MainActivity.ActivityCurrent, 1, intent, PendingIntentFlags.Immutable);
-
         var alarmManager = (AlarmManager)MainActivity.ActivityCurrent.GetSystemService(AlarmService);
 
         if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
