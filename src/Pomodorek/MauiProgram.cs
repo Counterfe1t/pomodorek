@@ -46,6 +46,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<ISessionService, SessionService>();
         builder.Services.AddSingleton<IPopupService, PopupService>();
         builder.Services.AddSingleton<IApplicationService, ApplicationService>();
+        builder.Services.AddSingleton<IMainThreadService, MainThreadService>();
 #endif
         return builder;
     }
