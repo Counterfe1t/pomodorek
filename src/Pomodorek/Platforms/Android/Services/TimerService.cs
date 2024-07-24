@@ -18,9 +18,9 @@ public class TimerService : Service, ITimerService
 
     public TimerService()
     {
-        _notificationService = ServiceHelper.GetService<INotificationService>();
-        _settingsService = ServiceHelper.GetService<ISettingsService>();
-        _dateTimeService = ServiceHelper.GetService<IDateTimeService>();
+        _notificationService = Platforms.Android.Services.ServiceProvider.GetService<INotificationService>();
+        _settingsService = Platforms.Android.Services.ServiceProvider.GetService<ISettingsService>();
+        _dateTimeService = Platforms.Android.Services.ServiceProvider.GetService<IDateTimeService>();
 
         _token = new CancellationTokenSource();
     }

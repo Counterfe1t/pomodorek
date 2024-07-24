@@ -12,9 +12,9 @@ public class AlarmReceiver : BroadcastReceiver
 
     public AlarmReceiver()
     {
-        _notificationService = ServiceHelper.GetService<INotificationService>();
-        _settingsService = ServiceHelper.GetService<ISettingsService>();
-        _mainThreadService = ServiceHelper.GetService<IMainThreadService>();
+        _notificationService = Services.ServiceProvider.GetService<INotificationService>();
+        _settingsService = Services.ServiceProvider.GetService<ISettingsService>();
+        _mainThreadService = Services.ServiceProvider.GetService<IMainThreadService>();
     }
 
     public override void OnReceive(Context context, Intent intent) =>
