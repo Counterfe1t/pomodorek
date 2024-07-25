@@ -3,18 +3,21 @@
 public class SessionService : BaseSessionService
 {
     private readonly INotificationService _notificationService;
+    private readonly IMainThreadService _mainThreadService;
 
     public SessionService(
         IConfigurationService configurationService,
         ISettingsService settingsService,
         INotificationService notificationService,
-        ISoundService soundService)
+        ISoundService soundService,
+        IMainThreadService mainThreadService)
         : base(
             configurationService,
             settingsService,
             soundService)
     {
         _notificationService = notificationService;
+        _mainThreadService = mainThreadService;
     }
 
     public override void StartInterval(SessionModel session) => PlaySound(Constants.Sounds.IntervalStart);
@@ -39,10 +42,11 @@ public class SessionService : BaseSessionService
     }
 
     private void DisplayNotification(string content) =>
-        Task.Run(async () => await _notificationService.DisplayNotificationAsync(new NotificationModel
-        {
-            Content = content
-        }));
+        _mainThreadService.BeginInvokeOnMainThread(async () =>
+            await _notificationService.DisplayNotificationAsync(new NotificationModel
+            {
+                Content = content
+            }));
 
     private void FinishWorkInterval(SessionModel session)
     {

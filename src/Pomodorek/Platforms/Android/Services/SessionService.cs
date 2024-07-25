@@ -23,7 +23,7 @@ public class SessionService : BaseSessionService
         _settingsService.Set(nameof(NotificationModel), JsonSerializer.Serialize(new NotificationModel
         {
             Id = 2137,
-            Title = session.CurrentInterval.ToString(),
+            Title = GetIntervalTitle(session.CurrentInterval),
             Content = GetIntervalFinishedMessage(session),
             TriggerAlarmAt = session.TriggerAlarmAt,
             MaxProgress = GetIntervalLengthInSec(session.CurrentInterval)
@@ -61,4 +61,23 @@ public class SessionService : BaseSessionService
                 break;
         }
     }
+
+    private string GetIntervalFinishedMessage(SessionModel session)
+    {
+        if (session.CurrentInterval != IntervalEnum.Work)
+            return Constants.Messages.Work;
+
+        return session.WorkIntervalsCount % 4 == 3
+            ? Constants.Messages.LongRest
+            : Constants.Messages.ShortRest;
+    }
+
+    private string GetIntervalTitle(IntervalEnum interval) =>
+        interval switch
+        {
+            IntervalEnum.Work => Constants.Labels.Work,
+            IntervalEnum.ShortRest => Constants.Labels.ShortRest,
+            IntervalEnum.LongRest => Constants.Labels.LongRest,
+            _ => string.Empty
+        };
 }

@@ -3,11 +3,11 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Pomodorek.Platforms.Android.Receivers;
-using Pomodorek.Platforms.Android.Services;
 
 namespace Pomodorek.Services;
 
 [Service]
+[SuppressMessage("Interoperability", "CA1416:Validate platform compatibility")]
 public class TimerService : Service, ITimerService
 {
     private CancellationTokenSource _token;
@@ -28,7 +28,7 @@ public class TimerService : Service, ITimerService
     public void Start(Action callback)
     {
         StartForegroundService();
-        SetAlarm();
+        ScheduleAlarm();
 
         var token = _token;
         Task.Run(async () =>
@@ -70,14 +70,14 @@ public class TimerService : Service, ITimerService
 
     private void StartForegroundService()
     {
-        var startIntent = new Intent(MainActivity.ActivityCurrent, typeof(TimerService));
-        MainActivity.ActivityCurrent.StartService(startIntent);
+        var intent = new Intent(MainActivity.ActivityCurrent, typeof(TimerService));
+        MainActivity.ActivityCurrent.StartService(intent);
     }
 
     private void StopForegroundService()
     {
-        var stopIntent = new Intent(MainActivity.ActivityCurrent, typeof(TimerService));
-        MainActivity.ActivityCurrent.StopService(stopIntent);
+        var intent = new Intent(MainActivity.ActivityCurrent, typeof(TimerService));
+        MainActivity.ActivityCurrent.StopService(intent);
     }
 
     private void DisplayProgressNotification()
@@ -109,8 +109,7 @@ public class TimerService : Service, ITimerService
         });
     }
 
-    [SuppressMessage("Interoperability", "CA1416:Validate platform compatibility")]
-    private void SetAlarm()
+    private void ScheduleAlarm()
     {
         var serializedNotification = _settingsService.Get(nameof(NotificationModel), string.Empty);
         var notification = JsonSerializer.Deserialize<NotificationModel>(serializedNotification);

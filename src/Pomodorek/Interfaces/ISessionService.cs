@@ -27,13 +27,6 @@ public interface ISessionService
     void FinishInterval(SessionModel session);
 
     /// <summary>
-    /// Get interval length value in minutes.
-    /// </summary>
-    /// <param name="interval"><see cref="IntervalEnum" /> enum representing interval type.</param>
-    /// <returns>Integer value representing interval length in minutes.</returns>
-    int GetIntervalLengthInMin(IntervalEnum interval);
-
-    /// <summary>
     /// Get interval length value in seconds.
     /// </summary>
     /// <param name="interval"><see cref="IntervalEnum" /> enum representing interval type.</param>
