@@ -64,12 +64,14 @@ public class SessionService : BaseSessionService
 
     private string GetIntervalFinishedMessage(SessionModel session)
     {
+        var notificationTime = session.TriggerAlarmAt.ToLocalTime().ToString("HH:mm");
+
         if (session.CurrentInterval != IntervalEnum.Work)
-            return Constants.Messages.Work;
+            return StringParser.Parse(notificationTime, Constants.Messages.Work);
 
         return session.WorkIntervalsCount % 4 == 3
-            ? Constants.Messages.LongRest
-            : Constants.Messages.ShortRest;
+            ? StringParser.Parse(notificationTime, Constants.Messages.LongRest)
+            : StringParser.Parse(notificationTime, Constants.Messages.ShortRest);
     }
 
     private string GetIntervalTitle(IntervalEnum interval) =>

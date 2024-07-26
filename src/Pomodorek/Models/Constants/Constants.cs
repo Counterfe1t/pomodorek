@@ -31,14 +31,14 @@ public static class Constants
     {
         public const string Work = "Work";
         public const string ShortRest = "Rest";
-        public const string LongRest = "Long rest";
+        public const string LongRest = "Long Rest";
     }
 
     public class Messages
     {
-        public const string Work = "Get back to work.";
-        public const string ShortRest = "Take a short break.";
-        public const string LongRest = "Take a long break.";
+        public const string Work = "Timer finished at {{value}}. Get back to work.";
+        public const string ShortRest = "Timer finished at {{value}}. Take a short break.";
+        public const string LongRest = "Timer finished at {{value}}. Take a long break.";
         public const string SessionOver = "Session has ended.";
         public const string SettingsSaved = "Settings have been saved.";
         public const string SettingsRestored = "Default settings have been restored.";

@@ -52,15 +52,18 @@ public class SessionService : BaseSessionService
     {
         session.WorkIntervalsCount++;
 
-        if (session.IsLongRest)
-        {
-            session.CurrentInterval = IntervalEnum.LongRest;
-            DisplayNotification(Constants.Messages.LongRest);
-            return;
-        }
+        session.CurrentInterval = session.IsLongRest
+            ? IntervalEnum.LongRest
+            : IntervalEnum.ShortRest;
 
-        session.CurrentInterval = IntervalEnum.ShortRest;
-        DisplayNotification(Constants.Messages.ShortRest);
+        var notificationContent = session.IsLongRest
+            ? Constants.Messages.LongRest
+            : Constants.Messages.ShortRest;
+
+        DisplayNotification(
+            StringParser.Parse(
+                session.TriggerAlarmAt.ToLocalTime().ToString("HH:mm"),
+                notificationContent));
     }
 
     private void FinishRestInterval(SessionModel session)
@@ -71,6 +74,10 @@ public class SessionService : BaseSessionService
             session.LongRestIntervalsCount++;
 
         session.CurrentInterval = IntervalEnum.Work;
-        DisplayNotification(Constants.Messages.Work);
+
+        DisplayNotification(
+            StringParser.Parse(
+                session.TriggerAlarmAt.ToLocalTime().ToString("HH:mm"),
+                Constants.Messages.Work));
     }
 }
