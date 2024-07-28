@@ -2,30 +2,22 @@
 
 public class TimerService : ITimerService
 {
-    private CancellationTokenSource _token;
+    private IDispatcherTimer _timer;
 
-    public TimerService()
+    private readonly Application _application;
+
+    public TimerService(IApplicationService applicationService)
     {
-        _token = new CancellationTokenSource();
+        _application = applicationService.Application;
     }
 
     public void Start(Action callback)
     {
-        var token = _token;
-        Task.Run(async () =>
-        {
-            while (!token.IsCancellationRequested)
-            {
-                await Task.Delay(Constants.OneSecondInMs);
-
-                if (token.IsCancellationRequested)
-                    return;
-
-                callback?.Invoke();
-            }
-        });
+        _timer = _application.Dispatcher.CreateTimer();
+        _timer.Tick += (sender, e) => callback?.Invoke();
+        _timer.Interval = TimeSpan.FromMilliseconds(Constants.OneSecondInMs);
+        _timer.Start();
     }
 
-    public void Stop(bool isStoppedManually) =>
-        Interlocked.Exchange(ref _token, new CancellationTokenSource()).Cancel();
+    public void Stop(bool isStoppedManually) => _timer?.Stop();
 }
