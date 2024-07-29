@@ -20,14 +20,16 @@ public class SessionService : BaseSessionService
     {
         PlaySound(Constants.Sounds.IntervalStart);
 
-        _settingsService.Set(nameof(NotificationModel), JsonSerializer.Serialize(new NotificationModel
-        {
-            Id = 2137,
-            Title = GetIntervalTitle(session.CurrentInterval),
-            Content = GetIntervalFinishedMessage(session),
-            TriggerAlarmAt = session.TriggerAlarmAt,
-            MaxProgress = GetIntervalLengthInSec(session.CurrentInterval)
-        }));
+        _settingsService.Set(
+            nameof(NotificationModel),
+            JsonSerializer.Serialize(new NotificationModel
+            {
+                Id = 2137,
+                Title = GetIntervalTitle(session.CurrentInterval),
+                Content = GetIntervalFinishedMessage(session),
+                TriggerAlarmAt = session.TriggerAlarmAt,
+                MaxProgress = GetIntervalLengthInSec(session.CurrentInterval)
+            }));
     }
 
     public override void FinishInterval(SessionModel session)
