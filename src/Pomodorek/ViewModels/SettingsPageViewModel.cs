@@ -2,15 +2,19 @@
 
 public partial class SettingsPageViewModel : BaseViewModel
 {
-    [ObservableProperty]
     private bool _isChangePending;
-
     private bool _isDarkThemeEnabled;
     private bool _isSoundEnabled;
     private float _soundVolume;
     private int _workLengthInMin;
     private int _shortRestLengthInMin;
     private int _longRestLengthInMin;
+
+    public bool IsChangePending
+    {
+        get => _isChangePending;
+        set => SetProperty(ref _isChangePending, value);
+    }
 
     public bool IsDarkThemeEnabled
     {
