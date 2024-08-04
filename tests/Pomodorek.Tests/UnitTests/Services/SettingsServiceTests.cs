@@ -16,7 +16,7 @@ public class SettingsServiceTests
     }
 
     [Fact]
-    public void Get_GetsSettingsFromStorage()
+    public void Get_ShouldGetSettingsFromStorage()
     {
         // arrange
         _preferencesMock
@@ -33,7 +33,7 @@ public class SettingsServiceTests
     }
 
     [Fact]
-    public void Set_SetsSettingsToStorage()
+    public void Set_ShouldSetSettingsToStorage()
     {
         // act
         _settingsService.Set(Constants.Settings.WorkLengthInMin, Value);
