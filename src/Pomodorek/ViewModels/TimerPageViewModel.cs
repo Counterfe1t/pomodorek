@@ -61,6 +61,8 @@ public partial class TimerPageViewModel : BaseViewModel
     private void Start()
     {
         State = TimerStateEnum.Running;
+
+        // One second is added to display full interval length throughout the first second of the interval
         Session.TriggerAlarmAt = _dateTimeService.UtcNow.AddSeconds(SecondsRemaining + 1);
 
         _sessionService.StartInterval(Session);
@@ -79,6 +81,7 @@ public partial class TimerPageViewModel : BaseViewModel
     [RelayCommand]
     private void Stop()
     {
+        // Do not stop the timer if it is already stopped
         if (IsStopped)
             return;
 
@@ -88,21 +91,21 @@ public partial class TimerPageViewModel : BaseViewModel
     [RelayCommand]
     private async Task Reset()
     {
+        // Prompt user with confirm dialog before reseting the session
         if (!await _alertService.DisplayConfirmAsync(Title, Constants.Messages.ResetSession))
             return;
 
+        // Reset session to default
         Session = BaseSessionService.GetNewSession;
 
+        // Do not stop the timer if it is already stopped
         if (IsStopped)
         {
             UpdateClock();
-
             _sessionService.SaveSession(Session);
-
-            return;
         }
-
-        StopTimer(true);
+        else
+            StopTimer(true);
     }
 
     [RelayCommand]
@@ -128,21 +131,20 @@ public partial class TimerPageViewModel : BaseViewModel
 
         _timerService.Stop(isStoppedManually);
         _sessionService.SaveSession(Session);
-
         UpdateClock();
     }
 
     private void OnTick()
     {
+        // Calculate remaining seconds until the end of current interval
         var secondsRemaining = (int)Session.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
+
         if (secondsRemaining > 0)
-        {
             UpdateClock(secondsRemaining);
-            return;
+        else
+        {
+            _sessionService.FinishInterval(Session);
+            StopTimer(false);
         }
-
-        _sessionService.FinishInterval(Session);
-
-        StopTimer(false);
     }
 }
