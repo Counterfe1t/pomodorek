@@ -14,6 +14,7 @@ public class TimerService : ITimerService
     public void Start(Action callback)
     {
         _timer = _application.Dispatcher.CreateTimer();
+        _timer.IsRepeating = true;
         _timer.Tick += (sender, e) => callback?.Invoke();
         _timer.Interval = TimeSpan.FromMilliseconds(Constants.OneSecondInMs);
         _timer.Start();
