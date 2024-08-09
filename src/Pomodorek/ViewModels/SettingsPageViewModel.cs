@@ -2,6 +2,13 @@
 
 public partial class SettingsPageViewModel : BaseViewModel
 {
+    private readonly ISettingsService _settingsService;
+    private readonly IAlertService _alertService;
+    private readonly INavigationService _navigationService;
+
+    private readonly AppSettings _appSettings;
+    private readonly Application _application;
+
     private bool _isChangePending;
     private bool _isDarkThemeEnabled;
     private bool _isSoundEnabled;
@@ -51,13 +58,6 @@ public partial class SettingsPageViewModel : BaseViewModel
         get => _longRestLengthInMin;
         set { if (SetProperty(ref _longRestLengthInMin, value)) IsChangePending = true; }
     }
-
-    private readonly ISettingsService _settingsService;
-    private readonly IAlertService _alertService;
-    private readonly INavigationService _navigationService;
-
-    private readonly AppSettings _appSettings;
-    private readonly Application _application;
 
     public SettingsPageViewModel(
         ISettingsService settingsService,

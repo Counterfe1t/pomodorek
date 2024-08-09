@@ -2,6 +2,13 @@
 
 public partial class TimerPageViewModel : BaseViewModel
 {
+    private readonly ITimerService _timerService;
+    private readonly IDateTimeService _dateTimeService;
+    private readonly IPermissionsService _permissionsService;
+    private readonly ISessionService _sessionService;
+    private readonly IPopupService _popupService;
+    private readonly IAlertService _alertService;
+
     /// <summary>
     /// Popup for displaying <see cref="SessionModel" /> details.
     /// </summary>
@@ -30,13 +37,6 @@ public partial class TimerPageViewModel : BaseViewModel
     public bool IsRunning => State == TimerStateEnum.Running;
 
     public bool IsStopped => State == TimerStateEnum.Stopped;
-
-    private readonly ITimerService _timerService;
-    private readonly IDateTimeService _dateTimeService;
-    private readonly IPermissionsService _permissionsService;
-    private readonly ISessionService _sessionService;
-    private readonly IPopupService _popupService;
-    private readonly IAlertService _alertService;
 
     public TimerPageViewModel(
         ITimerService timerService,
