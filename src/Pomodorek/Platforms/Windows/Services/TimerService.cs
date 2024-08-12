@@ -13,6 +13,9 @@ public class TimerService : ITimerService
 
     public void Start(Action callback)
     {
+        if (_timer is not null && _timer.IsRunning)
+            return;
+
         _timer = _application.Dispatcher.CreateTimer();
         _timer.IsRepeating = true;
         _timer.Tick += (sender, e) => callback?.Invoke();
@@ -20,5 +23,9 @@ public class TimerService : ITimerService
         _timer.Start();
     }
 
-    public void Stop(bool isStoppedManually) => _timer?.Stop();
+    public void Stop(bool isStoppedManually)
+    {
+        _timer?.Stop();
+        _timer = null;
+    }
 }
