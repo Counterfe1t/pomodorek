@@ -57,6 +57,17 @@ public partial class TimerPageViewModel : BaseViewModel
         Session = sessionService.GetSession();
     }
 
+    public void UpdateClock(int? secondsRemaining = null)
+    {
+        if (!secondsRemaining.HasValue || secondsRemaining.Value < 0)
+            SecondsRemaining = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
+        else
+            SecondsRemaining = secondsRemaining.Value;
+    }
+
+    public async Task CheckAndRequestPermissionsAsync() =>
+        await _permissionsService.CheckAndRequestPermissionsAsync();
+
     [RelayCommand]
     private void Start()
     {
@@ -113,17 +124,6 @@ public partial class TimerPageViewModel : BaseViewModel
 
     [RelayCommand]
     private void CloseSessionDetailsPopup() => _popupService.ClosePopup(_popup);
-
-    public void UpdateClock(int? secondsRemaining = null)
-    {
-        if (!secondsRemaining.HasValue || secondsRemaining.Value < 0)
-            SecondsRemaining = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
-        else
-            SecondsRemaining = secondsRemaining.Value;
-    }
-
-    public async Task CheckAndRequestPermissionsAsync() =>
-        await _permissionsService.CheckAndRequestPermissionsAsync();
 
     private void StopTimer(bool isStoppedManually)
     {
