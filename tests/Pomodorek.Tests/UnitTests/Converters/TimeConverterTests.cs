@@ -14,7 +14,7 @@ public class TimeConverterTests
     [InlineData(90, "01:30")]
     [InlineData(0, "00:00")]
     [InlineData(1337, "22:17")]
-    public void Convert_ReturnsExcpectedResult(int received, string expected)
+    public void Convert_ShouldReturnExcpectedResult(int received, string expected)
     {
         // act
         var result = _converter.Convert(
@@ -28,7 +28,7 @@ public class TimeConverterTests
     }
 
     [Fact]
-    public void ConvertBack_ThrowsNotImplementedException()
+    public void ConvertBack_ShouldThrowNotImplementedException()
     {
         // assert
         Assert.Throws<NotImplementedException>(() => _converter.ConvertBack(

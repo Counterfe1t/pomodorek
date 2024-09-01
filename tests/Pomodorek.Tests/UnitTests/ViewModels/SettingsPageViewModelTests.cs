@@ -45,7 +45,7 @@ public class SettingsPageViewModelTests
     }
 
     [Fact]
-    public void InitializeSettings_InitializesProperties()
+    public void InitializeSettings_ShouldInitializeProperties()
     {
         // act
         _viewModel.InitializeSettings();
@@ -66,7 +66,7 @@ public class SettingsPageViewModelTests
     }
 
     [Fact]
-    public void SaveSettings_SavesSettingsToStorage()
+    public void SaveSettings_ShouldSaveSettingsToStorage()
     {
         // act
         _viewModel.SaveSettingsCommand.Execute(null);
@@ -91,7 +91,7 @@ public class SettingsPageViewModelTests
     }
 
     [Fact]
-    public void RestoreDefaultSettings_ActionWasCanceled_DoesNotRestoreDefaultSettings()
+    public void RestoreDefaultSettings_ActionWasCanceled_ShouldNotRestoreDefaultSettings()
     {
         // arrange
         _alertServiceMock
@@ -119,7 +119,7 @@ public class SettingsPageViewModelTests
     }
 
     [Fact]
-    public void RestoreDefaultSettings_ActionWasNotCanceled_RestoresDefaultSettings()
+    public void RestoreDefaultSettings_ActionWasNotCanceled_ShouldRestoreDefaultSettings()
     {
         // arrange
         _alertServiceMock

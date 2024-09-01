@@ -14,7 +14,7 @@ public class IntervalConverterTests
     [InlineData(IntervalEnum.ShortRest, Constants.Labels.ShortRest)]
     [InlineData(IntervalEnum.LongRest, Constants.Labels.LongRest)]
     [InlineData((IntervalEnum)1337, "")]
-    public void Convert_ReturnsExcpectedResult(
+    public void Convert_ShouldReturnExcpectedResult(
         IntervalEnum received,
         string expected)
     {
@@ -30,7 +30,7 @@ public class IntervalConverterTests
     }
 
     [Fact]
-    public void ConvertBack_ThrowsNotImplementedException()
+    public void ConvertBack_ShouldThrowNotImplementedException()
     {
         // assert
         Assert.Throws<NotImplementedException>(() => _converter.ConvertBack(

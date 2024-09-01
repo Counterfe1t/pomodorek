@@ -32,7 +32,7 @@ public class SoundServiceTests
     }
 
     [Fact]
-    public async Task PlaySoundAsync_SoundIsEnabled_PlaysSound()
+    public async Task PlaySoundAsync_SoundIsEnabled_ShouldPlaySound()
     {
         // arrange
         var audioStream = new MemoryStream(Encoding.UTF8.GetBytes(string.Empty));
@@ -58,7 +58,7 @@ public class SoundServiceTests
     }
 
     [Fact]
-    public async Task PlaySoundAsync_SoundIsDisabled_DoesNotPlaySound()
+    public async Task PlaySoundAsync_SoundIsDisabled_ShouldNotPlaySound()
     {
         // arrange
         var audioStream = new MemoryStream(Encoding.UTF8.GetBytes(string.Empty));

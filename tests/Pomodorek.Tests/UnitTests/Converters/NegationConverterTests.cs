@@ -13,7 +13,7 @@ public class NegationConverterTests
     [InlineData(null, false)]
     [InlineData(false, true)]
     [InlineData(true, false)]
-    public void Convert_ReturnsExcpectedResult(bool? received, bool expected)
+    public void Convert_ShouldReturnExcpectedResult(bool? received, bool expected)
     {
         // act
         var result = _converter.Convert(
@@ -27,7 +27,7 @@ public class NegationConverterTests
     }
 
     [Fact]
-    public void ConvertBack_ThrowsNotImplementedException()
+    public void ConvertBack_ShouldThrowNotImplementedException()
     {
         // assert
         Assert.Throws<NotImplementedException>(() => _converter.ConvertBack(
