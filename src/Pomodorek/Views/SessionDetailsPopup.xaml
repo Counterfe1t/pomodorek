@@ -86,8 +86,9 @@
                     Grid.Row="6"
                     Grid.ColumnSpan="2"
                     HorizontalOptions="Center"
-                    Text="CLOSE"
-                    BackgroundColor="{StaticResource Primary}"
+                    Text="OK"
+                    FontSize="15"
+                    BackgroundColor="{StaticResource Gray900}"
                     TextColor="{StaticResource White}"
                     Command="{Binding CloseSessionDetailsPopupCommand}" />
             </Grid>
