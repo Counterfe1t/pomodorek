@@ -120,10 +120,17 @@ public partial class TimerPageViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    private void ShowSessionDetailsPopup() => _popup = _popupService.ShowSessionDetailsPopup();
+    private void ShowSessionDetailsPopup()
+    {
+        _popup ??= _popupService.ShowSessionDetailsPopup();
+    }
 
     [RelayCommand]
-    private void CloseSessionDetailsPopup() => _popupService.ClosePopup(_popup);
+    private void CloseSessionDetailsPopup()
+    {
+        _popupService.ClosePopup(_popup);
+        _popup = null;
+    }
 
     private void StopTimer(bool isStoppedManually)
     {

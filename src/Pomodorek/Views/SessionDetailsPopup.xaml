@@ -82,15 +82,19 @@
                 <!--6th row is empty-->
 
                 <!--7th row-->
-                <Button
+                <StackLayout
                     Grid.Row="6"
                     Grid.ColumnSpan="2"
-                    HorizontalOptions="Center"
-                    Text="OK"
-                    FontSize="15"
-                    BackgroundColor="{StaticResource Gray900}"
-                    TextColor="{StaticResource White}"
-                    Command="{Binding CloseSessionDetailsPopupCommand}" />
+                    HeightRequest="60"
+                    WidthRequest="60">
+                    <Button
+                        VerticalOptions="CenterAndExpand"
+                        Text="OK"
+                        FontSize="15"
+                        FontAttributes="{OnPlatform Android=Bold}"
+                        TextColor="{StaticResource Primary}"
+                        Command="{Binding CloseSessionDetailsPopupCommand}" />
+                </StackLayout>
             </Grid>
         </Frame>
     </VerticalStackLayout>
