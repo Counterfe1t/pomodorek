@@ -7,6 +7,6 @@ public class MainThreadService : IMainThreadService
         if (MainThread.IsMainThread)
             action.Invoke();
         else
-            MainThread.BeginInvokeOnMainThread(() => action.Invoke());
+            MainThread.BeginInvokeOnMainThread(action);
     }
 }
