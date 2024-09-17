@@ -92,7 +92,6 @@
                         Text="OK"
                         FontSize="15"
                         FontAttributes="{OnPlatform Android=Bold}"
-                        TextColor="{StaticResource Primary}"
                         Command="{Binding CloseSessionDetailsPopupCommand}" />
                 </StackLayout>
             </Grid>

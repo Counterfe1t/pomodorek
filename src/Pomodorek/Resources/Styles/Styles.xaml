@@ -45,7 +45,7 @@
         TargetType="Button">
         <Setter
             Property="TextColor"
-            Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+            Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         <Setter
             Property="BackgroundColor"
             Value="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray900}}" />
