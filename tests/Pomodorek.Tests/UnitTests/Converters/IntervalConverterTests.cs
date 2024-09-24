@@ -2,11 +2,11 @@
 
 public class IntervalConverterTests
 {
-    private readonly IntervalConverter _converter;
+    private readonly IntervalConverter _cut;
 
     public IntervalConverterTests()
     {
-        _converter = new IntervalConverter();
+        _cut = ClassUnderTest.Is<IntervalConverter>();
     }
 
     [Theory]
@@ -19,7 +19,7 @@ public class IntervalConverterTests
         string expected)
     {
         // act
-        var result = _converter.Convert(
+        var result = _cut.Convert(
             received,
             It.IsAny<Type>(),
             It.IsAny<object>(),
@@ -33,7 +33,7 @@ public class IntervalConverterTests
     public void ConvertBack_ShouldThrowNotImplementedException()
     {
         // assert
-        Assert.Throws<NotImplementedException>(() => _converter.ConvertBack(
+        Assert.Throws<NotImplementedException>(() => _cut.ConvertBack(
             It.IsAny<object>(),
             It.IsAny<Type>(),
             It.IsAny<object>(),

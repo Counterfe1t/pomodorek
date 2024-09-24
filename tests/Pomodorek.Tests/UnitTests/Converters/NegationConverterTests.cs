@@ -2,11 +2,11 @@
 
 public class NegationConverterTests
 {
-    private readonly NegationConverter _converter;
+    private readonly NegationConverter _cut;
 
     public NegationConverterTests()
     {
-        _converter = new NegationConverter();
+        _cut = ClassUnderTest.Is<NegationConverter>();
     }
 
     [Theory]
@@ -16,7 +16,7 @@ public class NegationConverterTests
     public void Convert_ShouldReturnExcpectedResult(bool? received, bool expected)
     {
         // act
-        var result = _converter.Convert(
+        var result = _cut.Convert(
             received,
             It.IsAny<Type>(),
             It.IsAny<object>(),
@@ -30,7 +30,7 @@ public class NegationConverterTests
     public void ConvertBack_ShouldThrowNotImplementedException()
     {
         // assert
-        Assert.Throws<NotImplementedException>(() => _converter.ConvertBack(
+        Assert.Throws<NotImplementedException>(() => _cut.ConvertBack(
             It.IsAny<object>(),
             It.IsAny<Type>(),
             It.IsAny<object>(),

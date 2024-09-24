@@ -2,11 +2,11 @@
 
 public class TimeConverterTests
 {
-    private readonly TimeConverter _converter;
+    private readonly TimeConverter _cut;
 
     public TimeConverterTests()
     {
-        _converter = new TimeConverter();
+        _cut = ClassUnderTest.Is<TimeConverter>();
     }
 
     [Theory]
@@ -17,7 +17,7 @@ public class TimeConverterTests
     public void Convert_ShouldReturnExcpectedResult(int received, string expected)
     {
         // act
-        var result = _converter.Convert(
+        var result = _cut.Convert(
             received,
             It.IsAny<Type>(),
             It.IsAny<object>(),
@@ -31,7 +31,7 @@ public class TimeConverterTests
     public void ConvertBack_ShouldThrowNotImplementedException()
     {
         // assert
-        Assert.Throws<NotImplementedException>(() => _converter.ConvertBack(
+        Assert.Throws<NotImplementedException>(() => _cut.ConvertBack(
             It.IsAny<object>(),
             It.IsAny<Type>(),
             It.IsAny<object>(),
