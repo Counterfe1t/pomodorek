@@ -4,7 +4,7 @@ public class SettingsServiceTests
 {
     private const int Value = 1337;
 
-    private readonly ISettingsService _settingsService;
+    private readonly ISettingsService _cut;
 
     private readonly Mock<IPreferences> _preferencesMock;
 
@@ -12,7 +12,7 @@ public class SettingsServiceTests
     {
         _preferencesMock = new();
 
-        _settingsService = new SettingsService(_preferencesMock.Object);
+        _cut = ClassUnderTest.Is<SettingsService>(_preferencesMock.Object);
     }
 
     [Fact]
@@ -24,7 +24,7 @@ public class SettingsServiceTests
             .Returns(Value);
 
         // act
-        var result = _settingsService.Get(Constants.Settings.WorkLengthInMin, Value);
+        var result = _cut.Get(Constants.Settings.WorkLengthInMin, Value);
 
         // assert
         Assert.Equal(Value, result);
@@ -36,7 +36,7 @@ public class SettingsServiceTests
     public void Set_ShouldSetSettingsToStorage()
     {
         // act
-        _settingsService.Set(Constants.Settings.WorkLengthInMin, Value);
+        _cut.Set(Constants.Settings.WorkLengthInMin, Value);
 
         // assert
         _preferencesMock.Verify(x => x.Set(Constants.Settings.WorkLengthInMin, Value, null), Times.Once);
