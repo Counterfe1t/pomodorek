@@ -2,7 +2,7 @@
 
 public class SoundServiceTests
 {
-    private readonly ISoundService _soundService;
+    private readonly ISoundService _cut;
 
     private readonly Mock<IAudioManager> _audioManagerMock;
     private readonly Mock<IFileSystem> _fileSystemMock;
@@ -24,7 +24,7 @@ public class SoundServiceTests
             .Setup(x => x.AppSettings)
             .Returns(_appSettings);
 
-        _soundService = new SoundService(
+        _cut = ClassUnderTest.Is<SoundService>(
             _audioManagerMock.Object,
             _fileSystemMock.Object,
             _settingsService.Object,
@@ -50,7 +50,7 @@ public class SoundServiceTests
             .Returns(_audioPlayerMock.Object);
 
         // act
-        await _soundService.PlaySoundAsync(It.IsAny<string>());
+        await _cut.PlaySoundAsync(It.IsAny<string>());
 
         // assert
         _audioManagerMock.Verify(x => x.CreatePlayer(It.IsAny<Stream>()), Times.Once);
@@ -76,7 +76,7 @@ public class SoundServiceTests
             .Returns(_audioPlayerMock.Object);
 
         // act
-        await _soundService.PlaySoundAsync(It.IsAny<string>());
+        await _cut.PlaySoundAsync(It.IsAny<string>());
 
         // assert
         _audioManagerMock.Verify(x => x.CreatePlayer(It.IsAny<Stream>()), Times.Never);
