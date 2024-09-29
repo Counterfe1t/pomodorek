@@ -1,4 +1,5 @@
-﻿namespace Pomodorek.ViewModels;
+﻿
+namespace Pomodorek.ViewModels;
 
 public partial class SettingsPageViewModel : BaseViewModel
 {
@@ -88,10 +89,16 @@ public partial class SettingsPageViewModel : BaseViewModel
         IsChangePending = false;
     }
 
-    // TODO Add simple validation (rest duration cannot be longer than focus duration)
     [RelayCommand]
     private async Task SaveSettingsAsync()
     {
+        if (!ValidateSettings())
+        {
+            await _alertService.DisplayAlertAsync(Constants.Pages.Settings, Constants.Validation.InvalidRestLength);
+
+            return;
+        }
+
         _application.UserAppTheme = IsDarkThemeEnabled
             ? AppTheme.Dark
             : AppTheme.Light;
@@ -110,6 +117,8 @@ public partial class SettingsPageViewModel : BaseViewModel
         await _alertService.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsSaved);
         await _navigationService.GoToTimerPageAsync();
     }
+
+    private bool ValidateSettings() => ShortRestLengthInMin <= LongRestLengthInMin;
 
     [RelayCommand]
     private async Task RestoreSettingsAsync()

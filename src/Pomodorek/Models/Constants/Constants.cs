@@ -49,6 +49,11 @@ public static class Constants
         public const string RestoreDefaultSettings = "This action will restore default settings.\nAre you sure?";
     }
 
+    public class Validation
+    {
+        public const string InvalidRestLength = "Short rest cannot be longer than long rest.";
+    }
+
     public class Sounds
     {
         public const string IntervalStart = "session_start.wav";
