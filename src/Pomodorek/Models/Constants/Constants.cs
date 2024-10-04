@@ -51,7 +51,8 @@ public static class Constants
 
     public class Validation
     {
-        public const string InvalidRestLength = "Short rest cannot be longer than long rest.";
+        public const string LongRestShorterThanShortRest = "Long rest cannot be shorter than short rest.";
+        public const string WorkShorterThanRest = "Work cannot be shorter than short rest.";
     }
 
     public class Sounds

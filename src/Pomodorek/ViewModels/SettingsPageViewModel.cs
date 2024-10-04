@@ -92,12 +92,8 @@ public partial class SettingsPageViewModel : BaseViewModel
     [RelayCommand]
     private async Task SaveSettingsAsync()
     {
-        if (!ValidateSettings())
-        {
-            await _alertService.DisplayAlertAsync(Constants.Pages.Settings, Constants.Validation.InvalidRestLength);
-
+        if (!await ValidateSettings())
             return;
-        }
 
         _application.UserAppTheme = IsDarkThemeEnabled
             ? AppTheme.Dark
@@ -118,8 +114,6 @@ public partial class SettingsPageViewModel : BaseViewModel
         await _navigationService.GoToTimerPageAsync();
     }
 
-    private bool ValidateSettings() => ShortRestLengthInMin <= LongRestLengthInMin;
-
     [RelayCommand]
     private async Task RestoreSettingsAsync()
     {
@@ -128,7 +122,7 @@ public partial class SettingsPageViewModel : BaseViewModel
             return;
 
         // Set app theme to light
-        _application.UserAppTheme = AppTheme.Light;
+        _application.UserAppTheme = AppTheme.Light; 
 
         // Set settings to default values
         IsDarkThemeEnabled = _appSettings.DefaultIsDarkThemeEnabled;
@@ -150,5 +144,25 @@ public partial class SettingsPageViewModel : BaseViewModel
         _settingsService.Set(Constants.Settings.LongRestLengthInMin, _appSettings.DefaultLongRestLengthInMin);
 
         await _alertService.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsRestored);
+    }
+
+    private async Task<bool> ValidateSettings()
+    {
+        if (WorkLengthInMin < ShortRestLengthInMin)
+        {
+            await _alertService.DisplayAlertAsync(Constants.Pages.Settings, Constants.Validation.WorkShorterThanRest);
+
+            return false;
+        }
+
+        if (LongRestLengthInMin < ShortRestLengthInMin)
+        {
+            await _alertService.DisplayAlertAsync(Constants.Pages.Settings, Constants.Validation.LongRestShorterThanShortRest);
+
+            return false;
+        }
+
+        // Validation was successful
+        return true;
     }
 }
