@@ -27,7 +27,11 @@ public partial class SettingsPageViewModel : BaseViewModel
     public bool IsDarkThemeEnabled
     {
         get => _isDarkThemeEnabled;
-        set { if (SetProperty(ref _isDarkThemeEnabled, value)) IsChangePending = true; }
+        set
+        {
+            SetProperty(ref _isDarkThemeEnabled, value);
+            SetAppTheme(value);
+        }
     }
 
     public bool IsSoundEnabled
@@ -95,10 +99,6 @@ public partial class SettingsPageViewModel : BaseViewModel
         if (!await ValidateSettings())
             return;
 
-        _application.UserAppTheme = IsDarkThemeEnabled
-            ? AppTheme.Dark
-            : AppTheme.Light;
-
         // Save settings to device preferences
         _settingsService.Set(Constants.Settings.IsDarkThemeEnabled, IsDarkThemeEnabled);
         _settingsService.Set(Constants.Settings.IsSoundEnabled, IsSoundEnabled);
@@ -122,7 +122,7 @@ public partial class SettingsPageViewModel : BaseViewModel
             return;
 
         // Set app theme to light
-        _application.UserAppTheme = AppTheme.Light; 
+        _application.UserAppTheme = AppTheme.Light;
 
         // Set settings to default values
         IsDarkThemeEnabled = _appSettings.DefaultIsDarkThemeEnabled;
@@ -165,4 +165,9 @@ public partial class SettingsPageViewModel : BaseViewModel
         // Validation was successful
         return true;
     }
+
+    private void SetAppTheme(bool isDarkThemeEnabled) =>
+        _application.UserAppTheme = isDarkThemeEnabled
+            ? AppTheme.Dark
+            : AppTheme.Light;
 }
