@@ -120,9 +120,6 @@ public partial class SettingsPageViewModel : BaseViewModel
         if (!await _alertService.DisplayConfirmAsync(Title, Constants.Messages.RestoreDefaultSettings))
             return;
 
-        // Set app theme to light
-        _application.UserAppTheme = AppTheme.Light;
-
         // Set settings to default values
         IsDarkThemeEnabled = _appSettings.DefaultIsDarkThemeEnabled;
         IsSoundEnabled = _appSettings.DefaultIsSoundEnabled;
@@ -135,7 +132,6 @@ public partial class SettingsPageViewModel : BaseViewModel
         IsChangePending = false;
 
         // Save settings to device preferences
-        _settingsService.Set(Constants.Settings.IsDarkThemeEnabled, _appSettings.DefaultIsDarkThemeEnabled);
         _settingsService.Set(Constants.Settings.IsSoundEnabled, _appSettings.DefaultIsSoundEnabled);
         _settingsService.Set(Constants.Settings.SoundVolume, _appSettings.DefaultSoundVolume);
         _settingsService.Set(Constants.Settings.WorkLengthInMin, _appSettings.DefaultWorkLengthInMin);
@@ -165,8 +161,11 @@ public partial class SettingsPageViewModel : BaseViewModel
         return true;
     }
 
-    private void SetAppTheme(bool isDarkThemeEnabled) =>
+    private void SetAppTheme(bool isDarkThemeEnabled)
+    {
+        _settingsService.Set(Constants.Settings.IsDarkThemeEnabled, isDarkThemeEnabled);
         _application.UserAppTheme = isDarkThemeEnabled
             ? AppTheme.Dark
             : AppTheme.Light;
+    }
 }
