@@ -92,6 +92,9 @@ public partial class SettingsPageViewModel : BaseViewModel
         IsChangePending = false;
     }
 
+    public async Task<bool> DisplayUnsavedChangesDialog() =>
+        await _alertService.DisplayConfirmAsync(Title, Constants.Messages.UnsavedChanges);
+
     [RelayCommand]
     private async Task SaveSettingsAsync()
     {

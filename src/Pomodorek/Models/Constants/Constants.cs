@@ -47,6 +47,7 @@ public static class Constants
         public const string TimerIsRunning = "Timer is running";
         public const string ResetSession = "This action will reset the current session in progress.\nAre you sure?";
         public const string RestoreDefaultSettings = "This action will restore default settings.\nAre you sure?";
+        public const string UnsavedChanges = "Are you sure you want to discard unsaved changes?";
     }
 
     public class Validation
