@@ -12,13 +12,13 @@ public static class ClassUnderTest
 
     private static object[] CreateParameters<T>(params object[] known) where T : class
     {
-        var list = new List<object>();
-        var ci = typeof(T).GetConstructors().FirstOrDefault();
+        var mockedParams = new List<object>();
+        var ctor = typeof(T).GetConstructors().FirstOrDefault();
 
-        if (ci is null)
+        if (ctor is null)
             return [];
 
-        var arrayOfParams = ci.GetParameters().Select(p => p.ParameterType).ToArray();
+        var arrayOfParams = ctor.GetParameters().Select(p => p.ParameterType).ToArray();
         var knownParams = known
             .Select((item) => new
             {
@@ -32,17 +32,17 @@ public static class ClassUnderTest
             var paramMocked = knownParams.FirstOrDefault(knownParam => knownParam.Interfaces.Contains(param));
 
             if (paramMocked is not null)
-                list.Add(paramMocked.Instance);
+                mockedParams.Add(paramMocked.Instance);
             else
             {
                 var mockedParam = typeof(Mock<>).MakeGenericType(param);
                 var mock = Activator.CreateInstance(mockedParam) as Mock;
 
                 if (mock is not null)
-                    list.Add(mock.Object);
+                    mockedParams.Add(mock.Object);
             }
         }
 
-        return [.. list];
+        return [.. mockedParams];
     }
 }

@@ -2,7 +2,7 @@
 
 public class SettingsPageViewModelTests
 {
-    private readonly SettingsPageViewModel _viewModel;
+    private readonly SettingsPageViewModel _cut;
 
     private readonly Mock<ISettingsService> _settingsServiceMock;
     private readonly Mock<IConfigurationService> _configurationServiceMock;
@@ -36,7 +36,7 @@ public class SettingsPageViewModelTests
             .Setup(x => x.Application)
             .Returns(new Application());
 
-        _viewModel = new(
+        _cut = ClassUnderTest.Is<SettingsPageViewModel>(
             _settingsServiceMock.Object,
             _configurationServiceMock.Object,
             _alertServiceMock.Object,
@@ -48,7 +48,7 @@ public class SettingsPageViewModelTests
     public void InitializeSettings_ShouldInitializeProperties()
     {
         // act
-        _viewModel.InitializeSettings();
+        _cut.InitializeSettings();
 
         // assert
         _settingsServiceMock
@@ -69,7 +69,7 @@ public class SettingsPageViewModelTests
     public void SaveSettings_ShouldSaveSettingsToStorage()
     {
         // act
-        _viewModel.SaveSettingsCommand.Execute(null);
+        _cut.SaveSettingsCommand.Execute(null);
 
         // assert
         _settingsServiceMock
@@ -95,11 +95,11 @@ public class SettingsPageViewModelTests
     {
         // arrange
         _alertServiceMock
-            .Setup(x => x.DisplayConfirmAsync(_viewModel.Title, Constants.Messages.RestoreDefaultSettings))
+            .Setup(x => x.DisplayConfirmAsync(_cut.Title, Constants.Messages.RestoreDefaultSettings))
             .ReturnsAsync(false);
 
         // act
-        _viewModel.RestoreSettingsCommand.Execute(null);
+        _cut.RestoreSettingsCommand.Execute(null);
 
         // assert
         _settingsServiceMock
@@ -123,11 +123,11 @@ public class SettingsPageViewModelTests
     {
         // arrange
         _alertServiceMock
-            .Setup(x => x.DisplayConfirmAsync(_viewModel.Title, Constants.Messages.RestoreDefaultSettings))
+            .Setup(x => x.DisplayConfirmAsync(_cut.Title, Constants.Messages.RestoreDefaultSettings))
             .ReturnsAsync(true);
 
         // act
-        _viewModel.RestoreSettingsCommand.Execute(null);
+        _cut.RestoreSettingsCommand.Execute(null);
 
         // assert
         _settingsServiceMock
@@ -144,5 +144,16 @@ public class SettingsPageViewModelTests
             .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, _appSettings.DefaultLongRestLengthInMin), Times.Once);
         _alertServiceMock
             .Verify(x => x.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsRestored), Times.Once);
+    }
+
+    [Fact]
+    public async Task DisplayUnsavedChangesDialog_ShouldShowDialogWarningAboutUnsavedChanges()
+    {
+        // act
+        await _cut.DisplayUnsavedChangesDialog();
+
+        // assert
+        _alertServiceMock
+            .Verify(x => x.DisplayConfirmAsync(Constants.Pages.Settings, Constants.Messages.UnsavedChanges), Times.Once);
     }
 }
