@@ -20,6 +20,8 @@ public partial class SessionModel : ObservableObject
     [ObservableProperty]
     private int _longRestIntervalsCount;
 
-    // Trigger long rest every 4th work interval
+    /// <summary>
+    /// Long rest is triggered after every 4th work interval.
+    /// </summary>
     public bool IsLongRest => WorkIntervalsCount % 4 == 0;
 }
