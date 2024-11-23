@@ -20,6 +20,7 @@ public partial class TimerPageViewModel : BaseViewModel
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsRunning))]
     [NotifyPropertyChangedFor(nameof(IsStopped))]
+    [NotifyPropertyChangedFor(nameof(IsPaused))]
     private TimerStateEnum _state = TimerStateEnum.Stopped;
 
     /// <summary>
@@ -37,6 +38,8 @@ public partial class TimerPageViewModel : BaseViewModel
     public bool IsRunning => State == TimerStateEnum.Running;
 
     public bool IsStopped => State == TimerStateEnum.Stopped;
+
+    public bool IsPaused => State == TimerStateEnum.Paused;
 
     public TimerPageViewModel(
         ITimerService timerService,

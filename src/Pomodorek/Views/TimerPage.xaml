@@ -64,6 +64,21 @@
                     Text="{Binding Session.TriggerAlarmAt, Converter={StaticResource AlarmConverter}}"
                     FontSize="20" />
             </StackLayout>
+            <StackLayout
+                Grid.Row="0"
+                Orientation="Horizontal"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Spacing="5"
+                Padding="0"
+                IsVisible="{Binding IsPaused}">
+                <Image
+                    HeightRequest="{OnPlatform Default=16}"
+                    Source="icon_pause.png" />
+                <Label
+                    Text="PAUSED"
+                    FontSize="18" />
+            </StackLayout>
             <Label
                 Grid.Row="1"
                 HorizontalOptions="Center"
