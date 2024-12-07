@@ -1,5 +1,10 @@
 # Pomodorek 🍅⏲️
 
+[![🚧 - Under Development](https://img.shields.io/badge/🚧-Under_Development-B90E0A)](https://)
+[![en](https://img.shields.io/badge/language-en-B90E0A)](./README.md)
+[![License - MIT](https://img.shields.io/badge/License-MIT-B90E0A)](./LICENSE)
+[![Framework - .NET_MAUI](https://img.shields.io/badge/Framework-.NET_MAUI-201155)](https://dotnet.microsoft.com/en-us/apps/maui)
+
 Pomodorek is a cross-platform application built using <a href="https://dotnet.microsoft.com/en-us/apps/maui">.NET Multi-platform App UI</a> and C# programming language. It serves as a utility tool for the Pomodoro Technique®.
 
 ## How does it work? 🤔
