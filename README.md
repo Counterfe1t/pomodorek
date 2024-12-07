@@ -1,6 +1,6 @@
 # Pomodorek 🍅⏲️
 
-[![🚧 - Under Development](https://img.shields.io/badge/🚧-Under_Development-B90E0A)](./README.md)
+[![🚧 - Under Development](https://img.shields.io/badge/🚧-Under_Development-yellow)](./README.md)
 [![en](https://img.shields.io/badge/language-en-B90E0A)](./README.md)
 [![License - MIT](https://img.shields.io/badge/License-MIT-B90E0A)](./LICENSE)
 [![Framework - .NET_MAUI](https://img.shields.io/badge/Framework-.NET_MAUI-201155)](https://dotnet.microsoft.com/en-us/apps/maui)
