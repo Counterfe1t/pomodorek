@@ -1,5 +1,10 @@
 # Pomodorek 🍅⏲️
 
+[![🚧 - Under Development](https://img.shields.io/badge/🚧-Under_Development-yellow)](./README.md)
+[![en](https://img.shields.io/badge/language-en-B90E0A)](./README.md)
+[![License - MIT](https://img.shields.io/badge/License-MIT-B90E0A)](./LICENSE)
+[![Framework - .NET_MAUI](https://img.shields.io/badge/Framework-.NET_MAUI-201155)](https://dotnet.microsoft.com/en-us/apps/maui)
+
 Pomodorek is a cross-platform application built using <a href="https://dotnet.microsoft.com/en-us/apps/maui">.NET Multi-platform App UI</a> and C# programming language. It serves as a utility tool for the Pomodoro Technique®.
 
 ## How does it work? 🤔
@@ -7,7 +12,7 @@ Pomodorek is a cross-platform application built using <a href="https://dotnet.mi
 Whenever you have to complete a task requiring your undivided attention just use this tool to boost your focus and productivity. It's really simple!
 1. Start the timer and get to work.
 2. After 25 minutes take a 5 minute break. (interval lengths are fully customizable in the application settings)
-3. Every 4th interval take a longer break to recharge you batteries, but worry not — Pomodorek will adjust the next interval length for you!
+3. Every 4th interval take a longer break to recharge your batteries, but worry not — Pomodorek will adjust the next interval length for you!
 4. Continue until your assignment is complete.
 
 In time you will be able to accurately estimate how many intervals certain task take to complete. This will further help you organize your time and resources to achieve desired goals.
