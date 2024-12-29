@@ -29,7 +29,7 @@ public static class MauiProgram
 
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
     {
-#if WINDOWS || ANDROID
+#if WINDOWS || ANDROID || IOS
         builder.Services.AddSingleton(FileSystem.Current);
         builder.Services.AddSingleton(AudioManager.Current);
         builder.Services.AddSingleton(Preferences.Default);
