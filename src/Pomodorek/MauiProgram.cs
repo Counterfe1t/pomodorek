@@ -7,20 +7,8 @@ public static class MauiProgram
             .CreateBuilder()
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
-            .ConfigureLifecycleEvents(events =>
-            {
-#if WINDOWS
-                events.AddWindows(windows => windows.OnWindowCreated(window =>
-                {
-                    WinUI.Program.CurrentWindow = window as MauiWinUIWindow;
-                }));
-#endif
-            })
-            .ConfigureFonts(fonts =>
-            {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-            })
+            .RegisterFonts()
+            .RegisterEvents()
             .RegisterConfiguration()
             .RegisterServices()
             .RegisterViewModels()
@@ -75,6 +63,32 @@ public static class MauiProgram
             .Build();
 
         builder.Configuration.AddConfiguration(config);
+        return builder;
+    }
+
+    public static MauiAppBuilder RegisterEvents(this MauiAppBuilder builder)
+    {
+        builder.ConfigureLifecycleEvents(events =>
+        {
+#if WINDOWS
+            events.AddWindows(windows => windows.OnWindowCreated(window =>
+            {
+                WinUI.Program.CurrentWindow = window as MauiWinUIWindow;
+            }));
+#endif
+        });
+
+        return builder;
+    }
+
+    public static MauiAppBuilder RegisterFonts(this MauiAppBuilder builder)
+    {
+        builder.ConfigureFonts(fonts =>
+        {
+            fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+            fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+        });
+
         return builder;
     }
 }
