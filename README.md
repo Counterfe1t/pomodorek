@@ -21,11 +21,11 @@ In time you will be able to accurately estimate how many intervals certain task 
 
 | Platform    | Support |
 |:------------|:-------:|
-| Windows     | ✔️ |
-| Android     | ✔️ |
-| iOS         | ❌ |
-| MacCatalyst | ❌ |
-| Tizen       | ❌ |
+| Windows     |   ✔️   |
+| Android     |   ✔️   |
+| iOS         |   ✔️   |
+| MacCatalyst |   ❌   |
+| Tizen       |   ❌   |
 
 ## Build & Run
 <b>TBD</b>
