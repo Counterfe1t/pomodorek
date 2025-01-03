@@ -2,8 +2,9 @@
 
 public class PermissionsService : IPermissionsService
 {
-    public Task<PermissionStatus> CheckAndRequestPermissionsAsync()
+    public async Task<PermissionStatus> CheckAndRequestPermissionsAsync()
     {
-        throw new NotImplementedException();
+        // TODO: Check for necessary permissions on ios platform
+        return PermissionStatus.Granted;
     }
 }
