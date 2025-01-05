@@ -3,10 +3,9 @@
 public class AndroidPermissions : Permissions.BasePlatformPermission
 {
     public override (string androidPermission, bool isRuntime)[] RequiredPermissions =>
-        new List<(string androidPermission, bool isRuntime)>
-        {
-            (global::Android.Manifest.Permission.ForegroundService, true),
-            (global::Android.Manifest.Permission.PostNotifications, true),
-            (global::Android.Manifest.Permission.ScheduleExactAlarm, true)
-        }.ToArray();
+    [
+        (global::Android.Manifest.Permission.ForegroundService, true),
+        (global::Android.Manifest.Permission.PostNotifications, true),
+        (global::Android.Manifest.Permission.ScheduleExactAlarm, true)
+    ];
 }
