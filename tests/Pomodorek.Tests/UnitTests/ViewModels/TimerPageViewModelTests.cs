@@ -22,7 +22,7 @@ public class TimerPageViewModelTests
 
         _sessionServiceMock
             .Setup(x => x.GetSession())
-            .Returns(BaseSessionService.GetNewSession);
+            .Returns(SessionModel.Create());
 
         _viewModel = new(
             _timerServiceMock.Object,
@@ -96,7 +96,7 @@ public class TimerPageViewModelTests
     public void ResetCommand_TimerIsRunning_ShouldStopTimerAndShouldResetSession()
     {
         // arrange
-        var expectedSession = BaseSessionService.GetNewSession;
+        var expectedSession = SessionModel.Create();
 
         _viewModel.State = TimerStateEnum.Running;
 
@@ -122,7 +122,7 @@ public class TimerPageViewModelTests
     public void ResetCommand_TimerIsStopped_ShouldNotStopTimerAndShouldResetSession()
     {
         // arrange
-        var expectedSession = BaseSessionService.GetNewSession;
+        var expectedSession = SessionModel.Create();
 
         _viewModel.State = TimerStateEnum.Stopped;
 
@@ -215,12 +215,11 @@ public class TimerPageViewModelTests
             .Verify(x => x.GetIntervalLengthInSec(_viewModel.Session.CurrentInterval), Times.Exactly(invocations));
     }
 
-    public static TheoryData<int?, int, int> UpdateClockTestData =>
-        new()
-        {
-            { 1337, 1337, 0 },
-            { 0, 0, 0 },
-            { -1, 60, 1 },
-            { null, 60, 1 }
-        };
+    public static TheoryData<int?, int, int> UpdateClockTestData => new()
+    {
+        { 1337, 1337, 0 },
+        { 0, 0, 0 },
+        { -1, 60, 1 },
+        { null, 60, 1 }
+    };
 }

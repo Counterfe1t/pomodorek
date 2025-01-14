@@ -24,4 +24,13 @@ public partial class SessionModel : ObservableObject
     /// Long rest is triggered after every 4th work interval.
     /// </summary>
     public bool IsLongRest => WorkIntervalsCount % 4 == 0;
+
+    public static SessionModel Create() => new()
+    {
+        IntervalsCount = 0,
+        WorkIntervalsCount = 0,
+        ShortRestIntervalsCount = 0,
+        LongRestIntervalsCount = 0,
+        CurrentInterval = IntervalEnum.Work
+    };
 }

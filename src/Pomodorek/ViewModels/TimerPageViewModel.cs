@@ -110,7 +110,7 @@ public partial class TimerPageViewModel : BaseViewModel
             return;
 
         // Reset session to default
-        Session = BaseSessionService.GetNewSession;
+        Session = SessionModel.Create();
 
         // Do not stop the timer if it is already stopped
         if (IsStopped)
