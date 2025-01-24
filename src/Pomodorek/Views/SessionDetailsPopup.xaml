@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewModels="clr-namespace:Pomodorek.ViewModels"
+    xmlns:controls="clr-namespace:Pomodorek.Views.Controls"
     x:Class="Pomodorek.Views.SessionDetailsPopup"
     x:DataType="viewModels:TimerPageViewModel"
     Color="Transparent"
@@ -82,18 +83,11 @@
                 <!--6th row is empty-->
 
                 <!--7th row-->
-                <StackLayout
+                <controls:ButtonControl
                     Grid.Row="6"
                     Grid.ColumnSpan="2"
-                    HeightRequest="60"
-                    WidthRequest="60">
-                    <Button
-                        VerticalOptions="CenterAndExpand"
-                        Text="OK"
-                        FontSize="15"
-                        FontAttributes="{OnPlatform Android=Bold}"
-                        Command="{Binding CloseSessionDetailsPopupCommand}" />
-                </StackLayout>
+                    Text="OK"
+                    ButtonCommand="{Binding CloseSessionDetailsPopupCommand}"/>
             </Grid>
         </Frame>
     </VerticalStackLayout>
