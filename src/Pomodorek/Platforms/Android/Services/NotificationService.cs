@@ -34,6 +34,6 @@ public class NotificationService : INotificationService
         return builder.Build();
     }
 
-    public async Task DisplayNotificationAsync(NotificationModel notification) =>
-        await Task.Run(() => _notificationManager.Notify(notification.Id, BuildNotification(notification)));
+    public async Task DisplayNotificationAsync(NotificationModel notification)
+        => await Task.Run(() => _notificationManager.Notify(notification.Id, BuildNotification(notification)));
 }

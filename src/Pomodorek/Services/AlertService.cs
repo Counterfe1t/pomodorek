@@ -9,11 +9,11 @@ public class AlertService : IAlertService
         _application = applicationService.Application;
     }
 
-    public async Task DisplayAlertAsync(string title, string message) =>
-        await _application?.MainPage?.DisplayAlert(title, message, Constants.Messages.Confirm);
+    public async Task DisplayAlertAsync(string title, string message)
+        => await _application?.MainPage?.DisplayAlert(title, message, Constants.Messages.Confirm);
 
-    public async Task<bool> DisplayConfirmAsync(string title, string message) =>
-        await _application?.MainPage?.DisplayAlert(
+    public async Task<bool> DisplayConfirmAsync(string title, string message)
+        => await _application?.MainPage?.DisplayAlert(
             title,
             message,
             Constants.Messages.Confirm,

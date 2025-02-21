@@ -17,8 +17,8 @@ public class AlarmReceiver : BroadcastReceiver
         _mainThreadService = Services.ServiceProvider.GetService<IMainThreadService>();
     }
 
-    public override void OnReceive(Context context, Intent intent) =>
-        _mainThreadService.BeginInvokeOnMainThread(async () => await DisplayNotificationAsync());
+    public override void OnReceive(Context context, Intent intent)
+        => _mainThreadService.BeginInvokeOnMainThread(async () => await DisplayNotificationAsync());
 
     private async Task DisplayNotificationAsync()
     {

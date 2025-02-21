@@ -3,7 +3,7 @@
 public interface IConfigurationService
 {
     /// <summary>
-    /// Application settings.
+    /// Get application settings.
     /// </summary> 
     AppSettings AppSettings { get; }
 }

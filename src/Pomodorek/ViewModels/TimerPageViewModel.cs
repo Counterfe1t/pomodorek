@@ -68,8 +68,8 @@ public partial class TimerPageViewModel : BaseViewModel
             SecondsRemaining = secondsRemaining.Value;
     }
 
-    public async Task CheckAndRequestPermissionsAsync() =>
-        await _permissionsService.CheckAndRequestPermissionsAsync();
+    public async Task CheckAndRequestPermissionsAsync()
+        => await _permissionsService.CheckAndRequestPermissionsAsync();
 
     [RelayCommand]
     private void Start()

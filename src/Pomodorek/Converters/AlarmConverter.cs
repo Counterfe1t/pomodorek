@@ -14,5 +14,6 @@ public class AlarmConverter : IValueConverter
         object parameter,
         CultureInfo culture) => throw new NotImplementedException();
 
-    public static string FormatAlarm(DateTime alarm) => alarm.ToLocalTime().ToString("HH:mm");
+    public static string FormatAlarm(DateTime alarm)
+        => alarm.ToLocalTime().ToString("HH:mm");
 }

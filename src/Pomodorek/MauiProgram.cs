@@ -2,8 +2,8 @@
 
 public static class MauiProgram
 {
-    public static MauiApp CreateMauiApp() =>
-        MauiApp
+    public static MauiApp CreateMauiApp()
+        => MauiApp
             .CreateBuilder()
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()

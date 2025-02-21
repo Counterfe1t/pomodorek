@@ -36,8 +36,8 @@ public abstract class BaseSessionService : ISessionService
     public int GetIntervalLengthInSec(IntervalEnum interval)
         => GetIntervalLengthInMin(interval) * Constants.OneMinuteInSec;
 
-    private int GetIntervalLengthInMin(IntervalEnum interval) =>
-        interval switch
+    private int GetIntervalLengthInMin(IntervalEnum interval)
+        => interval switch
         {
             IntervalEnum.Work =>
                 _settingsService.Get(Constants.Settings.WorkLengthInMin, _appSettings.DefaultWorkLengthInMin),

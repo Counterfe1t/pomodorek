@@ -76,8 +76,8 @@ public class SessionService : BaseSessionService
             : StringParser.Parse(notificationTime, Constants.Messages.ShortRest);
     }
 
-    private string GetIntervalTitle(IntervalEnum interval) =>
-        interval switch
+    private string GetIntervalTitle(IntervalEnum interval)
+        => interval switch
         {
             IntervalEnum.Work => Constants.Labels.Work,
             IntervalEnum.ShortRest => Constants.Labels.ShortRest,

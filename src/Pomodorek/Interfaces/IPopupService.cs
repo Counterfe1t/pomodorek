@@ -9,7 +9,7 @@ public interface IPopupService
     void ClosePopup(Popup popup);
 
     /// <summary>
-    /// Display popup with session details.
+    /// Display popup dialog with session details.
     /// </summary>
     /// <returns><see cref="SessionDetailsPopup" /> object to be displayed.</returns>
     SessionDetailsPopup ShowSessionDetailsPopup();

@@ -3,7 +3,7 @@
 public interface IApplicationService
 {
     /// <summary>
-    /// Current application context.
+    /// Get current application context.
     /// </summary>
     Application Application { get; }
 }

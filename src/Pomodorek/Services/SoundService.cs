@@ -8,8 +8,8 @@ public class SoundService : ISoundService
 
     private readonly AppSettings _appSettings;
 
-    private bool IsSoundEnabled =>
-        _settingsService.Get(Constants.Settings.IsSoundEnabled, _appSettings.DefaultIsSoundEnabled);
+    private bool IsSoundEnabled
+        => _settingsService.Get(Constants.Settings.IsSoundEnabled, _appSettings.DefaultIsSoundEnabled);
 
     public SoundService(
         IAudioManager audioManager,

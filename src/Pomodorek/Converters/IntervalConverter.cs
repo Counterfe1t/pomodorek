@@ -2,8 +2,8 @@
 
 public class IntervalConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
-        (IntervalEnum)value switch
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        => (IntervalEnum)value switch
         {
             IntervalEnum.Work => Constants.Labels.Work,
             IntervalEnum.ShortRest => Constants.Labels.ShortRest,
@@ -11,6 +11,6 @@ public class IntervalConverter : IValueConverter
             _ => string.Empty,
         };
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
-        throw new NotImplementedException();
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        => throw new NotImplementedException();
 }

@@ -2,6 +2,6 @@
 
 public class ServiceProvider
 {
-    public static TService GetService<TService>() =>
-        (TService)IPlatformApplication.Current.Services.GetService(typeof(TService));
+    public static TService GetService<TService>()
+        => (TService)IPlatformApplication.Current.Services.GetService(typeof(TService));
 }
