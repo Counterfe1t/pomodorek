@@ -1,6 +1,6 @@
 ﻿namespace Pomodorek.Interfaces;
 
-public interface IDateTimeService
+public interface ITimeProvider
 {
     /// <summary>
     /// Get current date and time in UTC format.

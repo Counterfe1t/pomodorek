@@ -3,7 +3,7 @@
 public partial class TimerPageViewModel : BaseViewModel
 {
     private readonly ITimerService _timerService;
-    private readonly IDateTimeService _dateTimeService;
+    private readonly ITimeProvider _timeProvider;
     private readonly IPermissionsService _permissionsService;
     private readonly ISessionService _sessionService;
     private readonly IPopupService _popupService;
@@ -43,7 +43,7 @@ public partial class TimerPageViewModel : BaseViewModel
 
     public TimerPageViewModel(
         ITimerService timerService,
-        IDateTimeService dateTimeService,
+        ITimeProvider timeProvider,
         IPermissionsService permissionsService,
         ISessionService sessionService,
         IPopupService popupService,
@@ -51,7 +51,7 @@ public partial class TimerPageViewModel : BaseViewModel
         : base(Constants.Pages.Pomodorek)
     {
         _timerService = timerService;
-        _dateTimeService = dateTimeService;
+        _timeProvider = timeProvider;
         _permissionsService = permissionsService;
         _sessionService = sessionService;
         _popupService = popupService;
@@ -77,7 +77,7 @@ public partial class TimerPageViewModel : BaseViewModel
         State = TimerStateEnum.Running;
 
         // One second is added to display full interval length throughout the first second of the interval
-        Session.TriggerAlarmAt = _dateTimeService.UtcNow.AddSeconds(SecondsRemaining + 1);
+        Session.TriggerAlarmAt = _timeProvider.UtcNow.AddSeconds(SecondsRemaining + 1);
 
         _sessionService.StartInterval(Session);
         _timerService.Start(OnTick);
@@ -147,7 +147,7 @@ public partial class TimerPageViewModel : BaseViewModel
     private void OnTick()
     {
         // Calculate remaining seconds until the end of current interval
-        var secondsRemaining = (int)Session.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
+        var secondsRemaining = (int)Session.TriggerAlarmAt.Subtract(_timeProvider.UtcNow).TotalSeconds;
 
         if (secondsRemaining > 0)
             UpdateClock(secondsRemaining);

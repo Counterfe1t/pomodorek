@@ -1,6 +1,6 @@
 ﻿namespace Pomodorek.Services;
 
-public class DateTimeService : IDateTimeService
+public class TimeProvider : ITimeProvider
 {
     public DateTime UtcNow => DateTime.UtcNow;
 

@@ -5,7 +5,7 @@ public class TimerPageViewModelTests
     private readonly TimerPageViewModel _viewModel;
 
     private readonly Mock<ITimerService> _timerServiceMock;
-    private readonly Mock<IDateTimeService> _dateTimeServiceMock;
+    private readonly Mock<ITimeProvider> _timeProviderMock;
     private readonly Mock<IPermissionsService> _permissionsServiceMock;
     private readonly Mock<ISessionService> _sessionServiceMock;
     private readonly Mock<IPopupService> _popupServiceMock;
@@ -14,7 +14,7 @@ public class TimerPageViewModelTests
     public TimerPageViewModelTests()
     {
         _timerServiceMock = new();
-        _dateTimeServiceMock = new();
+        _timeProviderMock = new();
         _permissionsServiceMock = new();
         _sessionServiceMock = new();
         _popupServiceMock = new();
@@ -26,7 +26,7 @@ public class TimerPageViewModelTests
 
         _viewModel = new(
             _timerServiceMock.Object,
-            _dateTimeServiceMock.Object,
+            _timeProviderMock.Object,
             _permissionsServiceMock.Object,
             _sessionServiceMock.Object,
             _popupServiceMock.Object,

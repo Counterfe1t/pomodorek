@@ -14,13 +14,13 @@ public class TimerService : Service, ITimerService
 
     private readonly INotificationService _notificationService;
     private readonly ISettingsService _settingsService;
-    private readonly IDateTimeService _dateTimeService;
+    private readonly ITimeProvider _timeProvider;
 
     public TimerService()
     {
         _notificationService = Platforms.Android.Services.ServiceProvider.GetService<INotificationService>();
         _settingsService = Platforms.Android.Services.ServiceProvider.GetService<ISettingsService>();
-        _dateTimeService = Platforms.Android.Services.ServiceProvider.GetService<IDateTimeService>();
+        _timeProvider = Platforms.Android.Services.ServiceProvider.GetService<ITimeProvider>();
 
         _token = new CancellationTokenSource();
     }
@@ -94,7 +94,7 @@ public class TimerService : Service, ITimerService
         Task.Run(async () =>
         {
             var token = _token;
-            var secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
+            var secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_timeProvider.UtcNow).TotalSeconds;
 
             while (secondsRemaining > 0 && !token.IsCancellationRequested)
             {
@@ -104,7 +104,7 @@ public class TimerService : Service, ITimerService
                 notification.CurrentProgress = secondsRemaining;
                 StartForeground(notification.Id, Services.NotificationService.BuildNotification(notification));
 
-                secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_dateTimeService.UtcNow).TotalSeconds;
+                secondsRemaining = (int)notification.TriggerAlarmAt.Subtract(_timeProvider.UtcNow).TotalSeconds;
             }
         });
     }
@@ -116,7 +116,7 @@ public class TimerService : Service, ITimerService
         var triggerAlarmAtMs = (long)notification
             .TriggerAlarmAt
             .ToUniversalTime()
-            .Subtract(_dateTimeService.UnixEpoch)
+            .Subtract(_timeProvider.UnixEpoch)
             .TotalMilliseconds;
 
         var intent = new Intent(MainActivity.ActivityCurrent, typeof(AlarmReceiver));
