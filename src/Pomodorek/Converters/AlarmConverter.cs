@@ -6,7 +6,7 @@ public class AlarmConverter : IValueConverter
         object value,
         Type targetType,
         object parameter,
-        CultureInfo culture) => FormatAlarm((DateTime)value);
+        CultureInfo culture) => FormatValue((DateTimeOffset)value);
 
     public object ConvertBack(
         object value,
@@ -14,6 +14,6 @@ public class AlarmConverter : IValueConverter
         object parameter,
         CultureInfo culture) => throw new NotImplementedException();
 
-    public static string FormatAlarm(DateTime alarm)
-        => alarm.ToLocalTime().ToString("HH:mm");
+    public static string FormatValue(DateTimeOffset value)
+        => value.ToLocalTime().ToString("HH:mm");
 }

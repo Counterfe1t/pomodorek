@@ -6,7 +6,7 @@ public partial class SessionModel : ObservableObject
     private IntervalEnum _currentInterval;
     
     [ObservableProperty]
-    private DateTime _triggerAlarmAt;
+    private DateTimeOffset _triggerAlarmAt;
 
     [ObservableProperty]
     private int _intervalsCount;

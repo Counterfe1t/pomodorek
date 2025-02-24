@@ -16,5 +16,5 @@ public class NotificationModel
 
     public int CurrentProgress { get; set; }
 
-    public DateTime TriggerAlarmAt { get; set; }
+    public DateTimeOffset TriggerAlarmAt { get; set; }
 }
