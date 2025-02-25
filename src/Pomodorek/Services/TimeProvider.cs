@@ -4,5 +4,5 @@ public class TimeProvider : ITimeProvider
 {
     public DateTimeOffset UtcNow => DateTimeOffset.UtcNow;
 
-    public DateTimeOffset UnixEpoch => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+    public DateTimeOffset UnixEpoch => new(1970, 1, 1, 0, 0, 0, TimeSpan.Zero);
 }
