@@ -1,5 +1,3 @@
-using System.Windows.Input;
-
 namespace Pomodorek.Views.Controls;
 
 [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -24,14 +22,14 @@ public partial class ButtonControl
 
     public static readonly BindableProperty ButtonCommandProperty = BindableProperty.Create(
         nameof(ButtonCommand),
-        typeof(ICommand),
+        typeof(RelayCommand),
         typeof(ButtonControl),
-        default(ICommand),
+        default(RelayCommand),
         BindingMode.OneWay);
 
-    public ICommand ButtonCommand
+    public RelayCommand ButtonCommand
     {
-        get => GetValue(ButtonCommandProperty) as ICommand;
+        get => GetValue(ButtonCommandProperty) as RelayCommand;
         set => SetValue(ButtonCommandProperty, value);
     }
 
