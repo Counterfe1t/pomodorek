@@ -20,17 +20,17 @@ public partial class ButtonControl
         set => SetValue(TextProperty, value);
     }
 
-    public static readonly BindableProperty ButtonCommandProperty = BindableProperty.Create(
-        nameof(ButtonCommand),
+    public static readonly BindableProperty CommandProperty = BindableProperty.Create(
+        nameof(Command),
         typeof(RelayCommand),
         typeof(ButtonControl),
         default(RelayCommand),
         BindingMode.OneWay);
 
-    public RelayCommand ButtonCommand
+    public RelayCommand Command
     {
-        get => GetValue(ButtonCommandProperty) as RelayCommand;
-        set => SetValue(ButtonCommandProperty, value);
+        get => GetValue(CommandProperty) as RelayCommand;
+        set => SetValue(CommandProperty, value);
     }
 
     public ButtonControl()
@@ -42,6 +42,6 @@ public partial class ButtonControl
     private void InitializeProperties()
     {
         Button.Text = Text;
-        Button.Command = new Command(() => ButtonCommand.Execute(null));
+        Button.Command = new Command(() => Command.Execute(null));
     }
 }

@@ -87,7 +87,7 @@
                     Grid.Row="6"
                     Grid.ColumnSpan="2"
                     Text="OK"
-                    ButtonCommand="{Binding CloseSessionDetailsPopupCommand}"/>
+                    Command="{Binding CloseSessionDetailsPopupCommand}"/>
             </Grid>
         </Frame>
     </VerticalStackLayout>

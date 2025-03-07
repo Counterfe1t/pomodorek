@@ -20,17 +20,17 @@ public partial class ImageButtonControl
         set => SetValue(SourceProperty, value);
     }
 
-    public static readonly BindableProperty ImageButtonCommandProperty = BindableProperty.Create(
-        nameof(ImageButtonCommand),
+    public static readonly BindableProperty CommandProperty = BindableProperty.Create(
+        nameof(Command),
         typeof(RelayCommand),
         typeof(ImageButtonControl),
         default(RelayCommand),
         BindingMode.OneWay);
 
-    public RelayCommand ImageButtonCommand
+    public RelayCommand Command
     {
-        get => GetValue(ImageButtonCommandProperty) as RelayCommand;
-        set => SetValue(ImageButtonCommandProperty, value);
+        get => GetValue(CommandProperty) as RelayCommand;
+        set => SetValue(CommandProperty, value);
     }
 
     public ImageButtonControl()
@@ -42,6 +42,6 @@ public partial class ImageButtonControl
     private void InitializeProperties()
     {
         ImageButton.Source = Source;
-        ImageButton.Command = new Command(() => ImageButtonCommand.Execute(null));
+        ImageButton.Command = new RelayCommand(() => Command.Execute(null));
     }
 }
