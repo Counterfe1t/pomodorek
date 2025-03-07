@@ -2,9 +2,10 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
-    xmlns:converters="clr-namespace:Pomodorek.Converters"
     xmlns:behaviors="clr-namespace:Pomodorek.Behaviors"
+    xmlns:controls="clr-namespace:Pomodorek.Views.Controls"
+    xmlns:converters="clr-namespace:Pomodorek.Converters"
+    xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
     x:Class="Pomodorek.Views.TimerPage"
     x:DataType="viewmodels:TimerPageViewModel"
     Title="{Binding Title}">
@@ -26,16 +27,11 @@
         ColumnSpacing="0">
 
         <!-- 1st row -->
-        <StackLayout
+        <controls:ImageButtonControl
             Grid.Row="0"
             HorizontalOptions="End"
-            HeightRequest="60"
-            WidthRequest="60">
-            <ImageButton
-                VerticalOptions="CenterAndExpand"
-                Source="icon_info.png"
-                Command="{Binding ShowSessionDetailsPopupCommand}" />
-        </StackLayout>
+            Source="icon_info.png"
+            Command="{Binding ShowSessionDetailsPopupCommand}" />
 
         <!-- 2nd row -->
         <BoxView
@@ -106,28 +102,17 @@
                     Source="icon_reset.png"
                     Command="{Binding ResetCommand}" />
             </StackLayout>
-            <StackLayout
-                HeightRequest="60"
-                WidthRequest="60">
-                <ImageButton
-                    VerticalOptions="CenterAndExpand"
-                    Source="icon_start.png"
-                    IsVisible="{Binding IsRunning, Converter={StaticResource NegationConverter}}"
-                    Command="{Binding StartCommand}" />
-                <ImageButton
-                    VerticalOptions="CenterAndExpand"
-                    Source="icon_pause.png"
-                    IsVisible="{Binding IsRunning}"
-                    Command="{Binding PauseCommand}" />
-            </StackLayout>
-            <StackLayout
-                HeightRequest="60"
-                WidthRequest="60">
-                <ImageButton
-                    VerticalOptions="CenterAndExpand"
-                    Source="icon_stop.png"
-                    Command="{Binding StopCommand}" />
-            </StackLayout>
+            <controls:ImageButtonControl
+                Source="icon_start.png"
+                IsVisible="{Binding IsRunning, Converter={StaticResource NegationConverter}}"
+                Command="{Binding StartCommand}" />
+            <controls:ImageButtonControl
+                Source="icon_pause.png"
+                IsVisible="{Binding IsRunning}"
+                Command="{Binding PauseCommand}" />
+            <controls:ImageButtonControl
+                Source="icon_stop.png"
+                Command="{Binding StopCommand}" />
         </StackLayout>
     </Grid>
 </ContentPage>
