@@ -26,14 +26,14 @@
         ColumnDefinitions="*"
         ColumnSpacing="0">
 
-        <!-- 1st row -->
+        <!--1st row-->
         <controls:ImageButtonControl
             Grid.Row="0"
             HorizontalOptions="End"
             Source="icon_info.png"
             Command="{Binding ShowSessionDetailsPopupCommand}" />
 
-        <!-- 2nd row -->
+        <!--2nd row-->
         <BoxView
             Grid.Row="1"
             Grid.ColumnSpan="2"
@@ -88,20 +88,15 @@
                 FontSize="30" />
         </Grid>
 
-        <!-- 3rd row -->
+        <!--3rd row-->
         <StackLayout
             Grid.Row="2"
             Orientation="Horizontal"
             HorizontalOptions="Center"
             Spacing="10">
-            <StackLayout
-                HeightRequest="60"
-                WidthRequest="60">
-                <ImageButton
-                    VerticalOptions="CenterAndExpand"
-                    Source="icon_reset.png"
-                    Command="{Binding ResetCommand}" />
-            </StackLayout>
+            <controls:AsyncImageButtonControl
+                Source="icon_reset.png"
+                Command="{Binding ResetCommand}" />
             <controls:ImageButtonControl
                 Source="icon_start.png"
                 IsVisible="{Binding IsRunning, Converter={StaticResource NegationConverter}}"
