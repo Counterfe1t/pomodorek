@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
     xmlns:behaviors="clr-namespace:Pomodorek.Behaviors"
+    xmlns:controls="clr-namespace:Pomodorek.Views.Controls"
     x:Class="Pomodorek.Views.SettingsPage"
     x:DataType="viewmodels:SettingsPageViewModel"
     Title="{Binding Title}">
@@ -121,23 +122,13 @@
             Orientation="Horizontal"
             HorizontalOptions="End"
             Spacing="10">
-            <StackLayout
-                HeightRequest="60"
-                WidthRequest="60">
-                <ImageButton
-                    VerticalOptions="CenterAndExpand"
-                    Source="icon_save.png"
-                    Command="{Binding SaveSettingsCommand}"
-                    IsVisible="{Binding IsChangePending}" />
-            </StackLayout>
-            <StackLayout
-                HeightRequest="60"
-                WidthRequest="60">
-                <ImageButton
-                    VerticalOptions="CenterAndExpand"
-                    Source="icon_reset.png"
-                    Command="{Binding RestoreSettingsCommand}" />
-            </StackLayout>
+            <controls:AsyncImageButtonControl
+                Source="icon_save.png"
+                IsVisible="{Binding IsChangePending}"
+                Command="{Binding SaveSettingsCommand}" />
+            <controls:AsyncImageButtonControl
+                Source="icon_reset.png"
+                Command="{Binding RestoreSettingsCommand}" />
         </StackLayout>
     </Grid>
 </ContentPage>
