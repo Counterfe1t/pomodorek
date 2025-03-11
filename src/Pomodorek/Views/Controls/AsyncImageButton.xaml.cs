@@ -1,17 +1,17 @@
 namespace Pomodorek.Views.Controls;
 
 [XamlCompilation(XamlCompilationOptions.Compile)]
-public partial class AsyncImageButtonControl
+public partial class AsyncImageButton
 {
     public static readonly BindableProperty SourceProperty = BindableProperty.Create(
         nameof(Source),
         typeof(string),
-        typeof(AsyncImageButtonControl),
+        typeof(AsyncImageButton),
         default(string),
         BindingMode.OneWay,
         propertyChanged: (bindable, oldValue, newValue) =>
         {
-            ((AsyncImageButtonControl)bindable).ImageButton.Source = newValue as string;
+            ((AsyncImageButton)bindable).ImageButton.Source = newValue as string;
         });
 
     public string Source
@@ -23,7 +23,7 @@ public partial class AsyncImageButtonControl
     public static readonly BindableProperty CommandProperty = BindableProperty.Create(
         nameof(Command),
         typeof(AsyncRelayCommand),
-        typeof(AsyncImageButtonControl),
+        typeof(AsyncImageButton),
         default(AsyncRelayCommand),
         BindingMode.OneWay);
 
@@ -33,7 +33,7 @@ public partial class AsyncImageButtonControl
         set => SetValue(CommandProperty, value);
     }
 
-    public AsyncImageButtonControl()
+    public AsyncImageButton()
     {
         InitializeComponent();
         InitializeProperties();

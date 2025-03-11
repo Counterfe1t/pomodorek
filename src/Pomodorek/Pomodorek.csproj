@@ -96,7 +96,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\Controls\AsyncImageButtonControl.xaml">
+	  <MauiXaml Update="Views\Controls\AsyncImageButton.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Controls\ButtonControl.xaml">

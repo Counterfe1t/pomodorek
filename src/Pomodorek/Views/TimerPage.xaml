@@ -94,7 +94,7 @@
             Orientation="Horizontal"
             HorizontalOptions="Center"
             Spacing="10">
-            <controls:AsyncImageButtonControl
+            <controls:AsyncImageButton
                 Source="icon_reset.png"
                 Command="{Binding ResetCommand}" />
             <controls:ImageButtonControl

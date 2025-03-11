@@ -122,11 +122,11 @@
             Orientation="Horizontal"
             HorizontalOptions="End"
             Spacing="10">
-            <controls:AsyncImageButtonControl
+            <controls:AsyncImageButton
                 Source="icon_save.png"
                 IsVisible="{Binding IsChangePending}"
                 Command="{Binding SaveSettingsCommand}" />
-            <controls:AsyncImageButtonControl
+            <controls:AsyncImageButton
                 Source="icon_reset.png"
                 Command="{Binding RestoreSettingsCommand}" />
         </StackLayout>
