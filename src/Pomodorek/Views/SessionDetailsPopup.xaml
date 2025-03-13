@@ -83,7 +83,7 @@
                 <!--6th row is empty-->
 
                 <!--7th row-->
-                <controls:ButtonControl
+                <controls:CustomButton
                     Grid.Row="6"
                     Grid.ColumnSpan="2"
                     Text="OK"

@@ -1,17 +1,17 @@
 namespace Pomodorek.Views.Controls;
 
 [XamlCompilation(XamlCompilationOptions.Compile)]
-public partial class ButtonControl
+public partial class CustomButton
 {
     public static readonly BindableProperty TextProperty = BindableProperty.Create(
         nameof(Text),
         typeof(string),
-        typeof(ButtonControl),
+        typeof(CustomButton),
         default(string),
         BindingMode.OneWay,
         propertyChanged: (bindable, oldValue, newValue) =>
         {
-            ((ButtonControl)bindable).Button.Text = newValue as string;
+            ((CustomButton)bindable).Button.Text = newValue as string;
         });
 
     public string Text
@@ -23,7 +23,7 @@ public partial class ButtonControl
     public static readonly BindableProperty CommandProperty = BindableProperty.Create(
         nameof(Command),
         typeof(RelayCommand),
-        typeof(ButtonControl),
+        typeof(CustomButton),
         default(RelayCommand),
         BindingMode.OneWay);
 
@@ -33,7 +33,7 @@ public partial class ButtonControl
         set => SetValue(CommandProperty, value);
     }
 
-    public ButtonControl()
+    public CustomButton()
     {
         InitializeComponent();
         InitializeProperties();
