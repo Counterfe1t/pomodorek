@@ -27,7 +27,7 @@
         ColumnSpacing="0">
 
         <!--1st row-->
-        <controls:ImageButtonControl
+        <controls:CustomImageButton
             Grid.Row="0"
             HorizontalOptions="End"
             Source="icon_info.png"
@@ -97,15 +97,15 @@
             <controls:AsyncImageButton
                 Source="icon_reset.png"
                 Command="{Binding ResetCommand}" />
-            <controls:ImageButtonControl
+            <controls:CustomImageButton
                 Source="icon_start.png"
                 IsVisible="{Binding IsRunning, Converter={StaticResource NegationConverter}}"
                 Command="{Binding StartCommand}" />
-            <controls:ImageButtonControl
+            <controls:CustomImageButton
                 Source="icon_pause.png"
                 IsVisible="{Binding IsRunning}"
                 Command="{Binding PauseCommand}" />
-            <controls:ImageButtonControl
+            <controls:CustomImageButton
                 Source="icon_stop.png"
                 Command="{Binding StopCommand}" />
         </StackLayout>

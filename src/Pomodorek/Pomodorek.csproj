@@ -102,7 +102,7 @@
 	  <MauiXaml Update="Views\Controls\CustomButton.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Controls\ImageButtonControl.xaml">
+	  <MauiXaml Update="Views\Controls\CustomImageButton.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\SessionDetailsPopup.xaml">
