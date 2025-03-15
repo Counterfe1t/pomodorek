@@ -13,9 +13,9 @@
             x:Key="NumericValidationBehavior" />
     </ContentPage.Resources>
     <Grid
-        Padding="20"
+        Padding="25"
         RowDefinitions="40, 40, 40, 40, 40, 40, *, Auto"
-        RowSpacing="0"
+        RowSpacing="10"
         ColumnDefinitions="*, *"
         ColumnSpacing="25">
 

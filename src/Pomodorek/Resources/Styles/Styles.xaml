@@ -212,7 +212,7 @@
             Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
         <Setter
             Property="BackgroundColor"
-            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}" />
+            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}" />
         <Setter
             Property="FontFamily"
             Value="OpenSansRegular" />
