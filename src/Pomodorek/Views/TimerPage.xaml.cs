@@ -17,6 +17,7 @@ public partial class TimerPage : ContentPage
 
         await viewModel.CheckAndRequestPermissionsAsync();
 
+        // Update clock when the page is shown, unless the timer is running.
         if (viewModel.IsStopped)
             viewModel.UpdateClock();
     }

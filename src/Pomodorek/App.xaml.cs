@@ -7,11 +7,12 @@ public partial class App : Application
     private readonly AppSettings _appSettings;
 
     public App(
+        IServiceProvider serviceProvider,
         ISettingsService settingsService,
         IConfigurationService configurationService)
     {
         InitializeComponent();
-        MainPage = new AppShell();
+        MainPage = serviceProvider.GetRequiredService<TimerPage>();
 
         _appSettings = configurationService.AppSettings;
         _settingsService = settingsService;
@@ -21,7 +22,7 @@ public partial class App : Application
     {
         var window = base.CreateWindow(activationState);
 
-        // Adjust window size
+        // Adjust window size.
         if (DeviceInfo.Platform == DevicePlatform.WinUI ||
             DeviceInfo.Platform == DevicePlatform.MacCatalyst)
         {
@@ -33,7 +34,7 @@ public partial class App : Application
             window.MaximumHeight = 1080;
         }
 
-        // Load application theme from local settings
+        // Load application theme from local settings.
         UserAppTheme = _settingsService.Get(Constants.Settings.IsDarkThemeEnabled, _appSettings.DefaultIsDarkThemeEnabled)
             ? AppTheme.Dark
             : AppTheme.Light;

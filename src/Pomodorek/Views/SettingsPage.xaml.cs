@@ -26,22 +26,23 @@ public partial class SettingsPage : ContentPage
 
     private async void OnNavigating(object sender, ShellNavigatingEventArgs args)
     {
-        // Dismiss navigation when navigating to current page
+        // Dismiss navigation when navigating to current page.
         if (args.Target.Location.OriginalString.Contains(Constants.Pages.Settings))
             return;
 
-        // Allow navigation when there are no unsaved changes
+        // Allow navigation when there are no unsaved changes.
         if (!_viewModel.IsChangePending)
             return;
 
-        // Pause navigation
+        // Pause navigation.
         var deferral = args.GetDeferral();
 
-        // Prompt user with dialog warning about unsaved changes
+        // Prompt user with dialog warning about unsaved changes.
         if (!await _viewModel.DisplayUnsavedChangesDialog())
-            args.Cancel(); // Cancel navigation when user dismisses the dialog
+            // Cancel navigation if user dismisses the dialog.
+            args.Cancel();
 
-        // Unpause navigation
+        // Unpause navigation.
         deferral.Complete();
     }
 }

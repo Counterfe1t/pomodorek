@@ -80,7 +80,7 @@ public partial class SettingsPageViewModel : BaseViewModel
 
     public void InitializeSettings()
     {
-        // Get saved settings from devide preferences
+        // Get saved settings from devide preferences.
         IsDarkThemeEnabled = _settingsService.Get(Constants.Settings.IsDarkThemeEnabled, _appSettings.DefaultIsDarkThemeEnabled);
         IsSoundEnabled = _settingsService.Get(Constants.Settings.IsSoundEnabled, _appSettings.DefaultIsSoundEnabled);
         SoundVolume = _settingsService.Get(Constants.Settings.SoundVolume, _appSettings.DefaultSoundVolume);
@@ -88,7 +88,7 @@ public partial class SettingsPageViewModel : BaseViewModel
         ShortRestLengthInMin = _settingsService.Get(Constants.Settings.ShortRestLengthInMin, _appSettings.DefaultShortRestLengthInMin);
         LongRestLengthInMin = _settingsService.Get(Constants.Settings.LongRestLengthInMin, _appSettings.DefaultLongRestLengthInMin);
 
-        // There are no pending changes
+        // There are no pending changes.
         IsChangePending = false;
     }
 
@@ -101,7 +101,7 @@ public partial class SettingsPageViewModel : BaseViewModel
         if (!await ValidateSettings())
             return;
 
-        // Save settings to device preferences
+        // Save settings to device preferences.
         _settingsService.Set(Constants.Settings.IsDarkThemeEnabled, IsDarkThemeEnabled);
         _settingsService.Set(Constants.Settings.IsSoundEnabled, IsSoundEnabled);
         _settingsService.Set(Constants.Settings.SoundVolume, SoundVolume);
@@ -109,7 +109,7 @@ public partial class SettingsPageViewModel : BaseViewModel
         _settingsService.Set(Constants.Settings.ShortRestLengthInMin, ShortRestLengthInMin);
         _settingsService.Set(Constants.Settings.LongRestLengthInMin, LongRestLengthInMin);
 
-        // There are no pending changes
+        // There are no pending changes.
         IsChangePending = false;
 
         await _alertService.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsSaved);
@@ -119,11 +119,11 @@ public partial class SettingsPageViewModel : BaseViewModel
     [RelayCommand]
     private async Task RestoreSettingsAsync()
     {
-        // Prompt user with confirm dialog before restoring settings to default
+        // Prompt user with confirm dialog before restoring settings to default.
         if (!await _alertService.DisplayConfirmAsync(Title, Constants.Messages.RestoreDefaultSettings))
             return;
 
-        // Set settings to default values
+        // Set settings to default values.
         IsDarkThemeEnabled = _appSettings.DefaultIsDarkThemeEnabled;
         IsSoundEnabled = _appSettings.DefaultIsSoundEnabled;
         SoundVolume = _appSettings.DefaultSoundVolume;
@@ -131,10 +131,10 @@ public partial class SettingsPageViewModel : BaseViewModel
         ShortRestLengthInMin = _appSettings.DefaultShortRestLengthInMin;
         LongRestLengthInMin = _appSettings.DefaultLongRestLengthInMin;
 
-        // There are no pending changes
+        // There are no pending changes.
         IsChangePending = false;
 
-        // Save settings to device preferences
+        // Save settings to device preferences.
         _settingsService.Set(Constants.Settings.IsSoundEnabled, _appSettings.DefaultIsSoundEnabled);
         _settingsService.Set(Constants.Settings.SoundVolume, _appSettings.DefaultSoundVolume);
         _settingsService.Set(Constants.Settings.WorkLengthInMin, _appSettings.DefaultWorkLengthInMin);
@@ -160,7 +160,7 @@ public partial class SettingsPageViewModel : BaseViewModel
             return false;
         }
 
-        // Validation was successful
+        // Validation was successful.
         return true;
     }
 
