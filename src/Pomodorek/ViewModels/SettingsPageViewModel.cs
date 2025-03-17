@@ -113,7 +113,7 @@ public partial class SettingsPageViewModel : BaseViewModel
         IsChangePending = false;
 
         await _alertService.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsSaved);
-        await _navigationService.GoToTimerPageAsync();
+        await _navigationService.GoBackAsync();
     }
 
     [RelayCommand]
@@ -142,6 +142,15 @@ public partial class SettingsPageViewModel : BaseViewModel
         _settingsService.Set(Constants.Settings.LongRestLengthInMin, _appSettings.DefaultLongRestLengthInMin);
 
         await _alertService.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsRestored);
+    }
+
+    [RelayCommand]
+    private async Task GoBackAsync()
+    {
+        if (IsChangePending && !await DisplayUnsavedChangesDialog())
+            return;
+
+        await _navigationService.GoBackAsync();
     }
 
     private async Task<bool> ValidateSettings()

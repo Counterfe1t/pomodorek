@@ -3,6 +3,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Pomodorek"
+    xmlns:behaviors="clr-namespace:Pomodorek.Behaviors"
+    xmlns:converters="clr-namespace:Pomodorek.Converters"
     x:Class="Pomodorek.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -12,6 +14,20 @@
                 <ResourceDictionary
                     Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!--Converters-->
+            <converters:TimeConverter
+                x:Key="TimeConverter" />
+            <converters:IntervalConverter
+                x:Key="IntervalConverter" />
+            <converters:NegationConverter
+                x:Key="NegationConverter" />
+            <converters:AlarmConverter
+                x:Key="AlarmConverter" />
+
+            <!--Behaviors-->
+            <behaviors:NumericValidationBehavior
+                x:Key="NumericValidationBehavior" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

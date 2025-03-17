@@ -8,6 +8,7 @@ public partial class TimerPageViewModel : BaseViewModel
     private readonly ISessionService _sessionService;
     private readonly IPopupService _popupService;
     private readonly IAlertService _alertService;
+    private readonly INavigationService _navigationService;
 
     /// <summary>
     /// Popup for displaying <see cref="SessionModel" /> details.
@@ -47,7 +48,8 @@ public partial class TimerPageViewModel : BaseViewModel
         IPermissionsService permissionsService,
         ISessionService sessionService,
         IPopupService popupService,
-        IAlertService alertService)
+        IAlertService alertService,
+        INavigationService navigationService)
         : base(Constants.Pages.Pomodorek)
     {
         _timerService = timerService;
@@ -56,6 +58,7 @@ public partial class TimerPageViewModel : BaseViewModel
         _sessionService = sessionService;
         _popupService = popupService;
         _alertService = alertService;
+        _navigationService = navigationService;
 
         Session = sessionService.GetSession();
     }
@@ -134,6 +137,10 @@ public partial class TimerPageViewModel : BaseViewModel
         _popupService.ClosePopup(_popup);
         _popup = null;
     }
+
+    [RelayCommand]
+    private async Task GoToSettingsPage()
+        => await _navigationService.NavigateToPageAsync<SettingsPage>();
 
     private void StopTimer(bool isStoppedManually)
     {

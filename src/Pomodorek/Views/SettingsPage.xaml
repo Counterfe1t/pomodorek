@@ -8,10 +8,6 @@
     x:Class="Pomodorek.Views.SettingsPage"
     x:DataType="viewmodels:SettingsPageViewModel"
     Title="{Binding Title}">
-    <ContentPage.Resources>
-        <behaviors:NumericValidationBehavior
-            x:Key="NumericValidationBehavior" />
-    </ContentPage.Resources>
     <Grid
         Padding="25"
         RowDefinitions="40, 40, 40, 40, 40, 40, *, Auto"
@@ -122,6 +118,9 @@
             Orientation="Horizontal"
             HorizontalOptions="End"
             Spacing="10">
+            <controls:AsyncImageButton
+                Source="icon_clock.png"
+                Command="{Binding GoBackCommand}" />
             <controls:AsyncImageButton
                 Source="icon_save.png"
                 IsVisible="{Binding IsChangePending}"

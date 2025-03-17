@@ -3,12 +3,13 @@
 public interface INavigationService
 {
     /// <summary>
-    /// Navigate to the timer page.
+    /// Navigates to the specified <see cref="Page"/>.
     /// </summary>
-    Task GoToTimerPageAsync();
+    /// <typeparam name="TPage">Destination <see cref="Page"/>.</typeparam>
+    Task NavigateToPageAsync<TPage>() where TPage : Page;
 
     /// <summary>
-    /// Navigate to the settings page.
+    /// Navigates to the previous <see cref="Page"/>.
     /// </summary>
-    Task GoToSettingsPageAsync();
+    Task GoBackAsync();
 }

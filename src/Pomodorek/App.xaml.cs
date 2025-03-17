@@ -12,8 +12,8 @@ public partial class App : Application
         IConfigurationService configurationService)
     {
         InitializeComponent();
-        MainPage = serviceProvider.GetRequiredService<TimerPage>();
 
+        MainPage = new NavigationPage(serviceProvider.GetRequiredService<TimerPage>());
         _appSettings = configurationService.AppSettings;
         _settingsService = settingsService;
     }

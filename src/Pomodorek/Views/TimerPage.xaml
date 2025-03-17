@@ -9,16 +9,6 @@
     x:Class="Pomodorek.Views.TimerPage"
     x:DataType="viewmodels:TimerPageViewModel"
     Title="{Binding Title}">
-    <ContentPage.Resources>
-        <converters:TimeConverter
-            x:Key="TimeConverter" />
-        <converters:IntervalConverter
-            x:Key="IntervalConverter" />
-        <converters:NegationConverter
-            x:Key="NegationConverter" />
-        <converters:AlarmConverter
-            x:Key="AlarmConverter" />
-    </ContentPage.Resources>
     <Grid
         Padding="15"
         RowDefinitions="60, *, 100"
@@ -27,6 +17,12 @@
         ColumnSpacing="0">
 
         <!--1st row-->
+        <controls:AsyncImageButton
+            Grid.Row="0"
+            HorizontalOptions="Start"
+            Source="icon_gear.png"
+            Command="{Binding GoToSettingsPageCommand}" />
+
         <controls:CustomImageButton
             Grid.Row="0"
             HorizontalOptions="End"

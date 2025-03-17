@@ -9,5 +9,22 @@
             x:Key="TextControlBorderThemeThickness">0</Thickness>
         <Thickness
             x:Key="TextControlBorderThemeThicknessFocused">0</Thickness>
+
+        <DataTemplate
+            x:Key="MauiAppTitleBarTemplate">
+            <Grid>
+                <Border
+                    Canvas.ZIndex="1"
+                    VerticalAlignment="Stretch"
+                    Background="Black"
+                    Margin="15,0,0,0">
+                    <TextBlock
+                        Foreground="White"
+                        VerticalAlignment="Center"
+                        Text="Pomodorek"
+                        FontWeight="Normal" />
+                </Border>
+            </Grid>
+        </DataTemplate>
     </maui:MauiWinUIApplication.Resources>
 </maui:MauiWinUIApplication>

@@ -3,6 +3,7 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Pomodorek.Platforms.Android.Receivers;
+using ServiceProvider = Pomodorek.Platforms.Android.Services.ServiceProvider;
 
 namespace Pomodorek.Services;
 
@@ -18,9 +19,9 @@ public class TimerService : Service, ITimerService
 
     public TimerService()
     {
-        _notificationService = Platforms.Android.Services.ServiceProvider.GetService<INotificationService>();
-        _settingsService = Platforms.Android.Services.ServiceProvider.GetService<ISettingsService>();
-        _timeProvider = Platforms.Android.Services.ServiceProvider.GetService<ITimeProvider>();
+        _notificationService = ServiceProvider.GetService<INotificationService>();
+        _settingsService = ServiceProvider.GetService<ISettingsService>();
+        _timeProvider = ServiceProvider.GetService<ITimeProvider>();
 
         _token = new CancellationTokenSource();
     }
