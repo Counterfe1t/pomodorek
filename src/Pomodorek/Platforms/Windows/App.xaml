@@ -17,12 +17,20 @@
                     Canvas.ZIndex="1"
                     VerticalAlignment="Stretch"
                     Background="Black"
-                    Margin="15,0,0,0">
-                    <TextBlock
-                        Foreground="White"
-                        VerticalAlignment="Center"
-                        Text="Pomodorek"
-                        FontWeight="Normal" />
+                    Padding="10,0,0,0">
+                    <StackPanel
+                        Spacing="5"
+                        Orientation="Horizontal">
+                        <ImageIcon
+                            Source="icon_clock.png"
+                            Height="15"
+                            Width="15" />
+                        <TextBlock
+                            Foreground="White"
+                            VerticalAlignment="Center"
+                            Text="Pomodorek"
+                            FontWeight="Normal" />
+                    </StackPanel>
                 </Border>
             </Grid>
         </DataTemplate>
