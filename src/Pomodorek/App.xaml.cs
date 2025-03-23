@@ -13,6 +13,7 @@ public partial class App : Application
     {
         InitializeComponent();
 
+        // TODO: Add flyout menu page with custom navigation.
         MainPage = new NavigationPage(serviceProvider.GetRequiredService<TimerPage>());
         _appSettings = configurationService.AppSettings;
         _settingsService = settingsService;
