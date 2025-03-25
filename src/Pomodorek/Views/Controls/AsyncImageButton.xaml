@@ -8,5 +8,6 @@
     WidthRequest="60">
     <ImageButton
         x:Name="ImageButton"
+        Style="{StaticResource CircularImageButton}"
         VerticalOptions="CenterAndExpand" />
 </StackLayout>
