@@ -13,7 +13,7 @@ public partial class App : Application
     {
         InitializeComponent();
 
-        // TODO: Add flyout menu page with custom navigation.
+        // TODO: Revert to shell approach due to simplicity and lack of sensible alternatives.
         MainPage = new NavigationPage(serviceProvider.GetRequiredService<TimerPage>());
         _appSettings = configurationService.AppSettings;
         _settingsService = settingsService;
