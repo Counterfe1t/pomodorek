@@ -108,7 +108,7 @@ public partial class TimerPageViewModel : BaseViewModel
     [RelayCommand]
     private async Task Reset()
     {
-        // Prompt user with confirm dialog before reseting the session.
+        // Prompt user with confirm dialog before resetting the session.
         if (!await _alertService.DisplayConfirmAsync(Title, Constants.Messages.ResetSession))
             return;
 
