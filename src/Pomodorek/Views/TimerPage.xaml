@@ -17,12 +17,6 @@
         ColumnSpacing="0">
 
         <!--1st row-->
-        <controls:AsyncImageButton
-            Grid.Row="0"
-            HorizontalOptions="Start"
-            Source="icon_gear.png"
-            Command="{Binding GoToSettingsPageCommand}" />
-
         <controls:CustomImageButton
             Grid.Row="0"
             HorizontalOptions="End"

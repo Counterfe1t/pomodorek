@@ -1,6 +1,5 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using MauiApplication = Microsoft.Maui.Controls.Application;
 
 namespace Pomodorek;
 
@@ -12,15 +11,5 @@ public class MainActivity : MauiAppCompatActivity
     public MainActivity()
     {
         ActivityCurrent = this;
-    }
-
-    public override async void OnBackPressed()
-    {
-        var currentPage = (MauiApplication.Current.MainPage as NavigationPage)?.CurrentPage;
-
-        if (currentPage is SettingsPage settingsPage && !await settingsPage.CanNavigateFrom())
-            return;
-        
-        base.OnBackPressed();
     }
 }

@@ -7,14 +7,12 @@ public partial class App : Application
     private readonly AppSettings _appSettings;
 
     public App(
-        IServiceProvider serviceProvider,
         ISettingsService settingsService,
         IConfigurationService configurationService)
     {
         InitializeComponent();
+        MainPage = new AppShell();
 
-        // TODO: Revert to shell approach due to simplicity and lack of sensible alternatives.
-        MainPage = new NavigationPage(serviceProvider.GetRequiredService<TimerPage>());
         _appSettings = configurationService.AppSettings;
         _settingsService = settingsService;
     }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Pomodorek.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:Pomodorek.Views"
+    FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}"
+    Shell.TitleColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"
+    Shell.ForegroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"
+    Shell.BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}"
+    Shell.FlyoutWidth="{OnPlatform Android=250, WinUI=175 }"
+    Shell.FlyoutBehavior="{OnPlatform Default=Flyout, WinUI=Locked }"
+    Shell.NavBarIsVisible="{OnPlatform Default=True, WinUI=False}">
+
+    <ShellContent
+        Title="Timer"
+        FlyoutIcon="icon_clock.png"
+        Route="timer"
+        ContentTemplate="{DataTemplate views:TimerPage}" />
+
+    <ShellContent
+        Title="Settings"
+        FlyoutIcon="icon_gear.png"
+        Route="settings"
+        ContentTemplate="{DataTemplate views:SettingsPage}" />
+
+</Shell>

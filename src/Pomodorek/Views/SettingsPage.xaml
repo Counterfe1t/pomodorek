@@ -119,9 +119,6 @@
             HorizontalOptions="End"
             Spacing="10">
             <controls:AsyncImageButton
-                Source="icon_clock.png"
-                Command="{Binding GoBackCommand}" />
-            <controls:AsyncImageButton
                 Source="icon_save.png"
                 IsVisible="{Binding IsChangePending}"
                 Command="{Binding SaveSettingsCommand}" />

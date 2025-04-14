@@ -87,7 +87,7 @@ public class SettingsPageViewModelTests
         _alertServiceMock
             .Verify(x => x.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsSaved));
         _navigationServiceMock
-            .Verify(x => x.GoToTimerPageAsync(), Times.Once);
+            .Verify(x => x.NavigateToTimerPageAsync(), Times.Once);
     }
 
     [Fact]
