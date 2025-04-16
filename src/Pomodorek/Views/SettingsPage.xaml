@@ -11,7 +11,7 @@
     <Grid
         Padding="25"
         RowDefinitions="40, 40, 40, 40, 40, 40, *, Auto"
-        RowSpacing="10"
+        RowSpacing="{OnPlatform Default=8, Android=15}"
         ColumnDefinitions="*, *"
         ColumnSpacing="25">
 
@@ -21,6 +21,7 @@
             Text="Dark mode" />
         <Switch
             Grid.Column="2"
+            HorizontalOptions="End"
             IsToggled="{Binding IsDarkThemeEnabled}" />
 
         <!--2nd row-->
@@ -31,6 +32,7 @@
         <Switch
             Grid.Row="1"
             Grid.Column="2"
+            HorizontalOptions="End"
             IsToggled="{Binding IsSoundEnabled}" />
 
         <!--3rd row-->

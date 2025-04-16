@@ -1,4 +1,6 @@
-﻿namespace Pomodorek;
+﻿using Microsoft.Maui.Handlers;
+
+namespace Pomodorek;
 
 public partial class App : Application
 {
@@ -11,6 +13,8 @@ public partial class App : Application
         IConfigurationService configurationService)
     {
         InitializeComponent();
+        InitializeHandlers();
+
         MainPage = new AppShell();
 
         _appSettings = configurationService.AppSettings;
@@ -39,5 +43,16 @@ public partial class App : Application
             : AppTheme.Light;
 
         return window;
+    }
+
+    private void InitializeHandlers()
+    {
+#if WINDOWS
+        SwitchHandler.Mapper.AppendToMapping("CustomLabelSwitch", (handler, control) =>
+        {
+            handler.PlatformView.OnContent = null;
+            handler.PlatformView.OffContent = null;
+        });
+#endif
     }
 }
