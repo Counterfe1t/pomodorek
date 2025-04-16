@@ -10,6 +10,18 @@
         <Thickness
             x:Key="TextControlBorderThemeThicknessFocused">0</Thickness>
 
+        <!--Hide flyout item selection indicator-->
+        <StaticResource
+            x:Key="NavigationViewSelectionIndicatorForeground"
+            ResourceKey="SystemControlForegroundAccentBrush" />
+        <SolidColorBrush
+            x:Key="SystemControlForegroundAccentBrush"
+            Color="Transparent" />
+        <SolidColorBrush
+            x:Key="ListViewItemBackgroundSelectedPointerOver"
+            Color="Transparent" />
+
+        <!--Custom window title bar-->
         <DataTemplate
             x:Key="MauiAppTitleBarTemplate">
             <Grid>
