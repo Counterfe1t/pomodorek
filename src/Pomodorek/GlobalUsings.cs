@@ -4,6 +4,7 @@ global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.Mvvm.Messaging;
 global using Microsoft.Extensions.Configuration;
+global using Microsoft.Maui.Handlers;
 global using Microsoft.Maui.LifecycleEvents;
 global using Plugin.Maui.Audio;
 global using Pomodorek.Converters;

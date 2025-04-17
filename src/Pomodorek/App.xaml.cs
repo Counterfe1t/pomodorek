@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Handlers;
-
-namespace Pomodorek;
+﻿namespace Pomodorek;
 
 public partial class App : Application
 {
