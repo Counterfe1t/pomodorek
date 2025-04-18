@@ -2,7 +2,6 @@
 
 public static class Constants
 {
-    public const string ApplicationName = "Pomodorek";
     public const string AppSettingsFileName = "Pomodorek.appsettings.json";
 
     public const int OneMinuteInSec = 60;
@@ -13,6 +12,7 @@ public static class Constants
     {
         public const string TimerPage = "timer";
         public const string SettingsPage = "settings";
+        public const string AboutPage = "about";
     }
 
     public class Settings
@@ -31,6 +31,7 @@ public static class Constants
     {
         public const string Pomodorek = nameof(Pomodorek);
         public const string Settings = nameof(Settings);
+        public const string About = nameof(About);
     }
 
     public class Labels

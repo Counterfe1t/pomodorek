@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
+             x:Class="Pomodorek.Views.AboutPage"
+             x:DataType="viewmodels:AboutPageViewModel"
+             Title="{Binding Title}">
+    <ScrollView>
+        <Grid Padding="25">
+            <Grid RowDefinitions="Auto, Auto, Auto, Auto"
+                  RowSpacing="25"
+                  ColumnDefinitions="*"
+                  MaximumWidthRequest="{OnPlatform WinUI=600}">
+
+                <!--1st row-->
+                <Image Grid.Row="0"
+                       HorizontalOptions="Center"
+                       Source="icon_clock.png"
+                       WidthRequest="75"
+                       HeightRequest="75" />
+
+                <!--2nd row-->
+                <Frame Grid.Row="1">
+                    <Grid RowDefinitions="Auto, Auto"
+                          RowSpacing="10"
+                          ColumnDefinitions="* ">
+
+                        <Label Grid.Row="0"
+                               Text="Application name:" />
+                        <Label Grid.Row="0"
+                               Grid.Column="1"
+                               HorizontalOptions="End"
+                               Text="{Binding AppName}" />
+
+                        <Label Grid.Row="1"
+                               Text="Application version:" />
+                        <Label Grid.Row="1"
+                               Grid.Column="1"
+                               HorizontalOptions="End"
+                               Text="{Binding AppVersion}" />
+
+                    </Grid>
+                </Frame>
+
+                <!--3rd row-->
+                <Frame Grid.Row="2">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToUrlCommand}"
+                                              CommandParameter="https://dotnet.microsoft.com/en-us/apps/maui" />
+                    </Frame.GestureRecognizers>
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Pomodorek is a cross-platform application built using .NET MAUI and C# programming language. It serves as a utility tool for the Pomodoro Technique®." />
+                        <Label HorizontalOptions="End"
+                               Text="read more →"
+                               TextColor="{StaticResource Primary}" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!--4th row-->
+                <Frame Grid.Row="3">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToUrlCommand}"
+                                              CommandParameter="https://www.pomodorotechnique.com/" />
+                    </Frame.GestureRecognizers>
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Pomodoro Technique® is a time management technique that splits time reserved for work into intervals and short rest periods between them. Every four intervals the break is significantly longer to further help yourself recharge energy before going into another focus session. Read more about it at the official website. Pomodoro Technique® and Pomodoro™ are registered and filed trademarks owned by Francesco Cirillo." />
+                        <Label HorizontalOptions="End"
+                               Text="read more →"
+                               TextColor="{StaticResource Primary}" />
+                    </VerticalStackLayout>
+                </Frame>
+
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>

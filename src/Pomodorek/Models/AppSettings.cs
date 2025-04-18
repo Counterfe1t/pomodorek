@@ -2,6 +2,10 @@
 
 public class AppSettings
 {
+    public string AppName { get; set; }
+
+    public string AppVersion { get; set; }
+
     public bool DefaultIsDarkThemeEnabled { get; set; }
 
     public bool DefaultIsSoundEnabled { get; set; }

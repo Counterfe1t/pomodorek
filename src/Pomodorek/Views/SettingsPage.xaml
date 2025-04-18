@@ -15,8 +15,8 @@
             RowDefinitions="40, 40, 40, 40, 40, 40"
             RowSpacing="15"
             ColumnDefinitions="*, *"
-            MaximumWidthRequest="{OnPlatform WinUI=600}"
-            ColumnSpacing="25">
+            ColumnSpacing="25"
+            MaximumWidthRequest="{OnPlatform WinUI=600}">
 
             <!--1st row-->
             <Label

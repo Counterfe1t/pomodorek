@@ -43,6 +43,7 @@ public static class MauiProgram
     {
         builder.Services.AddSingleton<TimerPageViewModel>();
         builder.Services.AddSingleton<SettingsPageViewModel>();
+        builder.Services.AddSingleton<AboutPageViewModel>();
         return builder;
     }
 
@@ -50,6 +51,7 @@ public static class MauiProgram
     {
         builder.Services.AddSingleton<TimerPage>();
         builder.Services.AddSingleton<SettingsPage>();
+        builder.Services.AddSingleton<AboutPage>();
         return builder;
     }
 

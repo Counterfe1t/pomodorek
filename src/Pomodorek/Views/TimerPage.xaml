@@ -10,7 +10,7 @@
     x:DataType="viewmodels:TimerPageViewModel"
     Title="{Binding Title}">
     <Grid
-        Padding="15"
+        Padding="25"
         RowDefinitions="60, *, 100"
         RowSpacing="0"
         ColumnDefinitions="*"

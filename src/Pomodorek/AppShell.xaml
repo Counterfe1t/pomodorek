@@ -24,4 +24,10 @@
         Route="settings"
         ContentTemplate="{DataTemplate views:SettingsPage}" />
 
+    <ShellContent
+        Title="About"
+        FlyoutIcon="icon_info.png"
+        Route="about"
+        ContentTemplate="{DataTemplate views:AboutPage}" />
+
 </Shell>
