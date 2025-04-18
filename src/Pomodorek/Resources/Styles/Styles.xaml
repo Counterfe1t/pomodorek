@@ -213,7 +213,7 @@
             Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
         <Setter
             Property="BackgroundColor"
-            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}" />
+            Value="{AppThemeBinding Light={OnPlatform Android=Transparent, Default={StaticResource Gray100}}, Dark={OnPlatform Android=Transparent, Default={StaticResource Gray900}}}" />
         <Setter
             Property="FontFamily"
             Value="OpenSansRegular" />
@@ -619,7 +619,7 @@
             Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         <Setter
             Property="ThumbColor"
-            Value="{StaticResource White}" />
+            Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         <Setter
             Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
