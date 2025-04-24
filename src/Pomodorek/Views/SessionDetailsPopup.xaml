@@ -1,93 +1,80 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<toolkit:Popup
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:viewModels="clr-namespace:Pomodorek.ViewModels"
-    xmlns:controls="clr-namespace:Pomodorek.Views.Controls"
-    x:Class="Pomodorek.Views.SessionDetailsPopup"
-    x:DataType="viewModels:TimerPageViewModel"
-    Color="Transparent"
-    CanBeDismissedByTappingOutsideOfPopup="False">
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:viewModels="clr-namespace:Pomodorek.ViewModels"
+               xmlns:controls="clr-namespace:Pomodorek.Views.Controls"
+               x:Class="Pomodorek.Views.SessionDetailsPopup"
+               x:DataType="viewModels:TimerPageViewModel"
+               Color="Transparent"
+               CanBeDismissedByTappingOutsideOfPopup="False">
     <VerticalStackLayout>
-        <Frame
-            Padding="25"
-            BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}"
-            WidthRequest="350"
-            HeightRequest="300">
-            <Grid
-                RowDefinitions="Auto, Auto, Auto, Auto, *, Auto"
-                RowSpacing="10"
-                ColumnDefinitions="200, *"
-                ColumnSpacing="10">
+        <Frame Padding="25"
+               BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}"
+               WidthRequest="350"
+               HeightRequest="300">
+            <Grid RowDefinitions="Auto, Auto, Auto, Auto, *, Auto"
+                  RowSpacing="10"
+                  ColumnDefinitions="200, *"
+                  ColumnSpacing="10">
 
                 <!--1st row-->
-                <Label
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    FontSize="20"
-                    Text="Session Details" />
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       FontSize="20"
+                       Text="Session Details" />
 
                 <!--2nd row-->
-                <Label
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Text="All intervals count:"
-                    FontSize="15" />
-                <Label
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    HorizontalOptions="End"
-                    Text="{Binding Session.IntervalsCount}"
-                    FontSize="15" />
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Text="All intervals count:"
+                       FontSize="15" />
+                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       HorizontalOptions="End"
+                       Text="{Binding Session.IntervalsCount}"
+                       FontSize="15" />
 
                 <!--3rd row-->
-                <Label
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    Text="Work intervals count:"
-                    FontSize="15" />
-                <Label
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    HorizontalOptions="End"
-                    Text="{Binding Session.WorkIntervalsCount}"
-                    FontSize="15" />
+                <Label Grid.Row="2"
+                       Grid.Column="0"
+                       Text="Work intervals count:"
+                       FontSize="15" />
+                <Label Grid.Row="2"
+                       Grid.Column="1"
+                       HorizontalOptions="End"
+                       Text="{Binding Session.WorkIntervalsCount}"
+                       FontSize="15" />
 
                 <!--4th row-->
-                <Label
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    Text="Short rest intervals count:"
-                    FontSize="15" />
-                <Label
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    HorizontalOptions="End"
-                    Text="{Binding Session.ShortRestIntervalsCount}"
-                    FontSize="15" />
+                <Label Grid.Row="3"
+                       Grid.Column="0"
+                       Text="Short rest intervals count:"
+                       FontSize="15" />
+                <Label Grid.Row="3"
+                       Grid.Column="1"
+                       HorizontalOptions="End"
+                       Text="{Binding Session.ShortRestIntervalsCount}"
+                       FontSize="15" />
 
                 <!--5th row-->
-                <Label
-                    Grid.Row="4"
-                    Grid.Column="0"
-                    Text="Long rest intervals count:"
-                    FontSize="15" />
-                <Label
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    HorizontalOptions="End"
-                    Text="{Binding Session.LongRestIntervalsCount}"
-                    FontSize="15" />
+                <Label Grid.Row="4"
+                       Grid.Column="0"
+                       Text="Long rest intervals count:"
+                       FontSize="15" />
+                <Label Grid.Row="4"
+                       Grid.Column="1"
+                       HorizontalOptions="End"
+                       Text="{Binding Session.LongRestIntervalsCount}"
+                       FontSize="15" />
 
                 <!--6th row is empty-->
 
                 <!--7th row-->
-                <controls:CustomButton
-                    Grid.Row="6"
-                    Grid.ColumnSpan="2"
-                    Text="OK"
-                    Command="{Binding CloseSessionDetailsPopupCommand}"/>
+                <controls:CustomButton Grid.Row="6"
+                                       Grid.ColumnSpan="2"
+                                       Text="OK"
+                                       Command="{Binding CloseSessionDetailsPopupCommand}" />
             </Grid>
         </Frame>
     </VerticalStackLayout>

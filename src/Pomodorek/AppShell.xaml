@@ -7,8 +7,8 @@
        Shell.TitleColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"
        Shell.ForegroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"
        Shell.BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}"
-       Shell.FlyoutWidth="{OnPlatform Android=250, WinUI=175 }"
-       Shell.FlyoutBehavior="{OnPlatform Default=Flyout, WinUI=Disabled }"
+       Shell.FlyoutWidth="{OnPlatform Default=250}"
+       Shell.FlyoutBehavior="{OnPlatform Default=Flyout, WinUI=Disabled}"
        Shell.NavBarIsVisible="{OnPlatform Default=True, WinUI=False}">
 
     <ShellContent Title="Timer"
@@ -25,5 +25,4 @@
                   FlyoutIcon="icon_info.png"
                   Route="about"
                   ContentTemplate="{DataTemplate views:AboutPage}" />
-
 </Shell>

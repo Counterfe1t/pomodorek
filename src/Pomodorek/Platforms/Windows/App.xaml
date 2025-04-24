@@ -1,47 +1,35 @@
-﻿<maui:MauiWinUIApplication
-    x:Class="Pomodorek.WinUI.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:maui="using:Microsoft.Maui"
-    xmlns:local="using:Pomodorek.WinUI">
+﻿<maui:MauiWinUIApplication x:Class="Pomodorek.WinUI.App"
+                           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                           xmlns:maui="using:Microsoft.Maui">
     <maui:MauiWinUIApplication.Resources>
-        <Thickness
-            x:Key="TextControlBorderThemeThickness">0</Thickness>
-        <Thickness
-            x:Key="TextControlBorderThemeThicknessFocused">0</Thickness>
+        <Thickness x:Key="TextControlBorderThemeThickness">0</Thickness>
+        <Thickness x:Key="TextControlBorderThemeThicknessFocused">0</Thickness>
 
         <!--Hide flyout item selection indicator-->
-        <StaticResource
-            x:Key="NavigationViewSelectionIndicatorForeground"
-            ResourceKey="SystemControlForegroundAccentBrush" />
-        <SolidColorBrush
-            x:Key="SystemControlForegroundAccentBrush"
-            Color="Transparent" />
-        <SolidColorBrush
-            x:Key="ListViewItemBackgroundSelectedPointerOver"
-            Color="Transparent" />
+        <StaticResource x:Key="NavigationViewSelectionIndicatorForeground"
+                        ResourceKey="SystemControlForegroundAccentBrush" />
+        <SolidColorBrush x:Key="SystemControlForegroundAccentBrush"
+                         Color="Transparent" />
+        <SolidColorBrush x:Key="ListViewItemBackgroundSelectedPointerOver"
+                         Color="Transparent" />
 
         <!--Custom window title bar-->
-        <DataTemplate
-            x:Key="MauiAppTitleBarTemplate">
+        <DataTemplate x:Key="MauiAppTitleBarTemplate">
             <Grid>
-                <Border
-                    Canvas.ZIndex="1"
-                    VerticalAlignment="Stretch"
-                    Background="Black"
-                    Padding="10,0,0,0">
-                    <StackPanel
-                        Spacing="5"
-                        Orientation="Horizontal">
-                        <ImageIcon
-                            Source="icon_clock.png"
-                            Height="15"
-                            Width="15" />
-                        <TextBlock
-                            Foreground="White"
-                            VerticalAlignment="Center"
-                            Text="Pomodorek"
-                            FontWeight="Normal" />
+                <Border Canvas.ZIndex="1"
+                        VerticalAlignment="Stretch"
+                        Background="Black"
+                        Padding="10,0,0,0">
+                    <StackPanel Spacing="5"
+                                Orientation="Horizontal">
+                        <ImageIcon Source="icon_clock.png"
+                                   Height="15"
+                                   Width="15" />
+                        <TextBlock Foreground="White"
+                                   VerticalAlignment="Center"
+                                   Text="Pomodorek"
+                                   FontWeight="Normal" />
                     </StackPanel>
                 </Border>
             </Grid>

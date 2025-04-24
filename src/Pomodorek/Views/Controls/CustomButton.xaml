@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<StackLayout
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="Pomodorek.Views.Controls.CustomButton"
-    VerticalOptions="Center"
-    HeightRequest="60"
-    WidthRequest="60">
-    <Button
-        x:Name="Button"
-        Style="{StaticResource CircularButton}"
-        VerticalOptions="CenterAndExpand"
-        FontSize="15"
-        FontAttributes="{OnPlatform Android=Bold}" />
+<StackLayout xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pomodorek.Views.Controls.CustomButton"
+             VerticalOptions="Center"
+             HeightRequest="60"
+             WidthRequest="60">
+    <Button x:Name="Button"
+            Style="{StaticResource CircularButton}"
+            VerticalOptions="CenterAndExpand"
+            FontSize="15"
+            FontAttributes="{OnPlatform Android=Bold}" />
 </StackLayout>

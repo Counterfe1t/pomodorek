@@ -1,33 +1,25 @@
 ﻿<?xml version = "1.0" encoding = "UTF-8" ?>
-<Application
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Pomodorek"
-    xmlns:behaviors="clr-namespace:Pomodorek.Behaviors"
-    xmlns:converters="clr-namespace:Pomodorek.Converters"
-    x:Class="Pomodorek.App">
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Pomodorek"
+             xmlns:behaviors="clr-namespace:Pomodorek.Behaviors"
+             xmlns:converters="clr-namespace:Pomodorek.Converters"
+             x:Class="Pomodorek.App">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary
-                    Source="Resources/Styles/Colors.xaml" />
-                <ResourceDictionary
-                    Source="Resources/Styles/Styles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!--Converters-->
-            <converters:TimeConverter
-                x:Key="TimeConverter" />
-            <converters:IntervalConverter
-                x:Key="IntervalConverter" />
-            <converters:NegationConverter
-                x:Key="NegationConverter" />
-            <converters:AlarmConverter
-                x:Key="AlarmConverter" />
+            <converters:TimeConverter x:Key="TimeConverter" />
+            <converters:IntervalConverter x:Key="IntervalConverter" />
+            <converters:NegationConverter x:Key="NegationConverter" />
+            <converters:AlarmConverter x:Key="AlarmConverter" />
 
             <!--Behaviors-->
-            <behaviors:NumericValidationBehavior
-                x:Key="NumericValidationBehavior" />
+            <behaviors:NumericValidationBehavior x:Key="NumericValidationBehavior" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
