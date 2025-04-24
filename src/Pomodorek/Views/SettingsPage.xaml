@@ -1,134 +1,147 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
-    xmlns:behaviors="clr-namespace:Pomodorek.Behaviors"
-    xmlns:controls="clr-namespace:Pomodorek.Views.Controls"
-    x:Class="Pomodorek.Views.SettingsPage"
-    x:DataType="viewmodels:SettingsPageViewModel"
-    Title="{Binding Title}">
-    <Grid
-        Padding="25"
-        RowDefinitions="*, Auto">
-        <Grid
-            RowDefinitions="40, 40, 40, 40, 40, 40"
-            RowSpacing="15"
-            ColumnDefinitions="*, *"
-            ColumnSpacing="25"
-            MaximumWidthRequest="{OnPlatform WinUI=600}">
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
+             xmlns:behaviors="clr-namespace:Pomodorek.Behaviors"
+             xmlns:controls="clr-namespace:Pomodorek.Views.Controls"
+             x:Class="Pomodorek.Views.SettingsPage"
+             x:DataType="viewmodels:SettingsPageViewModel"
+             Title="{Binding Title}">
 
-            <!--1st row-->
-            <Label
-                VerticalOptions="Center"
-                Text="Dark mode" />
-            <Switch
-                Grid.Column="1"
-                HorizontalOptions="{OnPlatform Default=Center, WinUI=End}"
-                IsToggled="{Binding IsDarkThemeEnabled}" />
-                
-            <!--2nd row-->
-            <Label
-                Grid.Row="1"
-                VerticalOptions="Center"
-                Text="Sound enabled" />
-            <Switch
-                Grid.Row="1"
-                Grid.Column="1"
-                HorizontalOptions="{OnPlatform Default=Center, WinUI=End}"
-                IsToggled="{Binding IsSoundEnabled}" />
+    <Grid ColumnDefinitions="{OnPlatform Default=*, WinUI='85, *'}">
 
-            <!--3rd row-->
-            <Label
-                Grid.Row="2"
-                VerticalOptions="Center"
-                Text="Sound volume" />
-            <Slider
-                Grid.Row="2"
-                Grid.Column="1"
-                HorizontalOptions="Fill"
-                IsEnabled="{Binding IsSoundEnabled}"
-                Maximum="1"
-                Minimum="0"
-                Value="{Binding SoundVolume}" />
-
-            <!--4th row-->
-            <Label
-                Grid.Row="3"
-                VerticalOptions="Center"
-                Text="Focus length in minutes" />
-            <Entry
-                Grid.Row="3"
-                Grid.Column="1"
-                WidthRequest="50"
-                HeightRequest="{OnPlatform Android=50}"
-                HorizontalOptions="Center"
-                HorizontalTextAlignment="Center"
-                MaxLength="2"
-                Text="{Binding WorkLengthInMin}"
-                Keyboard="Numeric">
-                <Entry.Behaviors>
-                    <behaviors:NumericValidationBehavior />
-                </Entry.Behaviors>
-            </Entry>
-
-            <!--5th row-->
-            <Label
-                Grid.Row="4"
-                VerticalOptions="Center"
-                Text="Short rest length in minutes" />
-            <Entry
-                Grid.Row="4"
-                Grid.Column="1"
-                WidthRequest="50"
-                HeightRequest="{OnPlatform Android=50}"
-                HorizontalOptions="Center"
-                HorizontalTextAlignment="Center"
-                MaxLength="2"
-                Text="{Binding ShortRestLengthInMin}"
-                Keyboard="Numeric">
-                <Entry.Behaviors>
-                    <behaviors:NumericValidationBehavior />
-                </Entry.Behaviors>
-            </Entry>
-
-            <!--6th row-->
-            <Label
-                Grid.Row="5"
-                VerticalOptions="Center"
-                Text="Long rest length in minutes" />
-            <Entry
-                Grid.Row="5"
-                Grid.Column="1"
-                WidthRequest="50"
-                HeightRequest="{OnPlatform Android=50}"
-                HorizontalOptions="Center"
-                HorizontalTextAlignment="Center"
-                MaxLength="2"
-                Text="{Binding LongRestLengthInMin}"
-                Keyboard="Numeric">
-                <Entry.Behaviors>
-                    <behaviors:NumericValidationBehavior />
-                </Entry.Behaviors>
-            </Entry>
-
-            <!--7th row is empty-->
-
+        <!--Custom navigation menu for WinUI-->
+        <Grid Grid.Column="0"
+              RowDefinitions="Auto, Auto, Auto, *"
+              RowSpacing="10"
+              ColumnDefinitions="*, Auto"
+              ColumnSpacing="0"
+              IsVisible="{OnPlatform WinUI=True, Default=False}">
+            <controls:AsyncImageButton Grid.Row="0"
+                                       Margin="0,10,0,0"
+                                       HorizontalOptions="Center"
+                                       Source="icon_clock.png"
+                                       Command="{Binding NavigateToTimerPageCommand}" />
+            <controls:AsyncImageButton Grid.Row="1"
+                                       HorizontalOptions="Center"
+                                       Source="icon_gear.png"
+                                       Command="{Binding NavigateToSettingsPageCommand}" />
+            <controls:AsyncImageButton Grid.Row="2"
+                                       HorizontalOptions="Center"
+                                       Source="icon_info.png"
+                                       Command="{Binding NavigateToAboutPageCommand}" />
+            <BoxView Grid.Column="1"
+                     Grid.RowSpan="4"
+                     MinimumWidthRequest="1"
+                     Color="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray900}}" />
         </Grid>
 
-        <!--there is a bug regarding visual state not being updated after changes to IsEnabled property https://github.com/dotnet/maui/issues/7377-->
-        <StackLayout
-            Grid.Row="1"
-            Orientation="Horizontal"
-            HorizontalOptions="End"
-            Spacing="10">
-            <controls:AsyncImageButton
-                Source="icon_save.png"
-                IsVisible="{Binding IsChangePending}"
-                Command="{Binding SaveSettingsCommand}" />
-            <controls:AsyncImageButton
-                Source="icon_reset.png"
-                Command="{Binding RestoreSettingsCommand}" />
-        </StackLayout>
+        <Grid Grid.Column="1"
+              Padding="25"
+              RowDefinitions="*, Auto">
+            <Grid RowDefinitions="40, 40, 40, 40, 40, 40"
+                  RowSpacing="15"
+                  ColumnDefinitions="*, *"
+                  ColumnSpacing="25"
+                  MaximumWidthRequest="{OnPlatform WinUI=600}">
+
+                <!--1st row-->
+                <Label VerticalOptions="Center"
+                       Text="Dark mode" />
+                <Switch Grid.Column="1"
+                        HorizontalOptions="{OnPlatform Default=Center, WinUI=End}"
+                        IsToggled="{Binding IsDarkThemeEnabled}" />
+
+                <!--2nd row-->
+                <Label Grid.Row="1"
+                       VerticalOptions="Center"
+                       Text="Sound enabled" />
+                <Switch Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalOptions="{OnPlatform Default=Center, WinUI=End}"
+                        IsToggled="{Binding IsSoundEnabled}" />
+
+                <!--3rd row-->
+                <Label Grid.Row="2"
+                       VerticalOptions="Center"
+                       Text="Sound volume" />
+                <Slider Grid.Row="2"
+                        Grid.Column="1"
+                        HorizontalOptions="Fill"
+                        IsEnabled="{Binding IsSoundEnabled}"
+                        Maximum="1"
+                        Minimum="0"
+                        Value="{Binding SoundVolume}" />
+
+                <!--4th row-->
+                <Label Grid.Row="3"
+                       VerticalOptions="Center"
+                       Text="Focus length in minutes" />
+                <Entry Grid.Row="3"
+                       Grid.Column="1"
+                       WidthRequest="50"
+                       HeightRequest="{OnPlatform Android=50}"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       MaxLength="2"
+                       Text="{Binding WorkLengthInMin}"
+                       Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <behaviors:NumericValidationBehavior />
+                    </Entry.Behaviors>
+                </Entry>
+
+                <!--5th row-->
+                <Label Grid.Row="4"
+                       VerticalOptions="Center"
+                       Text="Short rest length in minutes" />
+                <Entry Grid.Row="4"
+                       Grid.Column="1"
+                       WidthRequest="50"
+                       HeightRequest="{OnPlatform Android=50}"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       MaxLength="2"
+                       Text="{Binding ShortRestLengthInMin}"
+                       Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <behaviors:NumericValidationBehavior />
+                    </Entry.Behaviors>
+                </Entry>
+
+                <!--6th row-->
+                <Label Grid.Row="5"
+                       VerticalOptions="Center"
+                       Text="Long rest length in minutes" />
+                <Entry Grid.Row="5"
+                       Grid.Column="1"
+                       WidthRequest="50"
+                       HeightRequest="{OnPlatform Android=50}"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       MaxLength="2"
+                       Text="{Binding LongRestLengthInMin}"
+                       Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <behaviors:NumericValidationBehavior />
+                    </Entry.Behaviors>
+                </Entry>
+
+                <!--7th row is empty-->
+
+            </Grid>
+
+            <!--there is a bug regarding visual state not being updated after changes to IsEnabled property https://github.com/dotnet/maui/issues/7377-->
+            <StackLayout Grid.Row="1"
+                         Orientation="Horizontal"
+                         HorizontalOptions="End"
+                         Spacing="10">
+                <controls:AsyncImageButton Source="icon_save.png"
+                                           IsVisible="{Binding IsChangePending}"
+                                           Command="{Binding SaveSettingsCommand}" />
+                <controls:AsyncImageButton Source="icon_reset.png"
+                                           Command="{Binding RestoreSettingsCommand}" />
+            </StackLayout>
+        </Grid>
     </Grid>
 </ContentPage>

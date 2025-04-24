@@ -47,8 +47,9 @@ public partial class TimerPageViewModel : BaseViewModel
         IPermissionsService permissionsService,
         ISessionService sessionService,
         IPopupService popupService,
-        IAlertService alertService)
-        : base(Constants.Pages.Pomodorek)
+        IAlertService alertService,
+        INavigationService navigationService)
+        : base(Constants.Pages.Pomodorek, navigationService)
     {
         _timerService = timerService;
         _timeProvider = timeProvider;

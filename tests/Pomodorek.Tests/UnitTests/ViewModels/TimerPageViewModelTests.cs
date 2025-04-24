@@ -10,6 +10,7 @@ public class TimerPageViewModelTests
     private readonly Mock<ISessionService> _sessionServiceMock;
     private readonly Mock<IPopupService> _popupServiceMock;
     private readonly Mock<IAlertService> _alertServiceMock;
+    private readonly Mock<INavigationService> _navigationServiceMock;
 
     public TimerPageViewModelTests()
     {
@@ -19,6 +20,7 @@ public class TimerPageViewModelTests
         _sessionServiceMock = new();
         _popupServiceMock = new();
         _alertServiceMock = new();
+        _navigationServiceMock = new();
 
         _sessionServiceMock
             .Setup(x => x.GetSession())
@@ -30,7 +32,8 @@ public class TimerPageViewModelTests
             _permissionsServiceMock.Object,
             _sessionServiceMock.Object,
             _popupServiceMock.Object,
-            _alertServiceMock.Object);
+            _alertServiceMock.Object,
+            _navigationServiceMock.Object);
 
         _timerServiceMock.Invocations.Clear();
     }

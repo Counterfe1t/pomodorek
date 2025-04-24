@@ -3,12 +3,8 @@
 public interface INavigationService
 {
     /// <summary>
-    /// Navigate to the timer page.
+    /// Navigate to the page at specified route.
     /// </summary>
-    Task NavigateToTimerPageAsync();
-
-    /// <summary>
-    /// Navigate to the settings page.
-    /// </summary>
-    Task NavigateToSettingsPageAsync();
+    /// <param name="route">The unique identifier or URI of the target page.</param>
+    Task NavigateToAsync(string route);
 }

@@ -4,7 +4,6 @@ public partial class SettingsPageViewModel : BaseViewModel
 {
     private readonly ISettingsService _settingsService;
     private readonly IAlertService _alertService;
-    private readonly INavigationService _navigationService;
 
     private readonly AppSettings _appSettings;
     private readonly Application _application;
@@ -69,13 +68,12 @@ public partial class SettingsPageViewModel : BaseViewModel
         IAlertService alertService,
         INavigationService navigationService,
         IApplicationService applicationService)
-        : base(Constants.Pages.Settings)
+        : base(Constants.Pages.Settings, navigationService)
     {
         _appSettings = configurationService.AppSettings;
         _application = applicationService.Application;
         _settingsService = settingsService;
         _alertService = alertService;
-        _navigationService = navigationService;
     }
 
     public void InitializeSettings()
@@ -113,7 +111,7 @@ public partial class SettingsPageViewModel : BaseViewModel
         IsChangePending = false;
 
         await _alertService.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsSaved);
-        await _navigationService.NavigateToTimerPageAsync();
+        await _navigationService.NavigateToAsync(Constants.Routes.TimerPage);
     }
 
     [RelayCommand]

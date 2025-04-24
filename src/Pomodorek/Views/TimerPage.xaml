@@ -1,103 +1,115 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:behaviors="clr-namespace:Pomodorek.Behaviors"
-    xmlns:controls="clr-namespace:Pomodorek.Views.Controls"
-    xmlns:converters="clr-namespace:Pomodorek.Converters"
-    xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
-    x:Class="Pomodorek.Views.TimerPage"
-    x:DataType="viewmodels:TimerPageViewModel"
-    Title="{Binding Title}">
-    <Grid
-        Padding="25"
-        RowDefinitions="60, *, 100"
-        RowSpacing="0"
-        ColumnDefinitions="*"
-        ColumnSpacing="0">
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:Pomodorek.Behaviors"
+             xmlns:controls="clr-namespace:Pomodorek.Views.Controls"
+             xmlns:converters="clr-namespace:Pomodorek.Converters"
+             xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
+             x:Class="Pomodorek.Views.TimerPage"
+             x:DataType="viewmodels:TimerPageViewModel"
+             Title="{Binding Title}">
+    <Grid ColumnDefinitions="{OnPlatform Default=*, WinUI='85, *'}">
 
-        <!--1st row-->
-        <controls:CustomImageButton
-            Grid.Row="0"
-            HorizontalOptions="End"
-            Source="icon_info.png"
-            Command="{Binding ShowSessionDetailsPopupCommand}" />
-
-        <!--2nd row-->
-        <BoxView
-            Grid.Row="1"
-            Grid.ColumnSpan="2"
-            CornerRadius="120"
-            WidthRequest="240"
-            HeightRequest="240" />
-
-        <Grid
-            Grid.Row="1"
-            Grid.ColumnSpan="2"
-            RowDefinitions="30, *, Auto"
-            VerticalOptions="Center"
-            HorizontalOptions="Center">
-            <StackLayout
-                Grid.Row="0"
-                Orientation="Horizontal"
-                HorizontalOptions="Center"
-                Spacing="5"
-                IsVisible="{Binding IsRunning}">
-                <Image
-                    HeightRequest="{OnPlatform Default=18}"
-                    Source="icon_alarm.png" />
-                <Label
-                    Text="{Binding Session.TriggerAlarmAt, Converter={StaticResource AlarmConverter}}"
-                    FontSize="20" />
-            </StackLayout>
-            <StackLayout
-                Grid.Row="0"
-                Orientation="Horizontal"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                Spacing="5"
-                Padding="0"
-                IsVisible="{Binding IsPaused}">
-                <Image
-                    HeightRequest="{OnPlatform Default=16}"
-                    Source="icon_pause.png" />
-                <Label
-                    Text="PAUSED"
-                    FontSize="18" />
-            </StackLayout>
-            <Label
-                Grid.Row="1"
-                HorizontalOptions="Center"
-                Text="{Binding SecondsRemaining, Converter={StaticResource TimeConverter}}"
-                FontSize="70" />
-            <Label
-                Grid.Row="2"
-                HorizontalOptions="Center"
-                TextColor="{StaticResource Primary}"
-                Text="{Binding Session.CurrentInterval, Converter={StaticResource IntervalConverter}}"
-                FontSize="30" />
+        <!--Custom navigation menu for WinUI-->
+        <Grid Grid.Column="0"
+              RowDefinitions="Auto, Auto, Auto, *"
+              RowSpacing="10"
+              ColumnDefinitions="*, Auto"
+              ColumnSpacing="0"
+              IsVisible="{OnPlatform WinUI=True, Default=False}">
+            <controls:AsyncImageButton Grid.Row="0"
+                                       Margin="0,10,0,0"
+                                       HorizontalOptions="Center"
+                                       Source="icon_clock.png"
+                                       Command="{Binding NavigateToTimerPageCommand}" />
+            <controls:AsyncImageButton Grid.Row="1"
+                                       HorizontalOptions="Center"
+                                       Source="icon_gear.png"
+                                       Command="{Binding NavigateToSettingsPageCommand}" />
+            <controls:AsyncImageButton Grid.Row="2"
+                                       HorizontalOptions="Center"
+                                       Source="icon_info.png"
+                                       Command="{Binding NavigateToAboutPageCommand}" />
+            <BoxView Grid.Column="1"
+                     Grid.RowSpan="4"
+                     MinimumWidthRequest="1"
+                     Color="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray900}}" />
         </Grid>
 
-        <!--3rd row-->
-        <StackLayout
-            Grid.Row="2"
-            Orientation="Horizontal"
-            HorizontalOptions="Center"
-            Spacing="10">
-            <controls:AsyncImageButton
-                Source="icon_reset.png"
-                Command="{Binding ResetCommand}" />
-            <controls:CustomImageButton
-                Source="icon_start.png"
-                IsVisible="{Binding IsRunning, Converter={StaticResource NegationConverter}}"
-                Command="{Binding StartCommand}" />
-            <controls:CustomImageButton
-                Source="icon_pause.png"
-                IsVisible="{Binding IsRunning}"
-                Command="{Binding PauseCommand}" />
-            <controls:CustomImageButton
-                Source="icon_stop.png"
-                Command="{Binding StopCommand}" />
-        </StackLayout>
+        <Grid Grid.Column="1"
+              Padding="25"
+              RowDefinitions="60, *, Auto"
+              RowSpacing="0"
+              ColumnDefinitions="*"
+              ColumnSpacing="0">
+
+            <!--1st row-->
+            <controls:CustomImageButton Grid.Row="0"
+                                        HorizontalOptions="End"
+                                        Source="icon_info.png"
+                                        Command="{Binding ShowSessionDetailsPopupCommand}" />
+
+            <!--2nd row-->
+            <BoxView Grid.Row="1"
+                     Grid.ColumnSpan="2"
+                     CornerRadius="120"
+                     WidthRequest="240"
+                     HeightRequest="240" />
+
+            <Grid Grid.Row="1"
+                  Grid.ColumnSpan="2"
+                  RowDefinitions="30, *, Auto"
+                  VerticalOptions="Center"
+                  HorizontalOptions="Center">
+                <StackLayout Grid.Row="0"
+                             Orientation="Horizontal"
+                             HorizontalOptions="Center"
+                             Spacing="5"
+                             IsVisible="{Binding IsRunning}">
+                    <Image HeightRequest="{OnPlatform Default=18}"
+                           Source="icon_alarm.png" />
+                    <Label Text="{Binding Session.TriggerAlarmAt, Converter={StaticResource AlarmConverter}}"
+                           FontSize="20" />
+                </StackLayout>
+                <StackLayout Grid.Row="0"
+                             Orientation="Horizontal"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Spacing="5"
+                             Padding="0"
+                             IsVisible="{Binding IsPaused}">
+                    <Image HeightRequest="{OnPlatform Default=16}"
+                           Source="icon_pause.png" />
+                    <Label Text="PAUSED"
+                           FontSize="18" />
+                </StackLayout>
+                <Label Grid.Row="1"
+                       HorizontalOptions="Center"
+                       Text="{Binding SecondsRemaining, Converter={StaticResource TimeConverter}}"
+                       FontSize="70" />
+                <Label Grid.Row="2"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource Primary}"
+                       Text="{Binding Session.CurrentInterval, Converter={StaticResource IntervalConverter}}"
+                       FontSize="30" />
+            </Grid>
+
+            <!--3rd row-->
+            <StackLayout Grid.Row="2"
+                         Orientation="Horizontal"
+                         HorizontalOptions="Center"
+                         Spacing="10">
+                <controls:AsyncImageButton Source="icon_reset.png"
+                                           Command="{Binding ResetCommand}" />
+                <controls:CustomImageButton Source="icon_start.png"
+                                            IsVisible="{Binding IsRunning, Converter={StaticResource NegationConverter}}"
+                                            Command="{Binding StartCommand}" />
+                <controls:CustomImageButton Source="icon_pause.png"
+                                            IsVisible="{Binding IsRunning}"
+                                            Command="{Binding PauseCommand}" />
+                <controls:CustomImageButton Source="icon_stop.png"
+                                            Command="{Binding StopCommand}" />
+            </StackLayout>
+        </Grid>
     </Grid>
 </ContentPage>

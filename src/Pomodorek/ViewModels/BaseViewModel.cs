@@ -2,6 +2,8 @@
 
 public partial class BaseViewModel : ObservableObject
 {
+    protected readonly INavigationService _navigationService;
+
     [ObservableProperty]
     private string _title;
 
@@ -11,8 +13,21 @@ public partial class BaseViewModel : ObservableObject
 
     public bool IsNotBusy => !IsBusy;
 
-    public BaseViewModel(string title)
+    public BaseViewModel(string title, INavigationService navigationService)
     {
         Title = title;
+        _navigationService = navigationService;
     }
+
+    [RelayCommand]
+    private async Task NavigateToTimerPageAsync()
+        => await _navigationService.NavigateToAsync(Constants.Routes.TimerPage);
+
+    [RelayCommand]
+    private async Task NavigateToSettingsPageAsync()
+        => await _navigationService.NavigateToAsync(Constants.Routes.SettingsPage);
+
+    [RelayCommand]
+    private async Task NavigateToAboutPageAsync()
+        => await _navigationService.NavigateToAsync(Constants.Routes.AboutPage);
 }

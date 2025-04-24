@@ -8,8 +8,12 @@ public partial class AboutPageViewModel : BaseViewModel
     [ObservableProperty]
     private string _appVersion;
 
-    public AboutPageViewModel(IConfigurationService configurationService)
-        : base(Constants.Pages.About)
+    public AboutPageViewModel(
+        IConfigurationService configurationService,
+        INavigationService navigationService)
+        : base(
+            Constants.Pages.About,
+            navigationService)
     {
         _appName = configurationService.AppSettings.AppName;
         _appVersion = configurationService.AppSettings.AppVersion;
