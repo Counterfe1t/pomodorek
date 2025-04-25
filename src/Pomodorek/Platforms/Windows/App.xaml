@@ -23,7 +23,7 @@
                         Padding="10,0,0,0">
                     <StackPanel Spacing="5"
                                 Orientation="Horizontal">
-                        <ImageIcon Source="icon_clock.png"
+                        <ImageIcon Source="icon_pomodorek.png"
                                    Height="15"
                                    Width="15" />
                         <TextBlock Foreground="White"

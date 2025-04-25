@@ -44,9 +44,17 @@
                     <!--1st row-->
                     <Image Grid.Row="0"
                            HorizontalOptions="Center"
-                           Source="icon_clock.png"
-                           WidthRequest="75"
-                           HeightRequest="75" />
+                           Source="icon_pomodorek.png"
+                           WidthRequest="200"
+                           HeightRequest="200">
+                        <Image.Shadow>
+                            <Shadow Brush="Black"
+                                    Offset="3,3"
+                                    Radius="5"
+                                    Opacity="0.5" />
+                        </Image.Shadow>
+
+                    </Image>
 
                     <!--2nd row-->
                     <Frame Grid.Row="1">
