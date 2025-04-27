@@ -22,6 +22,7 @@ public static class MauiProgram
         builder.Services.AddSingleton(AudioManager.Current);
         builder.Services.AddSingleton(Preferences.Default);
         builder.Services.AddSingleton(WeakReferenceMessenger.Default);
+        builder.Services.AddSingleton(Browser.Default);
         builder.Services.AddSingleton<INotificationService, NotificationService>();
         builder.Services.AddSingleton<ITimerService, TimerService>();
         builder.Services.AddSingleton<ISettingsService, SettingsService>();

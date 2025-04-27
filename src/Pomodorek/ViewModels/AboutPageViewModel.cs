@@ -2,6 +2,8 @@
 
 public partial class AboutPageViewModel : BaseViewModel
 {
+    private readonly IBrowser _browser;
+
     [ObservableProperty]
     private string _appName;
 
@@ -10,16 +12,18 @@ public partial class AboutPageViewModel : BaseViewModel
 
     public AboutPageViewModel(
         IConfigurationService configurationService,
-        INavigationService navigationService)
+        INavigationService navigationService,
+        IBrowser browser)
         : base(
             Constants.Pages.About,
             navigationService)
     {
         _appName = configurationService.AppSettings.AppName;
         _appVersion = configurationService.AppSettings.AppVersion;
+        _browser = browser;
     }
 
     [RelayCommand]
     private async Task GoToUrl(string url)
-        => await Launcher.OpenAsync(new Uri(url));
+        => await _browser.OpenAsync(new Uri(url));
 }
