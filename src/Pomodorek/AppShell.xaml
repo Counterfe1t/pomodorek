@@ -11,6 +11,23 @@
        Shell.FlyoutBehavior="{OnPlatform Default=Flyout, WinUI=Disabled}"
        Shell.NavBarIsVisible="{OnPlatform Default=True, WinUI=False}">
 
+    <Shell.FlyoutHeader>
+        <Grid Padding="25">
+            <Image Grid.Row="0"
+                   HorizontalOptions="Center"
+                   Source="icon_pomodorek.png"
+                   WidthRequest="128"
+                   HeightRequest="128">
+                <Image.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="3,3"
+                            Radius="5"
+                            Opacity="0.5" />
+                </Image.Shadow>
+            </Image>
+        </Grid>
+    </Shell.FlyoutHeader>
+
     <ShellContent Title="Timer"
                   FlyoutIcon="icon_clock.png"
                   Route="timer"

@@ -76,6 +76,7 @@
 	  <None Remove="Resources\Images\icon_gear.png" />
 	  <None Remove="Resources\Images\icon_info.png" />
 	  <None Remove="Resources\Images\icon_pause.png" />
+		<None Remove="Resources\Images\icon_pomodorek.png" />
 	  <None Remove="Resources\Images\icon_reset.png" />
 	  <None Remove="Resources\Images\icon_save.png" />
 	  <None Remove="Resources\Images\icon_start.png" />
