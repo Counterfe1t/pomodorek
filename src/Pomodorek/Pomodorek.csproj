@@ -57,8 +57,8 @@
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" />
 
-		 <!--Splash Screen--> 
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#B90E0A" BaseSize="128,128" />
+		<!--Splash Screen-->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#FFFFFF" BaseSize="256,256" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -71,16 +71,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\icon_alarm.png" />
-	  <None Remove="Resources\Images\icon_clock.png" />
-	  <None Remove="Resources\Images\icon_gear.png" />
-	  <None Remove="Resources\Images\icon_info.png" />
-	  <None Remove="Resources\Images\icon_pause.png" />
+		<None Remove="Resources\Images\icon_alarm.png" />
+		<None Remove="Resources\Images\icon_clock.png" />
+		<None Remove="Resources\Images\icon_gear.png" />
+		<None Remove="Resources\Images\icon_info.png" />
+		<None Remove="Resources\Images\icon_pause.png" />
 		<None Remove="Resources\Images\icon_pomodorek.png" />
-	  <None Remove="Resources\Images\icon_reset.png" />
-	  <None Remove="Resources\Images\icon_save.png" />
-	  <None Remove="Resources\Images\icon_start.png" />
-	  <None Remove="Resources\Images\icon_stop.png" />
+		<None Remove="Resources\Images\icon_reset.png" />
+		<None Remove="Resources\Images\icon_save.png" />
+		<None Remove="Resources\Images\icon_start.png" />
+		<None Remove="Resources\Images\icon_stop.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -95,25 +95,31 @@
 
 	<ItemGroup>
 		<EmbeddedResource Include="appsettings.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\AboutPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Controls\AsyncImageButton.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Controls\CustomButton.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Controls\CustomImageButton.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\SessionDetailsPopup.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="Views\AboutPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Controls\AsyncImageButton.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Controls\CustomButton.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Controls\CustomImageButton.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\SessionDetailsPopup.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\SettingsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\TimerPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 </Project>
