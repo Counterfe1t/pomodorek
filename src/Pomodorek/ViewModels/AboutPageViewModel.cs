@@ -25,5 +25,5 @@ public partial class AboutPageViewModel : BaseViewModel
 
     [RelayCommand]
     private async Task GoToUrl(string url)
-        => await _browser.OpenAsync(new Uri(url));
+        => await _browser.OpenAsync(new Uri(url), new BrowserLaunchOptions());
 }
