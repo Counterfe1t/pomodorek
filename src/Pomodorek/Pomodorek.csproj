@@ -71,19 +71,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Remove="Resources\Images\icon_alarm.png" />
-		<None Remove="Resources\Images\icon_clock.png" />
-		<None Remove="Resources\Images\icon_gear.png" />
-		<None Remove="Resources\Images\icon_info.png" />
-		<None Remove="Resources\Images\icon_pause.png" />
-		<None Remove="Resources\Images\icon_pomodorek.png" />
-		<None Remove="Resources\Images\icon_reset.png" />
-		<None Remove="Resources\Images\icon_save.png" />
-		<None Remove="Resources\Images\icon_start.png" />
-		<None Remove="Resources\Images\icon_stop.png" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.7" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.7" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="3.0.0" />

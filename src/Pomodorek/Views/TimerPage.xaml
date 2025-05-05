@@ -46,7 +46,7 @@
             <!--1st row-->
             <controls:CustomImageButton Grid.Row="0"
                                         HorizontalOptions="End"
-                                        Source="icon_info.png"
+                                        Source="icon_more.png"
                                         Command="{Binding ShowSessionDetailsPopupCommand}" />
 
             <!--2nd row-->
@@ -67,7 +67,7 @@
                              Spacing="5"
                              IsVisible="{Binding IsRunning}">
                     <Image HeightRequest="{OnPlatform Default=18}"
-                           Source="icon_alarm.png" />
+                           Source="icon_bell.png" />
                     <Label Text="{Binding Session.TriggerAlarmAt, Converter={StaticResource AlarmConverter}}"
                            FontSize="20" />
                 </StackLayout>
@@ -101,7 +101,7 @@
                          Spacing="10">
                 <controls:AsyncImageButton Source="icon_reset.png"
                                            Command="{Binding ResetCommand}" />
-                <controls:CustomImageButton Source="icon_start.png"
+                <controls:CustomImageButton Source="icon_play.png"
                                             IsVisible="{Binding IsRunning, Converter={StaticResource NegationConverter}}"
                                             Command="{Binding StartCommand}" />
                 <controls:CustomImageButton Source="icon_pause.png"

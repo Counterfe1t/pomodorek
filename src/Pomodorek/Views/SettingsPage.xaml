@@ -136,7 +136,7 @@
                          Orientation="Horizontal"
                          HorizontalOptions="End"
                          Spacing="10">
-                <controls:AsyncImageButton Source="icon_save.png"
+                <controls:AsyncImageButton Source="icon_pen.png"
                                            IsVisible="{Binding IsChangePending}"
                                            Command="{Binding SaveSettingsCommand}" />
                 <controls:AsyncImageButton Source="icon_reset.png"
