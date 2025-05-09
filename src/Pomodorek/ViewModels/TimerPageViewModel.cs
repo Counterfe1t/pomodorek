@@ -12,7 +12,7 @@ public partial class TimerPageViewModel : BaseViewModel
     /// <summary>
     /// Popup for displaying <see cref="SessionModel" /> details.
     /// </summary>
-    private SessionDetailsPopup _popup;
+    private SessionDetailsPopup? _popup;
 
     /// <summary>
     /// Timer's state (stopped, running or paused).
@@ -49,7 +49,7 @@ public partial class TimerPageViewModel : BaseViewModel
         IPopupService popupService,
         IAlertService alertService,
         INavigationService navigationService)
-        : base(Constants.Pages.Pomodorek, navigationService)
+        : base(AppResources.Pages_TimerPage, navigationService)
     {
         _timerService = timerService;
         _timeProvider = timeProvider;

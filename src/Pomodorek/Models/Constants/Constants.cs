@@ -27,13 +27,6 @@ public static class Constants
         public const string SavedSession = nameof(SavedSession);
     }
 
-    public class Pages
-    {
-        public const string Pomodorek = nameof(Pomodorek);
-        public const string Settings = nameof(Settings);
-        public const string About = nameof(About);
-    }
-
     public class Labels
     {
         public const string Work = "Work";

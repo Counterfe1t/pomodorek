@@ -13,3 +13,4 @@ global using Pomodorek.ViewModels;
 global using System.Globalization;
 global using System.Text;
 global using Xunit;
+global using Pomodorek.Resources;

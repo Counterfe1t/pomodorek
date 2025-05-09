@@ -12,6 +12,7 @@ global using Pomodorek.Interfaces;
 global using Pomodorek.Models;
 global using Pomodorek.Models.Constants;
 global using Pomodorek.Models.Enums;
+global using Pomodorek.Resources;
 global using Pomodorek.Services;
 global using Pomodorek.Utils;
 global using Pomodorek.ViewModels;

@@ -14,9 +14,7 @@ public partial class AboutPageViewModel : BaseViewModel
         IConfigurationService configurationService,
         INavigationService navigationService,
         IBrowser browser)
-        : base(
-            Constants.Pages.About,
-            navigationService)
+        : base(AppResources.Pages_AboutPage, navigationService)
     {
         _appName = configurationService.AppSettings.AppName;
         _appVersion = configurationService.AppSettings.AppVersion;

@@ -85,7 +85,7 @@ public class SettingsPageViewModelTests
         _settingsServiceMock
             .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, It.IsAny<int>()), Times.Once);
         _alertServiceMock
-            .Verify(x => x.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsSaved));
+            .Verify(x => x.DisplayAlertAsync(AppResources.Pages_SettingsPage, Constants.Messages.SettingsSaved));
         _navigationServiceMock
             .Verify(x => x.NavigateToAsync(Constants.Routes.TimerPage), Times.Once);
     }
@@ -115,7 +115,7 @@ public class SettingsPageViewModelTests
         _settingsServiceMock
             .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, _appSettings.DefaultLongRestLengthInMin), Times.Never);
         _alertServiceMock
-            .Verify(x => x.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsRestored), Times.Never);
+            .Verify(x => x.DisplayAlertAsync(AppResources.Pages_SettingsPage, Constants.Messages.SettingsRestored), Times.Never);
     }
 
     [Fact]
@@ -143,7 +143,7 @@ public class SettingsPageViewModelTests
         _settingsServiceMock
             .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, _appSettings.DefaultLongRestLengthInMin), Times.Once);
         _alertServiceMock
-            .Verify(x => x.DisplayAlertAsync(Constants.Pages.Settings, Constants.Messages.SettingsRestored), Times.Once);
+            .Verify(x => x.DisplayAlertAsync(AppResources.Pages_SettingsPage, Constants.Messages.SettingsRestored), Times.Once);
     }
 
     [Fact]
@@ -154,6 +154,6 @@ public class SettingsPageViewModelTests
 
         // assert
         _alertServiceMock
-            .Verify(x => x.DisplayConfirmAsync(Constants.Pages.Settings, Constants.Messages.UnsavedChanges), Times.Once);
+            .Verify(x => x.DisplayConfirmAsync(AppResources.Pages_SettingsPage, Constants.Messages.UnsavedChanges), Times.Once);
     }
 }
