@@ -49,7 +49,7 @@ public partial class TimerPageViewModel : BaseViewModel
         IPopupService popupService,
         IAlertService alertService,
         INavigationService navigationService)
-        : base(AppResources.Pages_TimerPage, navigationService)
+        : base(AppResources.TimerPage_Title, navigationService)
     {
         _timerService = timerService;
         _timeProvider = timeProvider;

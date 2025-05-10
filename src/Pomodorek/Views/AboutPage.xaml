@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
              xmlns:controls="clr-namespace:Pomodorek.Views.Controls"
+             xmlns:resources="clr-namespace:Pomodorek.Resources"
              x:Class="Pomodorek.Views.AboutPage"
              x:DataType="viewmodels:AboutPageViewModel"
              Title="{Binding Title}">
@@ -81,29 +82,31 @@
 
                     <!--3rd row-->
                     <Frame Grid.Row="2">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding GoToUrlCommand}"
-                                                  CommandParameter="https://dotnet.microsoft.com/en-us/apps/maui" />
-                        </Frame.GestureRecognizers>
                         <VerticalStackLayout Spacing="10">
-                            <Label Text="Pomodorek is a cross-platform application built using .NET MAUI and C# programming language. It serves as a utility tool for the Pomodoro Technique®." />
+                            <Label Text="{x:Static resources:AppResources.AboutPage_PomodorekDescription}" />
                             <Label HorizontalOptions="End"
-                                   Text="read more →"
-                                   TextColor="{StaticResource Primary}" />
+                                   Text="{x:Static resources:AppResources.AboutPage_ReadMore}"
+                                   TextColor="{StaticResource Primary}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding GoToUrlCommand}"
+                                                          CommandParameter="https://dotnet.microsoft.com/en-us/apps/maui" />
+                                </Label.GestureRecognizers>
+                            </Label>
                         </VerticalStackLayout>
                     </Frame>
 
                     <!--4th row-->
                     <Frame Grid.Row="3">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding GoToUrlCommand}"
-                                                  CommandParameter="https://www.pomodorotechnique.com/" />
-                        </Frame.GestureRecognizers>
                         <VerticalStackLayout Spacing="10">
-                            <Label Text="Pomodoro Technique® is a time management technique that splits time reserved for work into intervals and short rest periods between them. Every four intervals the break is significantly longer to further help yourself recharge energy before going into another focus session. Read more about it at the official website. Pomodoro Technique® and Pomodoro™ are registered and filed trademarks owned by Francesco Cirillo." />
+                            <Label Text="{x:Static resources:AppResources.AboutPage_PomodoroTechniqueDescription}" />
                             <Label HorizontalOptions="End"
-                                   Text="read more →"
-                                   TextColor="{StaticResource Primary}" />
+                                   Text="{x:Static resources:AppResources.AboutPage_ReadMore}"
+                                   TextColor="{StaticResource Primary}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding GoToUrlCommand}"
+                                                          CommandParameter="https://www.pomodorotechnique.com/" />
+                                </Label.GestureRecognizers>
+                            </Label>
                         </VerticalStackLayout>
                     </Frame>
 

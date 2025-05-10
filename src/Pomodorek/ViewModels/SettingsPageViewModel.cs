@@ -68,7 +68,7 @@ public partial class SettingsPageViewModel : BaseViewModel
         IAlertService alertService,
         INavigationService navigationService,
         IApplicationService applicationService)
-        : base(AppResources.Pages_SettingsPage, navigationService)
+        : base(AppResources.SettingsPage_Title, navigationService)
     {
         _appSettings = configurationService.AppSettings;
         _application = applicationService.Application;
@@ -110,7 +110,7 @@ public partial class SettingsPageViewModel : BaseViewModel
         // There are no pending changes.
         IsChangePending = false;
 
-        await _alertService.DisplayAlertAsync(AppResources.Pages_SettingsPage, Constants.Messages.SettingsSaved);
+        await _alertService.DisplayAlertAsync(AppResources.SettingsPage_Title, Constants.Messages.SettingsSaved);
         await _navigationService.NavigateToAsync(Constants.Routes.TimerPage);
     }
 
@@ -139,21 +139,21 @@ public partial class SettingsPageViewModel : BaseViewModel
         _settingsService.Set(Constants.Settings.ShortRestLengthInMin, _appSettings.DefaultShortRestLengthInMin);
         _settingsService.Set(Constants.Settings.LongRestLengthInMin, _appSettings.DefaultLongRestLengthInMin);
 
-        await _alertService.DisplayAlertAsync(AppResources.Pages_SettingsPage, Constants.Messages.SettingsRestored);
+        await _alertService.DisplayAlertAsync(AppResources.SettingsPage_Title, Constants.Messages.SettingsRestored);
     }
 
     private async Task<bool> ValidateSettings()
     {
         if (WorkLengthInMin < ShortRestLengthInMin)
         {
-            await _alertService.DisplayAlertAsync(AppResources.Pages_SettingsPage, Constants.Validation.WorkShorterThanRest);
+            await _alertService.DisplayAlertAsync(AppResources.SettingsPage_Title, Constants.Validation.WorkShorterThanRest);
 
             return false;
         }
 
         if (LongRestLengthInMin < ShortRestLengthInMin)
         {
-            await _alertService.DisplayAlertAsync(AppResources.Pages_SettingsPage, Constants.Validation.LongRestShorterThanShortRest);
+            await _alertService.DisplayAlertAsync(AppResources.SettingsPage_Title, Constants.Validation.LongRestShorterThanShortRest);
 
             return false;
         }

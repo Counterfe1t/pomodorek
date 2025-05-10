@@ -61,29 +61,56 @@ namespace Pomodorek.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pomodorek is a cross-platform application built using .NET MAUI and C# programming language. It serves as a utility tool for the Pomodoro Technique®..
+        /// </summary>
+        public static string AboutPage_PomodorekDescription {
+            get {
+                return ResourceManager.GetString("AboutPage_PomodorekDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pomodoro Technique® is a time management technique that splits time reserved for work into intervals and short rest periods between them. Every four intervals the break is significantly longer to further help yourself recharge energy before going into another focus session. Read more about it at the official website. Pomodoro Technique® and Pomodoro™ are registered and filed trademarks owned by Francesco Cirillo..
+        /// </summary>
+        public static string AboutPage_PomodoroTechniqueDescription {
+            get {
+                return ResourceManager.GetString("AboutPage_PomodoroTechniqueDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to read more →.
+        /// </summary>
+        public static string AboutPage_ReadMore {
+            get {
+                return ResourceManager.GetString("AboutPage_ReadMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
-        public static string Pages_AboutPage {
+        public static string AboutPage_Title {
             get {
-                return ResourceManager.GetString("Pages_AboutPage", resourceCulture);
+                return ResourceManager.GetString("AboutPage_Title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
-        public static string Pages_SettingsPage {
+        public static string SettingsPage_Title {
             get {
-                return ResourceManager.GetString("Pages_SettingsPage", resourceCulture);
+                return ResourceManager.GetString("SettingsPage_Title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Timer.
         /// </summary>
-        public static string Pages_TimerPage {
+        public static string TimerPage_Title {
             get {
-                return ResourceManager.GetString("Pages_TimerPage", resourceCulture);
+                return ResourceManager.GetString("TimerPage_Title", resourceCulture);
             }
         }
     }

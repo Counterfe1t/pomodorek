@@ -117,13 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Pages_AboutPage" xml:space="preserve">
+  <data name="AboutPage_Title" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="Pages_SettingsPage" xml:space="preserve">
+  <data name="SettingsPage_Title" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="Pages_TimerPage" xml:space="preserve">
+  <data name="TimerPage_Title" xml:space="preserve">
     <value>Timer</value>
+  </data>
+  <data name="AboutPage_PomodorekDescription" xml:space="preserve">
+    <value>Pomodorek is a cross-platform application built using .NET MAUI and C# programming language. It serves as a utility tool for the Pomodoro Technique®.</value>
+  </data>
+  <data name="AboutPage_PomodoroTechniqueDescription" xml:space="preserve">
+    <value>Pomodoro Technique® is a time management technique that splits time reserved for work into intervals and short rest periods between them. Every four intervals the break is significantly longer to further help yourself recharge energy before going into another focus session. Read more about it at the official website. Pomodoro Technique® and Pomodoro™ are registered and filed trademarks owned by Francesco Cirillo.</value>
+  </data>
+  <data name="AboutPage_ReadMore" xml:space="preserve">
+    <value>read more →</value>
   </data>
 </root>

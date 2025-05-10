@@ -28,7 +28,7 @@ public partial class SettingsPage : ContentPage
     private async void OnNavigating(object sender, ShellNavigatingEventArgs args)
     {
         // Dismiss navigation when navigating to current page.
-        if (args.Target.Location.OriginalString.Contains(AppResources.Pages_SettingsPage))
+        if (args.Target.Location.OriginalString.Contains(AppResources.SettingsPage_Title))
             return;
 
         // Allow navigation when there are no unsaved changes.
