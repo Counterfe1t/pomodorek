@@ -10,8 +10,10 @@ public class SettingsPageViewModelTests
     private readonly Mock<INavigationService> _navigationServiceMock;
     private readonly Mock<IApplicationService> _applicationServiceMock;
 
-    private AppSettings _appSettings => new()
+    private AppSettings AppSettings => new()
     {
+        AppName = "Pomodorek",
+        AppVersion = "1.0.0",
         DefaultIsDarkThemeEnabled = true,
         DefaultIsSoundEnabled = true,
         DefaultSoundVolume = 1,
@@ -30,7 +32,7 @@ public class SettingsPageViewModelTests
 
         _configurationServiceMock
             .Setup(x => x.AppSettings)
-            .Returns(_appSettings);
+            .Returns(AppSettings);
 
         _applicationServiceMock
             .Setup(x => x.Application)
@@ -103,17 +105,17 @@ public class SettingsPageViewModelTests
 
         // assert
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.IsDarkThemeEnabled, _appSettings.DefaultIsDarkThemeEnabled), Times.Never);
+            .Verify(x => x.Set(Constants.Settings.IsDarkThemeEnabled, AppSettings.DefaultIsDarkThemeEnabled), Times.Never);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.IsSoundEnabled, _appSettings.DefaultIsSoundEnabled), Times.Never);
+            .Verify(x => x.Set(Constants.Settings.IsSoundEnabled, AppSettings.DefaultIsSoundEnabled), Times.Never);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.SoundVolume, _appSettings.DefaultSoundVolume), Times.Never);
+            .Verify(x => x.Set(Constants.Settings.SoundVolume, AppSettings.DefaultSoundVolume), Times.Never);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.WorkLengthInMin, _appSettings.DefaultWorkLengthInMin), Times.Never);
+            .Verify(x => x.Set(Constants.Settings.WorkLengthInMin, AppSettings.DefaultWorkLengthInMin), Times.Never);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.ShortRestLengthInMin, _appSettings.DefaultShortRestLengthInMin), Times.Never);
+            .Verify(x => x.Set(Constants.Settings.ShortRestLengthInMin, AppSettings.DefaultShortRestLengthInMin), Times.Never);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, _appSettings.DefaultLongRestLengthInMin), Times.Never);
+            .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, AppSettings.DefaultLongRestLengthInMin), Times.Never);
         _alertServiceMock
             .Verify(x => x.DisplayAlertAsync(AppResources.SettingsPage_Title, Constants.Messages.SettingsRestored), Times.Never);
     }
@@ -131,17 +133,17 @@ public class SettingsPageViewModelTests
 
         // assert
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.IsDarkThemeEnabled, _appSettings.DefaultIsDarkThemeEnabled), Times.Once);
+            .Verify(x => x.Set(Constants.Settings.IsDarkThemeEnabled, AppSettings.DefaultIsDarkThemeEnabled), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.IsSoundEnabled, _appSettings.DefaultIsSoundEnabled), Times.Once);
+            .Verify(x => x.Set(Constants.Settings.IsSoundEnabled, AppSettings.DefaultIsSoundEnabled), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.SoundVolume, _appSettings.DefaultSoundVolume), Times.Once);
+            .Verify(x => x.Set(Constants.Settings.SoundVolume, AppSettings.DefaultSoundVolume), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.WorkLengthInMin, _appSettings.DefaultWorkLengthInMin), Times.Once);
+            .Verify(x => x.Set(Constants.Settings.WorkLengthInMin, AppSettings.DefaultWorkLengthInMin), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.ShortRestLengthInMin, _appSettings.DefaultShortRestLengthInMin), Times.Once);
+            .Verify(x => x.Set(Constants.Settings.ShortRestLengthInMin, AppSettings.DefaultShortRestLengthInMin), Times.Once);
         _settingsServiceMock
-            .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, _appSettings.DefaultLongRestLengthInMin), Times.Once);
+            .Verify(x => x.Set(Constants.Settings.LongRestLengthInMin, AppSettings.DefaultLongRestLengthInMin), Times.Once);
         _alertServiceMock
             .Verify(x => x.DisplayAlertAsync(AppResources.SettingsPage_Title, Constants.Messages.SettingsRestored), Times.Once);
     }

@@ -2,9 +2,9 @@
 
 public class AppSettings
 {
-    public string AppName { get; set; }
+    public required string AppName { get; set; }
 
-    public string AppVersion { get; set; }
+    public required string AppVersion { get; set; }
 
     public bool DefaultIsDarkThemeEnabled { get; set; }
 

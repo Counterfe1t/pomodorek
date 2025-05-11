@@ -10,7 +10,11 @@ public class SoundServiceTests
     private readonly Mock<IConfigurationService> _configurationServiceMock;
     private readonly Mock<IAudioPlayer> _audioPlayerMock;
 
-    private AppSettings _appSettings => new();
+    private AppSettings AppSettings => new()
+    {
+        AppName = "Pomodorek",
+        AppVersion = "1.0.0",
+    };
 
     public SoundServiceTests()
     {
@@ -22,7 +26,7 @@ public class SoundServiceTests
 
         _configurationServiceMock
             .Setup(x => x.AppSettings)
-            .Returns(_appSettings);
+            .Returns(AppSettings);
 
         _cut = ClassUnderTest.Is<SoundService>(
             _audioManagerMock.Object,

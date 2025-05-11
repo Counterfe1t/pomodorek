@@ -8,8 +8,10 @@ public class AboutPageViewModelTests
     private readonly Mock<IConfigurationService> _configurationServiceMock;
     private readonly Mock<IBrowser> _browserMock;
 
-    private AppSettings _appSettings => new()
+    private AppSettings AppSettings => new()
     {
+        AppName = "Pomodorek",
+        AppVersion = "1.0.0",
         DefaultIsDarkThemeEnabled = true,
         DefaultIsSoundEnabled = true,
         DefaultSoundVolume = 1,
@@ -26,7 +28,7 @@ public class AboutPageViewModelTests
 
         _configurationServiceMock
             .Setup(x => x.AppSettings)
-            .Returns(_appSettings);
+            .Returns(AppSettings);
 
         _viewModel = new(
             _configurationServiceMock.Object,
