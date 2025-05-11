@@ -135,4 +135,22 @@
   <data name="AboutPage_ReadMore" xml:space="preserve">
     <value>read more →</value>
   </data>
+  <data name="SettingsPage_FocusLengthLabel" xml:space="preserve">
+    <value>Focus length in minutes</value>
+  </data>
+  <data name="SettingsPage_DarkModeLabel" xml:space="preserve">
+    <value>Dark mode</value>
+  </data>
+  <data name="SettingsPage_SoundEnabledLabel" xml:space="preserve">
+    <value>Sound enabled</value>
+  </data>
+  <data name="SettingsPage_SoundVolumeLabel" xml:space="preserve">
+    <value>Sound volume</value>
+  </data>
+  <data name="SettingsPage_ShortRestLengthLabel" xml:space="preserve">
+    <value>Short rest length in minutes</value>
+  </data>
+  <data name="SettingsPage_LongRestLengthLabel" xml:space="preserve">
+    <value>Long rest length in minutes</value>
+  </data>
 </root>

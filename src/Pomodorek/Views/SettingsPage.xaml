@@ -4,6 +4,7 @@
              xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
              xmlns:behaviors="clr-namespace:Pomodorek.Behaviors"
              xmlns:controls="clr-namespace:Pomodorek.Views.Controls"
+             xmlns:resources="clr-namespace:Pomodorek.Resources"
              x:Class="Pomodorek.Views.SettingsPage"
              x:DataType="viewmodels:SettingsPageViewModel"
              Title="{Binding Title}">
@@ -47,7 +48,7 @@
 
                 <!--1st row-->
                 <Label VerticalOptions="Center"
-                       Text="Dark mode" />
+                       Text="{x:Static resources:AppResources.SettingsPage_DarkModeLabel}" />
                 <Switch Grid.Column="1"
                         HorizontalOptions="{OnPlatform Default=Center, WinUI=End}"
                         IsToggled="{Binding IsDarkThemeEnabled}" />
@@ -55,7 +56,7 @@
                 <!--2nd row-->
                 <Label Grid.Row="1"
                        VerticalOptions="Center"
-                       Text="Sound enabled" />
+                       Text="{x:Static resources:AppResources.SettingsPage_SoundEnabledLabel}" />
                 <Switch Grid.Row="1"
                         Grid.Column="1"
                         HorizontalOptions="{OnPlatform Default=Center, WinUI=End}"
@@ -64,7 +65,7 @@
                 <!--3rd row-->
                 <Label Grid.Row="2"
                        VerticalOptions="Center"
-                       Text="Sound volume" />
+                       Text="{x:Static resources:AppResources.SettingsPage_SoundVolumeLabel}" />
                 <Slider Grid.Row="2"
                         Grid.Column="1"
                         HorizontalOptions="Fill"
@@ -76,7 +77,7 @@
                 <!--4th row-->
                 <Label Grid.Row="3"
                        VerticalOptions="Center"
-                       Text="Focus length in minutes" />
+                       Text="{x:Static resources:AppResources.SettingsPage_FocusLengthLabel}" />
                 <Entry Grid.Row="3"
                        Grid.Column="1"
                        WidthRequest="50"
@@ -94,7 +95,7 @@
                 <!--5th row-->
                 <Label Grid.Row="4"
                        VerticalOptions="Center"
-                       Text="Short rest length in minutes" />
+                       Text="{x:Static resources:AppResources.SettingsPage_ShortRestLengthLabel}" />
                 <Entry Grid.Row="4"
                        Grid.Column="1"
                        WidthRequest="50"
@@ -112,7 +113,7 @@
                 <!--6th row-->
                 <Label Grid.Row="5"
                        VerticalOptions="Center"
-                       Text="Long rest length in minutes" />
+                       Text="{x:Static resources:AppResources.SettingsPage_LongRestLengthLabel}" />
                 <Entry Grid.Row="5"
                        Grid.Column="1"
                        WidthRequest="50"

@@ -97,6 +97,60 @@ namespace Pomodorek.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dark mode.
+        /// </summary>
+        public static string SettingsPage_DarkModeLabel {
+            get {
+                return ResourceManager.GetString("SettingsPage_DarkModeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Focus length in minutes.
+        /// </summary>
+        public static string SettingsPage_FocusLengthLabel {
+            get {
+                return ResourceManager.GetString("SettingsPage_FocusLengthLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Long rest length in minutes.
+        /// </summary>
+        public static string SettingsPage_LongRestLengthLabel {
+            get {
+                return ResourceManager.GetString("SettingsPage_LongRestLengthLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Short rest length in minutes.
+        /// </summary>
+        public static string SettingsPage_ShortRestLengthLabel {
+            get {
+                return ResourceManager.GetString("SettingsPage_ShortRestLengthLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sound enabled.
+        /// </summary>
+        public static string SettingsPage_SoundEnabledLabel {
+            get {
+                return ResourceManager.GetString("SettingsPage_SoundEnabledLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sound volume.
+        /// </summary>
+        public static string SettingsPage_SoundVolumeLabel {
+            get {
+                return ResourceManager.GetString("SettingsPage_SoundVolumeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string SettingsPage_Title {
