@@ -2,7 +2,7 @@
 
 public class SoundServiceTests
 {
-    private readonly ISoundService _cut;
+    private readonly SoundService _cut;
 
     private readonly Mock<IAudioManager> _audioManagerMock;
     private readonly Mock<IFileSystem> _fileSystemMock;
@@ -44,7 +44,7 @@ public class SoundServiceTests
         _settingsService
             .Setup(x => x.Get(Constants.Settings.IsSoundEnabled, It.IsAny<bool>()))
             .Returns(true);
-        
+
         _fileSystemMock
             .Setup(x => x.OpenAppPackageFileAsync(It.IsAny<string>()))
             .ReturnsAsync(audioStream);

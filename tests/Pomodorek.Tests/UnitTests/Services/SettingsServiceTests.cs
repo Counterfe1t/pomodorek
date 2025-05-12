@@ -4,7 +4,7 @@ public class SettingsServiceTests
 {
     private const int Value = 1337;
 
-    private readonly ISettingsService _cut;
+    private readonly SettingsService _cut;
 
     private readonly Mock<IPreferences> _preferencesMock;
 

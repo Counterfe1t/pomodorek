@@ -2,7 +2,7 @@
 
 public class AboutPageViewModelTests
 {
-    private readonly AboutPageViewModel _viewModel;
+    private readonly AboutPageViewModel _cut;
 
     private readonly Mock<INavigationService> _navigationServiceMock;
     private readonly Mock<IConfigurationService> _configurationServiceMock;
@@ -30,7 +30,7 @@ public class AboutPageViewModelTests
             .Setup(x => x.AppSettings)
             .Returns(AppSettings);
 
-        _viewModel = new(
+        _cut = ClassUnderTest.Is<AboutPageViewModel>(
             _configurationServiceMock.Object,
             _navigationServiceMock.Object,
             _browserMock.Object);
@@ -43,7 +43,7 @@ public class AboutPageViewModelTests
         var url = "https://foo.bar/";
 
         // act
-        await _viewModel.GoToUrlCommand.ExecuteAsync(url);
+        await _cut.GoToUrlCommand.ExecuteAsync(url);
 
         // assert
         _browserMock
