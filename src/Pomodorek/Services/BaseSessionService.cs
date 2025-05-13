@@ -19,11 +19,15 @@ public abstract class BaseSessionService : ISessionService
 
     public SessionModel GetSession()
     {
-        string serializedSession = _settingsService.Get(Constants.Settings.SavedSession, string.Empty);
+        var serializedSession = _settingsService.Get(Constants.Settings.SavedSession, string.Empty);
         if (string.IsNullOrWhiteSpace(serializedSession))
             return SessionModel.Create();
 
-        return JsonSerializer.Deserialize<SessionModel>(serializedSession);
+        var session = JsonSerializer.Deserialize<SessionModel>(serializedSession);
+        if (session is null)
+            return SessionModel.Create();
+
+        return session;
     }
 
     public abstract void StartInterval(SessionModel session);
