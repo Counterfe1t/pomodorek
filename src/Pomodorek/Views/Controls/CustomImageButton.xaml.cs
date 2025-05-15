@@ -16,7 +16,7 @@ public partial class CustomImageButton
 
     public string Source
     {
-        get => GetValue(SourceProperty) as string;
+        get => (string)GetValue(SourceProperty);
         set => SetValue(SourceProperty, value);
     }
 
@@ -29,7 +29,7 @@ public partial class CustomImageButton
 
     public RelayCommand Command
     {
-        get => GetValue(CommandProperty) as RelayCommand;
+        get => (RelayCommand)GetValue(CommandProperty);
         set => SetValue(CommandProperty, value);
     }
 

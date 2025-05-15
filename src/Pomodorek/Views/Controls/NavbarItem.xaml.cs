@@ -1,17 +1,17 @@
 namespace Pomodorek.Views.Controls;
 
 [XamlCompilation(XamlCompilationOptions.Compile)]
-public partial class AsyncImageButton
+public partial class NavbarItem
 {
     public static readonly BindableProperty SourceProperty = BindableProperty.Create(
         nameof(Source),
         typeof(string),
-        typeof(AsyncImageButton),
+        typeof(NavbarItem),
         default(string),
         BindingMode.OneWay,
         propertyChanged: (bindable, oldValue, newValue) =>
         {
-            ((AsyncImageButton)bindable).ImageButton.Source = newValue as string;
+            ((NavbarItem)bindable).ImageButton.Source = newValue as string;
         });
 
     public string Source
@@ -23,7 +23,7 @@ public partial class AsyncImageButton
     public static readonly BindableProperty CommandProperty = BindableProperty.Create(
         nameof(Command),
         typeof(AsyncRelayCommand),
-        typeof(AsyncImageButton),
+        typeof(NavbarItem),
         default(AsyncRelayCommand),
         BindingMode.OneWay);
 
@@ -33,7 +33,31 @@ public partial class AsyncImageButton
         set => SetValue(CommandProperty, value);
     }
 
-    public AsyncImageButton()
+    public static readonly BindableProperty IsSelectedProperty = BindableProperty.Create(
+        nameof(IsSelected),
+        typeof(bool),
+        typeof(NavbarItem),
+        default(bool),
+        BindingMode.OneWay,
+        propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var isSelected = (bool)newValue;
+            var appTheme = Application.Current?.RequestedTheme ?? AppTheme.Light;
+
+            if (isSelected)
+                ((NavbarItem)bindable).ImageButton.SetAppThemeColor(
+                    BackgroundColorProperty,
+                    Color.FromArgb("#E1E1E1"),
+                    Color.FromArgb("#212121"));
+        });
+
+    public bool IsSelected
+    {
+        get => (bool)GetValue(IsSelectedProperty);
+        set => SetValue(IsSelectedProperty, value);
+    }
+
+    public NavbarItem()
     {
         InitializeComponent();
         InitializeProperties();

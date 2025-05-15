@@ -16,7 +16,7 @@ public partial class CustomButton
 
     public string Text
     {
-        get => GetValue(TextProperty) as string;
+        get => (string)GetValue(TextProperty);
         set => SetValue(TextProperty, value);
     }
 
@@ -29,7 +29,7 @@ public partial class CustomButton
 
     public RelayCommand Command
     {
-        get => GetValue(CommandProperty) as RelayCommand;
+        get => (RelayCommand)GetValue(CommandProperty);
         set => SetValue(CommandProperty, value);
     }
 

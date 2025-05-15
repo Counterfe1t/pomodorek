@@ -38,9 +38,13 @@
         <Setter Property="FontFamily"
                 Value="OpenSansRegular" />
         <Setter Property="FontSize"
-                Value="14" />
+                Value="15" />
+        <Setter Property="FontAttributes"
+                Value="{OnPlatform Android=Bold, Default=None}" />
         <Setter Property="Padding"
                 Value="0" />
+        <Setter Property="VerticalOptions"
+                Value="CenterAndExpand" />
         <Setter Property="HeightRequest"
                 Value="{OnPlatform Android=60, WinUI=60, Default=60}" />
         <Setter Property="WidthRequest"
@@ -193,6 +197,8 @@
                 Value="Transparent" />
         <Setter Property="BorderWidth"
                 Value="0" />
+        <Setter Property="VerticalOptions"
+                Value="CenterAndExpand" />
         <Setter Property="HeightRequest"
                 Value="{OnPlatform Android=60, WinUI=60, Default=60}" />
         <Setter Property="WidthRequest"
@@ -214,7 +220,7 @@
                     <VisualState x:Name="PointerOver">
                         <VisualState.Setters>
                             <Setter Property="BackgroundColor"
-                                    Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                                    Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray800}}" />
                         </VisualState.Setters>
                     </VisualState>
                     <VisualState x:Name="Pressed">
@@ -228,6 +234,30 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
+    </Style>
+
+    <Style x:Key="NavbarItem"
+           TargetType="ImageButton">
+        <Setter Property="BackgroundColor"
+                Value="Transparent" />
+        <Setter Property="Opacity"
+                Value="1" />
+        <Setter Property="BorderColor"
+                Value="Transparent" />
+        <Setter Property="BorderWidth"
+                Value="0" />
+        <Setter Property="VerticalOptions"
+                Value="CenterAndExpand" />
+        <Setter Property="HeightRequest"
+                Value="60" />
+        <Setter Property="Padding"
+                Value="10" />
+        <Setter Property="WidthRequest"
+                Value="60" />
+        <Setter Property="CornerRadius"
+                Value="10" />
+        <Setter Property="Aspect"
+                Value="Center" />
     </Style>
 
     <Style TargetType="Label">

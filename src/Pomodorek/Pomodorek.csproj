@@ -94,6 +94,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>AppResources.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Controls\NavbarItem.xaml.cs">
+	    <DependentUpon>NavbarItem.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -115,6 +118,9 @@
 		</MauiXaml>
 		<MauiXaml Update="Views\Controls\CustomImageButton.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Controls\NavbarItem.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\SessionDetailsPopup.xaml">
 			<Generator>MSBuild:Compile</Generator>

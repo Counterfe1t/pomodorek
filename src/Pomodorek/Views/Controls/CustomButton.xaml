@@ -6,8 +6,5 @@
              HeightRequest="60"
              WidthRequest="60">
     <Button x:Name="Button"
-            Style="{StaticResource CircularButton}"
-            VerticalOptions="CenterAndExpand"
-            FontSize="15"
-            FontAttributes="{OnPlatform Android=Bold}" />
+            Style="{StaticResource CircularButton}" />
 </StackLayout>
