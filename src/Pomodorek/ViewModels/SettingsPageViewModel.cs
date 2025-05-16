@@ -111,7 +111,7 @@ public partial class SettingsPageViewModel : BaseViewModel
         IsChangePending = false;
 
         await _alertService.DisplayAlertAsync(AppResources.SettingsPage_Title, Constants.Messages.SettingsSaved);
-        await _navigationService.NavigateToAsync(Constants.Routes.TimerPage);
+        await _navigationService.NavigateToAsync(AppResources.TimerPage_Route);
     }
 
     [RelayCommand]

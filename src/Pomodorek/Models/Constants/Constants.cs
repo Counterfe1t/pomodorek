@@ -8,13 +8,6 @@ public static class Constants
     public const int OneSecondInTicks = 10_000_000;
     public const int OneSecondInMs = 1_000;
 
-    public class Routes
-    {
-        public const string TimerPage = "timer";
-        public const string SettingsPage = "settings";
-        public const string AboutPage = "about";
-    }
-
     public class Settings
     {
         public const string IsDarkThemeEnabled = nameof(IsDarkThemeEnabled);

@@ -21,13 +21,13 @@ public partial class BaseViewModel : ObservableObject
 
     [RelayCommand]
     private async Task NavigateToTimerPageAsync()
-        => await _navigationService.NavigateToAsync(Constants.Routes.TimerPage);
+        => await _navigationService.NavigateToAsync(AppResources.TimerPage_Route);
 
     [RelayCommand]
     private async Task NavigateToSettingsPageAsync()
-        => await _navigationService.NavigateToAsync(Constants.Routes.SettingsPage);
+        => await _navigationService.NavigateToAsync(AppResources.SettingsPage_Route);
 
     [RelayCommand]
     private async Task NavigateToAboutPageAsync()
-        => await _navigationService.NavigateToAsync(Constants.Routes.AboutPage);
+        => await _navigationService.NavigateToAsync(AppResources.AboutPage_Route);
 }

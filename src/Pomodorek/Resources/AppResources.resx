@@ -153,4 +153,13 @@
   <data name="SettingsPage_LongRestLengthLabel" xml:space="preserve">
     <value>Long rest length in minutes</value>
   </data>
+  <data name="SettingsPage_Route" xml:space="preserve">
+    <value>settings</value>
+  </data>
+  <data name="TimerPage_Route" xml:space="preserve">
+    <value>timer</value>
+  </data>
+  <data name="AboutPage_Route" xml:space="preserve">
+    <value>about</value>
+  </data>
 </root>

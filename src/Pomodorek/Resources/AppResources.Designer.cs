@@ -88,6 +88,15 @@ namespace Pomodorek.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to about.
+        /// </summary>
+        public static string AboutPage_Route {
+            get {
+                return ResourceManager.GetString("AboutPage_Route", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string AboutPage_Title {
@@ -124,6 +133,15 @@ namespace Pomodorek.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to settings.
+        /// </summary>
+        public static string SettingsPage_Route {
+            get {
+                return ResourceManager.GetString("SettingsPage_Route", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Short rest length in minutes.
         /// </summary>
         public static string SettingsPage_ShortRestLengthLabel {
@@ -156,6 +174,15 @@ namespace Pomodorek.Resources {
         public static string SettingsPage_Title {
             get {
                 return ResourceManager.GetString("SettingsPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to timer.
+        /// </summary>
+        public static string TimerPage_Route {
+            get {
+                return ResourceManager.GetString("TimerPage_Route", resourceCulture);
             }
         }
         
