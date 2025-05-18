@@ -178,6 +178,15 @@ namespace Pomodorek.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Long Rest.
+        /// </summary>
+        public static string TimerPage_LongRestIntervalLabel {
+            get {
+                return ResourceManager.GetString("TimerPage_LongRestIntervalLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to timer.
         /// </summary>
         public static string TimerPage_Route {
@@ -187,11 +196,29 @@ namespace Pomodorek.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Short Rest.
+        /// </summary>
+        public static string TimerPage_ShortRestIntervalLabel {
+            get {
+                return ResourceManager.GetString("TimerPage_ShortRestIntervalLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Timer.
         /// </summary>
         public static string TimerPage_Title {
             get {
                 return ResourceManager.GetString("TimerPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work.
+        /// </summary>
+        public static string TimerPage_WorkIntervalLabel {
+            get {
+                return ResourceManager.GetString("TimerPage_WorkIntervalLabel", resourceCulture);
             }
         }
     }

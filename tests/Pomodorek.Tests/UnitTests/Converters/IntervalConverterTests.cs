@@ -10,10 +10,7 @@ public class IntervalConverterTests
     }
 
     [Theory]
-    [InlineData(IntervalEnum.Work, Constants.Labels.Work)]
-    [InlineData(IntervalEnum.ShortRest, Constants.Labels.ShortRest)]
-    [InlineData(IntervalEnum.LongRest, Constants.Labels.LongRest)]
-    [InlineData((IntervalEnum)1337, "")]
+    [MemberData(nameof(ConvertData))]
     public void Convert_ShouldReturnExcpectedResult(
         IntervalEnum received,
         string expected)
@@ -39,4 +36,13 @@ public class IntervalConverterTests
             It.IsAny<object>(),
             It.IsAny<CultureInfo>()));
     }
+
+    public static TheoryData<IntervalEnum, string> ConvertData =>
+        new()
+        {
+            { IntervalEnum.Work, AppResources.TimerPage_WorkIntervalLabel },
+            { IntervalEnum.ShortRest, AppResources.TimerPage_ShortRestIntervalLabel },
+            { IntervalEnum.LongRest, AppResources.TimerPage_LongRestIntervalLabel },
+            { (IntervalEnum)1337, "" }
+        };
 }

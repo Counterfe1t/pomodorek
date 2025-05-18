@@ -20,13 +20,6 @@ public static class Constants
         public const string SavedSession = nameof(SavedSession);
     }
 
-    public class Labels
-    {
-        public const string Work = "Work";
-        public const string ShortRest = "Rest";
-        public const string LongRest = "Long Rest";
-    }
-
     public class Messages
     {
         public const string Work = "Timer finished at {{value}}. Get back to work.";

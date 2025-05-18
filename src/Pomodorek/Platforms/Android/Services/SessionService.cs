@@ -79,9 +79,9 @@ public class SessionService : BaseSessionService
     private string GetIntervalTitle(IntervalEnum interval)
         => interval switch
         {
-            IntervalEnum.Work => Constants.Labels.Work,
-            IntervalEnum.ShortRest => Constants.Labels.ShortRest,
-            IntervalEnum.LongRest => Constants.Labels.LongRest,
+            IntervalEnum.Work => AppResources.TimerPage_WorkIntervalLabel,
+            IntervalEnum.ShortRest => AppResources.TimerPage_ShortRestIntervalLabel,
+            IntervalEnum.LongRest => AppResources.TimerPage_LongRestIntervalLabel,
             _ => string.Empty
         };
 }

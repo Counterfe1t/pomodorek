@@ -162,4 +162,13 @@
   <data name="AboutPage_Route" xml:space="preserve">
     <value>about</value>
   </data>
+  <data name="TimerPage_WorkIntervalLabel" xml:space="preserve">
+    <value>Work</value>
+  </data>
+  <data name="TimerPage_ShortRestIntervalLabel" xml:space="preserve">
+    <value>Short Rest</value>
+  </data>
+  <data name="TimerPage_LongRestIntervalLabel" xml:space="preserve">
+    <value>Long Rest</value>
+  </data>
 </root>

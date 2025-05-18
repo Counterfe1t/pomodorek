@@ -5,9 +5,9 @@ public class IntervalConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         => (IntervalEnum)value switch
         {
-            IntervalEnum.Work => Constants.Labels.Work,
-            IntervalEnum.ShortRest => Constants.Labels.ShortRest,
-            IntervalEnum.LongRest => Constants.Labels.LongRest,
+            IntervalEnum.Work => AppResources.TimerPage_WorkIntervalLabel,
+            IntervalEnum.ShortRest => AppResources.TimerPage_ShortRestIntervalLabel,
+            IntervalEnum.LongRest => AppResources.TimerPage_LongRestIntervalLabel,
             _ => string.Empty,
         };
 
