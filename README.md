@@ -27,7 +27,7 @@ In time you will be able to accurately estimate how many intervals certain task 
 | Tizen       |   ❌   |
 
 ## Build & Run
-If you want to check out how Pomodorek works you can easily run it locally on `Windows` machine using <a href="https://learn.microsoft.com/en-us/dotnet/core/tools/">.NET CLI</a>. In order to do so just clone this repository and run the following command from the root directory:
+If you want to check out how Pomodorek works you can easily run it locally on `Windows` machine using <a href="https://learn.microsoft.com/en-us/dotnet/core/tools/">.NET CLI</a>. In order to do so just clone this repository and type the following command from the root directory:
 ```powershell
 dotnet run --project '.\src\Pomodorek\Pomodorek.csproj'  -f 'net8.0-windows10.0.20348.0' -c Debug -p:PublishReadyToRun=true -p:WindowsPackageType=None
 ```
