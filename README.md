@@ -27,7 +27,10 @@ In time you will be able to accurately estimate how many intervals certain task 
 | Tizen       |   ❌   |
 
 ## Build & Run
-<b>TBD</b>
+If you want to check out how Pomodorek works you can easily run it locally on `Windows` machine using <a href="https://learn.microsoft.com/en-us/dotnet/core/tools/">.NET CLI</a>. In order to do so just clone this repository and run the following command from the root directory:
+```powershell
+dotnet run --project '.\src\Pomodorek\Pomodorek.csproj'  -f 'net8.0-windows10.0.20348.0' -c Debug -p:PublishReadyToRun=true -p:WindowsPackageType=None
+```
 
 ## About the technique
 Pomodoro Technique® is a time managment technique that splits time reserved for work into intervals and short rest periods between them. Every four intervals the break is significantly longer to further help yourself recharge energy before going into another focus session. Read more about it at the <a href="https://www.pomodorotechnique.com/">official website</a>.
