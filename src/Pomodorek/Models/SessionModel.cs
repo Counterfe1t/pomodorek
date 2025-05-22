@@ -25,6 +25,9 @@ public partial class SessionModel : ObservableObject
     /// </summary>
     public bool IsLongRest => WorkIntervalsCount % 4 == 0;
 
+    /// <summary>
+    /// Create a new instance of <see cref="SessionModel"/> class.
+    /// </summary>
     public static SessionModel Create() => new()
     {
         IntervalsCount = 0,
