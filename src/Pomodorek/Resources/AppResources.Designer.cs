@@ -106,6 +106,60 @@ namespace Pomodorek.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All intervals count:.
+        /// </summary>
+        public static string SessionDetailsPopup_AllIntervalsCountLabel {
+            get {
+                return ResourceManager.GetString("SessionDetailsPopup_AllIntervalsCountLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CLOSE.
+        /// </summary>
+        public static string SessionDetailsPopup_CloseSessionDetailsButton {
+            get {
+                return ResourceManager.GetString("SessionDetailsPopup_CloseSessionDetailsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Long rest intervals count:.
+        /// </summary>
+        public static string SessionDetailsPopup_LongRestIntervalsCountLabel {
+            get {
+                return ResourceManager.GetString("SessionDetailsPopup_LongRestIntervalsCountLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Short rest intervals count:.
+        /// </summary>
+        public static string SessionDetailsPopup_ShortRestIntervalsCountLabel {
+            get {
+                return ResourceManager.GetString("SessionDetailsPopup_ShortRestIntervalsCountLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Session Details.
+        /// </summary>
+        public static string SessionDetailsPopup_Title {
+            get {
+                return ResourceManager.GetString("SessionDetailsPopup_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work intervals count:.
+        /// </summary>
+        public static string SessionDetailsPopup_WorkIntervalsCountLabel {
+            get {
+                return ResourceManager.GetString("SessionDetailsPopup_WorkIntervalsCountLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dark mode.
         /// </summary>
         public static string SettingsPage_DarkModeLabel {

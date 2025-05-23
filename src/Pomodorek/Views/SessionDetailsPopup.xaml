@@ -4,6 +4,7 @@
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:viewModels="clr-namespace:Pomodorek.ViewModels"
                xmlns:controls="clr-namespace:Pomodorek.Views.Controls"
+               xmlns:resources="clr-namespace:Pomodorek.Resources"
                x:Class="Pomodorek.Views.SessionDetailsPopup"
                x:DataType="viewModels:TimerPageViewModel"
                Color="Transparent"
@@ -22,12 +23,12 @@
                 <Label Grid.Row="0"
                        Grid.Column="0"
                        FontSize="20"
-                       Text="Session Details" />
+                       Text="{x:Static resources:AppResources.SessionDetailsPopup_Title}" />
 
                 <!--2nd row-->
                 <Label Grid.Row="1"
                        Grid.Column="0"
-                       Text="All intervals count:"
+                       Text="{x:Static resources:AppResources.SessionDetailsPopup_AllIntervalsCountLabel}"
                        FontSize="15" />
                 <Label Grid.Row="1"
                        Grid.Column="1"
@@ -38,7 +39,7 @@
                 <!--3rd row-->
                 <Label Grid.Row="2"
                        Grid.Column="0"
-                       Text="Work intervals count:"
+                       Text="{x:Static resources:AppResources.SessionDetailsPopup_WorkIntervalsCountLabel}"
                        FontSize="15" />
                 <Label Grid.Row="2"
                        Grid.Column="1"
@@ -49,7 +50,7 @@
                 <!--4th row-->
                 <Label Grid.Row="3"
                        Grid.Column="0"
-                       Text="Short rest intervals count:"
+                       Text="{x:Static resources:AppResources.SessionDetailsPopup_ShortRestIntervalsCountLabel}"
                        FontSize="15" />
                 <Label Grid.Row="3"
                        Grid.Column="1"
@@ -60,7 +61,7 @@
                 <!--5th row-->
                 <Label Grid.Row="4"
                        Grid.Column="0"
-                       Text="Long rest intervals count:"
+                       Text="{x:Static resources:AppResources.SessionDetailsPopup_LongRestIntervalsCountLabel}"
                        FontSize="15" />
                 <Label Grid.Row="4"
                        Grid.Column="1"
@@ -73,7 +74,7 @@
                 <!--7th row-->
                 <controls:CustomButton Grid.Row="6"
                                        Grid.ColumnSpan="2"
-                                       Text="OK"
+                                       Text="{x:Static resources:AppResources.SessionDetailsPopup_CloseSessionDetailsButton}"
                                        Command="{Binding CloseSessionDetailsPopupCommand}" />
             </Grid>
         </Frame>

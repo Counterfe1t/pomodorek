@@ -171,4 +171,22 @@
   <data name="TimerPage_LongRestIntervalLabel" xml:space="preserve">
     <value>Long Rest</value>
   </data>
+  <data name="SessionDetailsPopup_Title" xml:space="preserve">
+    <value>Session Details</value>
+  </data>
+  <data name="SessionDetailsPopup_AllIntervalsCountLabel" xml:space="preserve">
+    <value>All intervals count:</value>
+  </data>
+  <data name="SessionDetailsPopup_WorkIntervalsCountLabel" xml:space="preserve">
+    <value>Work intervals count:</value>
+  </data>
+  <data name="SessionDetailsPopup_ShortRestIntervalsCountLabel" xml:space="preserve">
+    <value>Short rest intervals count:</value>
+  </data>
+  <data name="SessionDetailsPopup_LongRestIntervalsCountLabel" xml:space="preserve">
+    <value>Long rest intervals count:</value>
+  </data>
+  <data name="SessionDetailsPopup_CloseSessionDetailsButton" xml:space="preserve">
+    <value>CLOSE</value>
+  </data>
 </root>
