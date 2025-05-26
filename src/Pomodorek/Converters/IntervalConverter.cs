@@ -2,8 +2,12 @@
 
 public class IntervalConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        => (IntervalEnum)value switch
+    public object Convert(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture)
+        => (IntervalEnum?)value switch
         {
             IntervalEnum.Work => AppResources.TimerPage_WorkIntervalLabel,
             IntervalEnum.ShortRest => AppResources.TimerPage_ShortRestIntervalLabel,
@@ -11,6 +15,10 @@ public class IntervalConverter : IValueConverter
             _ => string.Empty,
         };
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture)
         => throw new NotImplementedException();
 }
