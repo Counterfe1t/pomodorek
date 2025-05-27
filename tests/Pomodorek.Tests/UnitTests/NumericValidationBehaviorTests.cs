@@ -4,7 +4,7 @@ public class NumericValidationBehaviorTests
 {
     [Theory]
     [MemberData(nameof(OnEntryTextChangedTestData))]
-    public void OnEntryTextChanged_ShouldSetExpectedTextValue(string received, string expected)
+    public void OnEntryTextChanged_ShouldSetExpectedTextValue(string? received, string? expected)
     {
         // arrange
         var entry = new Entry();
