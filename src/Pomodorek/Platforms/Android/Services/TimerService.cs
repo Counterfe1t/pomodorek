@@ -17,6 +17,10 @@ public class TimerService : Service, ITimerService
     private readonly ISettingsService _settingsService;
     private readonly ITimeProvider _timeProvider;
 
+    private static MainActivity MainActivity
+        => MainActivity.ActivityCurrent
+        ?? throw new Exception("MainActivity is not initialized.");
+
     public TimerService()
     {
         _notificationService = ServiceProvider.GetService<INotificationService>();
@@ -56,13 +60,13 @@ public class TimerService : Service, ITimerService
         Interlocked.Exchange(ref _token, new CancellationTokenSource()).Cancel();
     }
 
-    public override IBinder OnBind(Intent intent)
+    public override IBinder OnBind(Intent? intent)
     {
         throw new NotImplementedException();
     }
 
     [return: GeneratedEnum]
-    public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
+    public override StartCommandResult OnStartCommand(Intent? intent, [GeneratedEnum] StartCommandFlags flags, int startId)
     {
         DisplayProgressNotification();
 
@@ -71,21 +75,32 @@ public class TimerService : Service, ITimerService
 
     private void StartForegroundService()
     {
-        var intent = new Intent(MainActivity.ActivityCurrent, typeof(TimerService));
-        MainActivity.ActivityCurrent.StartService(intent);
+        var intent = new Intent(MainActivity, typeof(TimerService));
+        MainActivity.StartService(intent);
     }
 
     private void StopForegroundService()
     {
-        var intent = new Intent(MainActivity.ActivityCurrent, typeof(TimerService));
-        MainActivity.ActivityCurrent.StopService(intent);
+        var intent = new Intent(MainActivity, typeof(TimerService));
+        MainActivity.StopService(intent);
     }
 
     private void DisplayProgressNotification()
     {
         var serializedNotification = _settingsService.Get(nameof(NotificationModel), string.Empty);
+        if (string.IsNullOrWhiteSpace(serializedNotification))
+        {
+            // TODO Add error logging
+            return;
+        }
+
         var notification = JsonSerializer.Deserialize<NotificationModel>(serializedNotification);
-        
+        if (notification is null)
+        {
+            // TODO Add error logging
+            return;
+        }
+
         notification.Content = Constants.Messages.TimerIsRunning;
         notification.IsOngoing = true;
         notification.OnlyAlertOnce = true;
@@ -113,29 +128,52 @@ public class TimerService : Service, ITimerService
     private void ScheduleAlarm()
     {
         var serializedNotification = _settingsService.Get(nameof(NotificationModel), string.Empty);
+        if (string.IsNullOrWhiteSpace(serializedNotification))
+        {
+            // TODO Add error logging
+            return;
+        }
+
         var notification = JsonSerializer.Deserialize<NotificationModel>(serializedNotification);
+        if (notification is null)
+        {
+            // TODO Add error logging
+            return;
+        }
+
         var triggerAlarmAtMs = (long)notification
             .TriggerAlarmAt
             .ToUniversalTime()
             .Subtract(_timeProvider.UnixEpoch)
             .TotalMilliseconds;
 
-        var intent = new Intent(MainActivity.ActivityCurrent, typeof(AlarmReceiver));
-        var pendingIntent = PendingIntent.GetBroadcast(MainActivity.ActivityCurrent, 1, intent, PendingIntentFlags.Immutable);
-        var alarmManager = (AlarmManager)MainActivity.ActivityCurrent.GetSystemService(AlarmService);
+        var intent = new Intent(MainActivity, typeof(AlarmReceiver));
+        var pendingIntent = PendingIntent.GetBroadcast(MainActivity, 1, intent, PendingIntentFlags.Immutable);
+        var alarmManager = (AlarmManager?)MainActivity.GetSystemService(AlarmService);
+
+        if (pendingIntent is null)
+        {
+            // TODO Add error logging
+            return;
+        }
 
         if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
-            alarmManager.SetExactAndAllowWhileIdle(AlarmType.RtcWakeup, triggerAlarmAtMs, pendingIntent);
+            alarmManager?.SetExactAndAllowWhileIdle(AlarmType.RtcWakeup, triggerAlarmAtMs, pendingIntent);
         else if (Build.VERSION.SdkInt >= BuildVersionCodes.Kitkat)
-            alarmManager.SetExact(AlarmType.RtcWakeup, triggerAlarmAtMs, pendingIntent);
+            alarmManager?.SetExact(AlarmType.RtcWakeup, triggerAlarmAtMs, pendingIntent);
     }
 
     private void CancelAlarm()
     {
-        var intent = new Intent(MainActivity.ActivityCurrent, typeof(AlarmReceiver));
-        var pendingIntent = PendingIntent.GetBroadcast(MainActivity.ActivityCurrent, 1, intent, PendingIntentFlags.Immutable);
+        var intent = new Intent(MainActivity, typeof(AlarmReceiver));
+        var pendingIntent = PendingIntent.GetBroadcast(MainActivity, 1, intent, PendingIntentFlags.Immutable);
+        if (pendingIntent is null)
+        {
+            // TODO Add error logging
+            return;
+        }
 
-        var alarmManager = (AlarmManager)MainActivity.ActivityCurrent.GetSystemService(AlarmService);
-        alarmManager.Cancel(pendingIntent);
+        var alarmManager = (AlarmManager?)MainActivity.GetSystemService(AlarmService);
+        alarmManager?.Cancel(pendingIntent);
     }
 }

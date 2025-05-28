@@ -6,9 +6,9 @@ namespace Pomodorek.WinUI;
 
 public class Program
 {
-    public static App App { get; set; }
+    public static App? App { get; set; }
 
-    public static MauiWinUIWindow CurrentWindow { get; set; }
+    public static MauiWinUIWindow? CurrentWindow { get; set; }
 
     [STAThread]
     private static async Task<int> Main()
@@ -42,16 +42,21 @@ public class Program
         }
 
         isRedirect = true;
-        await keyInstance.RedirectActivationToAsync(args);
+        await keyInstance?.RedirectActivationToAsync(args);
 
         return isRedirect;
     }
 
-    private static void OnActivated(object sender, AppActivationArguments args)
+    private static void OnActivated(object? sender, AppActivationArguments args)
     {
         if (App is null)
         {
             throw new Exception("App should not be null");
+        }
+
+        if (CurrentWindow is null)
+        {
+            throw new Exception("Current window should not be null");
         }
 
         WindowHelper.ActivateWindow(CurrentWindow);

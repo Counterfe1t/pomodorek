@@ -59,8 +59,10 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterConfiguration(this MauiAppBuilder builder)
     {
         var assembly = Assembly.GetExecutingAssembly();
-        using var stream = assembly.GetManifestResourceStream(Constants.AppSettingsFileName);
-
+        
+        using var stream = assembly.GetManifestResourceStream(Constants.AppSettingsFileName)
+            ?? throw new Exception($"Resource '{Constants.AppSettingsFileName}' was not found in assembly '{assembly.FullName}'.");
+        
         var config = new ConfigurationBuilder()
             .AddJsonStream(stream)
             .Build();

@@ -2,7 +2,7 @@
 
 public class TimerService : ITimerService
 {
-    private IDispatcherTimer _timer;
+    private IDispatcherTimer? _timer;
 
     private readonly Application _application;
 

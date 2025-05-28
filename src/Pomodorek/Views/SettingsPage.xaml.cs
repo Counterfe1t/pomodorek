@@ -25,7 +25,7 @@ public partial class SettingsPage : ContentPage
         base.OnDisappearing();
     }
 
-    private async void OnNavigating(object sender, ShellNavigatingEventArgs args)
+    private async void OnNavigating(object? sender, ShellNavigatingEventArgs args)
     {
         // Dismiss navigation when navigating to current page.
         if (args.Target.Location.OriginalString.Contains(AppResources.SettingsPage_Title))

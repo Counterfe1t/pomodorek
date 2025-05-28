@@ -6,7 +6,7 @@ namespace Pomodorek.Services;
 
 public class NotificationService : INotificationService
 {
-    private readonly NotificationManager _notificationManager;
+    private readonly NotificationManager? _notificationManager;
 
     public static readonly string NotificaionChannelId = "General";
 
@@ -15,6 +15,7 @@ public class NotificationService : INotificationService
         _notificationManager = NotificationManager.FromContext(Android.App.Application.Context);
     }
 
+    [SuppressMessage("Interoperability", "CA1416:Validate platform compatibility")]
     public static Notification BuildNotification(NotificationModel notification)
     {
         var intent = new Intent(Android.App.Application.Context, typeof(MainActivity));
@@ -35,5 +36,5 @@ public class NotificationService : INotificationService
     }
 
     public async Task DisplayNotificationAsync(NotificationModel notification)
-        => await Task.Run(() => _notificationManager.Notify(notification.Id, BuildNotification(notification)));
+        => await Task.Run(() => _notificationManager?.Notify(notification.Id, BuildNotification(notification)));
 }

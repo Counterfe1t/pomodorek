@@ -1,4 +1,5 @@
 ﻿using Android.Content;
+using ServiceProvider = Pomodorek.Platforms.Android.Services.ServiceProvider;
 
 namespace Pomodorek.Platforms.Android.Receivers;
 
@@ -11,18 +12,17 @@ public class AlarmReceiver : BroadcastReceiver
 
     public AlarmReceiver()
     {
-        _notificationService = Services.ServiceProvider.GetService<INotificationService>();
-        _settingsService = Services.ServiceProvider.GetService<ISettingsService>();
-        _mainThreadService = Services.ServiceProvider.GetService<IMainThreadService>();
+        _notificationService = ServiceProvider.GetService<INotificationService>();
+        _settingsService = ServiceProvider.GetService<ISettingsService>();
+        _mainThreadService = ServiceProvider.GetService<IMainThreadService>();
     }
 
-    public override void OnReceive(Context context, Intent intent)
+    public override void OnReceive(Context? context, Intent? intent)
         => _mainThreadService.BeginInvokeOnMainThread(async () => await DisplayNotificationAsync());
 
     private async Task DisplayNotificationAsync()
     {
         var serializedNotification = _settingsService.Get(nameof(NotificationModel), string.Empty);
-
         if (string.IsNullOrWhiteSpace(serializedNotification))
         {
             // TODO Add error logging
@@ -30,6 +30,12 @@ public class AlarmReceiver : BroadcastReceiver
         }
 
         var notification = JsonSerializer.Deserialize<NotificationModel>(serializedNotification);
+        if (notification is null)
+        {
+            // TODO Add error logging
+            return;
+        }
+
         notification.Id = 1337;
         notification.CurrentProgress = 0;
         notification.MaxProgress = 0;

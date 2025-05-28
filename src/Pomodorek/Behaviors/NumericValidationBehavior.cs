@@ -14,17 +14,20 @@ public class NumericValidationBehavior : Behavior<Entry>
         base.OnDetachingFrom(entry);
     }
 
-    public static void OnEntryTextChanged(object sender, TextChangedEventArgs args)
+    public static void OnEntryTextChanged(object? sender, TextChangedEventArgs args)
     {
+        if (sender is not Entry entry)
+            return;
+
         if (string.IsNullOrWhiteSpace(args.NewTextValue))
         {
-            ((Entry)sender).Text = string.Empty;
+            entry.Text = string.Empty;
             return;
         }
 
         var isDigit = int.TryParse(args.NewTextValue, out int value);
 
-        ((Entry)sender).Text = isDigit && value > 0
+        entry.Text = isDigit && value > 0
             ? args.NewTextValue.Trim()
             : args.OldTextValue;
     }

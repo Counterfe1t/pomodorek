@@ -6,7 +6,7 @@ public interface IPopupService
     /// Close popup dialog.
     /// </summary>
     /// <param name="popup"><see cref="Popup" /> object to be closed.</param>
-    void ClosePopup(Popup popup);
+    void ClosePopup(Popup? popup);
 
     /// <summary>
     /// Display popup dialog with session details.

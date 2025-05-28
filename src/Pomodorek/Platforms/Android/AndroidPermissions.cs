@@ -1,5 +1,6 @@
 ﻿namespace Pomodorek.Platforms.Android;
 
+[SuppressMessage("Interoperability", "CA1416:Validate platform compatibility")]
 public class AndroidPermissions : Permissions.BasePlatformPermission
 {
     public override (string androidPermission, bool isRuntime)[] RequiredPermissions =>

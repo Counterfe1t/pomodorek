@@ -45,6 +45,7 @@ public class SessionService : BaseSessionService
         _mainThreadService.BeginInvokeOnMainThread(async () =>
             await _notificationService.DisplayNotificationAsync(new NotificationModel
             {
+                Title = "Pomodorek",
                 Content = content
             }));
 

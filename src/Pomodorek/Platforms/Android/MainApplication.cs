@@ -30,7 +30,8 @@ public class MainApplication : MauiApplication
                 Pomodorek.Services.NotificationService.NotificaionChannelId,
                 Pomodorek.Services.NotificationService.NotificaionChannelId,
                 NotificationImportance.Max);
-            manager.CreateNotificationChannel(channel);
+
+            manager?.CreateNotificationChannel(channel);
         }
     }
 }
