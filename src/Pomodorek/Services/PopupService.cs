@@ -9,7 +9,7 @@ public class PopupService : IPopupService
         _application = applicationService.Application;
     }
 
-    public void ClosePopup(Popup popup) => popup?.Close();
+    public void ClosePopup(Popup? popup) => popup?.Close();
 
     public SessionDetailsPopup ShowSessionDetailsPopup()
     {
