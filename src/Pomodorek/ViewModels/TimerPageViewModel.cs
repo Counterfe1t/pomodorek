@@ -35,11 +35,14 @@ public partial class TimerPageViewModel : BaseViewModel
     [ObservableProperty]
     private SessionModel _session;
 
-    public bool IsRunning => State == TimerStateEnum.Running;
+    public bool IsRunning
+        => State == TimerStateEnum.Running;
 
-    public bool IsStopped => State == TimerStateEnum.Stopped;
+    public bool IsStopped
+        => State == TimerStateEnum.Stopped;
 
-    public bool IsPaused => State == TimerStateEnum.Paused;
+    public bool IsPaused
+        => State == TimerStateEnum.Paused;
 
     public TimerPageViewModel(
         ITimerService timerService,
