@@ -106,20 +106,47 @@ namespace Pomodorek.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Common_Close {
+            get {
+                return ResourceManager.GetString("Common_Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string Common_No {
+            get {
+                return ResourceManager.GetString("Common_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Okay.
+        /// </summary>
+        public static string Common_Okay {
+            get {
+                return ResourceManager.GetString("Common_Okay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Common_Yes {
+            get {
+                return ResourceManager.GetString("Common_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All intervals count:.
         /// </summary>
         public static string SessionDetailsPopup_AllIntervalsCountLabel {
             get {
                 return ResourceManager.GetString("SessionDetailsPopup_AllIntervalsCountLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CLOSE.
-        /// </summary>
-        public static string SessionDetailsPopup_CloseSessionDetailsButton {
-            get {
-                return ResourceManager.GetString("SessionDetailsPopup_CloseSessionDetailsButton", resourceCulture);
             }
         }
         

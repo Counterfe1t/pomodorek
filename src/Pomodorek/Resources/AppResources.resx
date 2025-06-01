@@ -186,7 +186,16 @@
   <data name="SessionDetailsPopup_LongRestIntervalsCountLabel" xml:space="preserve">
     <value>Long rest intervals count:</value>
   </data>
-  <data name="SessionDetailsPopup_CloseSessionDetailsButton" xml:space="preserve">
-    <value>CLOSE</value>
+  <data name="Common_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Common_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Common_Okay" xml:space="preserve">
+    <value>Okay</value>
+  </data>
+  <data name="Common_Close" xml:space="preserve">
+    <value>Close</value>
   </data>
 </root>

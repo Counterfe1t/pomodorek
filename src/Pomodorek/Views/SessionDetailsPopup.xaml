@@ -74,7 +74,7 @@
                 <!--7th row-->
                 <controls:CustomButton Grid.Row="6"
                                        Grid.ColumnSpan="2"
-                                       Text="{x:Static resources:AppResources.SessionDetailsPopup_CloseSessionDetailsButton}"
+                                       Text="{x:Static resources:AppResources.Common_Close}"
                                        Command="{Binding CloseSessionDetailsPopupCommand}" />
             </Grid>
         </Frame>

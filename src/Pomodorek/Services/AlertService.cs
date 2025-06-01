@@ -17,7 +17,7 @@ public class AlertService : IAlertService
         await page.DisplayAlert(
             title,
             message,
-            Constants.Messages.Confirm);
+            AppResources.Common_Okay);
     }
 
     public async Task<bool> DisplayConfirmAsync(string title, string message)
@@ -28,7 +28,7 @@ public class AlertService : IAlertService
         return await page.DisplayAlert(
             title,
             message,
-            Constants.Messages.Confirm,
-            Constants.Messages.Cancel);
+            AppResources.Common_Yes,
+            AppResources.Common_No);
     }
 }
