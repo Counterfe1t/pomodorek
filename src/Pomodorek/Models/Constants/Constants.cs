@@ -39,10 +39,4 @@ public static class Constants
         public const string LongRestShorterThanShortRest = "Long rest cannot be shorter than short rest.";
         public const string WorkShorterThanRest = "Work cannot be shorter than short rest.";
     }
-
-    public class Sounds
-    {
-        public const string IntervalStart = "session_start.wav";
-        public const string IntervalOver = "session_over.wav";
-    }
 }

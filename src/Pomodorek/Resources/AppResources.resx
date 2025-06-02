@@ -198,4 +198,10 @@
   <data name="Common_Close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="Common_IntervalStartFileName" xml:space="preserve">
+    <value>interval_start.wav</value>
+  </data>
+  <data name="Common_IntervalOverFileName" xml:space="preserve">
+    <value>interval_over.wav</value>
+  </data>
 </root>

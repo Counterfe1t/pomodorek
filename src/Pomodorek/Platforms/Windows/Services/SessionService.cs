@@ -20,11 +20,12 @@ public class SessionService : BaseSessionService
         _mainThreadService = mainThreadService;
     }
 
-    public override void StartInterval(SessionModel session) => PlaySound(Constants.Sounds.IntervalStart);
+    public override void StartInterval(SessionModel session)
+        => PlaySound(AppResources.Common_IntervalStartFileName);
 
     public override void FinishInterval(SessionModel session)
     {
-        PlaySound(Constants.Sounds.IntervalOver);
+        PlaySound(AppResources.Common_IntervalOverFileName);
 
         session.IntervalsCount++;
         switch (session.CurrentInterval)
@@ -41,8 +42,8 @@ public class SessionService : BaseSessionService
         }
     }
 
-    private void DisplayNotification(string content) =>
-        _mainThreadService.BeginInvokeOnMainThread(async () =>
+    private void DisplayNotification(string content)
+        => _mainThreadService.BeginInvokeOnMainThread(async () =>
             await _notificationService.DisplayNotificationAsync(new NotificationModel
             {
                 Title = "Pomodorek",

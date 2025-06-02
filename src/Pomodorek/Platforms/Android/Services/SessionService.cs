@@ -18,7 +18,7 @@ public class SessionService : BaseSessionService
 
     public override void StartInterval(SessionModel session)
     {
-        PlaySound(Constants.Sounds.IntervalStart);
+        PlaySound(AppResources.Common_IntervalStartFileName);
 
         _settingsService.Set(
             nameof(NotificationModel),
@@ -34,7 +34,7 @@ public class SessionService : BaseSessionService
 
     public override void FinishInterval(SessionModel session)
     {
-        PlaySound(Constants.Sounds.IntervalOver);
+        PlaySound(AppResources.Common_IntervalOverFileName);
 
         session.IntervalsCount++;
         switch (session.CurrentInterval)

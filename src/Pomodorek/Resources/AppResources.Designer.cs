@@ -115,6 +115,24 @@ namespace Pomodorek.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to interval_over.wav.
+        /// </summary>
+        public static string Common_IntervalOverFileName {
+            get {
+                return ResourceManager.GetString("Common_IntervalOverFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to interval_start.wav.
+        /// </summary>
+        public static string Common_IntervalStartFileName {
+            get {
+                return ResourceManager.GetString("Common_IntervalStartFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string Common_No {
