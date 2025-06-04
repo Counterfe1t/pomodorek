@@ -146,14 +146,18 @@ public partial class SettingsPageViewModel : BaseViewModel
     {
         if (WorkLengthInMin < ShortRestLengthInMin)
         {
-            await _alertService.DisplayAlertAsync(AppResources.SettingsPage_Title, Constants.Validation.WorkShorterThanRest);
+            await _alertService.DisplayAlertAsync(
+                AppResources.SettingsPage_Title,
+                AppResources.SettingsPage_WorkShorterThanRestText);
 
             return false;
         }
 
         if (LongRestLengthInMin < ShortRestLengthInMin)
         {
-            await _alertService.DisplayAlertAsync(AppResources.SettingsPage_Title, Constants.Validation.LongRestShorterThanShortRest);
+            await _alertService.DisplayAlertAsync(
+                AppResources.SettingsPage_Title,
+                AppResources.SettingsPage_LongRestShorterThanShortRestText);
 
             return false;
         }

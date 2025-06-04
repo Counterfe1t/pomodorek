@@ -232,6 +232,15 @@ namespace Pomodorek.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Long rest cannot be shorter than short rest..
+        /// </summary>
+        public static string SettingsPage_LongRestShorterThanShortRestText {
+            get {
+                return ResourceManager.GetString("SettingsPage_LongRestShorterThanShortRestText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to settings.
         /// </summary>
         public static string SettingsPage_Route {
@@ -273,6 +282,15 @@ namespace Pomodorek.Resources {
         public static string SettingsPage_Title {
             get {
                 return ResourceManager.GetString("SettingsPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work cannot be shorter than short rest..
+        /// </summary>
+        public static string SettingsPage_WorkShorterThanRestText {
+            get {
+                return ResourceManager.GetString("SettingsPage_WorkShorterThanRestText", resourceCulture);
             }
         }
         

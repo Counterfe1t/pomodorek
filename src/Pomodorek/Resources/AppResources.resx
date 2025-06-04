@@ -204,4 +204,10 @@
   <data name="Common_IntervalOverFileName" xml:space="preserve">
     <value>interval_over.wav</value>
   </data>
+  <data name="SettingsPage_LongRestShorterThanShortRestText" xml:space="preserve">
+    <value>Long rest cannot be shorter than short rest.</value>
+  </data>
+  <data name="SettingsPage_WorkShorterThanRestText" xml:space="preserve">
+    <value>Work cannot be shorter than short rest.</value>
+  </data>
 </root>

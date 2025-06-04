@@ -33,10 +33,4 @@ public static class Constants
         public const string RestoreDefaultSettings = "This action will restore default settings.\nAre you sure?";
         public const string UnsavedChanges = "Are you sure you want to discard unsaved changes?";
     }
-
-    public class Validation
-    {
-        public const string LongRestShorterThanShortRest = "Long rest cannot be shorter than short rest.";
-        public const string WorkShorterThanRest = "Work cannot be shorter than short rest.";
-    }
 }
