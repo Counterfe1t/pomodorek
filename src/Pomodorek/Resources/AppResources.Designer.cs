@@ -106,6 +106,15 @@ namespace Pomodorek.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pomodorek.appsettings.json.
+        /// </summary>
+        public static string Common_AppSettingsFileName {
+            get {
+                return ResourceManager.GetString("Common_AppSettingsFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string Common_Close {

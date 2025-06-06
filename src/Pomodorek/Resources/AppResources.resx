@@ -210,4 +210,7 @@
   <data name="SettingsPage_WorkShorterThanRestText" xml:space="preserve">
     <value>Work cannot be shorter than short rest.</value>
   </data>
+  <data name="Common_AppSettingsFileName" xml:space="preserve">
+    <value>Pomodorek.appsettings.json</value>
+  </data>
 </root>

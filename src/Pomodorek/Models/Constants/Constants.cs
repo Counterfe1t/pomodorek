@@ -2,8 +2,6 @@
 
 public static class Constants
 {
-    public const string AppSettingsFileName = "Pomodorek.appsettings.json";
-
     public const int OneMinuteInSec = 60;
     public const int OneSecondInTicks = 10_000_000;
     public const int OneSecondInMs = 1_000;
