@@ -23,7 +23,6 @@ public static class Constants
         public const string Work = "Timer finished at {{value}}. Get back to work.";
         public const string ShortRest = "Timer finished at {{value}}. Take a short break.";
         public const string LongRest = "Timer finished at {{value}}. Take a long break.";
-        public const string SessionOver = "Session has ended.";
         public const string SettingsSaved = "Settings have been saved.";
         public const string SettingsRestored = "Default settings have been restored.";
         public const string TimerIsRunning = "Timer is running";

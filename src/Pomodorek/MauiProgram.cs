@@ -60,7 +60,8 @@ public static class MauiProgram
     {
         var assembly = Assembly.GetExecutingAssembly();
         
-        using var stream = assembly.GetManifestResourceStream(AppResources.Common_AppSettingsFileName)
+        using var stream =
+            assembly.GetManifestResourceStream(AppResources.Common_AppSettingsFileName)
             ?? throw new Exception($"Resource '{AppResources.Common_AppSettingsFileName}' was not found in assembly '{assembly.FullName}'.");
         
         var config = new ConfigurationBuilder()
