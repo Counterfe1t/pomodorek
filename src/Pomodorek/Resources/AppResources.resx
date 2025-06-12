@@ -213,4 +213,17 @@
   <data name="Common_AppSettingsFileName" xml:space="preserve">
     <value>Pomodorek.appsettings.json</value>
   </data>
+  <data name="SettingsPage_UnsavedChangesText" xml:space="preserve">
+    <value>Are you sure you want to discard unsaved changes?</value>
+  </data>
+  <data name="SettingsPage_RestoreDefaultSettingsText" xml:space="preserve">
+    <value>This action will restore default settings.
+Are you sure?</value>
+  </data>
+  <data name="SettingsPage_SettingsSavedText" xml:space="preserve">
+    <value>Settings have been saved.</value>
+  </data>
+  <data name="SettingsPage_SettingsRestoredText" xml:space="preserve">
+    <value>Default settings have been restored.</value>
+  </data>
 </root>

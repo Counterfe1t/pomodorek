@@ -23,11 +23,7 @@ public static class Constants
         public const string Work = "Timer finished at {{value}}. Get back to work.";
         public const string ShortRest = "Timer finished at {{value}}. Take a short break.";
         public const string LongRest = "Timer finished at {{value}}. Take a long break.";
-        public const string SettingsSaved = "Settings have been saved.";
-        public const string SettingsRestored = "Default settings have been restored.";
         public const string TimerIsRunning = "Timer is running";
         public const string ResetSession = "This action will reset the current session in progress.\nAre you sure?";
-        public const string RestoreDefaultSettings = "This action will restore default settings.\nAre you sure?";
-        public const string UnsavedChanges = "Are you sure you want to discard unsaved changes?";
     }
 }

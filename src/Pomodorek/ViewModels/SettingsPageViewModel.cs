@@ -91,7 +91,7 @@ public partial class SettingsPageViewModel : BaseViewModel
     }
 
     public async Task<bool> DisplayUnsavedChangesDialog()
-        => await _alertService.DisplayConfirmAsync(Title, Constants.Messages.UnsavedChanges);
+        => await _alertService.DisplayConfirmAsync(Title, AppResources.SettingsPage_UnsavedChangesText);
 
     [RelayCommand]
     private async Task SaveSettingsAsync()
@@ -110,7 +110,9 @@ public partial class SettingsPageViewModel : BaseViewModel
         // There are no pending changes.
         IsChangePending = false;
 
-        await _alertService.DisplayAlertAsync(AppResources.SettingsPage_Title, Constants.Messages.SettingsSaved);
+        await _alertService.DisplayAlertAsync(
+            AppResources.SettingsPage_Title,
+            AppResources.SettingsPage_SettingsSavedText);
         await _navigationService.NavigateToAsync(AppResources.TimerPage_Route);
     }
 
@@ -118,7 +120,7 @@ public partial class SettingsPageViewModel : BaseViewModel
     private async Task RestoreSettingsAsync()
     {
         // Prompt user with confirm dialog before restoring settings to default.
-        if (!await _alertService.DisplayConfirmAsync(Title, Constants.Messages.RestoreDefaultSettings))
+        if (!await _alertService.DisplayConfirmAsync(Title, AppResources.SettingsPage_RestoreDefaultSettingsText))
             return;
 
         // Set settings to default values.
@@ -139,7 +141,9 @@ public partial class SettingsPageViewModel : BaseViewModel
         _settingsService.Set(Constants.Settings.ShortRestLengthInMin, _appSettings.DefaultShortRestLengthInMin);
         _settingsService.Set(Constants.Settings.LongRestLengthInMin, _appSettings.DefaultLongRestLengthInMin);
 
-        await _alertService.DisplayAlertAsync(AppResources.SettingsPage_Title, Constants.Messages.SettingsRestored);
+        await _alertService.DisplayAlertAsync(
+            AppResources.SettingsPage_Title,
+            AppResources.SettingsPage_SettingsRestoredText);
     }
 
     private async Task<bool> ValidateSettings()

@@ -250,11 +250,39 @@ namespace Pomodorek.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This action will restore default settings.
+        ///Are you sure?.
+        /// </summary>
+        public static string SettingsPage_RestoreDefaultSettingsText {
+            get {
+                return ResourceManager.GetString("SettingsPage_RestoreDefaultSettingsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to settings.
         /// </summary>
         public static string SettingsPage_Route {
             get {
                 return ResourceManager.GetString("SettingsPage_Route", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default settings have been restored..
+        /// </summary>
+        public static string SettingsPage_SettingsRestoredText {
+            get {
+                return ResourceManager.GetString("SettingsPage_SettingsRestoredText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings have been saved..
+        /// </summary>
+        public static string SettingsPage_SettingsSavedText {
+            get {
+                return ResourceManager.GetString("SettingsPage_SettingsSavedText", resourceCulture);
             }
         }
         
@@ -291,6 +319,15 @@ namespace Pomodorek.Resources {
         public static string SettingsPage_Title {
             get {
                 return ResourceManager.GetString("SettingsPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to discard unsaved changes?.
+        /// </summary>
+        public static string SettingsPage_UnsavedChangesText {
+            get {
+                return ResourceManager.GetString("SettingsPage_UnsavedChangesText", resourceCulture);
             }
         }
         
