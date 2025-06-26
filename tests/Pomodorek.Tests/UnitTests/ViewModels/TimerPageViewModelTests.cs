@@ -2,7 +2,7 @@
 
 public class TimerPageViewModelTests
 {
-    private readonly TimerPageViewModel _viewModel;
+    private readonly TimerPageViewModel _cut;
 
     private readonly Mock<ITimerService> _timerServiceMock;
     private readonly Mock<ITimeProvider> _timeProviderMock;
@@ -26,7 +26,7 @@ public class TimerPageViewModelTests
             .Setup(x => x.GetSession())
             .Returns(SessionModel.Create());
 
-        _viewModel = new(
+        _cut = ClassUnderTest.Is<TimerPageViewModel>(
             _timerServiceMock.Object,
             _timeProviderMock.Object,
             _permissionsServiceMock.Object,
@@ -42,12 +42,14 @@ public class TimerPageViewModelTests
     public void StartCommand_ShouldStartTimer()
     {
         // act
-        _viewModel.StartCommand.Execute(null);
+        _cut.StartCommand.Execute(null);
 
         // assert
-        Assert.Equal(TimerStateEnum.Running, _viewModel.State);
+        Assert.Equal(TimerStateEnum.Running, _cut.State);
 
-        _timerServiceMock.Verify(x => x.Start(It.IsAny<Action>()), Times.Once);
+        _timerServiceMock.Verify(
+            x => x.Start(It.IsAny<Action>()),
+            Times.Once);
         _sessionServiceMock.Verify(
             x => x.StartInterval(It.Is<SessionModel>(y => y.CurrentInterval == IntervalEnum.Work)),
             Times.Once);
@@ -57,10 +59,10 @@ public class TimerPageViewModelTests
     public void PauseCommand_ShouldPauseTimer()
     {
         // act
-        _viewModel.PauseCommand.Execute(null);
+        _cut.PauseCommand.Execute(null);
 
         // assert
-        Assert.Equal(TimerStateEnum.Paused, _viewModel.State);
+        Assert.Equal(TimerStateEnum.Paused, _cut.State);
 
         _timerServiceMock.Verify(x => x.Stop(true), Times.Once);
     }
@@ -69,13 +71,13 @@ public class TimerPageViewModelTests
     public void StopCommand_TimerIsRunning_ShouldStopTimer()
     {
         // arrange
-        _viewModel.State = TimerStateEnum.Running;
+        _cut.State = TimerStateEnum.Running;
 
         // act
-        _viewModel.StopCommand.Execute(null);
+        _cut.StopCommand.Execute(null);
 
         // assert
-        Assert.Equal(TimerStateEnum.Stopped, _viewModel.State);
+        Assert.Equal(TimerStateEnum.Stopped, _cut.State);
 
         _timerServiceMock.Verify(x => x.Stop(true), Times.Once);
     }
@@ -84,13 +86,13 @@ public class TimerPageViewModelTests
     public void StopCommand_TimerIsStopped_ShouldNotStopTimer()
     {
         // arrange
-        _viewModel.State = TimerStateEnum.Stopped;
+        _cut.State = TimerStateEnum.Stopped;
 
         // act
-        _viewModel.StopCommand.Execute(null);
+        _cut.StopCommand.Execute(null);
 
         // assert
-        Assert.Equal(TimerStateEnum.Stopped, _viewModel.State);
+        Assert.Equal(TimerStateEnum.Stopped, _cut.State);
 
         _timerServiceMock.Verify(x => x.Stop(true), Times.Never);
     }
@@ -101,22 +103,22 @@ public class TimerPageViewModelTests
         // arrange
         var expectedSession = SessionModel.Create();
 
-        _viewModel.State = TimerStateEnum.Running;
+        _cut.State = TimerStateEnum.Running;
 
         _alertServiceMock
-            .Setup(x => x.DisplayConfirmAsync(_viewModel.Title, Constants.Messages.ResetSession))
+            .Setup(x => x.DisplayConfirmAsync(_cut.Title, Constants.Messages.ResetSession))
             .ReturnsAsync(true);
 
         // act
-        _viewModel.ResetCommand.Execute(null);
+        _cut.ResetCommand.Execute(null);
 
         // assert
-        Assert.Equal(TimerStateEnum.Stopped, _viewModel.State);
-        Assert.Equal(expectedSession.IntervalsCount, _viewModel.Session.IntervalsCount);
-        Assert.Equal(expectedSession.WorkIntervalsCount, _viewModel.Session.WorkIntervalsCount);
-        Assert.Equal(expectedSession.ShortRestIntervalsCount, _viewModel.Session.ShortRestIntervalsCount);
-        Assert.Equal(expectedSession.LongRestIntervalsCount, _viewModel.Session.LongRestIntervalsCount);
-        Assert.Equal(expectedSession.TriggerAlarmAt, _viewModel.Session.TriggerAlarmAt);
+        Assert.Equal(TimerStateEnum.Stopped, _cut.State);
+        Assert.Equal(expectedSession.IntervalsCount, _cut.Session.IntervalsCount);
+        Assert.Equal(expectedSession.WorkIntervalsCount, _cut.Session.WorkIntervalsCount);
+        Assert.Equal(expectedSession.ShortRestIntervalsCount, _cut.Session.ShortRestIntervalsCount);
+        Assert.Equal(expectedSession.LongRestIntervalsCount, _cut.Session.LongRestIntervalsCount);
+        Assert.Equal(expectedSession.TriggerAlarmAt, _cut.Session.TriggerAlarmAt);
 
         _timerServiceMock.Verify(x => x.Stop(true), Times.Once);
     }
@@ -127,22 +129,22 @@ public class TimerPageViewModelTests
         // arrange
         var expectedSession = SessionModel.Create();
 
-        _viewModel.State = TimerStateEnum.Stopped;
+        _cut.State = TimerStateEnum.Stopped;
 
         _alertServiceMock
-            .Setup(x => x.DisplayConfirmAsync(_viewModel.Title, Constants.Messages.ResetSession))
+            .Setup(x => x.DisplayConfirmAsync(_cut.Title, Constants.Messages.ResetSession))
             .ReturnsAsync(true);
 
         // act
-        _viewModel.ResetCommand.Execute(null);
+        _cut.ResetCommand.Execute(null);
 
         // assert
-        Assert.Equal(TimerStateEnum.Stopped, _viewModel.State);
-        Assert.Equal(expectedSession.IntervalsCount, _viewModel.Session.IntervalsCount);
-        Assert.Equal(expectedSession.WorkIntervalsCount, _viewModel.Session.WorkIntervalsCount);
-        Assert.Equal(expectedSession.ShortRestIntervalsCount, _viewModel.Session.ShortRestIntervalsCount);
-        Assert.Equal(expectedSession.LongRestIntervalsCount, _viewModel.Session.LongRestIntervalsCount);
-        Assert.Equal(expectedSession.TriggerAlarmAt, _viewModel.Session.TriggerAlarmAt);
+        Assert.Equal(TimerStateEnum.Stopped, _cut.State);
+        Assert.Equal(expectedSession.IntervalsCount, _cut.Session.IntervalsCount);
+        Assert.Equal(expectedSession.WorkIntervalsCount, _cut.Session.WorkIntervalsCount);
+        Assert.Equal(expectedSession.ShortRestIntervalsCount, _cut.Session.ShortRestIntervalsCount);
+        Assert.Equal(expectedSession.LongRestIntervalsCount, _cut.Session.LongRestIntervalsCount);
+        Assert.Equal(expectedSession.TriggerAlarmAt, _cut.Session.TriggerAlarmAt);
 
         _timerServiceMock.Verify(x => x.Stop(true), Times.Never);
     }
@@ -151,17 +153,17 @@ public class TimerPageViewModelTests
     public void ResetCommand_ActionWasCanceled_ShouldNotStopTimerAndShouldNotResetSession()
     {
         // arrange
-        _viewModel.State = TimerStateEnum.Running;
+        _cut.State = TimerStateEnum.Running;
 
         _alertServiceMock
-            .Setup(x => x.DisplayConfirmAsync(_viewModel.Title, Constants.Messages.ResetSession))
+            .Setup(x => x.DisplayConfirmAsync(_cut.Title, Constants.Messages.ResetSession))
             .ReturnsAsync(false);
 
         // act
-        _viewModel.ResetCommand.Execute(null);
+        _cut.ResetCommand.Execute(null);
 
         // assert
-        Assert.Equal(TimerStateEnum.Running, _viewModel.State);
+        Assert.Equal(TimerStateEnum.Running, _cut.State);
 
         _timerServiceMock.Verify(x => x.Stop(true), Times.Never);
     }
@@ -170,7 +172,7 @@ public class TimerPageViewModelTests
     public void ShowSessionDetailsPopupCommand_ShouldDisplaySessionDetailsPopup()
     {
         // act
-        _viewModel.ShowSessionDetailsPopupCommand.Execute(null);
+        _cut.ShowSessionDetailsPopupCommand.Execute(null);
 
         // assert
         _popupServiceMock.Verify(x => x.ShowSessionDetailsPopup(), Times.Once);
@@ -180,7 +182,7 @@ public class TimerPageViewModelTests
     public void CloseSessionDetailsPopupCommand_ShouldCloseSessionDetailsPopup()
     {
         // act
-        _viewModel.CloseSessionDetailsPopupCommand.Execute(null);
+        _cut.CloseSessionDetailsPopupCommand.Execute(null);
 
         // assert
         _popupServiceMock.Verify(x => x.ClosePopup(It.IsAny<Popup>()));
@@ -190,7 +192,7 @@ public class TimerPageViewModelTests
     public async Task CheckAndRequestPermissionsAsync_ShouldCheckAndRequestPermissions()
     {
         // act
-        await _viewModel.CheckAndRequestPermissionsAsync();
+        await _cut.CheckAndRequestPermissionsAsync();
 
         // assert
         _permissionsServiceMock.Verify(x => x.CheckAndRequestPermissionsAsync(), Times.Once);
@@ -205,17 +207,18 @@ public class TimerPageViewModelTests
     {
         // arrange
         _sessionServiceMock
-            .Setup(x => x.GetIntervalLengthInSec(_viewModel.Session.CurrentInterval))
+            .Setup(x => x.GetIntervalLengthInSec(_cut.Session.CurrentInterval))
             .Returns(expectedValue);
 
         // act
-        _viewModel.UpdateClock(value);
+        _cut.UpdateClock(value);
 
         // assert
-        Assert.Equal(expectedValue, _viewModel.SecondsRemaining);
+        Assert.Equal(expectedValue, _cut.SecondsRemaining);
 
-        _sessionServiceMock
-            .Verify(x => x.GetIntervalLengthInSec(_viewModel.Session.CurrentInterval), Times.Exactly(invocations));
+        _sessionServiceMock.Verify(
+            x => x.GetIntervalLengthInSec(_cut.Session.CurrentInterval),
+            Times.Exactly(invocations));
     }
 
     public static TheoryData<int?, int, int> UpdateClockTestData => new()

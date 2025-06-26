@@ -18,7 +18,11 @@ public static class ClassUnderTest
         if (ctor is null)
             return [];
 
-        var arrayOfParams = ctor.GetParameters().Select(p => p.ParameterType).ToArray();
+        var arrayOfParams = ctor
+            .GetParameters()
+            .Select(p => p.ParameterType)
+            .ToArray();
+
         var knownParams = known
             .Select((item) => new
             {

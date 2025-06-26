@@ -17,13 +17,12 @@ public class NumericValidationBehaviorTests
         Assert.Equal(expected, entry.Text);
     }
 
-    public static TheoryData<string?, string?> OnEntryTextChangedTestData =>
-        new()
-        {
-            { null, "" },
-            { "", "" },
-            { "foo", null },
-            { "1337", "1337" },
-            { " 2137 ", "2137" }
-        };
+    public static TheoryData<string?, string?> OnEntryTextChangedTestData => new()
+    {
+        { null, "" },
+        { "", "" },
+        { "foo", null },
+        { "1337", "1337" },
+        { " 2137 ", "2137" }
+    };
 }

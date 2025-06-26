@@ -10,7 +10,7 @@ public class SettingsPageViewModelTests
     private readonly Mock<INavigationService> _navigationServiceMock;
     private readonly Mock<IApplicationService> _applicationServiceMock;
 
-    private AppSettings AppSettings => new()
+    private static AppSettings AppSettings => new()
     {
         AppName = "Pomodorek",
         AppVersion = "1.0.0",

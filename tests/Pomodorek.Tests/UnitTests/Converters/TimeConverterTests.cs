@@ -10,10 +10,7 @@ public class TimeConverterTests
     }
 
     [Theory]
-    [InlineData(60, "01:00")]
-    [InlineData(90, "01:30")]
-    [InlineData(0, "00:00")]
-    [InlineData(1337, "22:17")]
+    [MemberData(nameof(ConvertTestData))]
     public void Convert_ShouldReturnExcpectedResult(int received, string expected)
     {
         // act
@@ -37,4 +34,12 @@ public class TimeConverterTests
             It.IsAny<object>(),
             It.IsAny<CultureInfo>()));
     }
+
+    public static TheoryData<int, string> ConvertTestData => new()
+    {
+        { 60, "01:00" },
+        { 90, "01:30" },
+        { 0, "00:00" },
+        { 1337, "22:17" }
+    };
 }

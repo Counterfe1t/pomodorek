@@ -8,7 +8,7 @@ public class AboutPageViewModelTests
     private readonly Mock<IConfigurationService> _configurationServiceMock;
     private readonly Mock<IBrowser> _browserMock;
 
-    private AppSettings AppSettings => new()
+    private static AppSettings AppSettings => new()
     {
         AppName = "Pomodorek",
         AppVersion = "1.0.0",
@@ -46,7 +46,8 @@ public class AboutPageViewModelTests
         await _cut.GoToUrlCommand.ExecuteAsync(url);
 
         // assert
-        _browserMock
-            .Verify(x => x.OpenAsync(It.Is<Uri>(y => y.AbsoluteUri == url), It.IsAny<BrowserLaunchOptions>()), Times.Once);
+        _browserMock.Verify(
+            x => x.OpenAsync(It.Is<Uri>(y => y.AbsoluteUri == url), It.IsAny<BrowserLaunchOptions>()),
+            Times.Once);
     }
 }

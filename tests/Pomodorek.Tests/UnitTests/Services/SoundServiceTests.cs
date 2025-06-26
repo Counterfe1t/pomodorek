@@ -10,10 +10,16 @@ public class SoundServiceTests
     private readonly Mock<IConfigurationService> _configurationServiceMock;
     private readonly Mock<IAudioPlayer> _audioPlayerMock;
 
-    private AppSettings AppSettings => new()
+    private static AppSettings AppSettings => new()
     {
         AppName = "Pomodorek",
         AppVersion = "1.0.0",
+        DefaultIsDarkThemeEnabled = true,
+        DefaultIsSoundEnabled = true,
+        DefaultSoundVolume = 1,
+        DefaultWorkLengthInMin = 3,
+        DefaultShortRestLengthInMin = 3,
+        DefaultLongRestLengthInMin = 7
     };
 
     public SoundServiceTests()

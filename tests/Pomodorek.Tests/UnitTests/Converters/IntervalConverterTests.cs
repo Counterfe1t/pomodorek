@@ -37,12 +37,11 @@ public class IntervalConverterTests
             It.IsAny<CultureInfo>()));
     }
 
-    public static TheoryData<IntervalEnum, string> ConvertData =>
-        new()
-        {
-            { IntervalEnum.Work, AppResources.TimerPage_WorkIntervalLabel },
-            { IntervalEnum.ShortRest, AppResources.TimerPage_ShortRestIntervalLabel },
-            { IntervalEnum.LongRest, AppResources.TimerPage_LongRestIntervalLabel },
-            { (IntervalEnum)1337, "" }
-        };
+    public static TheoryData<IntervalEnum, string> ConvertData => new()
+    {
+        { IntervalEnum.Work, AppResources.TimerPage_WorkIntervalLabel },
+        { IntervalEnum.ShortRest, AppResources.TimerPage_ShortRestIntervalLabel },
+        { IntervalEnum.LongRest, AppResources.TimerPage_LongRestIntervalLabel },
+        { (IntervalEnum)1337, "" }
+    };
 }
