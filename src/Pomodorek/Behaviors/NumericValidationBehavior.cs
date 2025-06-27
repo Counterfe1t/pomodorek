@@ -1,6 +1,6 @@
 ﻿namespace Pomodorek.Behaviors;
 
-public class NumericValidationBehavior : Behavior<Entry>
+public partial class NumericValidationBehavior : Behavior<Entry>
 {
     protected override void OnAttachedTo(Entry entry)
     {
@@ -25,9 +25,9 @@ public class NumericValidationBehavior : Behavior<Entry>
             return;
         }
 
-        var isDigit = int.TryParse(args.NewTextValue, out int value);
+        var isNumber = int.TryParse(args.NewTextValue, out int value);
 
-        entry.Text = isDigit && value > 0
+        entry.Text = isNumber && value > 0
             ? args.NewTextValue.Trim()
             : args.OldTextValue;
     }
