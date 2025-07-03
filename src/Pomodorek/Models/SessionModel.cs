@@ -1,24 +1,73 @@
 ﻿namespace Pomodorek.Models;
 
-public partial class SessionModel : ObservableObject
+public partial class SessionModel : BindableObject
 {
-    [ObservableProperty]
     private IntervalEnum _currentInterval;
-    
-    [ObservableProperty]
     private DateTimeOffset _triggerAlarmAt;
-
-    [ObservableProperty]
     private int _intervalsCount;
-
-    [ObservableProperty]
     private int _workIntervalsCount;
-    
-    [ObservableProperty]
     private int _shortRestIntervalsCount;
-
-    [ObservableProperty]
     private int _longRestIntervalsCount;
+
+    public IntervalEnum CurrentInterval
+    {
+        get => _currentInterval;
+        set
+        {
+            _currentInterval = value;
+            OnPropertyChanged(nameof(CurrentInterval));
+        }
+    }
+
+    public DateTimeOffset TriggerAlarmAt
+    {
+        get => _triggerAlarmAt;
+        set
+        {
+            _triggerAlarmAt = value;
+            OnPropertyChanged(nameof(TriggerAlarmAt));
+        }
+    }
+
+    public int IntervalsCount
+    {
+        get => _intervalsCount;
+        set
+        {
+            _intervalsCount = value;
+            OnPropertyChanged(nameof(IntervalsCount));
+        }
+    }
+
+    public int WorkIntervalsCount
+    {
+        get => _workIntervalsCount;
+        set
+        {
+            _workIntervalsCount = value;
+            OnPropertyChanged(nameof(WorkIntervalsCount));
+        }
+    }
+
+    public int ShortRestIntervalsCount
+    {
+        get => _shortRestIntervalsCount;
+        set
+        {
+            _shortRestIntervalsCount = value;
+            OnPropertyChanged(nameof(ShortRestIntervalsCount));
+        }
+    }
+
+    public int LongRestIntervalsCount
+    {
+        get => _longRestIntervalsCount;
+        set
+        {
+            _longRestIntervalsCount = value;
+            OnPropertyChanged(nameof(LongRestIntervalsCount));
+        }
+    }
 
     /// <summary>
     /// Long rest is triggered after every 4th work interval.
