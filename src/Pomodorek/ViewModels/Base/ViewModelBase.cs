@@ -1,6 +1,6 @@
-﻿namespace Pomodorek.ViewModels;
+﻿namespace Pomodorek.ViewModels.Base;
 
-public partial class BaseViewModel : ObservableObject
+public partial class ViewModelBase : ObservableObject
 {
     protected readonly INavigationService _navigationService;
 
@@ -13,7 +13,7 @@ public partial class BaseViewModel : ObservableObject
 
     public bool IsNotBusy => !IsBusy;
 
-    public BaseViewModel(string title, INavigationService navigationService)
+    public ViewModelBase(string title, INavigationService navigationService)
     {
         Title = title;
         _navigationService = navigationService;

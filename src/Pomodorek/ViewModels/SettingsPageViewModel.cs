@@ -1,6 +1,6 @@
 ﻿namespace Pomodorek.ViewModels;
 
-public partial class SettingsPageViewModel : BaseViewModel
+public partial class SettingsPageViewModel : ViewModelBase
 {
     private readonly ISettingsService _settingsService;
     private readonly IAlertService _alertService;

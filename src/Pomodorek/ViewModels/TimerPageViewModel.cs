@@ -1,6 +1,6 @@
 ﻿namespace Pomodorek.ViewModels;
 
-public partial class TimerPageViewModel : BaseViewModel
+public partial class TimerPageViewModel : ViewModelBase
 {
     private readonly ITimerService _timerService;
     private readonly ITimeProvider _timeProvider;

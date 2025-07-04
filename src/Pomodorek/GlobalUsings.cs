@@ -16,6 +16,7 @@ global using Pomodorek.Resources;
 global using Pomodorek.Services;
 global using Pomodorek.Utils;
 global using Pomodorek.ViewModels;
+global using Pomodorek.ViewModels.Base;
 global using Pomodorek.Views;
 global using System.Diagnostics.CodeAnalysis;
 global using System.Globalization;

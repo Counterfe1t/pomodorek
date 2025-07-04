@@ -1,6 +1,6 @@
 ﻿namespace Pomodorek.ViewModels;
 
-public partial class AboutPageViewModel : BaseViewModel
+public partial class AboutPageViewModel : ViewModelBase
 {
     private readonly IBrowser _browser;
 
