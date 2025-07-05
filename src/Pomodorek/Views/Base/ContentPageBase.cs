@@ -7,9 +7,13 @@ public abstract class ContentPageBase : ContentPage
         NavigationPage.SetBackButtonTitle(this, string.Empty);
     }
 
-    // TODO: Execute initialization logic here
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
+
+        if (BindingContext is not ViewModelBase viewModel)
+            return;
+
+        await viewModel.InitializeAsyncCommand.ExecuteAsync(null);
     }
 }
