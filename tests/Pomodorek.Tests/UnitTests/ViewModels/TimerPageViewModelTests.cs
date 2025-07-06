@@ -189,43 +189,44 @@ public class TimerPageViewModelTests
     }
 
     [Fact]
-    public async Task CheckAndRequestPermissionsAsync_ShouldCheckAndRequestPermissions()
-    {
-        // act
-        await _cut.CheckAndRequestPermissionsAsync();
-
-        // assert
-        _permissionsServiceMock.Verify(x => x.CheckAndRequestPermissionsAsync(), Times.Once);
-    }
-
-    [Theory]
-    [MemberData(nameof(UpdateClockTestData))]
-    public void UpdateClock_ShouldSetExpectedSecondsRemainingValue(
-        int? value,
-        int expectedValue,
-        int invocations)
+    public async Task InitializeAsyncCommand_TimerIsRunning_ShouldNotUpdateClock()
     {
         // arrange
+        var expectedValue = 2137;
+        _cut.SecondsRemaining = expectedValue;
+        _cut.State = TimerStateEnum.Running;
+
+        // act
+        await _cut.InitializeAsyncCommand.ExecuteAsync(null);
+
+        // assert
+        Assert.Equal(expectedValue, _cut.SecondsRemaining);
+        
+        _sessionServiceMock.Verify(
+            x => x.GetIntervalLengthInSec(_cut.Session.CurrentInterval),
+            Times.Never);
+    }
+
+    [Fact]
+    public async Task InitializeAsyncCommand_TimerIsStopped_ShouldUpdateClock()
+    {
+        // arrange
+        var expectedValue = 2137;
+        _cut.SecondsRemaining = 0;
+        _cut.State = TimerStateEnum.Stopped;
+
         _sessionServiceMock
             .Setup(x => x.GetIntervalLengthInSec(_cut.Session.CurrentInterval))
             .Returns(expectedValue);
 
         // act
-        _cut.UpdateClock(value);
+        await _cut.InitializeAsyncCommand.ExecuteAsync(null);
 
         // assert
         Assert.Equal(expectedValue, _cut.SecondsRemaining);
 
         _sessionServiceMock.Verify(
             x => x.GetIntervalLengthInSec(_cut.Session.CurrentInterval),
-            Times.Exactly(invocations));
+            Times.Once());
     }
-
-    public static TheoryData<int?, int, int> UpdateClockTestData => new()
-    {
-        { 1337, 1337, 0 },
-        { 0, 0, 0 },
-        { -1, 60, 1 },
-        { null, 60, 1 }
-    };
 }

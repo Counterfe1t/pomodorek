@@ -48,7 +48,7 @@ public abstract partial class ViewModelBase : ObservableObject
         {
             await unitOfWork();
         }
-        catch (Exception )
+        catch (Exception)
         {
             // TODO: Handle exceptions
         }

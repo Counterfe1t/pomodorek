@@ -1,6 +1,6 @@
 namespace Pomodorek.Views;
 
-public partial class SettingsPage : ContentPage
+public partial class SettingsPage : ContentPageBase
 {
     private readonly SettingsPageViewModel _viewModel;
 
@@ -16,7 +16,6 @@ public partial class SettingsPage : ContentPage
     {
         base.OnAppearing();
         Shell.Current.Navigating += OnNavigating;
-        _viewModel?.InitializeSettings();
     }
 
     protected override void OnDisappearing()

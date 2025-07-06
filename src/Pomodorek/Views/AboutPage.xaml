@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
-             xmlns:controls="clr-namespace:Pomodorek.Views.Controls"
-             xmlns:resources="clr-namespace:Pomodorek.Resources"
-             x:Class="Pomodorek.Views.AboutPage"
-             x:DataType="viewmodels:AboutPageViewModel"
-             Title="{Binding Title}">
+<base:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:Pomodorek.Views.Base"
+                      xmlns:viewmodels="clr-namespace:Pomodorek.ViewModels"
+                      xmlns:controls="clr-namespace:Pomodorek.Views.Controls"
+                      xmlns:resources="clr-namespace:Pomodorek.Resources"
+                      x:Class="Pomodorek.Views.AboutPage"
+                      x:DataType="viewmodels:AboutPageViewModel"
+                      Title="{Binding Title}">
     <Grid ColumnDefinitions="{OnPlatform Default=*, WinUI='85, *'}">
 
         <!--Custom navigation menu for WinUI-->
@@ -115,4 +116,4 @@
             </Grid>
         </ScrollView>
     </Grid>
-</ContentPage>
+</base:ContentPageBase>

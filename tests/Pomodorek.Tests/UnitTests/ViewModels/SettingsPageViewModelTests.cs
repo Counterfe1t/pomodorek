@@ -47,10 +47,10 @@ public class SettingsPageViewModelTests
     }
 
     [Fact]
-    public void InitializeSettings_ShouldInitializeProperties()
+    public async Task InitializeSettings_ShouldInitializeProperties()
     {
         // act
-        _cut.InitializeSettings();
+        await _cut.InitializeAsyncCommand.ExecuteAsync(null);
 
         // assert
         _settingsServiceMock.Verify(

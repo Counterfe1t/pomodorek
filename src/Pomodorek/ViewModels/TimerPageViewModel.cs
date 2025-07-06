@@ -9,31 +9,50 @@ public partial class TimerPageViewModel : ViewModelBase
     private readonly IPopupService _popupService;
     private readonly IAlertService _alertService;
 
+    // TODO: Refactor the way popups are handled in the application.
     /// <summary>
     /// Popup for displaying <see cref="SessionModel" /> details.
     /// </summary>
     private SessionDetailsPopup? _popup;
 
-    /// <summary>
-    /// Timer's state (stopped, running or paused).
-    /// </summary>
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(IsRunning))]
-    [NotifyPropertyChangedFor(nameof(IsStopped))]
-    [NotifyPropertyChangedFor(nameof(IsPaused))]
+    private int _secondsRemaining = 0;
+    private SessionModel _session = new();
     private TimerStateEnum _state = TimerStateEnum.Stopped;
 
     /// <summary>
     /// Seconds remaining until the end of the current interval.
     /// </summary>
-    [ObservableProperty]
-    private int _secondsRemaining;
+    public int SecondsRemaining
+    {
+        get => _secondsRemaining;
+        set => SetProperty(ref _secondsRemaining, value);
+    }
 
     /// <summary>
     /// Session currently in progress.
     /// </summary>
-    [ObservableProperty]
-    private SessionModel _session;
+    public SessionModel Session
+    {
+        get => _session;
+        set => SetProperty(ref _session, value);
+    }
+
+    /// <summary>
+    /// Timer's state (stopped, running or paused).
+    /// </summary>
+    public TimerStateEnum State
+    {
+        get => _state;
+        set
+        {
+            if (SetProperty(ref _state, value))
+            {
+                OnPropertyChanged(nameof(IsRunning));
+                OnPropertyChanged(nameof(IsStopped));
+                OnPropertyChanged(nameof(IsPaused));
+            }
+        }
+    }
 
     public bool IsRunning
         => State == TimerStateEnum.Running;
@@ -64,16 +83,15 @@ public partial class TimerPageViewModel : ViewModelBase
         Session = sessionService.GetSession();
     }
 
-    public void UpdateClock(int? secondsRemaining = null)
+    protected override async Task InitializeAsync()
     {
-        if (!secondsRemaining.HasValue || secondsRemaining.Value < 0)
-            SecondsRemaining = _sessionService.GetIntervalLengthInSec(Session.CurrentInterval);
-        else
-            SecondsRemaining = secondsRemaining.Value;
-    }
+        // TODO: Check permissions only once, when the app starts.
+        await _permissionsService.CheckAndRequestPermissionsAsync();
 
-    public async Task CheckAndRequestPermissionsAsync()
-        => await _permissionsService.CheckAndRequestPermissionsAsync();
+        // Update clock when the page is shown, unless the timer is running.
+        if (IsStopped)
+            UpdateClock();
+    }
 
     [RelayCommand]
     private void Start()
@@ -160,5 +178,12 @@ public partial class TimerPageViewModel : ViewModelBase
             _sessionService.FinishInterval(Session);
             StopTimer(false);
         }
+    }
+
+    private void UpdateClock(int? secondsRemaining = null)
+    {
+        SecondsRemaining = !secondsRemaining.HasValue || secondsRemaining.Value < 0
+            ? _sessionService.GetIntervalLengthInSec(Session.CurrentInterval)
+            : secondsRemaining.Value;
     }
 }

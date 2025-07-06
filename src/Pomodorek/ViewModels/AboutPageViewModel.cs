@@ -4,11 +4,20 @@ public partial class AboutPageViewModel : ViewModelBase
 {
     private readonly IBrowser _browser;
 
-    [ObservableProperty]
-    private string _appName;
+    private string _appName = string.Empty;
+    private string _appVersion = string.Empty;
 
-    [ObservableProperty]
-    private string _appVersion;
+    public string AppName
+    {
+        get => _appName;
+        set => SetProperty(ref _appName, value);
+    }
+
+    public string AppVersion
+    {
+        get => _appVersion;
+        set => SetProperty(ref _appVersion, value);
+    }
 
     public AboutPageViewModel(
         IConfigurationService configurationService,
@@ -16,8 +25,8 @@ public partial class AboutPageViewModel : ViewModelBase
         IBrowser browser)
         : base(AppResources.AboutPage_Title, navigationService)
     {
-        _appName = configurationService.AppSettings.AppName;
-        _appVersion = configurationService.AppSettings.AppVersion;
+        AppName = configurationService.AppSettings.AppName;
+        AppVersion = configurationService.AppSettings.AppVersion;
         _browser = browser;
     }
 

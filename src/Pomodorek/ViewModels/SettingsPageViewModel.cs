@@ -70,13 +70,16 @@ public partial class SettingsPageViewModel : ViewModelBase
         IApplicationService applicationService)
         : base(AppResources.SettingsPage_Title, navigationService)
     {
-        _appSettings = configurationService.AppSettings;
-        _application = applicationService.Application;
         _settingsService = settingsService;
         _alertService = alertService;
+        _appSettings = configurationService.AppSettings;
+        _application = applicationService.Application;
     }
 
-    public void InitializeSettings()
+    public async Task<bool> DisplayUnsavedChangesDialog()
+        => await _alertService.DisplayConfirmAsync(Title, AppResources.SettingsPage_UnsavedChangesText);
+
+    protected override Task InitializeAsync()
     {
         // Get saved settings from devide preferences.
         IsDarkThemeEnabled = _settingsService.Get(Constants.Settings.IsDarkThemeEnabled, _appSettings.DefaultIsDarkThemeEnabled);
@@ -88,11 +91,10 @@ public partial class SettingsPageViewModel : ViewModelBase
 
         // There are no pending changes.
         IsChangePending = false;
+
+        return Task.CompletedTask;
     }
-
-    public async Task<bool> DisplayUnsavedChangesDialog()
-        => await _alertService.DisplayConfirmAsync(Title, AppResources.SettingsPage_UnsavedChangesText);
-
+    
     [RelayCommand]
     private async Task SaveSettingsAsync()
     {
@@ -113,7 +115,7 @@ public partial class SettingsPageViewModel : ViewModelBase
         await _alertService.DisplayAlertAsync(
             AppResources.SettingsPage_Title,
             AppResources.SettingsPage_SettingsSavedText);
-        await _navigationService.NavigateToAsync(AppResources.TimerPage_Route);
+        await NavigationService.NavigateToAsync(AppResources.TimerPage_Route);
     }
 
     [RelayCommand]

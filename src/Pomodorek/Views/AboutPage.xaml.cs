@@ -1,6 +1,6 @@
 namespace Pomodorek.Views;
 
-public partial class AboutPage : ContentPage
+public partial class AboutPage : ContentPageBase
 {
     public AboutPage(AboutPageViewModel viewModel)
     {
