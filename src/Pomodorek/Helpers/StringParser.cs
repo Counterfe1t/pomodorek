@@ -1,4 +1,4 @@
-﻿namespace Pomodorek.Utils;
+﻿namespace Pomodorek.Helpers;
 
 public class StringParser
 {
