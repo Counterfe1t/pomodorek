@@ -1,6 +1,6 @@
 ﻿namespace Pomodorek.Services;
 
-public class SessionService : BaseSessionService
+public class SessionService : SessionServiceBase
 {
     public SessionService(
         IConfigurationService configurationService,

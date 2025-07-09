@@ -1,13 +1,13 @@
 ﻿namespace Pomodorek.Services;
 
-public abstract class BaseSessionService : ISessionService
+public abstract class SessionServiceBase : ISessionService
 {
     private readonly ISettingsService _settingsService;
     private readonly ISoundService _soundService;
 
     private readonly AppSettings _appSettings;
 
-    public BaseSessionService(
+    public SessionServiceBase(
         IConfigurationService configurationService,
         ISettingsService settingsService,
         ISoundService soundService)
@@ -40,6 +40,9 @@ public abstract class BaseSessionService : ISessionService
     public int GetIntervalLengthInSec(IntervalEnum interval)
         => GetIntervalLengthInMin(interval) * Constants.OneMinuteInSec;
 
+    protected Task PlaySound(string fileName)
+        => Task.Run(async () => await _soundService.PlaySoundAsync(fileName));
+
     private int GetIntervalLengthInMin(IntervalEnum interval)
         => interval switch
         {
@@ -51,7 +54,4 @@ public abstract class BaseSessionService : ISessionService
                 _settingsService.Get(Constants.Settings.LongRestLengthInMin, _appSettings.DefaultLongRestLengthInMin),
             _ => 0
         };
-
-    protected void PlaySound(string fileName)
-        => Task.Run(async () => await _soundService.PlaySoundAsync(fileName));
 }

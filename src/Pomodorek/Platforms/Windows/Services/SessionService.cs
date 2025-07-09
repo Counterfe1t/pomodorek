@@ -1,6 +1,6 @@
 ﻿namespace Pomodorek.Services;
 
-public class SessionService : BaseSessionService
+public class SessionService : SessionServiceBase
 {
     private readonly INotificationService _notificationService;
     private readonly IMainThreadService _mainThreadService;

@@ -143,7 +143,7 @@ public class TimerService : Service, ITimerService
 
         var triggerAlarmAtMs = (long)notification
             .TriggerAlarmAt
-            .ToUniversalTime()
+            .ToLocalTime()
             .Subtract(_timeProvider.UnixEpoch)
             .TotalMilliseconds;
 
@@ -166,6 +166,7 @@ public class TimerService : Service, ITimerService
     private void CancelAlarm()
     {
         var intent = new Intent(MainActivity, typeof(AlarmReceiver));
+
         var pendingIntent = PendingIntent.GetBroadcast(MainActivity, 1, intent, PendingIntentFlags.Immutable);
         if (pendingIntent is null)
         {

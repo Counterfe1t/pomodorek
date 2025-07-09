@@ -1,6 +1,6 @@
 ﻿namespace Pomodorek.Services;
 
-public class SessionService : BaseSessionService
+public class SessionService : SessionServiceBase
 {
     private readonly ISettingsService _settingsService;
 
