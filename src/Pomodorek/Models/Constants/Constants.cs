@@ -6,6 +6,8 @@ public static class Constants
     public const int OneSecondInTicks = 10_000_000;
     public const int OneSecondInMs = 1_000;
 
+    public const string TimeFormat = "HH:mm";
+
     public class Settings
     {
         public const string IsDarkThemeEnabled = nameof(IsDarkThemeEnabled);

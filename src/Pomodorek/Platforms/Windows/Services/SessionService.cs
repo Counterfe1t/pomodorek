@@ -64,7 +64,7 @@ public class SessionService : SessionServiceBase
 
         DisplayNotification(
             StringParser.Parse(
-                session.TriggerAlarmAt.ToLocalTime().ToString("HH:mm"),
+                session.TriggerAlarmAt.ToLocalTime().ToString(Constants.TimeFormat),
                 notificationContent));
     }
 
@@ -79,7 +79,7 @@ public class SessionService : SessionServiceBase
 
         DisplayNotification(
             StringParser.Parse(
-                session.TriggerAlarmAt.ToLocalTime().ToString("HH:mm"),
+                session.TriggerAlarmAt.ToLocalTime().ToString(Constants.TimeFormat),
                 Constants.Messages.Work));
     }
 }

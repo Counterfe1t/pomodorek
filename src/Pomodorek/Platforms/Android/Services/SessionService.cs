@@ -66,7 +66,7 @@ public class SessionService : SessionServiceBase
 
     private string GetIntervalFinishedMessage(SessionModel session)
     {
-        var notificationTime = session.TriggerAlarmAt.ToLocalTime().ToString("HH:mm");
+        var notificationTime = session.TriggerAlarmAt.ToLocalTime().ToString(Constants.TimeFormat);
 
         if (session.CurrentInterval != IntervalEnum.Work)
             return StringParser.Parse(notificationTime, Constants.Messages.Work);

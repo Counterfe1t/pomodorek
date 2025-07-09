@@ -17,5 +17,5 @@ public class AlarmConverter : IValueConverter
         => throw new NotImplementedException();
 
     public static string FormatValue(DateTimeOffset value)
-        => value.ToLocalTime().ToString("HH:mm");
+        => value.ToLocalTime().ToString(Constants.TimeFormat);
 }
