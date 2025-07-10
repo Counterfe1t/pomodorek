@@ -8,17 +8,15 @@ public class AlarmReceiver : BroadcastReceiver
 {
     private readonly INotificationService _notificationService;
     private readonly ISettingsService _settingsService;
-    private readonly IMainThreadService _mainThreadService;
 
     public AlarmReceiver()
     {
         _notificationService = ServiceProvider.GetService<INotificationService>();
         _settingsService = ServiceProvider.GetService<ISettingsService>();
-        _mainThreadService = ServiceProvider.GetService<IMainThreadService>();
     }
 
-    public override void OnReceive(Context? context, Intent? intent)
-        => _mainThreadService.BeginInvokeOnMainThread(async () => await DisplayNotificationAsync());
+    public override async void OnReceive(Context? context, Intent? intent)
+        => await MainThread.InvokeOnMainThreadAsync(DisplayNotificationAsync);
 
     private async Task DisplayNotificationAsync()
     {

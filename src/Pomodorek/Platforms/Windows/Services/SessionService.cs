@@ -3,21 +3,18 @@
 public class SessionService : SessionServiceBase
 {
     private readonly INotificationService _notificationService;
-    private readonly IMainThreadService _mainThreadService;
 
     public SessionService(
         IConfigurationService configurationService,
         ISettingsService settingsService,
         INotificationService notificationService,
-        ISoundService soundService,
-        IMainThreadService mainThreadService)
+        ISoundService soundService)
         : base(
             configurationService,
             settingsService,
             soundService)
     {
         _notificationService = notificationService;
-        _mainThreadService = mainThreadService;
     }
 
     public override void StartInterval(SessionModel session)
@@ -43,7 +40,7 @@ public class SessionService : SessionServiceBase
     }
 
     private void DisplayNotification(string content)
-        => _mainThreadService.BeginInvokeOnMainThread(async () =>
+        => MainThread.BeginInvokeOnMainThread(async () =>
             await _notificationService.DisplayNotificationAsync(new NotificationModel
             {
                 Title = "Pomodorek",
