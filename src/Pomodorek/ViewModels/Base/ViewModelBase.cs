@@ -33,14 +33,14 @@ public abstract partial class ViewModelBase : ObservableObject
         NavigationService = navigationService;
 
         InitializeAsyncCommand = new AsyncRelayCommand(
-            async () => await IsBusyFor(InitializeAsync),
+            async () => await IsBusyForAsync(InitializeAsync),
             AsyncRelayCommandOptions.FlowExceptionsToTaskScheduler);
     }
 
     protected virtual Task InitializeAsync()
         => Task.CompletedTask;
 
-    protected async Task IsBusyFor(Func<Task> unitOfWork)
+    protected async Task IsBusyForAsync(Func<Task> unitOfWork)
     {
         IsBusy = true;
 

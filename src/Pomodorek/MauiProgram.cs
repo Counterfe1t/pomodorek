@@ -3,8 +3,7 @@
 public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
-        => MauiApp
-            .CreateBuilder()
+        => MauiApp.CreateBuilder()
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
             .RegisterFonts()
