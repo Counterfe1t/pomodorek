@@ -368,6 +368,15 @@ namespace Pomodorek.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Timer is running.
+        /// </summary>
+        public static string TimerPage_TimerIsRunningMessage {
+            get {
+                return ResourceManager.GetString("TimerPage_TimerIsRunningMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Timer.
         /// </summary>
         public static string TimerPage_Title {

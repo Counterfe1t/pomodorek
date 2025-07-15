@@ -101,7 +101,7 @@ public class TimerService : Service, ITimerService
             return;
         }
 
-        notification.Content = Constants.Messages.TimerIsRunning;
+        notification.Content = AppResources.TimerPage_TimerIsRunningMessage;
         notification.IsOngoing = true;
         notification.OnlyAlertOnce = true;
         notification.TriggerAlarmAt = notification.TriggerAlarmAt.AddSeconds(-1);
