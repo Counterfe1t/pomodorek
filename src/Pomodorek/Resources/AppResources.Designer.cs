@@ -393,5 +393,14 @@ namespace Pomodorek.Resources {
                 return ResourceManager.GetString("TimerPage_WorkIntervalLabel", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timer finished at {{value}}. Get back to work..
+        /// </summary>
+        public static string TimerPage_WorkIntervalMessage {
+            get {
+                return ResourceManager.GetString("TimerPage_WorkIntervalMessage", resourceCulture);
+            }
+        }
     }
 }

@@ -69,7 +69,7 @@ public class SessionService : SessionServiceBase
         var notificationTime = session.TriggerAlarmAt.ToLocalTime().ToString(Constants.TimeFormat);
 
         if (session.CurrentInterval != IntervalEnum.Work)
-            return StringParser.Parse(notificationTime, Constants.Messages.Work);
+            return StringParser.Parse(notificationTime, AppResources.TimerPage_WorkIntervalMessage);
 
         return session.WorkIntervalsCount % 4 == 3
             ? StringParser.Parse(notificationTime, Constants.Messages.LongRest)

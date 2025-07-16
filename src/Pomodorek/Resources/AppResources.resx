@@ -229,4 +229,7 @@ Are you sure?</value>
   <data name="TimerPage_TimerIsRunningMessage" xml:space="preserve">
     <value>Timer is running</value>
   </data>
+  <data name="TimerPage_WorkIntervalMessage" xml:space="preserve">
+    <value>Timer finished at {{value}}. Get back to work.</value>
+  </data>
 </root>

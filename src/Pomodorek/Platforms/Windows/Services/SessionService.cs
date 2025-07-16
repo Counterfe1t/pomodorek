@@ -77,6 +77,6 @@ public class SessionService : SessionServiceBase
         DisplayNotification(
             StringParser.Parse(
                 session.TriggerAlarmAt.ToLocalTime().ToString(Constants.TimeFormat),
-                Constants.Messages.Work));
+                AppResources.TimerPage_WorkIntervalMessage));
     }
 }
