@@ -24,6 +24,5 @@ public static class Constants
     {
         public const string ShortRest = "Timer finished at {{value}}. Take a short break.";
         public const string LongRest = "Timer finished at {{value}}. Take a long break.";
-        public const string ResetSession = "This action will reset the current session in progress.\nAre you sure?";
     }
 }

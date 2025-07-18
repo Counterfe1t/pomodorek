@@ -350,6 +350,16 @@ namespace Pomodorek.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This action will reset the current session in progress.
+        ///Are you sure?.
+        /// </summary>
+        public static string TimerPage_ResetSessionText {
+            get {
+                return ResourceManager.GetString("TimerPage_ResetSessionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to timer.
         /// </summary>
         public static string TimerPage_Route {

@@ -106,7 +106,7 @@ public class TimerPageViewModelTests
         _cut.State = TimerStateEnum.Running;
 
         _alertServiceMock
-            .Setup(x => x.DisplayConfirmAsync(_cut.Title, Constants.Messages.ResetSession))
+            .Setup(x => x.DisplayConfirmAsync(_cut.Title, AppResources.TimerPage_ResetSessionText))
             .ReturnsAsync(true);
 
         // act
@@ -132,7 +132,7 @@ public class TimerPageViewModelTests
         _cut.State = TimerStateEnum.Stopped;
 
         _alertServiceMock
-            .Setup(x => x.DisplayConfirmAsync(_cut.Title, Constants.Messages.ResetSession))
+            .Setup(x => x.DisplayConfirmAsync(_cut.Title, AppResources.TimerPage_ResetSessionText))
             .ReturnsAsync(true);
 
         // act
@@ -156,7 +156,7 @@ public class TimerPageViewModelTests
         _cut.State = TimerStateEnum.Running;
 
         _alertServiceMock
-            .Setup(x => x.DisplayConfirmAsync(_cut.Title, Constants.Messages.ResetSession))
+            .Setup(x => x.DisplayConfirmAsync(_cut.Title, AppResources.TimerPage_ResetSessionText))
             .ReturnsAsync(false);
 
         // act
@@ -201,7 +201,7 @@ public class TimerPageViewModelTests
 
         // assert
         Assert.Equal(expectedValue, _cut.SecondsRemaining);
-        
+
         _sessionServiceMock.Verify(
             x => x.GetIntervalLengthInSec(_cut.Session.CurrentInterval),
             Times.Never);

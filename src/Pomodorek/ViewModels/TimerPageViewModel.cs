@@ -96,6 +96,9 @@ public partial class TimerPageViewModel : ViewModelBase
     [RelayCommand]
     private void Start()
     {
+        if (IsRunning)
+            return;
+
         State = TimerStateEnum.Running;
 
         // One second is added to display full interval length throughout the first second of the interval.
@@ -108,6 +111,9 @@ public partial class TimerPageViewModel : ViewModelBase
     [RelayCommand]
     private void Pause()
     {
+        if (IsPaused)
+            return;
+
         State = TimerStateEnum.Paused;
 
         _timerService.Stop(true);
@@ -117,7 +123,6 @@ public partial class TimerPageViewModel : ViewModelBase
     [RelayCommand]
     private void Stop()
     {
-        // Do not stop the timer if it is already stopped.
         if (IsStopped)
             return;
 
@@ -128,7 +133,7 @@ public partial class TimerPageViewModel : ViewModelBase
     private async Task Reset()
     {
         // Prompt user with confirm dialog before resetting the session.
-        if (!await _alertService.DisplayConfirmAsync(Title, Constants.Messages.ResetSession))
+        if (!await _alertService.DisplayConfirmAsync(Title, AppResources.TimerPage_ResetSessionText))
             return;
 
         // Reset session to default.
@@ -141,7 +146,9 @@ public partial class TimerPageViewModel : ViewModelBase
             _sessionService.SaveSession(Session);
         }
         else
+        {
             StopTimer(true);
+        }
     }
 
     [RelayCommand]
@@ -172,7 +179,9 @@ public partial class TimerPageViewModel : ViewModelBase
         var secondsRemaining = (int)Session.TriggerAlarmAt.Subtract(_timeProvider.UtcNow).TotalSeconds;
 
         if (secondsRemaining > 0)
+        {
             UpdateClock(secondsRemaining);
+        }
         else
         {
             _sessionService.FinishInterval(Session);

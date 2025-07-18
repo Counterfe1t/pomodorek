@@ -46,12 +46,9 @@ public abstract class SessionServiceBase : ISessionService
     private int GetIntervalLengthInMin(IntervalEnum interval)
         => interval switch
         {
-            IntervalEnum.Work =>
-                _settingsService.Get(Constants.Settings.WorkLengthInMin, _appSettings.DefaultWorkLengthInMin),
-            IntervalEnum.ShortRest =>
-                _settingsService.Get(Constants.Settings.ShortRestLengthInMin, _appSettings.DefaultShortRestLengthInMin),
-            IntervalEnum.LongRest =>
-                _settingsService.Get(Constants.Settings.LongRestLengthInMin, _appSettings.DefaultLongRestLengthInMin),
+            IntervalEnum.Work => _settingsService.Get(Constants.Settings.WorkLengthInMin, _appSettings.DefaultWorkLengthInMin),
+            IntervalEnum.ShortRest => _settingsService.Get(Constants.Settings.ShortRestLengthInMin, _appSettings.DefaultShortRestLengthInMin),
+            IntervalEnum.LongRest => _settingsService.Get(Constants.Settings.LongRestLengthInMin, _appSettings.DefaultLongRestLengthInMin),
             _ => 0
         };
 }
