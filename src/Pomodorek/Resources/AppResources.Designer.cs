@@ -350,6 +350,15 @@ namespace Pomodorek.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Timer finished at {{value}}. Take a long break..
+        /// </summary>
+        public static string TimerPage_LongRestMessage {
+            get {
+                return ResourceManager.GetString("TimerPage_LongRestMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This action will reset the current session in progress.
         ///Are you sure?.
         /// </summary>
@@ -374,6 +383,15 @@ namespace Pomodorek.Resources {
         public static string TimerPage_ShortRestIntervalLabel {
             get {
                 return ResourceManager.GetString("TimerPage_ShortRestIntervalLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timer finished at {{value}}. Take a short break..
+        /// </summary>
+        public static string TimerPage_ShortRestMessage {
+            get {
+                return ResourceManager.GetString("TimerPage_ShortRestMessage", resourceCulture);
             }
         }
         

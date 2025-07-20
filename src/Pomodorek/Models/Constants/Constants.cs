@@ -19,10 +19,4 @@ public static class Constants
         public const string IntervalsCount = nameof(IntervalsCount);
         public const string SavedSession = nameof(SavedSession);
     }
-
-    public class Messages
-    {
-        public const string ShortRest = "Timer finished at {{value}}. Take a short break.";
-        public const string LongRest = "Timer finished at {{value}}. Take a long break.";
-    }
 }

@@ -72,8 +72,8 @@ public class SessionService : SessionServiceBase
             return StringParser.Parse(notificationTime, AppResources.TimerPage_WorkIntervalMessage);
 
         return session.WorkIntervalsCount % 4 == 3
-            ? StringParser.Parse(notificationTime, Constants.Messages.LongRest)
-            : StringParser.Parse(notificationTime, Constants.Messages.ShortRest);
+            ? StringParser.Parse(notificationTime, AppResources.TimerPage_LongRestMessage)
+            : StringParser.Parse(notificationTime, AppResources.TimerPage_ShortRestMessage);
     }
 
     private string GetIntervalTitle(IntervalEnum interval)

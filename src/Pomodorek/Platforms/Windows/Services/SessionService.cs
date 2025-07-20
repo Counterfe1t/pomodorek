@@ -56,8 +56,8 @@ public class SessionService : SessionServiceBase
             : IntervalEnum.ShortRest;
 
         var notificationContent = session.IsLongRest
-            ? Constants.Messages.LongRest
-            : Constants.Messages.ShortRest;
+            ? AppResources.TimerPage_LongRestMessage
+            : AppResources.TimerPage_ShortRestMessage;
 
         DisplayNotification(
             StringParser.Parse(

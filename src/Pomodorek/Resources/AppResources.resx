@@ -236,4 +236,10 @@ Are you sure?</value>
     <value>This action will reset the current session in progress.
 Are you sure?</value>
   </data>
+  <data name="TimerPage_ShortRestMessage" xml:space="preserve">
+    <value>Timer finished at {{value}}. Take a short break.</value>
+  </data>
+  <data name="TimerPage_LongRestMessage" xml:space="preserve">
+    <value>Timer finished at {{value}}. Take a long break.</value>
+  </data>
 </root>
