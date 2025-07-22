@@ -5,7 +5,6 @@ global using Pomodorek.Behaviors;
 global using Pomodorek.Converters;
 global using Pomodorek.Helpers;
 global using Pomodorek.Models;
-global using Pomodorek.Models.Constants;
 global using Pomodorek.Models.Enums;
 global using Pomodorek.Resources;
 global using Pomodorek.Services;
