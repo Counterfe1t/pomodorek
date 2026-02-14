@@ -6,7 +6,7 @@ public partial class TimerPageViewModel : ViewModelBase
     private readonly ITimeProvider _timeProvider;
     private readonly IPermissionsService _permissionsService;
     private readonly ISessionService _sessionService;
-    private readonly IPopupService _popupService;
+    private readonly IPomodorekPopupService _popupService;
     private readonly IAlertService _alertService;
 
     // TODO: Refactor the way popups are handled in the application.
@@ -68,7 +68,7 @@ public partial class TimerPageViewModel : ViewModelBase
         ITimeProvider timeProvider,
         IPermissionsService permissionsService,
         ISessionService sessionService,
-        IPopupService popupService,
+        IPomodorekPopupService popupService,
         IAlertService alertService,
         INavigationService navigationService)
         : base(AppResources.TimerPage_Title, navigationService)

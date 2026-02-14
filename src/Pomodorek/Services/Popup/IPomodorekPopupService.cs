@@ -1,6 +1,6 @@
 ﻿namespace Pomodorek.Services;
 
-public interface IPopupService
+public interface IPomodorekPopupService
 {
     /// <summary>
     /// Close popup dialog.

@@ -32,7 +32,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<ITimeProvider, Services.TimeProvider>();
         builder.Services.AddSingleton<IPermissionsService, PermissionsService>();
         builder.Services.AddSingleton<ISessionService, SessionService>();
-        builder.Services.AddSingleton<IPopupService, PopupService>();
+        builder.Services.AddSingleton<IPomodorekPopupService, PopupService>();
         builder.Services.AddSingleton<IApplicationService, ApplicationService>();
 #endif
         return builder;

@@ -46,10 +46,10 @@
               ColumnSpacing="0">
 
             <!--1st row-->
-            <controls:CustomImageButton Grid.Row="0"
+            <!--<controls:CustomImageButton Grid.Row="0"
                                         HorizontalOptions="End"
                                         Source="icon_more.png"
-                                        Command="{Binding ShowSessionDetailsPopupCommand}" />
+                                        Command="{Binding ShowSessionDetailsPopupCommand}" />-->
 
             <!--2nd row-->
             <BoxView Grid.Row="1"

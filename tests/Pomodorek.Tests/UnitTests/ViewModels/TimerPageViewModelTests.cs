@@ -8,7 +8,7 @@ public class TimerPageViewModelTests
     private readonly Mock<ITimeProvider> _timeProviderMock;
     private readonly Mock<IPermissionsService> _permissionsServiceMock;
     private readonly Mock<ISessionService> _sessionServiceMock;
-    private readonly Mock<IPopupService> _popupServiceMock;
+    private readonly Mock<IPomodorekPopupService> _popupServiceMock;
     private readonly Mock<IAlertService> _alertServiceMock;
     private readonly Mock<INavigationService> _navigationServiceMock;
 

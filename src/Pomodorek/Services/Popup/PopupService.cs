@@ -1,6 +1,8 @@
-﻿namespace Pomodorek.Services;
+﻿using CommunityToolkit.Maui.Extensions;
 
-public class PopupService : IPopupService
+namespace Pomodorek.Services;
+
+public class PopupService : IPomodorekPopupService
 {
     private readonly Application _application;
 
@@ -10,7 +12,7 @@ public class PopupService : IPopupService
     }
 
     public void ClosePopup(Popup? popup)
-        => popup?.Close();
+        => popup?.CloseAsync();
 
     public SessionDetailsPopup ShowSessionDetailsPopup()
     {

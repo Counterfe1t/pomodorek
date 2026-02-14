@@ -45,7 +45,7 @@ public class SoundServiceTests
     public async Task PlaySoundAsync_SoundIsEnabled_ShouldPlaySound()
     {
         // arrange
-        var audioStream = new MemoryStream(Encoding.UTF8.GetBytes(string.Empty));
+        var audioStream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(string.Empty));
 
         _settingsService
             .Setup(x => x.Get(Constants.Settings.IsSoundEnabled, It.IsAny<bool>()))
@@ -71,7 +71,7 @@ public class SoundServiceTests
     public async Task PlaySoundAsync_SoundIsDisabled_ShouldNotPlaySound()
     {
         // arrange
-        var audioStream = new MemoryStream(Encoding.UTF8.GetBytes(string.Empty));
+        var audioStream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(string.Empty));
 
         _settingsService
             .Setup(x => x.Get(Constants.Settings.IsSoundEnabled, It.IsAny<bool>()))
